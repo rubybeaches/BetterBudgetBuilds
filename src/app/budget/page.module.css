@@ -1,0 +1,8 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    padding: 4rem 6rem;
+    min-height: 100vh;
+    color: #323232;
+}

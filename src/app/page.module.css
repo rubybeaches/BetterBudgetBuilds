@@ -5,6 +5,7 @@
   align-items: center;
   padding: 4rem 6rem;
   min-height: 100vh;
+  background: #8EFD8E;
 }
 
 .description {
@@ -41,6 +42,7 @@
   padding: .8em;
   border-radius: 50px;
   display: flex;
+  box-shadow: inset 3px 1px 10px #F178ED87;
 }
 
 .title>p:first-child {
@@ -117,7 +119,7 @@ a.button p {
   font-size: 4em;
   font-weight: bold;
   color: #323232;
-  text-shadow: 3px 1px 10px #F178ED87;
+  text-shadow: 3px 3px 10px #0aab2b87;
 }
 
 /*

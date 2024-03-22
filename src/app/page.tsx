@@ -1,4 +1,3 @@
-import Image from "next/image";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -8,7 +7,7 @@ export default function Home() {
         <p>
           Better Budget Builds
         </p>
-        <a className={styles.button}><p>Login</p></a>
+        <a href="/budget" className={styles.button}><p>Login</p></a>
       </div>
 
       <div className={styles.center}>
