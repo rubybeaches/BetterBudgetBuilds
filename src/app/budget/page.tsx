@@ -10,6 +10,13 @@ const Budget = () => {
                 <div><span>$</span> <input type="text" value="0" /></div>
             </label>
 
+            {
+                // load user profile or template profile
+                // if using template profile, aka no user, then values should be all percent based so they can be dynamic
+
+                // need a reset button so users can start from scratch if needed, and update with new salary
+            }
+
         </main>);
 }
 
