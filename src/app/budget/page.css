@@ -104,4 +104,5 @@ input[type="number"] {
 .essentialsBlue {
     padding: .75em;
     background-color: #F0F4FE;
+    border-radius: 10px;
 }
