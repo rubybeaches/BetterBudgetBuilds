@@ -3,6 +3,7 @@
 import Slider from "./Slider";
 import { multiplyPercentToFloat } from "../lib/helpers";
 import { useState } from "react";
+import BudgetInput from "./BudgetInput";
 
 // category, category help text, percent range, current value as number, current value as %, lump expedenture checked, lump expenditure amount
 
@@ -16,24 +17,35 @@ const BudgetEssentials = ({ categories, income }: { categories: { 'category': st
     //const [categoryTotals, setCategoryTotals] = useState([]);
     const [categoryData, setCategoryData] = useState(categories);
 
+    const updateTotals = (min: number, max: number, current: number, identifier: number) => {
+        const updateArray = categoryData.map((cat, index) => {
+            if (index == identifier) {
+                return { ...cat, min: min, max: max, curr: current };
+            } else {
+                return { ...cat }
+            }
+        });
+        setCategoryData(updateArray);
+    }
+
     return (
         <div id="essentials" style={{ display: 'flex' }}>
             <div>
-                {categoryData.map((cat) =>
-                    <div key={cat.id} className="categoryRow">
+                {categoryData.map((cat, index) =>
+                    <div key={index} className="categoryRow">
                         <p className="categoryTitle">{cat.category}</p>
                         <span>
                             <p><span className="sliderPercent">({cat.min}%)</span> ${multiplyPercentToFloat(cat.min, income)}</p>
-                            <Slider min={cat.min} max={cat.max} position={cat.curr} />
+                            <Slider min={cat.min} max={cat.max} position={cat.curr} index={index} positionSetter={updateTotals} />
                             <p><span className="sliderPercent">({cat.max}%)</span> ${multiplyPercentToFloat(cat.max, income)}</p>
                         </span>
                     </div>
                 )}
             </div>
             <div className="essentialsBlue">
-                {categoryData.map((cat) =>
-                    <div key={cat.id} style={{ padding: '.25em' }}>
-                        <div><span>$</span> <input type="number" value={multiplyPercentToFloat(cat.curr, income) || 0} /></div>
+                {categoryData.map((cat, index) =>
+                    <div key={index} style={{ padding: '.25em' }}>
+                        <BudgetInput income={income} min={cat.min} max={cat.max} current={cat.curr} index={index} inputSetter={updateTotals} />
                     </div>
                 )}
             </div>
