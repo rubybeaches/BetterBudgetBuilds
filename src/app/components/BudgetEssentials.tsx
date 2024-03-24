@@ -1,5 +1,7 @@
 // load user profile to pass in category types if they exist, otherwise pass if template profile
 
+import Slider from "./Slider";
+
 // category, category help text, percent range, current value as number, current value as %, lump expedenture checked, lump expenditure amount
 
 const BudgetEssentials = ({ categories, income }: { categories: { 'category': string, 'help': string[], 'min': number, 'max': number, 'curr': number }[], income: number }) => {
@@ -20,9 +22,9 @@ const BudgetEssentials = ({ categories, income }: { categories: { 'category': st
                     <div key={index} className="categoryRow">
                         <p className="categoryTitle">{cat.category}</p>
                         <span>
-                            <p><span className="sliderPercent">({cat.min}%)</span>${convertToFloat(cat.min)}</p>
-                            <input type="range" min={cat.min} max={cat.max} value={cat.curr}></input>
-                            <p><span className="sliderPercent">({cat.max}%)</span>${convertToFloat(cat.max)}</p>
+                            <p><span className="sliderPercent">({cat.min}%)</span> ${convertToFloat(cat.min)}</p>
+                            <Slider min={cat.min} max={cat.max} position={cat.curr} />
+                            <p><span className="sliderPercent">({cat.max}%)</span> ${convertToFloat(cat.max)}</p>
                         </span>
                     </div>
                 )}

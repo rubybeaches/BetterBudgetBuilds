@@ -7,13 +7,19 @@
     color: #323232;
 }
 
-#essentials {
-    color: #467AF8;
+#income {
+    display: flex;
+    gap: 1em;
+    align-items: center;
 }
 
 .categoryRow {
     padding: .5em;
     font-weight: 500;
+}
+
+.categoryRow:first-child {
+    margin-top: 1em;
 }
 
 .categoryRow,
@@ -29,7 +35,70 @@
 }
 
 .categoryTitle {
-    font-size: 1.2em;
+    font-size: 1.1em;
+    margin-right: 50px;
+}
+
+div:has(>input[type="number"]) {
+    background: white;
+    border: #323232 2px solid;
+    padding: 0.25em;
+    font-size: 1em;
+    font-weight: 600;
+    width: fit-content;
+}
+
+input[type="number"] {
+    outline: none;
+    border: none;
+    font-size: 1em;
+    font-weight: 600;
+    width: 80px;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 300px;
+    height: 12px;
+    border-radius: 5px;
+    background: #467AF8;
+    outline: none;
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px #467AF8 solid;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #04AA6D;
+    cursor: pointer;
+}
+
+
+#essentials {
+    color: #467AF8;
+}
+
+.essentialsBlue div:has(>input[type="number"]) {
+    border: #467af8 2px solid;
+}
+
+.essentialsBlue input[type="number"] {
+    color: #467af8;
 }
 
 .essentialsBlue {
