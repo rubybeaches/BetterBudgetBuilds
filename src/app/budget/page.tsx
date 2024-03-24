@@ -3,6 +3,7 @@ import "./page.css";
 import categories from '../lib/seed.json'
 import { useState } from "react";
 import BudgetEssentials from "../components/BudgetEssentials";
+import { convertToFloat } from "../lib/helpers";
 
 const Budget = () => {
     const [income, setIncome] = useState(0);
@@ -19,6 +20,9 @@ const Budget = () => {
 
             <label id="income">What is your annual income after taxes and deductions?
                 <div><span>$</span> <input type="number" value={income} onChange={(e) => setIncome(e.target.valueAsNumber)} /></div>
+                {income > 0 && (
+                    <em>your monthly allowance is <strong>${convertToFloat(monthlyIncome)}</strong></em>
+                )}
             </label>
 
             <BudgetEssentials categories={categories} income={monthlyIncome || 0} />

@@ -1,5 +1,6 @@
 [
     {
+        "id": 1,
         "category": "Housing",
         "help": [
             "House cleaning",
@@ -18,6 +19,7 @@
         "curr": 20
     },
     {
+        "id": 2,
         "category": "Home and Garden",
         "help": [
             "House cleaning",
@@ -36,6 +38,7 @@
         "curr": 5
     },
     {
+        "id": 3,
         "category": "Utilities",
         "help": [
             "Electricity",
