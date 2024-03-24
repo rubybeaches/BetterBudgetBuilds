@@ -1,0 +1,49 @@
+[
+    {
+        "category": "Housing",
+        "help": [
+            "House cleaning",
+            "Lawn care",
+            "Pest control",
+            "Paper products",
+            "Tools",
+            "Toiletries",
+            "Laundry Supplies",
+            "Postage",
+            "Furniture",
+            "Home decor"
+        ],
+        "min": 5,
+        "max": 35,
+        "curr": 20
+    },
+    {
+        "category": "Home and Garden",
+        "help": [
+            "House cleaning",
+            "Lawn care",
+            "Pest control",
+            "Paper products",
+            "Tools",
+            "Toiletries",
+            "Laundry Supplies",
+            "Postage",
+            "Furniture",
+            "Home decor"
+        ],
+        "min": 1,
+        "max": 10,
+        "curr": 5
+    },
+    {
+        "category": "Utilities",
+        "help": [
+            "Electricity",
+            "Gas",
+            "Internet"
+        ],
+        "min": 1,
+        "max": 10,
+        "curr": 5
+    }
+]
