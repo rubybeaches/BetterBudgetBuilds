@@ -1,7 +1,7 @@
 // load user profile to pass in category types if they exist, otherwise pass if template profile
 
 import Slider from "./Slider";
-import { multiplyPercentToFloat } from "../lib/helpers";
+import { multiplyPercentToFloat, convertToFloat } from "../lib/helpers";
 import { useState } from "react";
 import BudgetInput from "./BudgetInput";
 
@@ -16,6 +16,9 @@ const BudgetEssentials = ({ categories, income }: { categories: { 'category': st
     //const [categoryPercents, setCategoryPercents] = useState([])
     //const [categoryTotals, setCategoryTotals] = useState([]);
     const [categoryData, setCategoryData] = useState(categories);
+    const budgetTotals = categoryData.reduce((sum, cat) => sum + (cat.curr / 100 * income), 0);
+    const essentialsEstimate = income * .6;
+    const essentialBarHeight = budgetTotals / essentialsEstimate * 150;
 
     const updateTotals = (min: number, max: number, current: number, identifier: number) => {
         const updateArray = categoryData.map((cat, index) => {
@@ -29,7 +32,7 @@ const BudgetEssentials = ({ categories, income }: { categories: { 'category': st
     }
 
     return (
-        <div id="essentials" style={{ display: 'flex' }}>
+        <div id="essentials" style={{ display: 'flex', gap: '1em' }}>
             <div>
                 {categoryData.map((cat, index) =>
                     <div key={index} className="categoryRow">
@@ -48,6 +51,14 @@ const BudgetEssentials = ({ categories, income }: { categories: { 'category': st
                         <BudgetInput income={income} min={cat.min} max={cat.max} current={cat.curr} index={index} inputSetter={updateTotals} />
                     </div>
                 )}
+            </div>
+            <div>
+                <p><em><strong>${convertToFloat(income)}</strong> at 60% is ~<u>${essentialsEstimate.toFixed()}</u></em></p>
+                <p style={{ marginTop: '12px' }}><strong>Planned Total: ${convertToFloat(budgetTotals)}</strong></p>
+                <div className="budgetGraph" style={{ marginTop: `${essentialBarHeight > 150 ? essentialBarHeight - 150 + 20 : 20}px` }}>
+                    <div className="budgetTotalChart"><div className="innerBar" style={{ height: `${essentialBarHeight}px` }}></div><p>${convertToFloat(budgetTotals)}</p></div>
+                    <div className="budgetTotalChart"><p>${essentialsEstimate.toFixed()}</p></div>
+                </div>
             </div>
         </div>
     )

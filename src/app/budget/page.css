@@ -89,6 +89,46 @@ input[type="number"] {
     cursor: pointer;
 }
 
+.budgetGraph {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    padding: 0 12px;
+    margin-top: 20px;
+    border-bottom: #467AF8 solid 2px;
+    border-top: #467AF8 dashed 2px;
+}
+
+.budgetTotalChart {
+    height: 150px;
+    border-radius: 10px;
+    background-color: #F0F4FE;
+    width: 110px;
+    display: flex;
+    position: relative;
+}
+
+.budgetTotalChart .innerBar {
+    position: absolute;
+    width: 110px;
+    background-color: #d7e8fb;
+    border-radius: 10px;
+    z-index: -1;
+    bottom: 0;
+    height: 150px;
+}
+
+.budgetTotalChart:first-child {
+    background-color: transparent;
+}
+
+.budgetTotalChart>p {
+    margin: auto;
+    font-weight: 800;
+    font-style: italic;
+    font-size: 1.2em;
+}
+
 
 #essentials {
     color: #467AF8;
