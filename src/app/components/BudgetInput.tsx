@@ -1,37 +1,38 @@
 
-import { useEffect, useRef, useState } from "react";
+import { HtmlHTMLAttributes, useEffect, useRef, useState } from "react";
 import { multiplyPercentToFloat } from "../lib/helpers";
 
 const BudgetInput = ({ income, min, max, current, index, inputSetter }: { income: number, min: number, max: number, index: number, current: number, inputSetter: (min: number, max: number, curr: number, identifier: number) => void }) => {
-    const currentFloat = multiplyPercentToFloat(current, income) || 0;
     const intervalID = useRef<any>();
-    const [inputValue, setInputValue] = useState(0);
+    const inputRef = useRef<any>();
 
     useEffect(() => {
-        if (toggle) {
-            counter = setInterval(() => setTimer(timer => timer + 1), 1000);
+        const inputValue = inputRef.current;
+
+        if (inputValue) {
+            inputValue.value = multiplyPercentToFloat(current, income) || "0.00";
         }
-        return () => {
-            clearInterval(counter);
-        };
-    }, [toggle]);
+    }, [current, income])
 
     const updateInput = (input: number) => {
-
-        setInputValue(() => input);
+        const newValue = input || 0;
+        const inputValue = inputRef.current;
+        if (inputValue) {
+            inputValue.value = newValue.toFixed();
+        }
 
         if (intervalID.current) {
             clearTimeout(intervalID.current);
         }
 
         intervalID.current = setTimeout(() => {
-            inputSetter(min, max, input / income * 100, index)
-        }, 500);
+            inputSetter(min, max, newValue / income * 100, index)
+        }, 750);
     }
 
     return (
         <div>
-            <span>$</span> <input type="number" defaultValue={inputValue} onChange={(e) => updateInput(e.target.valueAsNumber)} />
+            <span>$</span> <input type="number" ref={inputRef} onChange={(e) => updateInput(e.target.valueAsNumber)} />
         </div>
     )
 }
