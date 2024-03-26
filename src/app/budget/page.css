@@ -16,6 +16,8 @@
 .categoryRow {
     padding: .5em;
     font-weight: 500;
+    padding-left: 30px;
+    position: relative;
 }
 
 .categoryRow:first-child {
@@ -59,7 +61,7 @@ input[type="number"] {
 .slider {
     -webkit-appearance: none;
     appearance: none;
-    width: 300px;
+    width: 260px;
     height: 12px;
     border-radius: 5px;
     background: #467AF8;
@@ -87,6 +89,33 @@ input[type="number"] {
     border-radius: 50%;
     background: #04AA6D;
     cursor: pointer;
+}
+
+.summaryTotals {
+    align-self: flex-end;
+    font-weight: 700;
+    font-size: 1.2em;
+    font-style: italic;
+    padding-left: 24px;
+    position: relative;
+}
+
+.summaryTotals p:first-child,
+.summaryTotals p:nth-child(3) {
+    color: #323232;
+}
+
+.summaryTotals p:nth-child(2) {
+    border-bottom: 2px #467AF8 solid;
+}
+
+.summaryTotals::after {
+    content: "";
+    border-bottom: 3px #467AF8 solid;
+    position: absolute;
+    left: 0;
+    width: 12px;
+    top: 50%;
 }
 
 .budgetGraph {
@@ -124,14 +153,37 @@ input[type="number"] {
 
 .budgetTotalChart>p {
     margin: auto;
-    font-weight: 800;
+    font-weight: 700;
     font-style: italic;
     font-size: 1.2em;
+}
+
+.removeCategory {
+    height: 18px;
+    width: 18px;
+    color: #467AF8;
+    background-color: #F0F4FE;
+    border-radius: 50%;
+    display: flex;
+    line-height: 18px;
+    font-size: .9em;
+    font-weight: 600;
+    position: absolute;
+    left: 0;
+}
+
+.removeCategory p {
+    margin: auto;
 }
 
 
 #essentials {
     color: #467AF8;
+}
+
+#essentialsHeader {
+    color: #467AF8;
+    margin-bottom: -.5em;
 }
 
 .essentialsBlue div:has(>input[type="number"]) {

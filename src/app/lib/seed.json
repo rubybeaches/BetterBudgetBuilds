@@ -45,5 +45,23 @@
         "min": 1,
         "max": 10,
         "curr": 5
+    },
+    {
+        "category": "Groceries",
+        "help": [],
+        "min": 1,
+        "max": 15,
+        "curr": 7
+    },
+    {
+        "category": "Transportation",
+        "help": [
+            "Car Insurance",
+            "Gas",
+            "Maintenance"
+        ],
+        "min": 1,
+        "max": 10,
+        "curr": 5
     }
 ]
