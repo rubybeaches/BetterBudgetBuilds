@@ -7,7 +7,7 @@ import BudgetInput from "./BudgetInput";
 
 // category, category help text, percent range, current value as number, current value as %, lump expedenture checked, lump expenditure amount
 
-const BudgetEssentials = ({ categories, income }: { categories: { 'category': string, 'help': string[], 'min': number, 'max': number, 'curr': number }[], income: number }) => {
+const BudgetEssentials = ({ categories, income }: { categories: { 'category': string, 'help': string[], 'min': number, 'max': number, 'curr': number, 'type': string, 'active': number }[], income: number }) => {
     // load category calculations - $ from saved profile or default %  if null to perform calc
 
     // load % ranges and $ for category along with slider and default slider position based on $ or %
@@ -56,9 +56,11 @@ const BudgetEssentials = ({ categories, income }: { categories: { 'category': st
                         </div>
                     )}
                 </div>
-                <div>
-                    <p><em><strong>${convertToFloat(income)}</strong> at 60% is ~<u>${essentialsEstimate.toFixed()}</u></em></p>
-                    <p style={{ marginTop: '12px' }}><strong>Planned Total: ${convertToFloat(budgetTotals)}</strong></p>
+                <div className="graphContainer">
+                    <span>
+                        <p><em><strong>${convertToFloat(income)}</strong> at 60% is ~<u>${essentialsEstimate.toFixed()}</u></em></p>
+                        <p style={{ marginTop: '12px' }}><strong>Planned Total: ${convertToFloat(budgetTotals)}</strong></p>
+                    </span>
                     <div className="budgetGraph" style={{ marginTop: `${essentialBarHeight > 150 ? essentialBarHeight - 150 + 20 : 20}px` }}>
                         <div className="budgetTotalChart"><div className="innerBar" style={{ height: `${essentialBarHeight}px` }}></div><p>${convertToFloat(budgetTotals)}</p></div>
                         <div className="budgetTotalChart"><p>${essentialsEstimate.toFixed()}</p></div>

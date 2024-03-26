@@ -118,6 +118,15 @@ input[type="number"] {
     top: 50%;
 }
 
+.graphContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.graphContainer>span:first-child {
+    flex: 1;
+}
+
 .budgetGraph {
     display: flex;
     align-items: flex-end;

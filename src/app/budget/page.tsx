@@ -5,9 +5,14 @@ import { useState } from "react";
 import BudgetEssentials from "../components/BudgetEssentials";
 import { convertToFloat } from "../lib/helpers";
 
+type category = {
+    'category': string, 'help': string[], 'min': number, 'max': number, 'curr': number, 'type': string, 'active': number
+}
+
 const Budget = () => {
     const [income, setIncome] = useState(0);
     const monthlyIncome = income / 12;
+    const essentialCategories = categories.filter(cat => cat.type == "essential" && cat.active);
     // load user profile or template profile
     // if using template profile, aka no user, then values should be all percent based so they can be dynamic
 
@@ -25,7 +30,7 @@ const Budget = () => {
                 )}
             </label>
 
-            <BudgetEssentials categories={categories} income={monthlyIncome || 0} />
+            <BudgetEssentials categories={essentialCategories} income={monthlyIncome || 0} />
 
         </main>);
 }
