@@ -155,6 +155,19 @@
         "type": "non-essential"
     },
     {
+        "category": "Eating Out",
+        "help": [
+            "Restaurants",
+            "Coffee",
+            "Fast Food"
+        ],
+        "min": 1,
+        "max": 5,
+        "curr": 2,
+        "active": 1,
+        "type": "non-essential"
+    },
+    {
         "category": "Self-Care",
         "help": [
             "Hair Cuts/Coloring",

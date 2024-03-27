@@ -13,6 +13,16 @@
     align-items: center;
 }
 
+.sectionContainer {
+    display: flex;
+    gap: 1em;
+    margin-bottom: 2em;
+}
+
+.sectionContainer>div:first-child {
+    flex: 1;
+}
+
 .categoryRow {
     padding: .5em;
     font-weight: 500;
@@ -28,6 +38,9 @@
 .categoryRow>span {
     display: flex;
     justify-content: space-between;
+}
+
+.categoryRow>span {
     gap: 1em;
 }
 
@@ -38,7 +51,7 @@
 
 .categoryTitle {
     font-size: 1.1em;
-    margin-right: 50px;
+    margin-right: 10px;
 }
 
 div:has(>input[type="number"]) {
@@ -121,6 +134,14 @@ input[type="number"] {
     flex: 1;
 }
 
+.graphHeader {
+    background: #FFF;
+    width: fit-content;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: 500;
+}
+
 .budgetGraph {
     display: flex;
     align-items: flex-end;
@@ -177,7 +198,9 @@ input[type="number"] {
     margin: auto;
 }
 
-
+#negativeTotal {
+    color: #FF2955;
+}
 
 #sectionHeader {
     margin-bottom: -.5em;
@@ -219,7 +242,8 @@ input[type="number"] {
 
 #Essentials .budgetTotalChart,
 #Essentials .removeCategory,
-#Essentials .sectionBGColor {
+#Essentials .sectionBGColor,
+#Essentials .graphHeader {
     background-color: #F0F4FE;
 }
 
@@ -228,7 +252,8 @@ input[type="number"] {
 }
 
 #Essentials .budgetTotalChart:first-child,
-#Non-Essentials .budgetTotalChart:first-child {
+#Non-Essentials .budgetTotalChart:first-child,
+#Savings .budgetTotalChart:first-child {
     background-color: transparent;
 }
 
@@ -251,10 +276,39 @@ input[type="number"] {
 
 #Non-Essentials .budgetTotalChart,
 #Non-Essentials .removeCategory,
-#Non-Essentials .sectionBGColor {
+#Non-Essentials .sectionBGColor,
+#Non-Essentials .graphHeader {
     background-color: #F7EFFD;
 }
 
 #Non-Essentials .budgetTotalChart .innerBar {
     background-color: #ECD0FF;
+}
+
+#Savings,
+#Savings .sectionBGColor input[type="number"] {
+    color: #FFA73D;
+}
+
+#Savings .slider {
+    background: #FFA73D;
+}
+
+#Savings .slider::-webkit-slider-thumb,
+#Savings .summaryTotals p:nth-child(2),
+#Savings .summaryTotals::after,
+#Savings .sectionBGColor div:has(>input[type="number"]),
+#Savings .budgetGraph {
+    border-color: #FFA73D;
+}
+
+#Savings .budgetTotalChart,
+#Savings .removeCategory,
+#Savings .sectionBGColor,
+#Savings .graphHeader {
+    background-color: #FFF7EE;
+}
+
+#Savings .budgetTotalChart .innerBar {
+    background-color: #FCE5CD;
 }

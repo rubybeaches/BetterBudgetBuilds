@@ -11,37 +11,33 @@ type category = {
     'category': string, 'help': string[], 'min': number, 'max': number, 'curr': number, 'type': string, 'active': number
 }
 
-const BudgetCategorySection = ({ categories, monthlyIncome, type }: { categories: category[], monthlyIncome: number, type: string }) => {
+const BudgetCategorySection = ({ categories, setCategories, monthlyIncome, type, percentTemplate, startingBalance }: { categories: category[], setCategories: (categories: category[]) => void, monthlyIncome: number, type: string, percentTemplate: number, startingBalance: number }) => {
     // load category calculations - $ from saved profile or default %  if null to perform calc
 
     // load % ranges and $ for category along with slider and default slider position based on $ or %
 
     // need running expenses: default monthy total, default percent for essential, category totals, and balnce remaining
-    //const [categoryPercents, setCategoryPercents] = useState([])
-    //const [categoryTotals, setCategoryTotals] = useState([]);
-    const [categoryData, setCategoryData] = useState(categories);
-    const budgetTotals = categoryData.reduce((sum, cat) => sum + (cat.curr / 100 * monthlyIncome), 0);
-    const budgetEstimate = monthlyIncome * .6;
+    const budgetTotals = categories.reduce((sum, cat) => sum + (cat.curr / 100 * monthlyIncome), 0);
+    const budgetEstimate = monthlyIncome * percentTemplate;
     const barHeight = budgetTotals / budgetEstimate * 150;
-    const totalRemaining = convertToFloat(monthlyIncome - budgetTotals);
 
     const updateTotals = (min: number, max: number, current: number, identifier: number) => {
-        const updateArray = categoryData.map((cat, index) => {
+        const updateArray = categories.map((cat, index) => {
             if (index == identifier) {
                 return { ...cat, min: min, max: max, curr: current };
             } else {
                 return { ...cat }
             }
         });
-        setCategoryData(updateArray);
+        setCategories(updateArray);
     }
 
     return (
         <span id={type}>
-            <h3 id="sectionHeader">{type} <em>(60%)</em></h3>
-            <div style={{ display: 'flex', gap: '1em' }}>
+            <h3 id="sectionHeader">{type} <em>({percentTemplate * 100}%)</em></h3>
+            <div className="sectionContainer">
                 <div>
-                    {categoryData.map((cat, index) =>
+                    {categories.map((cat, index) =>
                         <div key={index} className="categoryRow">
                             <div className="removeCategory"><p>x</p></div>
                             <p className="categoryTitle">{cat.category}</p>
@@ -54,7 +50,7 @@ const BudgetCategorySection = ({ categories, monthlyIncome, type }: { categories
                     )}
                 </div>
                 <div className="sectionBGColor">
-                    {categoryData.map((cat, index) =>
+                    {categories.map((cat, index) =>
                         <div key={index} style={{ padding: '.25em' }}>
                             <BudgetInput monthlyIncome={monthlyIncome} min={cat.min} max={cat.max} current={cat.curr} index={index} inputSetter={updateTotals} />
                         </div>
@@ -62,22 +58,22 @@ const BudgetCategorySection = ({ categories, monthlyIncome, type }: { categories
                 </div>
                 <div className="graphContainer">
                     <span>
-                        <p><em><strong>${convertToFloat(monthlyIncome)}</strong> at 60% is ~<u>${budgetEstimate.toFixed()}</u></em></p>
-                        <p style={{ marginTop: '12px' }}><strong>Planned Total: ${convertToFloat(budgetTotals)}</strong></p>
+                        <p className="graphHeader"><em><strong>${convertToFloat(monthlyIncome)}</strong> at {percentTemplate * 100}% is ~<u>${budgetEstimate.toFixed()}</u></em></p>
+                        <p style={{ marginTop: '12px' }}><strong>Selected Totals: ${convertToFloat(budgetTotals)}</strong></p>
                     </span>
                     <div className="budgetGraph" style={{ marginTop: `${barHeight > 150 ? barHeight - 150 + 20 : 20}px` }}>
                         <div className="budgetTotalChart"><div className="innerBar" style={{ height: `${barHeight}px` }}></div><p>${convertToFloat(budgetTotals)}</p></div>
                         <div className="budgetTotalChart"><p>${budgetEstimate.toFixed()}</p></div>
                     </div>
                     <span style={{ display: 'flex', justifyContent: 'space-evenly', gap: '1em', marginTop: '6px', fontSize: '.85em', fontWeight: '500' }}>
-                        <p>Planned Total</p>
-                        <p>60% Template</p>
+                        <p>Selected Totals</p>
+                        <p>{percentTemplate * 100}% Template</p>
                     </span>
                 </div>
                 <div className="summaryTotals">
-                    <p>${convertToFloat(monthlyIncome)}</p>
+                    <p>${convertToFloat(startingBalance)}</p>
                     <p>${convertToFloat(budgetTotals)}</p>
-                    <p>${totalRemaining}</p>
+                    <p id={startingBalance - budgetTotals < 0 ? 'negativeTotal' : ''}>${convertToFloat(startingBalance - budgetTotals)}</p>
                 </div>
             </div>
         </span>

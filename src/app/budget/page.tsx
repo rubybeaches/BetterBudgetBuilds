@@ -8,8 +8,9 @@ import { convertToFloat } from "../lib/helpers";
 const Budget = () => {
     const [income, setIncome] = useState(0);
     const monthlyIncome = income / 12;
-    const essentialCategories = categories.filter(cat => cat.type == "essential" && cat.active);
-    const nonEssentialCategories = categories.filter(cat => cat.type == "non-essential" && cat.active);
+    const [essentialCategories, setEssentialCategories] = useState(categories.filter(cat => cat.type == "essential" && cat.active));
+    const [nonEssentialCategories, setNonEssentialCategories] = useState(categories.filter(cat => cat.type == "non-essential" && cat.active));
+    const [savingCategories, setSavingCategories] = useState(categories.filter(cat => cat.type == "savings" && cat.active));
     // load user profile or template profile
     // if using template profile, aka no user, then values should be all percent based so they can be dynamic
 
@@ -27,8 +28,11 @@ const Budget = () => {
                 )}
             </label>
 
-            <BudgetCategorySection categories={essentialCategories} type="Essentials" monthlyIncome={monthlyIncome || 0} />
-            <BudgetCategorySection categories={nonEssentialCategories} type="Non-Essentials" monthlyIncome={monthlyIncome || 0} />
+            <BudgetCategorySection categories={essentialCategories} setCategories={setEssentialCategories} type="Essentials" monthlyIncome={monthlyIncome || 0} percentTemplate={.6} startingBalance={monthlyIncome} />
+
+            <BudgetCategorySection categories={nonEssentialCategories} setCategories={setNonEssentialCategories} type="Non-Essentials" monthlyIncome={monthlyIncome || 0} percentTemplate={.3} startingBalance={monthlyIncome - essentialCategories.reduce((sum, cat) => sum + (cat.curr / 100 * monthlyIncome), 0)} />
+
+            <BudgetCategorySection categories={savingCategories} setCategories={setSavingCategories} type="Savings" monthlyIncome={monthlyIncome || 0} percentTemplate={.1} startingBalance={monthlyIncome - essentialCategories.reduce((sum, cat) => sum + (cat.curr / 100 * monthlyIncome), 0) - nonEssentialCategories.reduce((sum, cat) => sum + (cat.curr / 100 * monthlyIncome), 0)} />
 
         </main>);
 }
