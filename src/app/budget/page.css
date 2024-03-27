@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     gap: 1em;
-    padding: 4rem 6rem;
+    padding: 3rem 5rem;
     min-height: 100vh;
     color: #323232;
 }
@@ -64,7 +64,7 @@ input[type="number"] {
     width: 260px;
     height: 12px;
     border-radius: 5px;
-    background: #467AF8;
+    background: #323232;
     outline: none;
 }
 
@@ -79,17 +79,10 @@ input[type="number"] {
     height: 25px;
     border-radius: 50%;
     background: #fff;
-    border: 2px #467AF8 solid;
+    border: 2px #323232 solid;
     cursor: pointer;
 }
 
-.slider::-moz-range-thumb {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background: #04AA6D;
-    cursor: pointer;
-}
 
 .summaryTotals {
     align-self: flex-end;
@@ -106,12 +99,13 @@ input[type="number"] {
 }
 
 .summaryTotals p:nth-child(2) {
-    border-bottom: 2px #467AF8 solid;
+    border-bottom: 2px #323232 solid;
 }
+
 
 .summaryTotals::after {
     content: "";
-    border-bottom: 3px #467AF8 solid;
+    border-bottom: 3px #323232 solid;
     position: absolute;
     left: 0;
     width: 12px;
@@ -133,32 +127,30 @@ input[type="number"] {
     gap: 12px;
     padding: 0 12px;
     margin-top: 20px;
-    border-bottom: #467AF8 solid 2px;
-    border-top: #467AF8 dashed 2px;
+    border-bottom: #323232 solid 2px;
+    border-top: #323232 dashed 2px;
 }
 
 .budgetTotalChart {
     height: 150px;
     border-radius: 10px;
-    background-color: #F0F4FE;
+    background-color: #EEE;
     width: 110px;
     display: flex;
     position: relative;
 }
 
+
 .budgetTotalChart .innerBar {
     position: absolute;
     width: 110px;
-    background-color: #d7e8fb;
+    background-color: #FFF;
     border-radius: 10px;
     z-index: -1;
     bottom: 0;
     height: 150px;
 }
 
-.budgetTotalChart:first-child {
-    background-color: transparent;
-}
 
 .budgetTotalChart>p {
     margin: auto;
@@ -170,8 +162,7 @@ input[type="number"] {
 .removeCategory {
     height: 18px;
     width: 18px;
-    color: #467AF8;
-    background-color: #F0F4FE;
+    background-color: #FFF;
     border-radius: 50%;
     display: flex;
     line-height: 18px;
@@ -181,30 +172,89 @@ input[type="number"] {
     left: 0;
 }
 
+
 .removeCategory p {
     margin: auto;
 }
 
 
-#essentials {
-    color: #467AF8;
-}
 
-#essentialsHeader {
-    color: #467AF8;
+#sectionHeader {
     margin-bottom: -.5em;
 }
 
-.essentialsBlue div:has(>input[type="number"]) {
-    border: #467af8 2px solid;
-}
-
-.essentialsBlue input[type="number"] {
-    color: #467af8;
-}
-
-.essentialsBlue {
+.sectionBGColor {
     padding: .75em;
-    background-color: #F0F4FE;
+    background-color: #FFF;
     border-radius: 10px;
+}
+
+
+.sectionBGColor div:has(>input[type="number"]) {
+    border: #323232 2px solid;
+}
+
+.sectionBGColor input[type="number"] {
+    color: #323232;
+}
+
+/****** Section Specific Colors ******/
+
+#Essentials,
+#Essentials .sectionBGColor input[type="number"] {
+    color: #467AF8;
+}
+
+#Essentials .slider {
+    background: #467AF8;
+}
+
+#Essentials .slider::-webkit-slider-thumb,
+#Essentials .summaryTotals p:nth-child(2),
+#Essentials .summaryTotals::after,
+#Essentials .sectionBGColor div:has(>input[type="number"]),
+#Essentials .budgetGraph {
+    border-color: #467AF8;
+}
+
+#Essentials .budgetTotalChart,
+#Essentials .removeCategory,
+#Essentials .sectionBGColor {
+    background-color: #F0F4FE;
+}
+
+#Essentials .budgetTotalChart .innerBar {
+    background-color: #d7e8fb;
+}
+
+#Essentials .budgetTotalChart:first-child,
+#Non-Essentials .budgetTotalChart:first-child {
+    background-color: transparent;
+}
+
+#Non-Essentials,
+#Non-Essentials .sectionBGColor input[type="number"] {
+    color: #9C32E2;
+}
+
+#Non-Essentials .slider {
+    background: #9C32E2;
+}
+
+#Non-Essentials .slider::-webkit-slider-thumb,
+#Non-Essentials .summaryTotals p:nth-child(2),
+#Non-Essentials .summaryTotals::after,
+#Non-Essentials .sectionBGColor div:has(>input[type="number"]),
+#Non-Essentials .budgetGraph {
+    border-color: #9C32E2;
+}
+
+#Non-Essentials .budgetTotalChart,
+#Non-Essentials .removeCategory,
+#Non-Essentials .sectionBGColor {
+    background-color: #F7EFFD;
+}
+
+#Non-Essentials .budgetTotalChart .innerBar {
+    background-color: #ECD0FF;
 }
