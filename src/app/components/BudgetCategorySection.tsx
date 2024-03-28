@@ -4,15 +4,11 @@ import Slider from "./Slider";
 import { multiplyPercentToFloat, convertToFloat } from "../lib/helpers";
 import BudgetInput from "./BudgetInput";
 import BudgetCategoryHelpText from "./BudgetCategoryHelpText";
-import { act } from "react-dom/test-utils";
+import { category } from "../lib/types";
 
 // category, category help text, percent range, current value as number, current value as %, lump expedenture checked, lump expenditure amount
 
-type category = {
-    'category': string, 'help': string[], 'min': number, 'max': number, 'curr': number, 'type': string, 'active': number
-}
-
-const BudgetCategorySection = ({ categories, setCategories, monthlyIncome, type, percentTemplate, startingBalance }: { categories: category[], setCategories: (categories: category[]) => void, monthlyIncome: number, type: string, percentTemplate: number, startingBalance: number }) => {
+const BudgetCategorySection = ({ categories, setCategories, monthlyIncome, type, percentTemplate, startingBalance, removedCategories }: { categories: category[], setCategories: (categories: category[]) => void, monthlyIncome: number, type: string, percentTemplate: number, startingBalance: number, removedCategories: (removedValue: category) => void }) => {
     // load category calculations - $ from saved profile or default %  if null to perform calc
 
     // load % ranges and $ for category along with slider and default slider position based on $ or %
@@ -33,10 +29,14 @@ const BudgetCategorySection = ({ categories, setCategories, monthlyIncome, type,
         setCategories(updateArray);
     }
 
+    // Filter out the selected category from the parent section use state category list, 
+    // and add it plus any help text items to removed use state list.
     const removeCategory = (identifier: number) => {
         const categoryArray = categories.filter((cat, index) => {
             if (index != identifier) {
                 return { ...cat }
+            } else {
+                removedCategories({ ...cat });
             }
         });
         setCategories(categoryArray);

@@ -1,16 +1,55 @@
 'use client'
 import "./page.css";
 import categories from '../lib/seed.json'
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import BudgetCategorySection from "../components/BudgetCategorySection";
 import { convertToFloat } from "../lib/helpers";
+import { category } from "../lib/types";
 
 const Budget = () => {
     const [income, setIncome] = useState(0);
     const monthlyIncome = income / 12;
+
+    // handle the ongoing category list states of each of the three budget sections
     const [essentialCategories, setEssentialCategories] = useState(categories.filter(cat => cat.type == "essential" && cat.active));
     const [nonEssentialCategories, setNonEssentialCategories] = useState(categories.filter(cat => cat.type == "non-essential" && cat.active));
     const [savingCategories, setSavingCategories] = useState(categories.filter(cat => cat.type == "savings" && cat.active));
+
+    // handle ongoing state of categories removed by user 
+    const [userRemovedCategories, setUserRemovedCategories] = useState<category[]>();
+    const handleUserRemovedCategories = (removedValue: category) => {
+        const removedArray: category[] = [];
+        if (userRemovedCategories && userRemovedCategories.length > 0) {
+            userRemovedCategories.map(item => removedArray.push({ ...item }));
+        }
+        removedArray.push(removedValue);
+        setUserRemovedCategories(() => removedArray)
+    }
+
+    // Full list of currently inactive categories that could be added to the budget
+    const buildCategoryAdditionList = useMemo(() => {
+        const additionArray: { name: string, type: string }[] = [];
+        categories.map(cat => {
+            if (!cat.active) {
+                additionArray.push({ name: cat.category, type: cat.type });
+                if (cat.help.length > 0) {
+                    cat.help.map(item => additionArray.push({ name: item, type: cat.type }));
+                }
+            }
+        });
+
+        if (userRemovedCategories && userRemovedCategories.length > 0) {
+            userRemovedCategories.map(cat => {
+                additionArray.push({ name: cat.category, type: cat.type })
+                if (cat.help.length > 0) {
+                    cat.help.map(item => additionArray.push({ name: item, type: cat.type }));
+                }
+            });
+        }
+
+        return additionArray;
+    }, [userRemovedCategories])
+
     // load user profile or template profile
     // if using template profile, aka no user, then values should be all percent based so they can be dynamic
 
@@ -28,11 +67,11 @@ const Budget = () => {
                 )}
             </label>
 
-            <BudgetCategorySection categories={essentialCategories} setCategories={setEssentialCategories} type="Essentials" monthlyIncome={monthlyIncome || 0} percentTemplate={.6} startingBalance={monthlyIncome} />
+            <BudgetCategorySection categories={essentialCategories} setCategories={setEssentialCategories} type="Essentials" monthlyIncome={monthlyIncome || 0} percentTemplate={.6} startingBalance={monthlyIncome} removedCategories={handleUserRemovedCategories} />
 
-            <BudgetCategorySection categories={nonEssentialCategories} setCategories={setNonEssentialCategories} type="Non-Essentials" monthlyIncome={monthlyIncome || 0} percentTemplate={.3} startingBalance={monthlyIncome - essentialCategories.reduce((sum, cat) => sum + (cat.curr / 100 * monthlyIncome), 0)} />
+            <BudgetCategorySection categories={nonEssentialCategories} setCategories={setNonEssentialCategories} type="Non-Essentials" monthlyIncome={monthlyIncome || 0} percentTemplate={.3} startingBalance={monthlyIncome - essentialCategories.reduce((sum, cat) => sum + (cat.curr / 100 * monthlyIncome), 0)} removedCategories={handleUserRemovedCategories} />
 
-            <BudgetCategorySection categories={savingCategories} setCategories={setSavingCategories} type="Savings" monthlyIncome={monthlyIncome || 0} percentTemplate={.1} startingBalance={monthlyIncome - essentialCategories.reduce((sum, cat) => sum + (cat.curr / 100 * monthlyIncome), 0) - nonEssentialCategories.reduce((sum, cat) => sum + (cat.curr / 100 * monthlyIncome), 0)} />
+            <BudgetCategorySection categories={savingCategories} setCategories={setSavingCategories} type="Savings" monthlyIncome={monthlyIncome || 0} percentTemplate={.1} startingBalance={monthlyIncome - essentialCategories.reduce((sum, cat) => sum + (cat.curr / 100 * monthlyIncome), 0) - nonEssentialCategories.reduce((sum, cat) => sum + (cat.curr / 100 * monthlyIncome), 0)} removedCategories={handleUserRemovedCategories} />
 
         </main>);
 }
