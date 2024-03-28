@@ -54,6 +54,16 @@
     margin-right: 10px;
 }
 
+.categoryHelpText {
+    position: absolute;
+    min-height: 150px;
+    top: 0;
+    left: 0;
+    width: 150px;
+    background-color: #fff;
+    border: #323232 1px solid;
+}
+
 div:has(>input[type="number"]) {
     background: white;
     border: #323232 2px solid;
@@ -236,7 +246,8 @@ input[type="number"] {
 #Essentials .summaryTotals p:nth-child(2),
 #Essentials .summaryTotals::after,
 #Essentials .sectionBGColor div:has(>input[type="number"]),
-#Essentials .budgetGraph {
+#Essentials .budgetGraph,
+#Essentials .categoryHelpText {
     border-color: #467AF8;
 }
 
@@ -270,7 +281,8 @@ input[type="number"] {
 #Non-Essentials .summaryTotals p:nth-child(2),
 #Non-Essentials .summaryTotals::after,
 #Non-Essentials .sectionBGColor div:has(>input[type="number"]),
-#Non-Essentials .budgetGraph {
+#Non-Essentials .budgetGraph,
+#Non-Essentials .categoryHelpText {
     border-color: #9C32E2;
 }
 
@@ -298,7 +310,8 @@ input[type="number"] {
 #Savings .summaryTotals p:nth-child(2),
 #Savings .summaryTotals::after,
 #Savings .sectionBGColor div:has(>input[type="number"]),
-#Savings .budgetGraph {
+#Savings .budgetGraph,
+#Savings .categoryHelpText {
     border-color: #FFA73D;
 }
 

@@ -41,6 +41,7 @@ const BudgetCategorySection = ({ categories, setCategories, monthlyIncome, type,
                         <div key={index} className="categoryRow">
                             <div className="removeCategory"><p>x</p></div>
                             <p className="categoryTitle">{cat.category}</p>
+                            <div className="categoryHelpText">This is a general category that might contain many of the following types of expenses. If there is an expense that you incur frequently enough, you might add it as a new category to represent those seperately.</div>
                             <span>
                                 <p><span className="sliderPercent">({cat.min}%)</span> ${multiplyPercentToFloat(cat.min, monthlyIncome)}</p>
                                 <Slider min={cat.min} max={cat.max} position={cat.curr} index={index} positionSetter={updateTotals} />
