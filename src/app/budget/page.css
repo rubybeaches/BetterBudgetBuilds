@@ -228,6 +228,7 @@ input[type="number"] {
     font-weight: 600;
     position: absolute;
     left: 0;
+    cursor: pointer;
 }
 
 

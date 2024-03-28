@@ -4,6 +4,7 @@ import Slider from "./Slider";
 import { multiplyPercentToFloat, convertToFloat } from "../lib/helpers";
 import BudgetInput from "./BudgetInput";
 import BudgetCategoryHelpText from "./BudgetCategoryHelpText";
+import { act } from "react-dom/test-utils";
 
 // category, category help text, percent range, current value as number, current value as %, lump expedenture checked, lump expenditure amount
 
@@ -32,6 +33,15 @@ const BudgetCategorySection = ({ categories, setCategories, monthlyIncome, type,
         setCategories(updateArray);
     }
 
+    const removeCategory = (identifier: number) => {
+        const categoryArray = categories.filter((cat, index) => {
+            if (index != identifier) {
+                return { ...cat }
+            }
+        });
+        setCategories(categoryArray);
+    }
+
     return (
         <span id={type}>
             <h3 id="sectionHeader">{type} <em>({percentTemplate * 100}%)</em></h3>
@@ -39,7 +49,7 @@ const BudgetCategorySection = ({ categories, setCategories, monthlyIncome, type,
                 <div>
                     {categories.map((cat, index) =>
                         <div key={index} className="categoryRow">
-                            <div className="removeCategory"><p>x</p></div>
+                            <div className="removeCategory" onClick={() => removeCategory(index)}><p>x</p></div>
                             <BudgetCategoryHelpText categoryTitle={cat.category} showHelp={cat.help.length >= 1} helpCategories={cat.help} />
                             <span>
                                 <p><span className="sliderPercent">({cat.min}%)</span> ${multiplyPercentToFloat(cat.min, monthlyIncome)}</p>
