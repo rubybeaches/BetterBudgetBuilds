@@ -54,14 +54,40 @@
     margin-right: 10px;
 }
 
+.categoryTitleUnderline {
+    font-size: 1.1em;
+    margin-right: 10px;
+    border-bottom: 2px dashed;
+}
+
 .categoryHelpText {
     position: absolute;
+    z-index: 99;
     min-height: 150px;
     top: 0;
-    left: 0;
-    width: 150px;
+    left: 22px;
+    width: 400px;
     background-color: #fff;
-    border: #323232 1px solid;
+    border: #323232 3px solid;
+    padding: 6px;
+    border-radius: 6px;
+}
+
+.categoryHelpText p:not(:first-child) {
+    margin-top: 3px;
+    font-size: .9em;
+}
+
+.categoryHelpText p:nth-child(2) {
+    margin-block: 8px 12px;
+}
+
+.showHelp {
+    visibility: visible;
+}
+
+.hideHelp {
+    visibility: hidden;
 }
 
 div:has(>input[type="number"]) {
@@ -114,6 +140,7 @@ input[type="number"] {
     font-style: italic;
     padding-left: 24px;
     position: relative;
+    min-width: 125px;
 }
 
 .summaryTotals p:first-child,

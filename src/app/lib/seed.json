@@ -22,12 +22,7 @@
             "Lawn care",
             "Security System",
             "Pest control",
-            "Cleaning Supplies",
-            "Paper Products",
             "Tools",
-            "Toiletries",
-            "Laundry Supplies",
-            "Postage",
             "Furniture",
             "Home decor"
         ],
@@ -282,7 +277,7 @@
             "Charity",
             "Donations",
             "Tithing",
-            "Cmmmunity",
+            "Community",
             "Non-Cash Donations"
         ],
         "min": 1,

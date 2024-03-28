@@ -2,8 +2,8 @@
 
 import Slider from "./Slider";
 import { multiplyPercentToFloat, convertToFloat } from "../lib/helpers";
-import { useState } from "react";
 import BudgetInput from "./BudgetInput";
+import BudgetCategoryHelpText from "./BudgetCategoryHelpText";
 
 // category, category help text, percent range, current value as number, current value as %, lump expedenture checked, lump expenditure amount
 
@@ -40,8 +40,7 @@ const BudgetCategorySection = ({ categories, setCategories, monthlyIncome, type,
                     {categories.map((cat, index) =>
                         <div key={index} className="categoryRow">
                             <div className="removeCategory"><p>x</p></div>
-                            <p className="categoryTitle">{cat.category}</p>
-                            <div className="categoryHelpText">This is a general category that might contain many of the following types of expenses. If there is an expense that you incur frequently enough, you might add it as a new category to represent those seperately.</div>
+                            <BudgetCategoryHelpText categoryTitle={cat.category} showHelp={cat.help.length >= 1} helpCategories={cat.help} />
                             <span>
                                 <p><span className="sliderPercent">({cat.min}%)</span> ${multiplyPercentToFloat(cat.min, monthlyIncome)}</p>
                                 <Slider min={cat.min} max={cat.max} position={cat.curr} index={index} positionSetter={updateTotals} />
@@ -77,7 +76,7 @@ const BudgetCategorySection = ({ categories, setCategories, monthlyIncome, type,
                     <p id={startingBalance - budgetTotals < 0 ? 'negativeTotal' : ''}>${convertToFloat(startingBalance - budgetTotals)}</p>
                 </div>
             </div>
-        </span>
+        </span >
     )
 
 }
