@@ -2,7 +2,7 @@
 import "./page.css";
 import categories from '../lib/seed.json'
 import { useMemo, useState } from "react";
-import BudgetCategorySection from "../components/BudgetCategorySection";
+import CategorySection from "../components/Budget/CategorySection";
 import { convertToFloat } from "../lib/helpers";
 import { category } from "../lib/types";
 

@@ -1,14 +1,14 @@
 // load user profile to pass in category types if they exist, otherwise pass if template profile
 
 import Slider from "./Slider";
-import { multiplyPercentToFloat, convertToFloat } from "../lib/helpers";
+import { multiplyPercentToFloat, convertToFloat } from "../../lib/helpers";
 import BudgetInput from "./BudgetInput";
-import BudgetCategoryHelpText from "./BudgetCategoryHelpText";
-import { category } from "../lib/types";
+import CategoryHelpText from "./CategoryHelpText";
+import { category } from "../../lib/types";
 
 // category, category help text, percent range, current value as number, current value as %, lump expedenture checked, lump expenditure amount
 
-const BudgetCategorySection = ({ categories, setCategories, monthlyIncome, type, percentTemplate, startingBalance, removedCategories }: { categories: category[], setCategories: (categories: category[]) => void, monthlyIncome: number, type: string, percentTemplate: number, startingBalance: number, removedCategories: (removedValue: category) => void }) => {
+const CategorySection = ({ categories, setCategories, monthlyIncome, type, percentTemplate, startingBalance, removedCategories }: { categories: category[], setCategories: (categories: category[]) => void, monthlyIncome: number, type: string, percentTemplate: number, startingBalance: number, removedCategories: (removedValue: category) => void }) => {
     // load category calculations - $ from saved profile or default %  if null to perform calc
 
     // load % ranges and $ for category along with slider and default slider position based on $ or %
@@ -91,4 +91,4 @@ const BudgetCategorySection = ({ categories, setCategories, monthlyIncome, type,
 
 }
 
-export default BudgetCategorySection;
+export default CategorySection;

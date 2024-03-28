@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const BudgetCategoryHelpText = ({ categoryTitle, showHelp, helpCategories }: { categoryTitle: string, showHelp: boolean, helpCategories: string[] }) => {
+const CategoryHelpText = ({ categoryTitle, showHelp, helpCategories }: { categoryTitle: string, showHelp: boolean, helpCategories: string[] }) => {
 
     const [helpTextBool, setHelpTextBool] = useState(false);
 
@@ -18,4 +18,4 @@ const BudgetCategoryHelpText = ({ categoryTitle, showHelp, helpCategories }: { c
     )
 }
 
-export default BudgetCategoryHelpText;
+export default CategoryHelpText;

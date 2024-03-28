@@ -1,6 +1,6 @@
 
 import { HtmlHTMLAttributes, useEffect, useRef, useState } from "react";
-import { multiplyPercentToFloat } from "../lib/helpers";
+import { multiplyPercentToFloat } from "../../lib/helpers";
 
 const BudgetInput = ({ monthlyIncome, min, max, current, index, inputSetter }: { monthlyIncome: number, min: number, max: number, index: number, current: number, inputSetter: (min: number, max: number, curr: number, identifier: number) => void }) => {
     const intervalID = useRef<any>();
