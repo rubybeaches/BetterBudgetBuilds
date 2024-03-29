@@ -4,12 +4,12 @@ import Slider from "./Slider";
 import { multiplyPercentToFloat, convertToFloat } from "../../lib/helpers";
 import BudgetInput from "./BudgetInput";
 import CategoryHelpText from "./CategoryHelpText";
-import { category } from "../../lib/types";
+import { addCategoryList, category } from "../../lib/types";
 import AddCategory from "./AddCategory";
 
 // category, category help text, percent range, current value as number, current value as %, lump expedenture checked, lump expenditure amount
 
-const CategorySection = ({ categories, setCategories, monthlyIncome, type, percentTemplate, startingBalance, removedCategories }: { categories: category[], setCategories: (categories: category[]) => void, monthlyIncome: number, type: string, percentTemplate: number, startingBalance: number, removedCategories: (removedValue: category) => void }) => {
+const CategorySection = ({ categories, setCategories, monthlyIncome, type, percentTemplate, startingBalance, removedCategories, addCategoryList }: { categories: category[], setCategories: (categories: category[]) => void, monthlyIncome: number, type: string, percentTemplate: number, startingBalance: number, removedCategories: (removedValue: category) => void, addCategoryList: addCategoryList[] }) => {
     // load category calculations - $ from saved profile or default %  if null to perform calc
 
     // load % ranges and $ for category along with slider and default slider position based on $ or %
@@ -37,7 +37,7 @@ const CategorySection = ({ categories, setCategories, monthlyIncome, type, perce
             if (index != identifier) {
                 return { ...cat }
             } else {
-                removedCategories({ ...cat });
+                removedCategories({ ...cat, active: 0 });
             }
         });
         setCategories(categoryArray);
@@ -59,7 +59,7 @@ const CategorySection = ({ categories, setCategories, monthlyIncome, type, perce
                             </span>
                         </div>
                     )}
-                    <AddCategory />
+                    <AddCategory addCategoryList={addCategoryList} />
                 </div>
                 <div className="sectionBGColor">
                     {/* <input type="checkbox" value={'Includes and annual lump sum expenditure'} /> */}

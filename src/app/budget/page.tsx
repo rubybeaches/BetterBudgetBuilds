@@ -4,7 +4,7 @@ import categories from '../lib/seed.json'
 import { useMemo, useState } from "react";
 import CategorySection from "../components/Budget/CategorySection";
 import { convertToFloat } from "../lib/helpers";
-import { category } from "../lib/types";
+import { addCategoryList, category } from "../lib/types";
 
 const Budget = () => {
     const [income, setIncome] = useState(0);
@@ -28,23 +28,23 @@ const Budget = () => {
 
     // Full list of currently inactive categories that could be added to the budget
     const buildCategoryAdditionList = useMemo(() => {
-        const additionArray: { name: string, type: string }[] = [];
-        categories.map(cat => {
-            if (!cat.active) {
-                additionArray.push({ name: cat.category, type: cat.type });
-                if (cat.help.length > 0) {
-                    cat.help.map(item => additionArray.push({ name: item, type: cat.type }));
-                }
-            }
-        });
-
-        if (userRemovedCategories && userRemovedCategories.length > 0) {
-            userRemovedCategories.map(cat => {
-                additionArray.push({ name: cat.category, type: cat.type })
-                if (cat.help.length > 0) {
-                    cat.help.map(item => additionArray.push({ name: item, type: cat.type }));
+        const additionArray: addCategoryList[] = [];
+        const parseRemovedArrays = (array: category[]) => {
+            array.map(cat => {
+                if (!cat.active) {
+                    additionArray.push({ name: cat.category, type: cat.type });
+                    if (cat.help.length > 0) {
+                        cat.help.map(item => additionArray.push({ name: item, type: cat.type }));
+                    }
                 }
             });
+        }
+
+        if (userRemovedCategories && userRemovedCategories.length > 0) {
+            parseRemovedArrays(userRemovedCategories);
+            parseRemovedArrays(categories);
+        } else {
+            parseRemovedArrays(categories);
         }
 
         return additionArray;
@@ -67,11 +67,11 @@ const Budget = () => {
                 )}
             </label>
 
-            <CategorySection categories={essentialCategories} setCategories={setEssentialCategories} type="Essentials" monthlyIncome={monthlyIncome || 0} percentTemplate={.6} startingBalance={monthlyIncome} removedCategories={handleUserRemovedCategories} />
+            <CategorySection categories={essentialCategories} setCategories={setEssentialCategories} type="Essentials" monthlyIncome={monthlyIncome || 0} percentTemplate={.6} startingBalance={monthlyIncome} removedCategories={handleUserRemovedCategories} addCategoryList={buildCategoryAdditionList} />
 
-            <CategorySection categories={nonEssentialCategories} setCategories={setNonEssentialCategories} type="Non-Essentials" monthlyIncome={monthlyIncome || 0} percentTemplate={.3} startingBalance={monthlyIncome - essentialCategories.reduce((sum, cat) => sum + (cat.curr / 100 * monthlyIncome), 0)} removedCategories={handleUserRemovedCategories} />
+            <CategorySection categories={nonEssentialCategories} setCategories={setNonEssentialCategories} type="Non-Essentials" monthlyIncome={monthlyIncome || 0} percentTemplate={.3} startingBalance={monthlyIncome - essentialCategories.reduce((sum, cat) => sum + (cat.curr / 100 * monthlyIncome), 0)} removedCategories={handleUserRemovedCategories} addCategoryList={buildCategoryAdditionList} />
 
-            <CategorySection categories={savingCategories} setCategories={setSavingCategories} type="Savings" monthlyIncome={monthlyIncome || 0} percentTemplate={.1} startingBalance={monthlyIncome - essentialCategories.reduce((sum, cat) => sum + (cat.curr / 100 * monthlyIncome), 0) - nonEssentialCategories.reduce((sum, cat) => sum + (cat.curr / 100 * monthlyIncome), 0)} removedCategories={handleUserRemovedCategories} />
+            <CategorySection categories={savingCategories} setCategories={setSavingCategories} type="Savings" monthlyIncome={monthlyIncome || 0} percentTemplate={.1} startingBalance={monthlyIncome - essentialCategories.reduce((sum, cat) => sum + (cat.curr / 100 * monthlyIncome), 0) - nonEssentialCategories.reduce((sum, cat) => sum + (cat.curr / 100 * monthlyIncome), 0)} removedCategories={handleUserRemovedCategories} addCategoryList={buildCategoryAdditionList} />
 
         </main>);
 }

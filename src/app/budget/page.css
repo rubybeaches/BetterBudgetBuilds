@@ -82,11 +82,11 @@
     margin-block: 8px 12px;
 }
 
-.showHelp {
+.showElement {
     visibility: visible;
 }
 
-.hideHelp {
+.hideElement {
     visibility: hidden;
 }
 
@@ -230,6 +230,45 @@ input[type="number"] {
     font-weight: 600;
 }
 
+.categorySearchContainer {
+    border-radius: 20px;
+    border: 2px solid #323232;
+    background-color: #FFF;
+    padding: 4px 12px;
+    cursor: pointer;
+    position: absolute;
+    z-index: 99;
+    right: 0;
+    top: -20px;
+    font-size: .9em;
+    box-shadow: 2px 4px 12px 0px #d5d5d5;
+}
+
+.categorySearchContainer:has(p.addListItem) {
+    border-radius: 12px;
+}
+
+.categorySearchInput {
+    outline: none;
+    border: none;
+    color: #323232;
+    min-width: 400px;
+}
+
+p.addListItem {
+    color: #323232;
+    margin-block: 3px;
+}
+
+.searchFullBackground {
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
 .removeCategory {
     height: 18px;
     width: 18px;
@@ -296,7 +335,8 @@ input[type="number"] {
 #Essentials .budgetGraph,
 #Essentials .categoryHelpText,
 #Essentials .addCategoryButton,
-#Essentials .categoryTitleUnderline {
+#Essentials .categoryTitleUnderline,
+#Essentials .categorySearchContainer {
     border-color: #467AF8;
 }
 
@@ -333,7 +373,8 @@ input[type="number"] {
 #Non-Essentials .budgetGraph,
 #Non-Essentials .categoryHelpText,
 #Non-Essentials .addCategoryButton,
-#Non-Essentials .categoryTitleUnderline {
+#Non-Essentials .categoryTitleUnderline,
+#Non-Essentials .categorySearchContainer {
     border-color: #9C32E2;
 }
 
@@ -364,7 +405,8 @@ input[type="number"] {
 #Savings .budgetGraph,
 #Savings .categoryHelpText,
 #Savings .addCategoryButton,
-#Savings .categoryTitleUnderline {
+#Savings .categoryTitleUnderline,
+#Savings .categorySearchContainer {
     border-color: #FFA73D;
 }
 
