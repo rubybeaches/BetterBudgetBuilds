@@ -16,11 +16,11 @@
 .sectionContainer {
     display: flex;
     gap: 1em;
-    margin-bottom: 2em;
 }
 
 .sectionContainer>div:first-child {
     flex: 1;
+    position: relative;
 }
 
 .categoryRow {
@@ -57,7 +57,7 @@
 .categoryTitleUnderline {
     font-size: 1.1em;
     margin-right: 10px;
-    border-bottom: 2px dashed;
+    border-bottom: 2px dashed #323232;
 }
 
 .categoryHelpText {
@@ -115,6 +115,7 @@ input[type="number"] {
     border-radius: 5px;
     background: #323232;
     outline: none;
+    margin-top: 4px;
 }
 
 .slider:hover {
@@ -217,6 +218,18 @@ input[type="number"] {
     font-size: 1.2em;
 }
 
+.addCategoryButton {
+    border-radius: 20px;
+    border: 2px solid #323232;
+    padding: 4px 12px;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: -20px;
+    font-size: .8em;
+    font-weight: 600;
+}
+
 .removeCategory {
     height: 18px;
     width: 18px;
@@ -262,6 +275,12 @@ input[type="number"] {
 /****** Section Specific Colors ******/
 
 #Essentials,
+#Non-Essentials,
+#Savings {
+    margin-top: 2.5em;
+}
+
+#Essentials,
 #Essentials .sectionBGColor input[type="number"] {
     color: #467AF8;
 }
@@ -275,7 +294,9 @@ input[type="number"] {
 #Essentials .summaryTotals::after,
 #Essentials .sectionBGColor div:has(>input[type="number"]),
 #Essentials .budgetGraph,
-#Essentials .categoryHelpText {
+#Essentials .categoryHelpText,
+#Essentials .addCategoryButton,
+#Essentials .categoryTitleUnderline {
     border-color: #467AF8;
 }
 
@@ -310,7 +331,9 @@ input[type="number"] {
 #Non-Essentials .summaryTotals::after,
 #Non-Essentials .sectionBGColor div:has(>input[type="number"]),
 #Non-Essentials .budgetGraph,
-#Non-Essentials .categoryHelpText {
+#Non-Essentials .categoryHelpText,
+#Non-Essentials .addCategoryButton,
+#Non-Essentials .categoryTitleUnderline {
     border-color: #9C32E2;
 }
 
@@ -339,7 +362,9 @@ input[type="number"] {
 #Savings .summaryTotals::after,
 #Savings .sectionBGColor div:has(>input[type="number"]),
 #Savings .budgetGraph,
-#Savings .categoryHelpText {
+#Savings .categoryHelpText,
+#Savings .addCategoryButton,
+#Savings .categoryTitleUnderline {
     border-color: #FFA73D;
 }
 

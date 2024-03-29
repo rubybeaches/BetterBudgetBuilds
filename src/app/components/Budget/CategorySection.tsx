@@ -5,6 +5,7 @@ import { multiplyPercentToFloat, convertToFloat } from "../../lib/helpers";
 import BudgetInput from "./BudgetInput";
 import CategoryHelpText from "./CategoryHelpText";
 import { category } from "../../lib/types";
+import AddCategory from "./AddCategory";
 
 // category, category help text, percent range, current value as number, current value as %, lump expedenture checked, lump expenditure amount
 
@@ -50,7 +51,7 @@ const CategorySection = ({ categories, setCategories, monthlyIncome, type, perce
                     {categories.map((cat, index) =>
                         <div key={index} className="categoryRow">
                             <div className="removeCategory" onClick={() => removeCategory(index)}><p>x</p></div>
-                            <BudgetCategoryHelpText categoryTitle={cat.category} showHelp={cat.help.length >= 1} helpCategories={cat.help} />
+                            <CategoryHelpText categoryTitle={cat.category} showHelp={cat.help.length >= 1} helpCategories={cat.help} />
                             <span>
                                 <p><span className="sliderPercent">({cat.min}%)</span> ${multiplyPercentToFloat(cat.min, monthlyIncome)}</p>
                                 <Slider min={cat.min} max={cat.max} position={cat.curr} index={index} positionSetter={updateTotals} />
@@ -58,8 +59,10 @@ const CategorySection = ({ categories, setCategories, monthlyIncome, type, perce
                             </span>
                         </div>
                     )}
+                    <AddCategory />
                 </div>
                 <div className="sectionBGColor">
+                    {/* <input type="checkbox" value={'Includes and annual lump sum expenditure'} /> */}
                     {categories.map((cat, index) =>
                         <div key={index} style={{ padding: '.25em' }}>
                             <BudgetInput monthlyIncome={monthlyIncome} min={cat.min} max={cat.max} current={cat.curr} index={index} inputSetter={updateTotals} />
