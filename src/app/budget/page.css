@@ -260,6 +260,10 @@ p.addListItem {
     margin-block: 3px;
 }
 
+p.addListItem:first-child {
+    margin-top: 6px;
+}
+
 .searchFullBackground {
     position: fixed;
     z-index: -1;
