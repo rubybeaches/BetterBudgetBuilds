@@ -4,7 +4,7 @@ import categories from '../lib/seed.json'
 import { useMemo, useRef, useState } from "react";
 import CategorySection from "../components/Budget/CategorySection";
 import { convertToFloat } from "../lib/helpers";
-import { addCategoryList, category } from "../lib/types";
+import { category } from "../lib/types";
 
 const Budget = () => {
     const [income, setIncome] = useState(0);
@@ -47,13 +47,13 @@ const Budget = () => {
 
     // Full list of currently inactive categories that could be added to the budget
     const buildCategoryAdditionList = useMemo(() => {
-        const additionArray: addCategoryList[] = [];
+        const additionArray: category[] = [];
         const parseRemovedArrays = (array: category[]) => {
             array.map(cat => {
                 if (!cat.active) {
-                    additionArray.push({ name: cat.category, type: cat.type });
+                    additionArray.push({ ...cat });
                     if (cat.help.length > 0) {
-                        cat.help.map(item => additionArray.push({ name: item, type: cat.type }));
+                        cat.help.map(item => additionArray.push({ ...cat, category: item, help: [] }));
                     }
                 }
             });
