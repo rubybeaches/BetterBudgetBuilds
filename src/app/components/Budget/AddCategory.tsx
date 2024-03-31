@@ -1,7 +1,7 @@
 import { category } from "@/app/lib/types";
 import { useState } from "react";
 
-const AddCategory = ({ addCategoryList }: { addCategoryList: category[] }) => {
+const AddCategory = ({ addCategoryList, addCategory }: { addCategoryList: category[], addCategory: (category: category) => void }) => {
     const [searchActive, setSearchActive] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
     const filteredList = addCategoryList.sort((a, b) => {
@@ -23,8 +23,13 @@ const AddCategory = ({ addCategoryList }: { addCategoryList: category[] }) => {
             <div className="addCategoryButton" onClick={() => setSearchActive(() => true)}>Add Category</div>
             <div className={searchActive ? 'categorySearchContainer showElement' : 'categorySearchContainer hideElement'}>
                 <input className="categorySearchInput" type="text" placeholder="Search for a category to add..." value={searchQuery} onChange={(e) => setSearchQuery(() => e.target.value)} />
-                {searchActive && searchQuery && filteredList.map((category, index) =>
-                    <p className="addListItem" key={index}><strong style={{ fontWeight: '500' }} id={getTypeString(category.type)}>{category.category}</strong> in {getTypeString(category.type)}</p>
+                {searchActive && searchQuery && (
+                    <>
+                        <p>adding a category from the list below will add it to this section</p>
+                        {filteredList.map((category, index) =>
+                            <p className="addListItem" key={index} onClick={() => addCategory(category)}><strong style={{ fontWeight: '500' }} id={getTypeString(category.type)} >{category.category}</strong> from {getTypeString(category.type)}</p>
+                        )}
+                    </>
                 )}
                 <div className="searchFullBackground" onClick={() => {
                     setSearchActive(() => false);

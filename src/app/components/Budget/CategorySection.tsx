@@ -30,6 +30,12 @@ const CategorySection = ({ categories, setCategories, monthlyIncome, type, perce
         setCategories(updateArray);
     }
 
+    const addCategory = (category: category) => {
+        const updateArray: category[] = categories.map((cat) => cat);
+        updateArray.push({ ...category, active: 1 });
+        setCategories(updateArray);
+    }
+
     // Filter out the selected category from the parent section use state category list, 
     // and add it plus any help text items to removed use state list.
     const removeCategory = (identifier: number) => {
@@ -59,7 +65,7 @@ const CategorySection = ({ categories, setCategories, monthlyIncome, type, perce
                             </span>
                         </div>
                     )}
-                    <AddCategory addCategoryList={addCategoryList} />
+                    <AddCategory addCategoryList={addCategoryList} addCategory={addCategory} />
                 </div>
                 <div className="sectionBGColor">
                     {/* <input type="checkbox" value={'Includes and annual lump sum expenditure'} /> */}
