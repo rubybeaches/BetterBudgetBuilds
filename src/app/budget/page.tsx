@@ -35,39 +35,40 @@ const Budget = () => {
     const [savingCategories, setSavingCategories] = useState(categories.filter(cat => cat.type == "savings" && cat.active));
 
     // handle ongoing state of categories removed by user 
-    const [userRemovedCategories, setUserRemovedCategories] = useState<category[]>();
-    const handleUserRemovedCategories = (removedValue: category) => {
+    const [addCategoryList, setAddCategoryList] = useState(categories.filter(cat => {
+        if (!cat.active) {
+            if (cat.help.length > 0) {
+                cat.help.map(item => { return { ...cat, category: item, help: [] } });
+            }
+            return { ...cat };
+        }
+    }));
+    const handleAddCategoryList = (removedValue: category) => {
         const removedArray: category[] = [];
-        if (userRemovedCategories && userRemovedCategories.length > 0) {
-            userRemovedCategories.map(item => removedArray.push({ ...item }));
-        }
-        removedArray.push(removedValue);
-        setUserRemovedCategories(() => removedArray)
-    }
 
-    // Full list of currently inactive categories that could be added to the budget
-    const buildCategoryAdditionList = useMemo(() => {
-        const additionArray: category[] = [];
-        const parseRemovedArrays = (array: category[]) => {
-            array.map(cat => {
-                if (!cat.active) {
-                    additionArray.push({ ...cat });
-                    if (cat.help.length > 0) {
-                        cat.help.map(item => additionArray.push({ ...cat, category: item, help: [] }));
-                    }
-                }
-            });
-        }
-
-        if (userRemovedCategories && userRemovedCategories.length > 0) {
-            parseRemovedArrays(userRemovedCategories);
-            parseRemovedArrays(categories);
+        if (removedValue.active) {
+            const removedArray = addCategoryList.filter(cat => cat.category != removedValue.category && !removedValue.help.includes(cat.category));
+            setAddCategoryList(() => removedArray);
         } else {
-            parseRemovedArrays(categories);
-        }
+            if (addCategoryList && addCategoryList.length > 0) {
+                addCategoryList.map(item => {
+                    // add rv to the array, and all the help ones not already in the list
+                    if (!removedValue.help.includes(item.category)) {
+                        removedArray.push({ ...item });
+                    }
+                });
+                removedArray.push(removedValue);
+                removedValue.help.length > 0 && removedValue.help.map(item => removedArray.push({ ...removedValue, category: item, help: [] }));
 
-        return additionArray;
-    }, [userRemovedCategories])
+                setAddCategoryList(() => removedArray)
+            } else {
+                removedArray.push(removedValue);
+                removedValue.help.length > 0 && removedValue.help.map(item => removedArray.push({ ...removedValue, category: item, help: [] }));
+
+                setAddCategoryList(() => removedArray)
+            }
+        }
+    }
 
     // load user profile or template profile
     // if using template profile, aka no user, then values should be all percent based so they can be dynamic
@@ -99,11 +100,11 @@ const Budget = () => {
                 )}
             </label>
 
-            <CategorySection categories={essentialCategories} setCategories={setEssentialCategories} type="Essentials" monthlyIncome={monthlyIncome || 0} percentTemplate={.6} startingBalance={monthlyIncome} removedCategories={handleUserRemovedCategories} addCategoryList={buildCategoryAdditionList} />
+            <CategorySection categories={essentialCategories} setCategories={setEssentialCategories} type="Essentials" monthlyIncome={monthlyIncome || 0} percentTemplate={.6} startingBalance={monthlyIncome} removedCategories={handleAddCategoryList} addCategoryList={addCategoryList} />
 
-            <CategorySection categories={nonEssentialCategories} setCategories={setNonEssentialCategories} type="Non-Essentials" monthlyIncome={monthlyIncome || 0} percentTemplate={.3} startingBalance={monthlyIncome - essentialCategories.reduce((sum, cat) => sum + (cat.curr / 100 * monthlyIncome), 0)} removedCategories={handleUserRemovedCategories} addCategoryList={buildCategoryAdditionList} />
+            <CategorySection categories={nonEssentialCategories} setCategories={setNonEssentialCategories} type="Non-Essentials" monthlyIncome={monthlyIncome || 0} percentTemplate={.3} startingBalance={monthlyIncome - essentialCategories.reduce((sum, cat) => sum + (cat.curr / 100 * monthlyIncome), 0)} removedCategories={handleAddCategoryList} addCategoryList={addCategoryList} />
 
-            <CategorySection categories={savingCategories} setCategories={setSavingCategories} type="Savings" monthlyIncome={monthlyIncome || 0} percentTemplate={.1} startingBalance={monthlyIncome - essentialCategories.reduce((sum, cat) => sum + (cat.curr / 100 * monthlyIncome), 0) - nonEssentialCategories.reduce((sum, cat) => sum + (cat.curr / 100 * monthlyIncome), 0)} removedCategories={handleUserRemovedCategories} addCategoryList={buildCategoryAdditionList} />
+            <CategorySection categories={savingCategories} setCategories={setSavingCategories} type="Savings" monthlyIncome={monthlyIncome || 0} percentTemplate={.1} startingBalance={monthlyIncome - essentialCategories.reduce((sum, cat) => sum + (cat.curr / 100 * monthlyIncome), 0) - nonEssentialCategories.reduce((sum, cat) => sum + (cat.curr / 100 * monthlyIncome), 0)} removedCategories={handleAddCategoryList} addCategoryList={addCategoryList} />
 
         </main>);
 }

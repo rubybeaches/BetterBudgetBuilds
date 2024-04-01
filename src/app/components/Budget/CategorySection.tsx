@@ -34,6 +34,7 @@ const CategorySection = ({ categories, setCategories, monthlyIncome, type, perce
         const updateArray: category[] = categories.map((cat) => cat);
         updateArray.push({ ...category, active: 1 });
         setCategories(updateArray);
+        removedCategories({ ...category, active: 1 });
     }
 
     // Filter out the selected category from the parent section use state category list, 
