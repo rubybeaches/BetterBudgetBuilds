@@ -26,7 +26,7 @@ const BudgetInput = ({ monthlyIncome, min, max, current, index, inputSetter }: {
         }
 
         intervalID.current = setTimeout(() => {
-            inputSetter(min, max, newValue / monthlyIncome * 100, index)
+            inputSetter(min, max, newValue / monthlyIncome * 100, index);
         }, 1000);
     }
 
@@ -36,6 +36,13 @@ const BudgetInput = ({ monthlyIncome, min, max, current, index, inputSetter }: {
                 if (e.key == 'Backspace') {
                     e.preventDefault();
                     updateInput(0);
+                }
+                if (e.key == "Enter") {
+                    e.preventDefault();
+                    const inputValue = inputRef.current;
+                    if (inputValue) {
+                        inputSetter(min, max, inputValue.value / monthlyIncome * 100, index);
+                    }
                 }
             }} />
         </div>

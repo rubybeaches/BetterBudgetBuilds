@@ -85,6 +85,14 @@ const Budget = () => {
                         e.preventDefault();
                         updateIncome(0);
                     }
+                    if (e.key == "Enter") {
+                        e.preventDefault();
+                        const inputValue = incomeRef.current;
+                        if (inputValue) {
+                            setIncome(() => inputValue.value);
+                            inputValue.value = convertToFloat(inputValue.valueAsNumber)
+                        }
+                    }
                 }} /></div>
                 {income > 0 && (
                     <em>your monthly allowance is <strong>${convertToFloat(monthlyIncome)}</strong></em>
