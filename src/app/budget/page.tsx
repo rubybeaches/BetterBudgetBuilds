@@ -44,30 +44,33 @@ const Budget = () => {
         }
     }));
     const handleAddCategoryList = (removedValue: category) => {
-        const removedArray: category[] = [];
-
         if (removedValue.active) {
-            const removedArray = addCategoryList.filter(cat => cat.category != removedValue.category && !removedValue.help.includes(cat.category));
-            setAddCategoryList(() => removedArray);
-        } else {
-            if (addCategoryList && addCategoryList.length > 0) {
-                addCategoryList.map(item => {
-                    // add rv to the array, and all the help ones not already in the list
-                    if (!removedValue.help.includes(item.category)) {
-                        removedArray.push({ ...item });
-                    }
-                });
-                removedArray.push(removedValue);
-                removedValue.help.length > 0 && removedValue.help.map(item => removedArray.push({ ...removedValue, category: item, help: [] }));
-
-                setAddCategoryList(() => removedArray)
-            } else {
-                removedArray.push(removedValue);
-                removedValue.help.length > 0 && removedValue.help.map(item => removedArray.push({ ...removedValue, category: item, help: [] }));
-
-                setAddCategoryList(() => removedArray)
-            }
+            const addArray = addCategoryList.filter(cat => cat.category != removedValue.category);
+            setAddCategoryList(() => addArray);
+            return
         }
+
+        const removedArray = addToRemovedCategories(removedValue);
+        setAddCategoryList(() => removedArray)
+    }
+
+    const addToRemovedCategories = (removedValue: category) => {
+        const removedArray: category[] = [];
+        let addHelpCategories = removedValue.help.length > 0;
+        if (addCategoryList && addCategoryList.length > 0) {
+            // map all exisiting values 
+            // except for any values included in the help array from removed category
+            addCategoryList.map(item => {
+                removedArray.push({ ...item });
+                if (addCategoryList && removedValue.help.includes(item.category)) {
+                    addHelpCategories = false
+                }
+            });
+        }
+        removedArray.push(removedValue);
+        addHelpCategories && removedValue.help.map(item => removedArray.push({ ...removedValue, category: item, help: [] }));
+
+        return removedArray;
     }
 
     // load user profile or template profile

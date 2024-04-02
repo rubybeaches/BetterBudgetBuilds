@@ -30,9 +30,10 @@ const CategorySection = ({ categories, setCategories, monthlyIncome, type, perce
         setCategories(updateArray);
     }
 
+    //TO_DO: better handling for changing category type
     const addCategory = (category: category) => {
         const updateArray: category[] = categories.map((cat) => cat);
-        updateArray.push({ ...category, active: 1 });
+        updateArray.push({ ...category, type: updateArray[0].type, active: 1 });
         setCategories(updateArray);
         removedCategories({ ...category, active: 1 });
     }

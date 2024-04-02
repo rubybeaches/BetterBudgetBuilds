@@ -23,7 +23,7 @@ const AddCategory = ({ addCategoryList, addCategory }: { addCategoryList: catego
             <div className="addCategoryButton" onClick={() => setSearchActive(() => true)}>Add Category</div>
             <div className={searchActive ? 'categorySearchContainer showElement' : 'categorySearchContainer hideElement'}>
                 <input className="categorySearchInput" type="text" placeholder="Search for a category to add..." value={searchQuery} onChange={(e) => setSearchQuery(() => e.target.value)} />
-                {searchActive && searchQuery && (
+                {searchActive && searchQuery && filteredList.length > 0 && (
                     <>
                         <p>adding a category from the list below will add it to this section</p>
                         {filteredList.map((category, index) =>
