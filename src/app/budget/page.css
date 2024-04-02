@@ -235,13 +235,20 @@ input[type="number"] {
     border: 2px solid #323232;
     background-color: #FFF;
     padding: 4px 12px;
-    cursor: pointer;
     position: absolute;
     z-index: 99;
     right: 0;
     top: -20px;
     font-size: .9em;
     box-shadow: 2px 4px 12px 0px #d5d5d5;
+}
+
+.categorySearchContainer>.addCategoryButton {
+    position: relative;
+    width: fit-content;
+    margin-left: auto;
+    margin-bottom: 6px;
+    top: 0;
 }
 
 .categorySearchContainer:has(p.addListItem) {
@@ -258,6 +265,7 @@ input[type="number"] {
 p.addListItem {
     color: #323232;
     margin-block: 3px;
+    cursor: pointer;
 }
 
 p.addListItem:hover {

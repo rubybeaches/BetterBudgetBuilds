@@ -3,7 +3,7 @@ import "./page.css";
 import categories from '../lib/seed.json'
 import { useMemo, useRef, useState } from "react";
 import CategorySection from "../components/Budget/CategorySection";
-import { convertToFloat } from "../lib/helpers";
+import { buildInitialAddList, convertToFloat } from "../lib/helpers";
 import { category } from "../lib/types";
 
 const Budget = () => {
@@ -35,42 +35,17 @@ const Budget = () => {
     const [savingCategories, setSavingCategories] = useState(categories.filter(cat => cat.type == "savings" && cat.active));
 
     // handle ongoing state of categories removed by user 
-    const [addCategoryList, setAddCategoryList] = useState(categories.filter(cat => {
-        if (!cat.active) {
-            if (cat.help.length > 0) {
-                cat.help.map(item => { return { ...cat, category: item, help: [] } });
-            }
-            return { ...cat };
-        }
-    }));
+    const [addCategoryList, setAddCategoryList] = useState(buildInitialAddList(categories));
+
     const handleAddCategoryList = (removedValue: category) => {
         if (removedValue.active) {
-            const addArray = addCategoryList.filter(cat => cat.category != removedValue.category);
+            const filterArray = addCategoryList.filter(cat => cat.category != removedValue.category);
+            setAddCategoryList(() => filterArray);
+        } else {
+            const addArray = [...addCategoryList];
+            addArray.push(removedValue);
             setAddCategoryList(() => addArray);
-            return
         }
-
-        const removedArray = addToRemovedCategories(removedValue);
-        setAddCategoryList(() => removedArray)
-    }
-
-    const addToRemovedCategories = (removedValue: category) => {
-        const removedArray: category[] = [];
-        let addHelpCategories = removedValue.help.length > 0;
-        if (addCategoryList && addCategoryList.length > 0) {
-            // map all exisiting values 
-            // except for any values included in the help array from removed category
-            addCategoryList.map(item => {
-                removedArray.push({ ...item });
-                if (addCategoryList && removedValue.help.includes(item.category)) {
-                    addHelpCategories = false
-                }
-            });
-        }
-        removedArray.push(removedValue);
-        addHelpCategories && removedValue.help.map(item => removedArray.push({ ...removedValue, category: item, help: [] }));
-
-        return removedArray;
     }
 
     // load user profile or template profile
