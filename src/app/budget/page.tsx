@@ -3,20 +3,30 @@ import "./page.css";
 import categories from '../lib/seed.json'
 import { useEffect, useRef, useState } from "react";
 import CategorySection from "../components/Budget/CategorySection";
-import { buildInitialAddList, convertToFloat } from "../lib/helpers";
+import { buildInitialAddList, convertToFloat, setActiveCategories, setInactiveCategoryList } from "../lib/helpers";
 import { category } from "../lib/types";
 
 const Budget = () => {
     const [userCategories, setUserCategories] = useState(categories);
+    const [income, setIncome] = useState(0);
 
     useEffect(() => {
         const items: any = localStorage.getItem('userCategories');
         if (items) {
             setUserCategories(JSON.parse(items));
+            setEssentialCategories(setActiveCategories(JSON.parse(items), "essential"));
+            setNonEssentialCategories(setActiveCategories(JSON.parse(items), "non-essential"));
+            setSavingCategories(setActiveCategories(JSON.parse(items), "savings"));
+            setInactiveCategories(setInactiveCategoryList(JSON.parse(items)));
+            setAddCategoryList(buildInitialAddList(JSON.parse(items)));
         }
+        const income: any = localStorage.getItem('income');
+        if (income) {
+            updateIncome(Number(JSON.parse(income)));
+        }
+
     }, []);
 
-    const [income, setIncome] = useState(0);
     const intervalID = useRef<any>();
     const incomeRef = useRef<any>();
     const monthlyIncome = income / 12;
@@ -39,10 +49,10 @@ const Budget = () => {
     }
 
     // handle the ongoing category list states of each of the three budget sections
-    const [essentialCategories, setEssentialCategories] = useState(userCategories.filter(cat => cat.type == "essential" && cat.active));
-    const [nonEssentialCategories, setNonEssentialCategories] = useState(userCategories.filter(cat => cat.type == "non-essential" && cat.active));
-    const [savingCategories, setSavingCategories] = useState(userCategories.filter(cat => cat.type == "savings" && cat.active));
-    const [inactiveCategories, setInactiveCategories] = useState(userCategories.filter(cat => !cat.active));
+    const [essentialCategories, setEssentialCategories] = useState(setActiveCategories(userCategories, "essential"));
+    const [nonEssentialCategories, setNonEssentialCategories] = useState(setActiveCategories(userCategories, "non-essential"));
+    const [savingCategories, setSavingCategories] = useState(setActiveCategories(userCategories, "savings"));
+    const [inactiveCategories, setInactiveCategories] = useState(setInactiveCategoryList(userCategories));
 
     // handle ongoing state of categories removed by user 
     const [addCategoryList, setAddCategoryList] = useState(buildInitialAddList(userCategories));
@@ -68,9 +78,10 @@ const Budget = () => {
     }
 
     const saveBudget = () => {
-        let mergeBudgetArrays = [...essentialCategories]
-        mergeBudgetArrays = mergeBudgetArrays.concat(mergeBudgetArrays, nonEssentialCategories, savingCategories, inactiveCategories);
+        let mergeBudgetArrays: category[] = []
+        mergeBudgetArrays = mergeBudgetArrays.concat(mergeBudgetArrays, essentialCategories, nonEssentialCategories, savingCategories, inactiveCategories);
         localStorage.setItem('userCategories', JSON.stringify(mergeBudgetArrays));
+        localStorage.setItem('income', JSON.stringify(income));
     }
     // load user profile or template profile
     // if using template profile, aka no user, then values should be all percent based so they can be dynamic
@@ -108,7 +119,7 @@ const Budget = () => {
 
             <CategorySection categories={savingCategories} setCategories={setSavingCategories} type="Savings" monthlyIncome={monthlyIncome || 0} percentTemplate={.1} startingBalance={monthlyIncome - essentialCategories.reduce((sum, cat) => sum + (cat.curr / 100 * monthlyIncome), 0) - nonEssentialCategories.reduce((sum, cat) => sum + (cat.curr / 100 * monthlyIncome), 0)} removedCategories={handleAddCategoryList} addCategoryList={addCategoryList} />
 
-            <div onClick={() => saveBudget}>Apply Budget</div>
+            <div className="baseBar"><div className="saveBudgetContainer" onClick={() => saveBudget()}><div className="saveBudget"><p className="saveBudgetButton">Apply Budget</p></div></div></div>
 
         </main>);
 }

@@ -13,6 +13,35 @@
     align-items: center;
 }
 
+.baseBar {
+    padding: 16px 24px;
+    border-radius: 50px;
+    background: linear-gradient(122deg, #F0F4FE, #F7EFFD, #FECFDF, #FFF7EE);
+    margin-top: 20px;
+}
+
+.saveBudgetContainer {
+    background: linear-gradient(122deg, #467AF8, #9C32E2, #FF2955, #FFB15A);
+    padding: 1.5px;
+    width: fit-content;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.saveBudget {
+    background: linear-gradient(122deg, #F0F4FE, #F7EFFD, #FECFDF, #FFF7EE);
+    padding: 8px 12px;
+    border-radius: 4px;
+}
+
+.saveBudgetButton {
+    font-size: 1em;
+    font-weight: 800;
+    background: linear-gradient(122deg, #467AF8, #9C32E2, #FF2955, #FFB15A);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 .sectionContainer {
     display: flex;
     gap: 1em;
