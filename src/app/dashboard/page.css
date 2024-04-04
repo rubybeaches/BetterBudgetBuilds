@@ -21,10 +21,13 @@
 }
 
 .section>table {
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0px;
+    font-size: .95em;
+    margin-top: 20px;
 }
 
-.section>table tr:not(:first-child) {
+.section>table tr:not(:first-child) td {
     border-bottom: 1px solid;
 }
 
@@ -36,19 +39,113 @@
     min-width: 200px;
 }
 
-#summaryTotals {
+.section>table td#summaryMonthly {
+    border: solid 2px;
+    border-radius: 10px 0 0 0;
+    border-width: 2px 0 0 2px;
+    font-weight: 700;
+    padding: 0 12px;
+}
+
+.section>table td#summaryBudget {
+    border: solid 2px;
+    border-radius: 0 10px 0 0;
+    border-width: 2px 2px 0 0;
+    font-weight: 700;
+    text-align: end;
+    padding-right: 26px;
+    padding: 0 18px;
+}
+
+.section>table tr td.summaryProgressBar {
+    border: solid 2px;
+    border-width: 0 2px 0 2px;
+    position: relative;
+    width: 380px;
+    padding: 0 12px;
+}
+
+.section>table tr td.summaryProgressBar span {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    top: 0;
+    width: 350px;
+    gap: 2px;
+}
+
+.section table td.summaryProgressBar #progressMonthly,
+.section table td.summaryProgressBar #progressBudget {
+    border: 2px solid;
+    padding: 2px;
+    z-index: 1;
+    display: flex;
+}
+
+.section table td.summaryProgressBar #progressBudget {
+    background-color: #fff;
+    text-align: end;
+    z-index: 0;
+}
+
+.section td.summaryProgressBar #progressMonthly p,
+.section td.summaryProgressBar #progressBudget p {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 1px 6px;
+    font-weight: 700;
+    font-size: .9em;
+    min-width: fit-content;
+}
+
+.section td.summaryProgressBar #progressBudget p {
+    margin-left: auto;
+}
+
+.section>table tr td#empty {
+    border: none;
+    padding-left: 1em;
+}
+
+#summaryTotals td {
     border-bottom: none;
+}
+
+#summaryTotals td:nth-child(7) {
+    border: solid 2px;
+    border-width: 0 0 2px 2px;
+    border-radius: 0 0 0 10px;
+    font-weight: 600;
+    padding: 0 12px;
+}
+
+#summaryTotals td:nth-child(8) {
+    border: solid 2px;
+    border-width: 0 2px 2px 0;
+    border-radius: 0 0 10px 0;
+    text-align: end;
+    padding-right: 26px;
+    padding: 0 18px;
 }
 
 #summaryTotals em {
     font-size: .9em;
 }
 
+/* Section colors */
+
 #Income {
     color: #09D22F;
 }
 
-#Income.section {
+#Income.section>table td#summaryBudget,
+#Income.section>table td#summaryMonthly,
+#Income.section>table tr td.summaryProgressBar {
+    background-color: #D0FFD0;
+}
+
+#Income.section,
+#Income.section>table tr td#empty {
     background-color: #EBFCEB;
 }
 
@@ -56,11 +153,15 @@
     color: var(--blue-color);
 }
 
-#Essential #summaryTotals {
+#Essential #summaryTotals,
+#Essential.section>table td#summaryBudget,
+#Essential.section>table td#summaryMonthly,
+#Essential.section>table tr td.summaryProgressBar {
     background-color: var(--blue-highlight);
 }
 
-#Essential.section {
+#Essential.section,
+#Essential.section>table tr td#empty {
     background-color: var(--blue-background);
 }
 
@@ -68,23 +169,30 @@
     color: var(--purple-color);
 }
 
-#Non-Essential #summaryTotals {
+#Non-Essential #summaryTotals,
+#Non-Essential.section>table td#summaryBudget,
+#Non-Essential.section>table td#summaryMonthly,
+#Non-Essential.section>table tr td.summaryProgressBar {
     background-color: var(--purple-highlight);
 }
 
-#Non-Essential.section {
+#Non-Essential.section,
+#Non-Essential.section>table tr td#empty {
     background-color: var(--purple-background);
-    ;
 }
 
 #Savings {
     color: var(--orange-color);
 }
 
-#Savings #summaryTotals {
+#Savings #summaryTotals,
+#Savings.section>table td#summaryBudget,
+#Savings.section>table td#summaryMonthly,
+#Savings.section>table tr td.summaryProgressBar {
     background-color: var(--orange-highlight);
 }
 
-#Savings.section {
+#Savings.section,
+#Savings.section>table tr td#empty {
     background-color: var(--orange-background);
 }
