@@ -55,8 +55,8 @@ export const defaultIncomeCategories = [
             "Rebate"
         ],
         "min": 5,
-        "max": 100,
-        "curr": 100,
+        "max": 65,
+        "curr": 60,
         "active": 1,
         "type": "income"
     }

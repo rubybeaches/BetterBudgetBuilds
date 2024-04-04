@@ -23,8 +23,8 @@ const SummaryTable = ({ categories }: { categories: category[] }) => {
                     <td>$0.00</td>
                     <td id="empty"></td>
                     <td className="summaryProgressBar" colSpan={2}><span>
-                        <div id="progressMonthly" style={{ width: `${(category.curr + 30) / 100 * 350}px` }}><p>$ 10.00</p></div>
-                        <div id="progressBudget" style={{ width: `${(1 - ((category.curr + 30) / 100)) * 350}px` }}><p>$ 20.00</p></div></span></td>
+                        <div id="progressMonthly" style={{ width: `${(category.curr + 30) / 100 * 350}px`, zIndex: `${(category.curr + 30 < 60 ? 1 : 0)}` }}><p>$ 10.00</p></div>
+                        <div id="progressBudget" style={{ width: `${(1 - ((category.curr + 30) / 100)) * 350}px`, zIndex: `${(category.curr + 30 > 60 ? 1 : 0)}` }}><p>$ 20.00</p></div></span></td>
                 </tr>
             ))}
             <tr id="summaryTotals">

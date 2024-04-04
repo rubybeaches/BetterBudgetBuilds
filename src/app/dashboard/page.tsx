@@ -4,6 +4,7 @@ import "./page.css";
 import { setActiveCategories } from "../lib/helpers";
 import SummaryTable from "../components/Dashboard/SummaryTable";
 import { category } from "../lib/types";
+import { defaultIncomeCategories } from "../lib/helpers";
 
 const Dashboard = () => {
     let newDate = new Date()
@@ -29,6 +30,8 @@ const Dashboard = () => {
     const [nonEssentialCategories, setNonEssentialCategories] = useState(setActiveCategories(userCategories, "non-essential"));
     const [savingCategories, setSavingCategories] = useState(setActiveCategories(userCategories, "savings"));
 
+    const incomeMod: category[] = [...defaultIncomeCategories, { ...defaultIncomeCategories[0], category: 'Paycheck', min: 1, max: 35, curr: 5 }];
+
     return (
         <main className="main">
             <h2 className="monthTitle">
@@ -37,6 +40,7 @@ const Dashboard = () => {
 
             <div id="Income" className="section">
                 <h1>Income</h1>
+                <SummaryTable categories={incomeMod} />
             </div>
 
             <div id="Essential" className="section">
