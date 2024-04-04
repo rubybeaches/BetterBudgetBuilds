@@ -32,6 +32,15 @@
   --callout-border-rgb: 172, 175, 176;
   --card-rgb: 180, 185, 188;
   --card-border-rgb: 131, 134, 135;
+  --blue-color: #467AF8;
+  --blue-background: #F0F4FE;
+  --blue-highlight: #d7e8fb;
+  --purple-color: #9C32E2;
+  --purple-background: #F7EFFD;
+  --purple-highlight: #ECD0FF;
+  --orange-color: #FFA73D;
+  --orange-background: #FFF7EE;
+  --orange-highlight: #FCE5CD;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -73,6 +82,15 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 3rem 5rem;
+  min-height: 100vh;
+  color: #323232;
 }
 
 body {

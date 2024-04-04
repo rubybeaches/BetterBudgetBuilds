@@ -1,0 +1,90 @@
+.monthTitle {
+    font-size: 1.8em;
+    font-weight: 600;
+}
+
+.section {
+    padding: 1.5em 2em 2em 2em;
+    border-radius: 20px;
+}
+
+.section>h1 {
+    font-size: 2.6em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.section>h1>em {
+    font-weight: 500;
+    font-size: 2rem;
+    vertical-align: text-top;
+}
+
+.section>table {
+    border-collapse: collapse;
+}
+
+.section>table tr:not(:first-child) {
+    border-bottom: 1px solid;
+}
+
+.section>table td {
+    padding: 6px 1em 6px 6px;
+}
+
+.section>table td:first-child {
+    min-width: 200px;
+}
+
+#summaryTotals {
+    border-bottom: none;
+}
+
+#summaryTotals em {
+    font-size: .9em;
+}
+
+#Income {
+    color: #09D22F;
+}
+
+#Income.section {
+    background-color: #EBFCEB;
+}
+
+#Essential {
+    color: var(--blue-color);
+}
+
+#Essential #summaryTotals {
+    background-color: var(--blue-highlight);
+}
+
+#Essential.section {
+    background-color: var(--blue-background);
+}
+
+#Non-Essential {
+    color: var(--purple-color);
+}
+
+#Non-Essential #summaryTotals {
+    background-color: var(--purple-highlight);
+}
+
+#Non-Essential.section {
+    background-color: var(--purple-background);
+    ;
+}
+
+#Savings {
+    color: var(--orange-color);
+}
+
+#Savings #summaryTotals {
+    background-color: var(--orange-highlight);
+}
+
+#Savings.section {
+    background-color: var(--orange-background);
+}
