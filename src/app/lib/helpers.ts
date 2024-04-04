@@ -20,11 +20,11 @@ export function pascalCase(str: string) {
 // load user info
 
 export const setActiveCategories = (categories: category[], type: string) => {
-    return categories.filter(cat => cat.type == type && cat.active)
+    return categories.filter(cat => cat.type == type && cat.active);
 }
 
 export const setInactiveCategoryList = (categories: category[]) => {
-    return categories.filter(cat => !cat.active)
+    return categories.filter(cat => !cat.active);
 }
 
 // Add/Remove Category Functions
@@ -41,3 +41,23 @@ export const buildInitialAddList = (categories: category[]) => {
     })
     return addList;
 }
+
+
+export const defaultIncomeCategories = [
+    {
+        "category": "Income",
+        "help": [
+            "Paycheck",
+            "Dividends",
+            "Interest Accrual",
+            "Self-Income",
+            "Repayment",
+            "Rebate"
+        ],
+        "min": 5,
+        "max": 100,
+        "curr": 100,
+        "active": 1,
+        "type": "income"
+    }
+]
