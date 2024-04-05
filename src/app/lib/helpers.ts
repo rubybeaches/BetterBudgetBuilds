@@ -161,5 +161,14 @@ export const seedExpenses = [
         "type": "non-essential",
         "recurring": false,
         "linkedAccount": ""
+    },
+    {
+        "amount": 152.65,
+        "category": "Savings",
+        "description": "ally interest",
+        "entryDate": "2024-04-25T17:48:00.000Z",
+        "type": "savings",
+        "recurring": false,
+        "linkedAccount": ""
     }
 ]
