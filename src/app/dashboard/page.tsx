@@ -1,10 +1,12 @@
 'use client'
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./page.css";
 import { setActiveCategories } from "../lib/helpers";
 import SummaryTable from "../components/Dashboard/SummaryTable";
 import { category } from "../lib/types";
 import { defaultIncomeCategories } from "../lib/helpers";
+import { seedExpenses } from "../lib/helpers";
+import ExpenseTable from "../components/Dashboard/ExpenseTable";
 
 const Dashboard = () => {
     let newDate = new Date()
@@ -30,6 +32,16 @@ const Dashboard = () => {
     const [nonEssentialCategories, setNonEssentialCategories] = useState(setActiveCategories(userCategories, "non-essential"));
     const [savingCategories, setSavingCategories] = useState(setActiveCategories(userCategories, "savings"));
 
+    const essentialExpenses = useMemo(() => {
+        return seedExpenses.filter(expense => expense.type == "essential");
+    }, []);
+    const nonEssentialExpenses = useMemo(() => {
+        return seedExpenses.filter(expense => expense.type == "non-essential");
+    }, []);
+    const savingExpenses = useMemo(() => {
+        return seedExpenses.filter(expense => expense.type == "savings");
+    }, []);
+
     const incomeMod: category[] = [...defaultIncomeCategories, { ...defaultIncomeCategories[0], category: 'Paycheck', min: 1, max: 35, curr: 5 }];
 
     return (
@@ -46,17 +58,20 @@ const Dashboard = () => {
             <div id="Essential" className="section">
                 <h1>Essential <em>(60%)</em></h1>
                 <SummaryTable categories={essentialCategories} />
+                <ExpenseTable expense={essentialExpenses} />
             </div>
 
             <div id="Non-Essential" className="section">
                 <h1>Non-Essential <em>(30%)</em></h1>
 
                 <SummaryTable categories={nonEssentialCategories} />
+                <ExpenseTable expense={nonEssentialExpenses} />
             </div>
 
             <div id="Savings" className="section">
                 <h1>Savings <em>(10%)</em></h1>
                 <SummaryTable categories={savingCategories} />
+                <ExpenseTable expense={savingExpenses} />
             </div>
         </main>
     )

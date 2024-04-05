@@ -61,3 +61,105 @@ export const defaultIncomeCategories = [
         "type": "income"
     }
 ]
+
+export const seedExpenses = [
+    {
+        "amount": 34.53,
+        "category": "Eating Out",
+        "description": "A lovely trip to El charro",
+        "entryDate": "2024-04-04T17:48:00.000Z",
+        "type": "non-essential",
+        "recurring": false,
+        "linkedAccount": ""
+    },
+    {
+        "amount": 64.00,
+        "category": "Subscriptions",
+        "description": "planta app",
+        "entryDate": "2024-04-14T17:48:00.000Z",
+        "type": "non-essential",
+        "recurring": false,
+        "linkedAccount": ""
+    },
+    {
+        "amount": 407.60,
+        "category": "Housing",
+        "description": "planta app",
+        "entryDate": "2024-04-14T17:48:00.000Z",
+        "type": "essential",
+        "recurring": false,
+        "linkedAccount": ""
+    },
+    {
+        "amount": 104.60,
+        "category": "Groceries",
+        "description": "meatbals, french fires, and shrimp",
+        "entryDate": "2024-04-12T17:48:00.000Z",
+        "type": "essential",
+        "recurring": false,
+        "linkedAccount": ""
+    },
+    {
+        "amount": 104.60,
+        "category": "Health and Wellness",
+        "description": "milan laser loan",
+        "entryDate": "2024-04-29T17:48:00.000Z",
+        "type": "essential",
+        "recurring": false,
+        "linkedAccount": ""
+    },
+    {
+        "amount": 101.00,
+        "category": "Utilities",
+        "description": "alliant electric",
+        "entryDate": "2024-04-15T17:48:00.000Z",
+        "type": "essential",
+        "recurring": true,
+        "linkedAccount": ""
+    },
+    {
+        "amount": 41.00,
+        "category": "Utilities",
+        "description": "Natural Gas",
+        "entryDate": "2024-04-20T17:48:00.000Z",
+        "type": "essential",
+        "recurring": true,
+        "linkedAccount": ""
+    },
+    {
+        "amount": 21.93,
+        "category": "Subscriptions",
+        "description": "Netflix",
+        "entryDate": "2024-04-19T17:48:00.000Z",
+        "type": "non-essential",
+        "recurring": true,
+        "linkedAccount": ""
+    },
+    {
+        "amount": 26.36,
+        "category": "Subscriptions",
+        "description": "Hulu/disney",
+        "entryDate": "2024-04-22T17:48:00.000Z",
+        "type": "non-essential",
+        "recurring": true,
+        "linkedAccount": ""
+    },
+    {
+        "amount": 89.81,
+        "category": "Self-Care",
+        "description": "new dress and bra",
+        "entryDate": "2024-04-22T17:48:00.000Z",
+        "type": "non-essential",
+        "recurring": false,
+        "linkedAccount": ""
+    },
+    {
+        "amount": 89.81,
+        "category": "Eating Out",
+        "description": "jimmy johns",
+        "entryDate": "2024-04-02T17:48:00.000Z",
+        "type": "non-essential",
+        "recurring": false,
+        "linkedAccount": ""
+    }
+]

@@ -3,7 +3,7 @@ import { category } from "@/app/lib/types";
 const SummaryTable = ({ categories }: { categories: category[] }) => {
 
     return (
-        <table>
+        <table id="summaryTable">
             <tr>
                 <td></td>
                 <td>Week One</td>
