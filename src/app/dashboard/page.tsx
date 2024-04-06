@@ -7,6 +7,7 @@ import { category } from "../lib/types";
 import { defaultIncomeCategories } from "../lib/helpers";
 import { seedExpenses } from "../lib/helpers";
 import ExpenseTable from "../components/Dashboard/ExpenseTable";
+import categories from '../lib/seed.json'
 
 const Dashboard = () => {
     let newDate = new Date()
@@ -15,7 +16,7 @@ const Dashboard = () => {
     let month = newDate.toLocaleString("en-US", { month: "long" });
     // let year = newDate.getFullYear();
 
-    const [userCategories, setUserCategories] = useState<category[]>([]);
+    const [userCategories, setUserCategories] = useState<category[]>(categories);
 
     useEffect(() => {
         const items: any = localStorage.getItem('userCategories');
@@ -63,7 +64,6 @@ const Dashboard = () => {
 
             <div id="Non-Essential" className="section">
                 <h1>Non-Essential <em>(30%)</em></h1>
-
                 <SummaryTable categories={nonEssentialCategories} />
                 <ExpenseTable expense={nonEssentialExpenses} />
             </div>
