@@ -34,8 +34,8 @@ const SummaryTable = ({ categories, expenses, monthlyIncome }: { categories: cat
                         <td>$0.00</td>
                         <td id="empty"></td>
                         <td className="summaryProgressBar" colSpan={2}><span>
-                            <div id="progressMonthly" style={{ width: `${getBudgetExpenseRatio(category) * 350}px`, zIndex: `${(category.curr + 30 < 60 ? 1 : 0)}` }}><p>$ {convertToFloat(getExpenses(category.category))}</p></div>
-                            <div id="progressBudget" style={{ width: `${(1 - getBudgetExpenseRatio(category)) * 350}px`, zIndex: `${(category.curr + 30 > 60 ? 1 : 0)}` }}><p>$ {multiplyPercentToFloat(category.curr, monthlyIncome)}</p></div></span></td>
+                            <div id="progressMonthly" style={{ width: `${getBudgetExpenseRatio(category) * 350}px`, zIndex: `${(getBudgetExpenseRatio(category) < .6 ? 1 : 0)}` }}><p>$ {convertToFloat(getExpenses(category.category))}</p></div>
+                            <div id="progressBudget" style={{ width: `${(1 - getBudgetExpenseRatio(category)) * 350}px`, zIndex: `${(getBudgetExpenseRatio(category) > .6 ? 1 : 0)}` }}><p>$ {multiplyPercentToFloat(category.curr, monthlyIncome)}</p></div></span></td>
                     </tr>
                 ))}
                 <tr id="summaryTotals">

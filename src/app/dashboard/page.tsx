@@ -19,6 +19,26 @@ const Dashboard = () => {
     const [income, setIncome] = useState(0);
     const monthlyIncome = income / 12;
 
+    const weeksInMonth = (year: number, month: number, weekCount: number) => {
+        const lastDay = new Date(year, month + 1, 0).getDate();
+        const beginArray = [1, 8, 15, 22];
+        const endArray = [7, 14, 21, lastDay];
+
+        const weekBoundBegin = new Date(year, month, beginArray[weekCount - 1]);
+        const weekBoundEnd = new Date(year, month, endArray[weekCount - 1]);
+
+        return [weekBoundBegin, weekBoundEnd];
+    }
+
+    const isDateInWeek = (boundBegin: Date, boundEnd: Date, checkDate: Date) => {
+        return boundBegin <= checkDate && checkDate <= boundEnd;
+    }
+
+    const [weekOneBegin, WeekOneEnd] = weeksInMonth(newDate.getFullYear(), newDate.getMonth(), 1);
+    const [weekTwoBegin, WeekTwoEnd] = weeksInMonth(newDate.getFullYear(), newDate.getMonth(), 2);
+    const [weekThreeBegin, WeekThreeEnd] = weeksInMonth(newDate.getFullYear(), newDate.getMonth(), 3);
+    const [weekFourBegin, WeekFourEnd] = weeksInMonth(newDate.getFullYear(), newDate.getMonth(), 4);
+
     useEffect(() => {
         const items: any = localStorage.getItem('userCategories');
         if (items) {
