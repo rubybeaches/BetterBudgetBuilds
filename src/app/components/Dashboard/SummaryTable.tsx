@@ -1,6 +1,16 @@
-import { category } from "@/app/lib/types";
+import { convertToFloat, multiplyPercentToFloat } from "@/app/lib/helpers";
+import { category, expense } from "@/app/lib/types";
 
-const SummaryTable = ({ categories }: { categories: category[] }) => {
+const SummaryTable = ({ categories, expenses, monthlyIncome }: { categories: category[], expenses: expense[], monthlyIncome: number }) => {
+
+    const getExpenses = (category: string) => {
+        return expenses.reduce((sum, expense) => expense.category == category ? sum + expense.amount : sum, 0);
+    }
+
+    const getBudgetExpenseRatio = (category: category) => {
+        const percent = getExpenses(category.category) / (category.curr / 100 * monthlyIncome);
+        return percent > 1 ? 1 : percent;
+    }
 
     return (
         <table id="summaryTable">
@@ -24,8 +34,8 @@ const SummaryTable = ({ categories }: { categories: category[] }) => {
                         <td>$0.00</td>
                         <td id="empty"></td>
                         <td className="summaryProgressBar" colSpan={2}><span>
-                            <div id="progressMonthly" style={{ width: `${(category.curr + 30) / 100 * 350}px`, zIndex: `${(category.curr + 30 < 60 ? 1 : 0)}` }}><p>$ 10.00</p></div>
-                            <div id="progressBudget" style={{ width: `${(1 - ((category.curr + 30) / 100)) * 350}px`, zIndex: `${(category.curr + 30 > 60 ? 1 : 0)}` }}><p>$ 20.00</p></div></span></td>
+                            <div id="progressMonthly" style={{ width: `${getBudgetExpenseRatio(category) * 350}px`, zIndex: `${(category.curr + 30 < 60 ? 1 : 0)}` }}><p>$ {convertToFloat(getExpenses(category.category))}</p></div>
+                            <div id="progressBudget" style={{ width: `${(1 - getBudgetExpenseRatio(category)) * 350}px`, zIndex: `${(category.curr + 30 > 60 ? 1 : 0)}` }}><p>$ {multiplyPercentToFloat(category.curr, monthlyIncome)}</p></div></span></td>
                     </tr>
                 ))}
                 <tr id="summaryTotals">

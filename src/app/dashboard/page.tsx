@@ -15,8 +15,9 @@ const Dashboard = () => {
     //let month = newDate.getMonth() + 1;
     let month = newDate.toLocaleString("en-US", { month: "long" });
     // let year = newDate.getFullYear();
-
     const [userCategories, setUserCategories] = useState<category[]>(categories);
+    const [income, setIncome] = useState(0);
+    const monthlyIncome = income / 12;
 
     useEffect(() => {
         const items: any = localStorage.getItem('userCategories');
@@ -26,7 +27,10 @@ const Dashboard = () => {
             setNonEssentialCategories(setActiveCategories(JSON.parse(items), "non-essential"));
             setSavingCategories(setActiveCategories(JSON.parse(items), "savings"));
         }
-
+        const income: any = localStorage.getItem('income');
+        if (income) {
+            setIncome(Number(JSON.parse(income)));
+        }
     }, []);
 
     const [essentialCategories, setEssentialCategories] = useState(setActiveCategories(userCategories, "essential"));
@@ -53,24 +57,24 @@ const Dashboard = () => {
 
             <div id="Income" className="section">
                 <h1>Income</h1>
-                <SummaryTable categories={incomeMod} />
+                <SummaryTable categories={incomeMod} expenses={[]} monthlyIncome={monthlyIncome} />
             </div>
 
             <div id="Essential" className="section">
                 <h1>Essential <em>(60%)</em></h1>
-                <SummaryTable categories={essentialCategories} />
+                <SummaryTable categories={essentialCategories} expenses={essentialExpenses} monthlyIncome={monthlyIncome} />
                 <ExpenseTable expense={essentialExpenses} />
             </div>
 
             <div id="Non-Essential" className="section">
                 <h1>Non-Essential <em>(30%)</em></h1>
-                <SummaryTable categories={nonEssentialCategories} />
+                <SummaryTable categories={nonEssentialCategories} expenses={nonEssentialExpenses} monthlyIncome={monthlyIncome} />
                 <ExpenseTable expense={nonEssentialExpenses} />
             </div>
 
             <div id="Savings" className="section">
                 <h1>Savings <em>(10%)</em></h1>
-                <SummaryTable categories={savingCategories} />
+                <SummaryTable categories={savingCategories} expenses={savingExpenses} monthlyIncome={monthlyIncome} />
                 <ExpenseTable expense={savingExpenses} />
             </div>
         </main>
