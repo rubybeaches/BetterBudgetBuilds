@@ -17,6 +17,11 @@ export function pascalCase(str: string) {
     );
 }
 
+export const isDateInWeek = (boundBegin: Date, boundEnd: Date, checkDate: Date) => {
+    checkDate.setHours(0, 0, 0, 0);
+    return boundBegin <= checkDate && checkDate <= boundEnd;
+}
+
 // load user info
 
 export const setActiveCategories = (categories: category[], type: string) => {
@@ -84,14 +89,14 @@ export const seedExpenses = [
     {
         "amount": 407.60,
         "category": "Housing",
-        "description": "planta app",
+        "description": "mortgage for house",
         "entryDate": "2024-04-14T17:48:00.000Z",
         "type": "essential",
         "recurring": false,
         "linkedAccount": ""
     },
     {
-        "amount": 104.60,
+        "amount": 154.25,
         "category": "Groceries",
         "description": "meatbals, french fires, and shrimp",
         "entryDate": "2024-04-12T17:48:00.000Z",

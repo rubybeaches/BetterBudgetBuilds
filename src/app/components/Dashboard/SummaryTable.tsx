@@ -1,15 +1,42 @@
-import { convertToFloat, multiplyPercentToFloat } from "@/app/lib/helpers";
+import { convertToFloat, isDateInWeek, multiplyPercentToFloat } from "@/app/lib/helpers";
 import { category, expense } from "@/app/lib/types";
+import SummaryRow from "./SummaryRow";
+import { useState } from "react";
 
 const SummaryTable = ({ categories, expenses, monthlyIncome }: { categories: category[], expenses: expense[], monthlyIncome: number }) => {
 
-    const getExpenses = (category: string) => {
-        return expenses.reduce((sum, expense) => expense.category == category ? sum + expense.amount : sum, 0);
+    const newDate = new Date();
+    const fullYear = newDate.getFullYear();
+    const month = newDate.getMonth();
+
+    const weeksInMonth = (year: number, month: number, weekCount: number) => {
+        const lastDay = new Date(year, month + 1, 0).getDate();
+        const beginArray = [1, 8, 15, 22];
+        const endArray = [7, 14, 21, lastDay];
+
+        const weekBoundBegin = new Date(year, month, beginArray[weekCount - 1]);
+        const weekBoundEnd = new Date(year, month, endArray[weekCount - 1]);
+
+        return [weekBoundBegin, weekBoundEnd];
     }
 
-    const getBudgetExpenseRatio = (category: category) => {
-        const percent = getExpenses(category.category) / (category.curr / 100 * monthlyIncome);
-        return percent > 1 ? 1 : percent;
+    const [weekOne, weekTwo, weekThree, weekFour] = [
+        weeksInMonth(fullYear, month, 1),
+        weeksInMonth(fullYear, month, 2),
+        weeksInMonth(fullYear, month, 3),
+        weeksInMonth(fullYear, month, 4)
+    ];
+
+    const sumExpenses = (weekBounds: Date[]) => {
+        return expenses.reduce((sum, expense) => (
+            isDateInWeek(weekBounds[0], weekBounds[1], new Date(expense.entryDate)) ? sum + expense.amount : sum
+        ), 0)
+    };
+
+    const sumBudget = () => {
+        let sum = 0;
+        categories.map(category => sum += category.curr / 100 * monthlyIncome);
+        return sum;
     }
 
     return (
@@ -26,30 +53,25 @@ const SummaryTable = ({ categories, expenses, monthlyIncome }: { categories: cat
                     <td id="summaryBudget">Budget</td>
                 </tr>
                 {categories.map((category, index) => (
-                    <tr key={index}>
-                        <td>{category.category}</td>
-                        <td>$0.00</td>
-                        <td>$0.00</td>
-                        <td>$0.00</td>
-                        <td>$0.00</td>
-                        <td id="empty"></td>
-                        <td className="summaryProgressBar" colSpan={2}><span>
-                            <div id="progressMonthly" style={{ width: `${getBudgetExpenseRatio(category) * 350}px`, zIndex: `${(getBudgetExpenseRatio(category) < .6 ? 1 : 0)}` }}><p>$ {convertToFloat(getExpenses(category.category))}</p></div>
-                            <div id="progressBudget" style={{ width: `${(1 - getBudgetExpenseRatio(category)) * 350}px`, zIndex: `${(getBudgetExpenseRatio(category) > .6 ? 1 : 0)}` }}><p>$ {multiplyPercentToFloat(category.curr, monthlyIncome)}</p></div></span></td>
-                    </tr>
+                    <SummaryRow key={index}
+                        category={category}
+                        expenses={expenses}
+                        monthlyIncome={monthlyIncome}
+                        weeks={[weekOne, weekTwo, weekThree, weekFour]}
+                    />
                 ))}
                 <tr id="summaryTotals">
                     <td><em>Totals</em></td>
-                    <td>$0.00</td>
-                    <td>$0.00</td>
-                    <td>$0.00</td>
-                    <td>$0.00</td>
+                    <td>${sumExpenses(weekOne)}</td>
+                    <td>${sumExpenses(weekTwo)}</td>
+                    <td>${sumExpenses(weekThree)}</td>
+                    <td>${sumExpenses(weekFour)}</td>
                     <td id="empty"></td>
-                    <td>$10.00</td>
-                    <td>$0.00</td>
+                    <td>${sumExpenses([weekOne[0], weekFour[1]])}</td>
+                    <td>${sumBudget()}</td>
                 </tr>
             </tbody>
-        </table>
+        </table >
     )
 }
 
