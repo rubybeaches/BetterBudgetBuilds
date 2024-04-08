@@ -3,7 +3,7 @@ import "./page.css";
 import categories from '../lib/seed.json'
 import { useEffect, useRef, useState } from "react";
 import CategorySection from "../components/Budget/CategorySection";
-import { buildInitialAddList, convertToFloat, setActiveCategories, setInactiveCategoryList } from "../lib/helpers";
+import { buildInitialAddList, convertToFloat, parsetoNum, setActiveCategories, setInactiveCategoryList } from "../lib/helpers";
 import { category } from "../lib/types";
 
 const Budget = () => {
@@ -22,7 +22,7 @@ const Budget = () => {
         }
         const income: any = localStorage.getItem('income');
         if (income) {
-            updateIncome(Number(JSON.parse(income)));
+            updateIncome(String(JSON.parse(income)));
         }
 
     }, []);
@@ -31,8 +31,8 @@ const Budget = () => {
     const incomeRef = useRef<any>();
     const monthlyIncome = income / 12;
 
-    const updateIncome = (input: number) => {
-        const newValue = input || 0;
+    const updateIncome = (input: string) => {
+        const newValue = input || "";
         const inputValue = incomeRef.current;
         if (inputValue) {
             inputValue.value = newValue;
@@ -43,8 +43,8 @@ const Budget = () => {
         }
 
         intervalID.current = setTimeout(() => {
-            setIncome(() => newValue);
-            inputValue.value = convertToFloat(newValue);
+            setIncome(() => parsetoNum(newValue));
+            inputValue.value = convertToFloat(parsetoNum(newValue));
         }, 1000);
     }
 
@@ -94,17 +94,17 @@ const Budget = () => {
             <p>Let's generate a basic bucketing system based on national averages. Don't worry about getting it perfect the first time, you can revisit this at anytime and update your budget moving forward. We've provided percentages based on what is most recommended as a guidepost,  and you can adjust the categories and buckets to your needs. If you're unsure of what you should put in any given bucket, use your best guess until you have a better idea.</p>
 
             <label id="income">What is your annual income after taxes and deductions?
-                <div><span>$</span> <input type="number" defaultValue={0} ref={incomeRef} onChange={(e) => updateIncome(e.target.valueAsNumber)} onKeyDown={(e) => {
+                <div><span>$</span> <input type="text" defaultValue={0} ref={incomeRef} onChange={(e) => updateIncome(e.target.value)} onKeyDown={(e) => {
                     if (e.key == 'Backspace') {
                         e.preventDefault();
-                        updateIncome(0);
+                        updateIncome("");
                     }
                     if (e.key == "Enter") {
                         e.preventDefault();
                         const inputValue = incomeRef.current;
                         if (inputValue) {
                             setIncome(() => inputValue.value);
-                            inputValue.value = convertToFloat(inputValue.valueAsNumber)
+                            inputValue.value = convertToFloat(parsetoNum(inputValue.value));
                         }
                     }
                 }} /></div>

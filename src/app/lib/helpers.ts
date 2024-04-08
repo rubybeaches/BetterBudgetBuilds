@@ -1,11 +1,15 @@
 import { category } from "./types";
 
 export const convertToFloat = (number: number) => {
-    return (number).toFixed(2);
+    return (number).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 export const multiplyPercentToFloat = (percent: number, number: number) => {
-    return (number * percent / 100).toFixed(2);
+    return (number * percent / 100).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+export const parsetoNum = (stringNumber: string) => {
+    return parseFloat(stringNumber.replace(/,/g, '')) || 0;
 }
 
 export function pascalCase(str: string) {
@@ -60,8 +64,8 @@ export const defaultIncomeCategories = [
             "Rebate"
         ],
         "min": 5,
-        "max": 65,
-        "curr": 60,
+        "max": 100,
+        "curr": 100,
         "active": 1,
         "type": "income"
     }
@@ -96,7 +100,7 @@ export const seedExpenses = [
         "linkedAccount": ""
     },
     {
-        "amount": 154.25,
+        "amount": 208.25,
         "category": "Groceries",
         "description": "meatbals, french fires, and shrimp",
         "entryDate": "2024-04-12T17:48:00.000Z",
@@ -173,6 +177,42 @@ export const seedExpenses = [
         "description": "ally interest",
         "entryDate": "2024-04-25T17:48:00.000Z",
         "type": "savings",
+        "recurring": false,
+        "linkedAccount": ""
+    },
+    {
+        "amount": 58.45,
+        "category": "Stocks",
+        "description": "purchasing some stocks",
+        "entryDate": "2024-04-15T17:48:00.000Z",
+        "type": "savings",
+        "recurring": false,
+        "linkedAccount": ""
+    },
+    {
+        "amount": 1451.35,
+        "category": "Income",
+        "description": "first paycheck",
+        "entryDate": "2024-04-01T17:48:00.000Z",
+        "type": "income",
+        "recurring": false,
+        "linkedAccount": ""
+    },
+    {
+        "amount": 1451.35,
+        "category": "Income",
+        "description": "second paycheck",
+        "entryDate": "2024-04-16T17:48:00.000Z",
+        "type": "income",
+        "recurring": false,
+        "linkedAccount": ""
+    },
+    {
+        "amount": 1451.35,
+        "category": "Travel",
+        "description": "ireland tripsecond paycheck",
+        "entryDate": "2024-04-16T17:48:00.000Z",
+        "type": "non-essential",
         "recurring": false,
         "linkedAccount": ""
     }

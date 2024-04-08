@@ -32,13 +32,16 @@ const SummaryRow = ({ category, expenses, monthlyIncome, weeks }: { category: ca
             <td className="summaryProgressBar" colSpan={2}>
                 <span>
                     <div id="progressMonthly"
+                        className={`${(getBudgetExpenseRatio > .8 ? getBudgetExpenseRatio == 1 ? "overBudgetMonthly" : "overBudgetWarning" : '')}`}
                         style={{ width: `${getBudgetExpenseRatio * 350}px`, zIndex: `${(getBudgetExpenseRatio < .6 ? 1 : 0)}` }}>
                         <p>$ {convertToFloat(getExpenses(fullMonth))}</p>
                     </div>
                     <div id="progressBudget"
+                        className={`${(getBudgetExpenseRatio == 1 ? "overBudgetProgress" : '')}`}
                         style={{ width: `${(1 - getBudgetExpenseRatio) * 350}px`, zIndex: `${(getBudgetExpenseRatio > .6 ? 1 : 0)}` }}>
                         <p>$ {multiplyPercentToFloat(category.curr, monthlyIncome)}</p>
                     </div>
+                    <div className={` ${getBudgetExpenseRatio == 1 ? "overBudgetBlock show" : "overBudgetBlock hidden"}`} />
                 </span>
             </td>
         </tr>

@@ -1,4 +1,4 @@
-import { convertToFloat, isDateInWeek, multiplyPercentToFloat } from "@/app/lib/helpers";
+import { convertToFloat, isDateInWeek, multiplyPercentToFloat, parsetoNum } from "@/app/lib/helpers";
 import { category, expense } from "@/app/lib/types";
 import SummaryRow from "./SummaryRow";
 import { useState } from "react";
@@ -28,16 +28,18 @@ const SummaryTable = ({ categories, expenses, monthlyIncome }: { categories: cat
     ];
 
     const sumExpenses = (weekBounds: Date[]) => {
-        return expenses.reduce((sum, expense) => (
+        return convertToFloat(expenses.reduce((sum, expense) => (
             isDateInWeek(weekBounds[0], weekBounds[1], new Date(expense.entryDate)) ? sum + expense.amount : sum
-        ), 0)
+        ), 0))
     };
 
     const sumBudget = () => {
         let sum = 0;
         categories.map(category => sum += category.curr / 100 * monthlyIncome);
-        return sum;
+        return convertToFloat(sum);
     }
+
+    const totalExpenses = sumExpenses([weekOne[0], weekFour[1]]);
 
     return (
         <table id="summaryTable">
@@ -67,7 +69,7 @@ const SummaryTable = ({ categories, expenses, monthlyIncome }: { categories: cat
                     <td>${sumExpenses(weekThree)}</td>
                     <td>${sumExpenses(weekFour)}</td>
                     <td id="empty"></td>
-                    <td>${sumExpenses([weekOne[0], weekFour[1]])}</td>
+                    <td id={parsetoNum(totalExpenses) > parsetoNum(sumBudget()) ? "overBudgetExpenses" : ""}>${totalExpenses}</td>
                     <td>${sumBudget()}</td>
                 </tr>
             </tbody>

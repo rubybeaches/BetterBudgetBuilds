@@ -1,6 +1,6 @@
 
 import { useEffect, useRef } from "react";
-import { multiplyPercentToFloat } from "../../lib/helpers";
+import { multiplyPercentToFloat, parsetoNum } from "../../lib/helpers";
 
 const BudgetInput = ({ monthlyIncome, min, max, current, index, inputSetter }: { monthlyIncome: number, min: number, max: number, index: number, current: number, inputSetter: (min: number, max: number, curr: number, identifier: number) => void }) => {
     const intervalID = useRef<any>();
@@ -14,8 +14,8 @@ const BudgetInput = ({ monthlyIncome, min, max, current, index, inputSetter }: {
         }
     }, [current, monthlyIncome])
 
-    const updateInput = (input: number) => {
-        const newValue = input || 0;
+    const updateInput = (input: string) => {
+        const newValue = input || "";
         const inputValue = inputRef.current;
         if (inputValue) {
             inputValue.value = newValue;
@@ -26,22 +26,22 @@ const BudgetInput = ({ monthlyIncome, min, max, current, index, inputSetter }: {
         }
 
         intervalID.current = setTimeout(() => {
-            inputSetter(min, max, newValue / monthlyIncome * 100, index);
+            inputSetter(min, max, parsetoNum(newValue) / monthlyIncome * 100, index);
         }, 1000);
     }
 
     return (
         <div>
-            <span>$</span> <input type="number" ref={inputRef} onChange={(e) => updateInput(e.target.valueAsNumber)} onKeyDown={(e) => {
+            <span>$</span> <input type="text" ref={inputRef} onChange={(e) => updateInput(e.target.value)} onKeyDown={(e) => {
                 if (e.key == 'Backspace') {
                     e.preventDefault();
-                    updateInput(0);
+                    updateInput("");
                 }
                 if (e.key == "Enter") {
                     e.preventDefault();
                     const inputValue = inputRef.current;
                     if (inputValue) {
-                        inputSetter(min, max, inputValue.value / monthlyIncome * 100, index);
+                        inputSetter(min, max, parsetoNum(inputValue.value) / monthlyIncome * 100, index);
                     }
                 }
             }} />

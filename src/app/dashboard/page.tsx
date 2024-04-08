@@ -43,6 +43,9 @@ const Dashboard = () => {
     const savingExpenses = useMemo(() => {
         return seedExpenses.filter(expense => expense.type == "savings");
     }, []);
+    const incomeExpenses = useMemo(() => {
+        return seedExpenses.filter(expense => expense.type == "income");
+    }, []);
 
     const incomeMod: category[] = [...defaultIncomeCategories, { ...defaultIncomeCategories[0], category: 'Paycheck', min: 1, max: 35, curr: 5 }];
 
@@ -54,7 +57,7 @@ const Dashboard = () => {
 
             <div id="Income" className="section">
                 <h1>Income</h1>
-                <SummaryTable categories={incomeMod} expenses={[]} monthlyIncome={monthlyIncome} />
+                <SummaryTable categories={incomeMod} expenses={incomeExpenses} monthlyIncome={monthlyIncome} />
             </div>
 
             <div id="Essential" className="section">
