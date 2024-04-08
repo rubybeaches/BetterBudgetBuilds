@@ -210,7 +210,7 @@ export const seedExpenses = [
     {
         "amount": 1451.35,
         "category": "Travel",
-        "description": "ireland tripsecond paycheck",
+        "description": "ireland trip",
         "entryDate": "2024-04-16T17:48:00.000Z",
         "type": "non-essential",
         "recurring": false,
