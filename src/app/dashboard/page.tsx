@@ -58,6 +58,7 @@ const Dashboard = () => {
             <div id="Income" className="section">
                 <h1>Income</h1>
                 <SummaryTable categories={incomeMod} expenses={incomeExpenses} monthlyIncome={monthlyIncome} />
+                <ExpenseTable expense={incomeExpenses} />
             </div>
 
             <div id="Essential" className="section">
