@@ -24,39 +24,94 @@ body {
     padding: 8px;
     border-radius: 50px;
     border: 4px solid #323232;
+    display: flex;
+    gap: 1em;
 }
 
-#AddExpenseBar input {
+#AddExpenseBar .typeSelector {
+    background: linear-gradient(135deg, #F0F4FE, #F7EFFD 25%, #FECFDF 75%, #FFF7EE 100%);
+    padding: 5px 12px;
+    border-radius: 20px;
     padding: 5px;
+    cursor: pointer;
+}
+
+.Expense .expenseInput.expense,
+.Expense .expenseInput.expense input,
+#AddExpenseBar .typeSelector #expense {
+    color: #E8034D;
+}
+
+.Expense .expenseInput.income,
+.Expense .expenseInput.income input,
+#AddExpenseBar .typeSelector #income {
+    color: #09D22F;
+}
+
+.Expense .expenseInput.saving,
+.Expense .expenseInput.saving input,
+#AddExpenseBar .typeSelector #saving {
+    color: #FF9900;
+}
+
+#AddExpenseBar .typeSelector span {
+    font-size: 1.4em;
+    font-weight: 800;
+}
+
+#AddExpenseBar .typeSelector .active,
+#AddExpenseBar .typeSelector .inactive {
+    border-radius: 50px;
+    padding: 0 8px;
+}
+
+#AddExpenseBar .typeSelector .active {
+    background-color: #fff;
+}
+
+#AddExpenseBar input,
+#AddExpenseBar select {
+    padding: 5px 12px;
     outline: none;
     border: none;
     border-radius: 20px;
-    font-size: 1.2em;
+    font-size: 1.1em;
+    font-weight: 500;
+}
+
+#AddExpenseBar input[name='description'] {
+    flex: 1;
 }
 
 #AddExpenseBar .expenseInput {
     border-radius: 20px;
     background-color: #fff;
-    width: fit-content;
     padding-left: 8px;
     font-size: 1.2em;
     font-weight: 700;
 }
 
 #AddExpenseBar .expenseInput input {
-    font-size: 1em;
     font-weight: 700;
+    padding-left: 6px;
+    width: 120px;
 }
 
+
+#AddExpenseBar #addExpenseButton {
+    outline: none;
+    background-color: #E8034D;
+    border: #FE9FBF 2px solid;
+    border-radius: 20px;
+    padding: 5px 15px;
+    font-size: 1.2em;
+    color: white;
+    font-weight: 600;
+}
 
 .Expense#AddExpenseBar {
     background-color: #FF6799;
     border-color: #E8034D;
-}
-
-.Expense .expenseInput,
-.Expense .expenseInput input {
-    color: #FF2955;
 }
 
 .section>table#expenseTable {
