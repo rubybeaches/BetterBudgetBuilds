@@ -459,3 +459,12 @@ p.addListItem:first-child {
 #Savings .budgetTotalChart .innerBar {
     background-color: #FCE5CD;
 }
+
+@media screen and (max-width: 650px) {
+
+    .categoryRow>span {
+        visibility: hidden;
+        appearance: none;
+        width: 0;
+    }
+}

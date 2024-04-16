@@ -93,6 +93,12 @@ body {
   color: #323232;
 }
 
+@media screen and (max-width: 650px) {
+  .main {
+    padding: 1rem 1rem;
+  }
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   /* background: linear-gradient(135deg, #F0F4FE, #F7EFFD 25%, #FECFDF 75%, #FFF7EE 100%); */
