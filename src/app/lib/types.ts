@@ -1,19 +1,19 @@
 export type category = {
-    'category': string,
-    'help': string[],
-    'min': number,
-    'max': number,
-    'curr': number,
-    'type': string,
-    'active': number
+  category: string;
+  help: string[];
+  min: number;
+  max: number;
+  curr: number;
+  type: string;
+  active: number;
 };
 
 export type expense = {
-    "amount": number,
-    "category": string,
-    "description": string,
-    "entryDate": string,
-    "type": string,
-    "recurring": boolean,
-    "linkedAccount": string
-}
+  amount: number;
+  category: string;
+  description: string;
+  entryDate: string;
+  type: string;
+  recurring: boolean;
+  linkedAccount: string;
+};
