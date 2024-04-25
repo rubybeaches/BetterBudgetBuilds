@@ -73,7 +73,7 @@ const AddExpenseBar = ({
     } else {
       return [selectCategory, ...incomeCategories];
     }
-  }, [expenseType]);
+  }, [expenseType, categorySelections]);
 
   return (
     <div id="AddExpenseBar" className="Expense">
