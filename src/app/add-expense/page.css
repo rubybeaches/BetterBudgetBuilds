@@ -8,6 +8,15 @@ body {
   );
 }
 
+main#expensePage {
+  padding: 2rem;
+  padding-bottom: 4rem;
+}
+
+.headerWrapper {
+  display: flex;
+  justify-content: space-between;
+}
 .saveBudgetContainer {
   background: linear-gradient(122deg, #467af8, #9c32e2, #ff2955, #ffb15a);
   padding: 1.5px;
@@ -35,6 +44,10 @@ body {
   font-weight: 600;
 }
 
+.expenseColumns {
+  display: flex;
+}
+
 .section {
   padding: 1.5em 2em 2em 2em;
   border-radius: 20px;
@@ -43,6 +56,85 @@ body {
 .section > h2 {
   font-size: 1.2em;
   font-weight: 500;
+}
+
+span.summaryProgressBar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.summaryProgressBar span {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  top: 0;
+  width: 250px;
+  gap: 2px;
+}
+
+.summaryProgressBar #progressMonthly,
+.summaryProgressBar #progressBudget {
+  border: 2px solid;
+  padding: 3px;
+  z-index: 1;
+  display: flex;
+  height: 28px;
+}
+
+.summaryProgressBar #progressBudget {
+  background-color: #fff;
+  text-align: end;
+  z-index: 0;
+}
+
+.summaryProgressBar #progressMonthly p,
+.summaryProgressBar #progressBudget p {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 1px 6px;
+  font-weight: 700;
+  font-size: 0.9em;
+  width: fit-content;
+  position: absolute;
+}
+
+.summaryProgressBar #progressMonthly p {
+  color: #323232;
+}
+
+.summaryProgressBar #progressBudget p {
+  right: 6px;
+}
+
+.summaryProgressBar #progressMonthly.overBudgetMonthly p,
+.summaryProgressBar #progressMonthly.overBudgetWarning p {
+  color: #ff2955;
+}
+
+.summaryProgressBar #progressMonthly.overBudgetMonthly,
+.summaryProgressBar #progressBudget.overBudgetProgress,
+.summaryProgressBar #progressMonthly.overBudgetWarning {
+  background-color: #fe9fbf;
+  border-color: #ff2955;
+}
+
+.overBudgetBlock {
+  background-color: #ff2955;
+  border-color: #ff2955;
+  position: absolute;
+  right: -12px;
+  width: 12px;
+  height: 28px;
+}
+
+.summaryProgressBar #progressMonthly.overBudgetMonthly {
+  border-right: none;
+}
+
+.summaryProgressBar #progressBudget.overBudgetProgress {
+  border-left: none;
+  margin-left: -2px;
 }
 
 #AddExpenseBar {
@@ -54,6 +146,7 @@ body {
   border: 4px solid #323232;
   display: flex;
   gap: 1em;
+  z-index: 99;
 }
 
 #AddExpenseBar .typeSelector {
