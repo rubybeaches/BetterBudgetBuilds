@@ -93,10 +93,10 @@ const AddExpense = () => {
       </span>
 
       <div className="expenseColumns">
-        <div>
+        <div className="summaryWrapper">
           {userCategories.map((category, index) => (
             <span key={index} className="summaryProgressBar">
-              <p>{category.category}</p>
+              <p className="categoryName">{category.category}</p>
               {/* getCategoryExpenses(fullMonth) */}
               <ProgressBar
                 categoryExpenseTotal={150}
