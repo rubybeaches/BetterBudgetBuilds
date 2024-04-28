@@ -145,7 +145,8 @@ span.summaryProgressBar {
 #AddExpenseBar {
   position: fixed;
   bottom: 20px;
-  width: calc(100% - 10rem);
+  width: calc(100% - 20rem);
+  left: 10rem;
   padding: 8px;
   border-radius: 50px;
   border: 3px solid #323232;
