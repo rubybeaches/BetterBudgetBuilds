@@ -32,6 +32,11 @@ const AddExpenseBar = ({
       linkedAccount: "",
     };
 
+    amountRef.current.value = "0.00";
+    descriptionRef.current.value = "";
+    dateRef.current.value = "";
+    handleTypeSelector("expense");
+
     addExpenseCallback(newExpense);
   };
 

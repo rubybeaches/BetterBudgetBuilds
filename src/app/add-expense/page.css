@@ -57,7 +57,7 @@ main#expensePage {
 }
 
 .section {
-  padding: 1.5em 2em 2em 2em;
+  padding: 1.5em 2em;
   border-radius: 20px;
 }
 
@@ -116,6 +116,7 @@ span.summaryProgressBar {
 
 .categoryName {
   padding: 4px 8px;
+  margin-right: 4px;
 }
 
 .summaryProgressBar #progressMonthly p,
@@ -246,6 +247,16 @@ span.summaryProgressBar {
   border-color: #e8034d;
 }
 
+.Expense#AddExpenseBar:has(.typeSelector #income.active) {
+  background-color: #83f899;
+  border-color: #09d22f;
+}
+
+.Expense#AddExpenseBar:has(.typeSelector #saving.active) {
+  background-color: var(--orange-highlight);
+  border-color: var(--orange-color);
+}
+
 .section > table#expenseTable {
   border-collapse: separate;
   border-spacing: 0px;
@@ -271,7 +282,6 @@ span.summaryProgressBar {
 }
 
 .section > table#expenseTable tr td.expenseAmount {
-  color: #ff2955;
   font-weight: 700;
   padding-left: 15px;
 }
@@ -323,6 +333,23 @@ span.summaryProgressBar {
   opacity: 1;
 }
 
+.filter {
+  margin-left: auto;
+  width: fit-content;
+  margin-bottom: 6px;
+  background: #fff;
+  border-radius: 20px;
+  padding: 3px 9px;
+}
+
+.filter select {
+  outline: none;
+  background: none;
+  border: none;
+  position: relative;
+  font-weight: 500;
+}
+
 /* Section colors */
 
 #summaryIncome .summaryProgressBar #progressMonthly.overBudgetMonthly p {
@@ -331,8 +358,15 @@ span.summaryProgressBar {
 
 #Income,
 #summaryIncome > h2,
-#Income.section table#summaryTable tr#summaryTotals #overBudgetExpenses {
+#Income.section table#summaryTable tr#summaryTotals #overBudgetExpenses,
+#Income.section > table#expenseTable tr td.expenseAmount,
+#Income .filter,
+#Income .filter select {
   color: #09d22f;
+}
+
+#Income .filter SVG {
+  fill: #09d22f;
 }
 
 #Income #summaryTotals,
@@ -378,8 +412,14 @@ span.summaryProgressBar {
 }
 
 #Expenses,
-#summaryExpense > h2 {
+#summaryExpense > h2,
+#Expenses.section > table#expenseTable tr td.expenseAmount,
+#Expenses .filter select {
   color: #ff2955;
+}
+
+#Expenses .filter SVG {
+  fill: #ff2955;
 }
 
 #Expenses.section > table#summaryTable tr:not(:first-child) td,
@@ -393,8 +433,14 @@ span.summaryProgressBar {
 
 #Savings,
 #summarySavings > h2,
-#Savings.section table#summaryTable tr#summaryTotals #overBudgetExpenses {
+#Savings.section table#summaryTable tr#summaryTotals #overBudgetExpenses,
+#Savings.section > table#expenseTable tr td.expenseAmount,
+#Savings .filter select {
   color: var(--orange-color);
+}
+
+#Savings .filter SVG {
+  fill: var(--orange-color);
 }
 
 #Savings #summaryTotals,
@@ -450,7 +496,7 @@ span.summaryProgressBar {
   background-color: #ff2955;
   border-color: #ff2955;
   position: absolute;
-  right: -12px;
+  right: -9px;
   width: 12px;
   height: 28px;
 }

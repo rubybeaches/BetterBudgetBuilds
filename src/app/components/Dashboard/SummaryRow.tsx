@@ -1,6 +1,6 @@
 import { isDateInWeek, multiplyPercentToFloat } from "@/app/lib/helpers";
 import { category, expense } from "@/app/lib/types";
-import ProgressBar from "./ProgressBar";
+import ProgressBar from "../ProgressBar";
 
 const SummaryRow = ({
   category,

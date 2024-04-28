@@ -2,11 +2,15 @@
 import { useEffect, useState } from "react";
 import "./page.css";
 import { category, expense } from "../lib/types";
-import { multiplyPercentToFloat, seedExpenses } from "../lib/helpers";
+import {
+  isDateInWeek,
+  multiplyPercentToFloat,
+  seedExpenses,
+} from "../lib/helpers";
 import categories from "../lib/seed.json";
 import ExpenseTable from "../components/Dashboard/ExpenseTable";
 import AddExpenseBar from "../components/AddExpense/AddExpenseBar";
-import ProgressBar from "../components/Dashboard/ProgressBar";
+import ProgressBar from "../components/ProgressBar";
 
 const AddExpense = () => {
   let newDate = new Date();
@@ -70,6 +74,24 @@ const AddExpense = () => {
     callback[expense.type]();
   };
 
+  const weekBoundBegin = new Date(2024, 3, 1);
+  const weekBoundEnd = new Date(2024, 4, 0).getDate();
+
+  const getCategoryExpenses = (expenseGroup: expense[], category: string) => {
+    return expenseGroup.reduce(
+      (sum, exp) =>
+        exp.category == category &&
+        isDateInWeek(
+          weekBoundBegin,
+          new Date(2024, 3, weekBoundEnd),
+          new Date(exp.entryDate)
+        )
+          ? sum + exp.amount
+          : sum,
+      0
+    );
+  };
+
   const saveExpenses = () => {
     let mergeBudgetArrays: expense[] = [];
     mergeBudgetArrays = mergeBudgetArrays.concat(
@@ -112,10 +134,9 @@ const AddExpense = () => {
               <p className="categoryName">{"Paycheck"}</p>
               {/* getCategoryExpenses(fullMonth) */}
               <ProgressBar
-                categoryExpenseTotal={incomeExpenses.reduce(
-                  (sum, exp) =>
-                    exp.category == "Paycheck" ? sum + exp.amount : sum,
-                  0
+                categoryExpenseTotal={getCategoryExpenses(
+                  incomeExpenses,
+                  "Paycheck"
                 )}
                 budgetTotal={"350"}
               />
@@ -125,12 +146,16 @@ const AddExpense = () => {
             <h2>Saving and Planning</h2>
             {userCategories.map(
               (category, index) =>
-                category.type == "savings" && (
+                category.type == "savings" &&
+                category.active == 1 && (
                   <span key={index} className="summaryProgressBar">
                     <p className="categoryName">{category.category}</p>
                     {/* getCategoryExpenses(fullMonth) */}
                     <ProgressBar
-                      categoryExpenseTotal={150}
+                      categoryExpenseTotal={getCategoryExpenses(
+                        savingExpenses,
+                        category.category
+                      )}
                       budgetTotal={multiplyPercentToFloat(
                         category.curr,
                         monthlyIncome
@@ -144,20 +169,24 @@ const AddExpense = () => {
             <h2>Expenses</h2>
             {userCategories.map(
               (category, index) =>
-                category.type == "non-essential" ||
-                (category.type == "essential" && (
+                (category.type == "non-essential" ||
+                  category.type == "essential") &&
+                category.active == 1 && (
                   <span key={index} className="summaryProgressBar">
                     <p className="categoryName">{category.category}</p>
                     {/* getCategoryExpenses(fullMonth) */}
                     <ProgressBar
-                      categoryExpenseTotal={150}
+                      categoryExpenseTotal={getCategoryExpenses(
+                        debtExpenses,
+                        category.category
+                      )}
                       budgetTotal={multiplyPercentToFloat(
                         category.curr,
                         monthlyIncome
                       )}
                     />
                   </span>
-                ))
+                )
             )}
           </div>
         </div>
