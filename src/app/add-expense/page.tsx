@@ -94,19 +94,72 @@ const AddExpense = () => {
 
       <div className="expenseColumns">
         <div className="summaryWrapper">
-          {userCategories.map((category, index) => (
-            <span key={index} className="summaryProgressBar">
-              <p className="categoryName">{category.category}</p>
+          <div id="summaryIncome">
+            <h2>INCOME</h2>
+            <span className="summaryProgressBar">
+              <p className="categoryName">{"Income"}</p>
               {/* getCategoryExpenses(fullMonth) */}
               <ProgressBar
-                categoryExpenseTotal={150}
-                budgetTotal={multiplyPercentToFloat(
-                  category.curr,
-                  monthlyIncome
+                categoryExpenseTotal={incomeExpenses.reduce(
+                  (sum, exp) =>
+                    exp.category == "Income" ? sum + exp.amount : sum,
+                  0
                 )}
+                budgetTotal={"3500"}
               />
             </span>
-          ))}
+            <span className="summaryProgressBar">
+              <p className="categoryName">{"Paycheck"}</p>
+              {/* getCategoryExpenses(fullMonth) */}
+              <ProgressBar
+                categoryExpenseTotal={incomeExpenses.reduce(
+                  (sum, exp) =>
+                    exp.category == "Paycheck" ? sum + exp.amount : sum,
+                  0
+                )}
+                budgetTotal={"350"}
+              />
+            </span>
+          </div>
+          <div id="summarySavings">
+            <h2>Saving and Planning</h2>
+            {userCategories.map(
+              (category, index) =>
+                category.type == "savings" && (
+                  <span key={index} className="summaryProgressBar">
+                    <p className="categoryName">{category.category}</p>
+                    {/* getCategoryExpenses(fullMonth) */}
+                    <ProgressBar
+                      categoryExpenseTotal={150}
+                      budgetTotal={multiplyPercentToFloat(
+                        category.curr,
+                        monthlyIncome
+                      )}
+                    />
+                  </span>
+                )
+            )}
+          </div>
+          <div id="summaryExpense">
+            <h2>Expenses</h2>
+            {userCategories.map(
+              (category, index) =>
+                category.type == "non-essential" ||
+                (category.type == "essential" && (
+                  <span key={index} className="summaryProgressBar">
+                    <p className="categoryName">{category.category}</p>
+                    {/* getCategoryExpenses(fullMonth) */}
+                    <ProgressBar
+                      categoryExpenseTotal={150}
+                      budgetTotal={multiplyPercentToFloat(
+                        category.curr,
+                        monthlyIncome
+                      )}
+                    />
+                  </span>
+                ))
+            )}
+          </div>
         </div>
 
         <div className="expenseTablesWrapper">

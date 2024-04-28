@@ -61,9 +61,18 @@ main#expensePage {
   border-radius: 20px;
 }
 
-.section > h2 {
+.section > h2,
+#summaryIncome > h2,
+#summarySavings > h2,
+#summaryExpense > h2 {
   font-size: 1.2em;
   font-weight: 500;
+  margin-bottom: 10px;
+}
+
+#summarySavings > h2,
+#summaryExpense > h2 {
+  margin-top: 40px;
 }
 
 span.summaryProgressBar {
@@ -122,27 +131,6 @@ span.summaryProgressBar {
 
 .summaryProgressBar #progressBudget p {
   right: 6px;
-}
-
-.summaryProgressBar #progressMonthly.overBudgetMonthly p,
-.summaryProgressBar #progressMonthly.overBudgetWarning p {
-  color: #ff2955;
-}
-
-.summaryProgressBar #progressMonthly.overBudgetMonthly,
-.summaryProgressBar #progressBudget.overBudgetProgress,
-.summaryProgressBar #progressMonthly.overBudgetWarning {
-  background-color: #fe9fbf;
-  border-color: #ff2955;
-}
-
-.overBudgetBlock {
-  background-color: #ff2955;
-  border-color: #ff2955;
-  position: absolute;
-  right: -12px;
-  width: 12px;
-  height: 28px;
 }
 
 .summaryProgressBar #progressMonthly.overBudgetMonthly {
@@ -261,7 +249,6 @@ span.summaryProgressBar {
   border-collapse: separate;
   border-spacing: 0px;
   font-size: 0.9em;
-  margin-top: 20px;
   width: 100%;
 }
 
@@ -325,48 +312,40 @@ span.summaryProgressBar {
   background-color: #fff;
 }
 
+.hidden {
+  appearance: none;
+  opacity: 0;
+}
+
+.show {
+  appearance: visible;
+  opacity: 1;
+}
+
 /* Section colors */
 
-#Income.section
-  table#summaryTable
-  td.summaryProgressBar
-  #progressMonthly.overBudgetWarning
-  p,
-#Savings.section
-  table#summaryTable
-  td.summaryProgressBar
-  #progressMonthly.overBudgetWarning
-  p {
+#summaryIncome .summaryProgressBar #progressMonthly.overBudgetMonthly p {
   color: #323232;
 }
 
 #Income,
-#Income.section
-  table#summaryTable
-  td.summaryProgressBar
-  #progressMonthly.overBudgetMonthly
-  p,
+#summaryIncome > h2,
 #Income.section table#summaryTable tr#summaryTotals #overBudgetExpenses {
   color: #09d22f;
 }
 
 #Income #summaryTotals,
-#Income.section > table#summaryTable td#summaryBudget,
-#Income.section > table#summaryTable td#summaryMonthly,
-#Income.section > table#summaryTable tr td.summaryProgressBar,
-#Income.section
-  table#summaryTable
-  td.summaryProgressBar
-  #progressMonthly.overBudgetMonthly,
-#Income.section
-  table#summaryTable
-  td.summaryProgressBar
-  #progressBudget.overBudgetProgress,
-#Income.section
-  table#summaryTable
-  td.summaryProgressBar
-  #progressMonthly.overBudgetWarning {
+#summaryIncome #summaryBudget,
+#summaryIncome #summaryMonthly {
   background-color: #d0ffd0;
+}
+
+#summaryIncome .summaryProgressBar #progressMonthly.overBudgetMonthly,
+#summaryIncome .summaryProgressBar #progressMonthly.overBudgetWarning,
+#summaryIncome .summaryProgressBar #progressBudget.overBudgetProgress,
+#summarySavings .summaryProgressBar #progressMonthly,
+#summaryExpense .summaryProgressBar #progressMonthly {
+  background-color: #83f899;
 }
 
 #Income.section > table#summaryTable tr:not(:first-child) td,
@@ -375,35 +354,31 @@ span.summaryProgressBar {
 #Income.section > table#expenseTable tr td:first-child,
 #Income.section > table#expenseTable tr td:first-child,
 #Income.section > table#expenseTable tr td:last-child,
-#Income.section
-  table#summaryTable
-  td.summaryProgressBar
-  #progressMonthly.overBudgetMonthly,
-#Income.section
-  table#summaryTable
-  td.summaryProgressBar
-  #progressBudget.overBudgetProgress,
-#Income.section
-  table#summaryTable
-  td.summaryProgressBar
-  #progressMonthly.overBudgetWarning,
+#summaryIncome .summaryProgressBar #progressMonthly.overBudgetMonthly,
+#summaryIncome .summaryProgressBar #progressMonthly.overBudgetWarning,
+#summaryIncome .summaryProgressBar #progressBudget.overBudgetProgress,
+#summarySavings .summaryProgressBar #progressMonthly,
+#summaryExpense .summaryProgressBar #progressMonthly,
 #Income .overBudgetBlock {
   border-color: #09d22f;
 }
 
-#Income .overBudgetBlock {
+#summaryIncome .overBudgetBlock {
   background-color: #09d22f;
 }
 
-#Expenses {
-  color: #ff2955;
+#summaryIncome .summaryProgressBar #progressMonthly,
+#summaryIncome .summaryProgressBar #progressBudget {
+  border-color: var(--blue-color);
 }
 
-#Expenses #summaryTotals,
-#Expenses.section > table#summaryTable td#summaryBudget,
-#Expenses.section > table#summaryTable td#summaryMonthly,
-#Expenses.section > table#summaryTable tr td.summaryProgressBar {
+#summaryIncome .summaryProgressBar #progressMonthly {
   background-color: var(--blue-highlight);
+}
+
+#Expenses,
+#summaryExpense > h2 {
+  color: #ff2955;
 }
 
 #Expenses.section > table#summaryTable tr:not(:first-child) td,
@@ -416,32 +391,20 @@ span.summaryProgressBar {
 }
 
 #Savings,
-#Savings.section
-  table#summaryTable
-  td.summaryProgressBar
-  #progressMonthly.overBudgetMonthly
-  p,
+#summarySavings > h2,
 #Savings.section table#summaryTable tr#summaryTotals #overBudgetExpenses {
   color: var(--orange-color);
 }
 
 #Savings #summaryTotals,
 #Savings.section > table#summaryTable td#summaryBudget,
-#Savings.section > table#summaryTable td#summaryMonthly,
-#Savings.section > table#summaryTable tr td.summaryProgressBar,
-#Savings.section
-  table#summaryTable
-  td.summaryProgressBar
-  #progressMonthly.overBudgetMonthly,
-#Savings.section
-  table#summaryTable
-  td.summaryProgressBar
-  #progressBudget.overBudgetProgress,
-#Savings.section
-  table#summaryTable
-  td.summaryProgressBar
-  #progressMonthly.overBudgetWarning {
+#Savings.section > table#summaryTable td#summaryMonthly {
   background-color: var(--orange-highlight);
+}
+
+#summarySavings .summaryProgressBar #progressMonthly.overBudgetWarning,
+#summaryExpense .summaryProgressBar #progressMonthly.overBudgetWarning {
+  background-color: #fdef81;
 }
 
 #Savings.section > table#summaryTable tr:not(:first-child) td,
@@ -449,23 +412,44 @@ span.summaryProgressBar {
 #Savings.section > table#expenseTable tr:first-child td,
 #Savings.section > table#expenseTable tr td:first-child,
 #Savings.section > table#expenseTable tr td:first-child,
-#Savings.section > table#expenseTable tr td:last-child,
-#Savings.section
-  table#summaryTable
-  td.summaryProgressBar
-  #progressMonthly.overBudgetMonthly,
-#Savings.section
-  table#summaryTable
-  td.summaryProgressBar
-  #progressBudget.overBudgetProgress,
-#Savings.section
-  table#summaryTable
-  td.summaryProgressBar
-  #progressMonthly.overBudgetWarning,
-#Savings .overBudgetBlock {
+#Savings.section > table#expenseTable tr td:last-child {
   border-color: var(--orange-color);
 }
 
-#Savings .overBudgetBlock {
-  background-color: var(--orange-color);
+#summarySavings .summaryProgressBar #progressMonthly.overBudgetProgress,
+#summarySavings .summaryProgressBar #progressMonthly.overBudgetWarning,
+#summarySavings .summaryProgressBar #progressBudget,
+#summaryExpense .summaryProgressBar #progressMonthly.overBudgetProgress,
+#summaryExpense .summaryProgressBar #progressMonthly.overBudgetWarning,
+#summaryExpense .summaryProgressBar #progressBudget {
+  border-color: #f5dd2d;
+}
+
+#summarySavings .overBudgetBlock,
+#summaryExpense .overBudgetBlock {
+  background-color: #ff2955;
+}
+
+.summaryProgressBar #progressMonthly.overBudgetMonthly p {
+  color: #ff2955;
+}
+
+#summarySavings .summaryProgressBar #progressMonthly.overBudgetMonthly,
+#summarySavings .summaryProgressBar #progressBudget.overBudgetProgress,
+#summaryExpense .summaryProgressBar #progressMonthly.overBudgetMonthly,
+#summaryExpense .summaryProgressBar #progressBudget.overBudgetProgress,
+.summaryProgressBar #progressMonthly.overBudgetMonthly,
+.summaryProgressBar #progressBudget.overBudgetProgress,
+.summaryProgressBar #progressMonthly.overBudgetWarning {
+  background-color: #fe9fbf;
+  border-color: #ff2955;
+}
+
+.overBudgetBlock {
+  background-color: #ff2955;
+  border-color: #ff2955;
+  position: absolute;
+  right: -12px;
+  width: 12px;
+  height: 28px;
 }

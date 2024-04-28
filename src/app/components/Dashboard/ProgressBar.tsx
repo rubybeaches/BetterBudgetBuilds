@@ -1,4 +1,4 @@
-import { convertToFloat } from "@/app/lib/helpers";
+import { convertToFloat, parsetoNum } from "@/app/lib/helpers";
 import { useMemo } from "react";
 
 const ProgressBar = ({
@@ -9,8 +9,8 @@ const ProgressBar = ({
   budgetTotal: string;
 }) => {
   const expenseRatio = useMemo(() => {
-    const percent = categoryExpenseTotal / Number(budgetTotal);
-    return percent > 1 ? 1 : percent;
+    const percent = categoryExpenseTotal / parsetoNum(budgetTotal);
+    return percent >= 1 ? 1 : percent;
   }, [categoryExpenseTotal, budgetTotal]);
 
   return (
