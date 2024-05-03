@@ -6,6 +6,8 @@ import {
   isDateInWeek,
   multiplyPercentToFloat,
   seedExpenses,
+  sortCategories,
+  sortExpenses,
 } from "../lib/helpers";
 import categories from "../lib/seed.json";
 import ExpenseTable from "../components/Dashboard/ExpenseTable";
@@ -28,24 +30,23 @@ const AddExpense = () => {
       setIncome(Number(JSON.parse(income)));
     }
     if (items) {
-      setUserCategories(JSON.parse(items));
+      setUserCategories(() => {
+        return sortCategories(JSON.parse(items), "category");
+      });
     }
     if (expenses) {
+      const sortedExpenses = sortExpenses(JSON.parse(expenses), "category");
       setDebtExpenses(
-        JSON.parse(expenses).filter(
+        sortedExpenses.filter(
           (expense: expense) =>
             expense.type == "essential" || expense.type == "non-essential"
         )
       );
       setSavingExpenses(
-        JSON.parse(expenses).filter(
-          (expense: expense) => expense.type == "savings"
-        )
+        sortedExpenses.filter((expense: expense) => expense.type == "savings")
       );
       setIncomeExpenses(
-        JSON.parse(expenses).filter(
-          (expense: expense) => expense.type == "income"
-        )
+        sortedExpenses.filter((expense: expense) => expense.type == "income")
       );
     }
   }, []);
@@ -65,10 +66,22 @@ const AddExpense = () => {
 
   const handleAddExpense = (expense: expense) => {
     const callback: any = {
-      savings: () => setSavingExpenses([...savingExpenses, expense]),
-      essential: () => setDebtExpenses([...debtExpenses, expense]),
-      "non-essential": () => setDebtExpenses([...debtExpenses, expense]),
-      income: () => setIncomeExpenses([...incomeExpenses, expense]),
+      savings: () => {
+        const NewSort = sortExpenses([...savingExpenses, expense], "category");
+        setSavingExpenses(NewSort);
+      },
+      essential: () => {
+        const NewSort = sortExpenses([...debtExpenses, expense], "category");
+        setDebtExpenses(NewSort);
+      },
+      "non-essential": () => {
+        const NewSort = sortExpenses([...debtExpenses, expense], "category");
+        setDebtExpenses(NewSort);
+      },
+      income: () => {
+        const NewSort = sortExpenses([...incomeExpenses, expense], "category");
+        setIncomeExpenses(NewSort);
+      },
     };
 
     callback[expense.type]();
@@ -120,7 +133,6 @@ const AddExpense = () => {
             <h2>INCOME</h2>
             <span className="summaryProgressBar">
               <p className="categoryName">{"Income"}</p>
-              {/* getCategoryExpenses(fullMonth) */}
               <ProgressBar
                 categoryExpenseTotal={incomeExpenses.reduce(
                   (sum, exp) =>
@@ -132,7 +144,6 @@ const AddExpense = () => {
             </span>
             <span className="summaryProgressBar">
               <p className="categoryName">{"Paycheck"}</p>
-              {/* getCategoryExpenses(fullMonth) */}
               <ProgressBar
                 categoryExpenseTotal={getCategoryExpenses(
                   incomeExpenses,
@@ -150,7 +161,6 @@ const AddExpense = () => {
                 category.active == 1 && (
                   <span key={index} className="summaryProgressBar">
                     <p className="categoryName">{category.category}</p>
-                    {/* getCategoryExpenses(fullMonth) */}
                     <ProgressBar
                       categoryExpenseTotal={getCategoryExpenses(
                         savingExpenses,
@@ -174,7 +184,6 @@ const AddExpense = () => {
                 category.active == 1 && (
                   <span key={index} className="summaryProgressBar">
                     <p className="categoryName">{category.category}</p>
-                    {/* getCategoryExpenses(fullMonth) */}
                     <ProgressBar
                       categoryExpenseTotal={getCategoryExpenses(
                         debtExpenses,

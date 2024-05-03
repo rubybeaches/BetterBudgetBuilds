@@ -1,5 +1,5 @@
 import { category, expense } from "@/app/lib/types";
-import { setActiveCategories } from "../../lib/helpers";
+import { setActiveCategories, sortCategories } from "../../lib/helpers";
 import { defaultIncomeCategories } from "../../lib/helpers";
 import { useMemo, useRef, useState } from "react";
 
@@ -50,14 +50,21 @@ const AddExpenseBar = ({
       curr: 5,
     },
   ];
+
+  sortCategories(incomeCategories, "category");
+
   const expenseCategories = useMemo(() => {
-    return categorySelections.filter(
+    const expenses = categorySelections.filter(
       (cat) =>
         (cat.type == "essential" || cat.type == "non-essential") && cat.active
     );
+
+    return sortCategories(expenses, "category");
   }, [categorySelections]);
+
   const savingCategories = useMemo(() => {
-    return setActiveCategories(categorySelections, "savings");
+    const savings = setActiveCategories(categorySelections, "savings");
+    return sortCategories(savings, "category");
   }, [categorySelections]);
 
   const activeCategorySelection = useMemo(() => {

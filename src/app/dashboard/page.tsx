@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import "./page.css";
-import { setActiveCategories } from "../lib/helpers";
+import { setActiveCategories, sortCategories } from "../lib/helpers";
 import SummaryTable from "../components/Dashboard/SummaryTable";
 import { category, expense } from "../lib/types";
 import { defaultIncomeCategories } from "../lib/helpers";
@@ -24,14 +24,15 @@ const Dashboard = () => {
       setUserExpenses(JSON.parse(expenses));
     }
     if (items) {
-      setUserCategories(JSON.parse(items));
+      const sortedCategories = sortCategories(JSON.parse(items), "category");
+      setUserCategories(sortedCategories);
       setEssentialCategories(
-        setActiveCategories(JSON.parse(items), "essential")
+        setActiveCategories(sortedCategories, "essential")
       );
       setNonEssentialCategories(
-        setActiveCategories(JSON.parse(items), "non-essential")
+        setActiveCategories(sortedCategories, "non-essential")
       );
-      setSavingCategories(setActiveCategories(JSON.parse(items), "savings"));
+      setSavingCategories(setActiveCategories(sortedCategories, "savings"));
     }
     const income: any = localStorage.getItem("income");
     if (income) {

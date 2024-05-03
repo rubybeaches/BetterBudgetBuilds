@@ -1,12 +1,6 @@
-import {
-  convertToFloat,
-  isDateInWeek,
-  multiplyPercentToFloat,
-  parsetoNum,
-} from "@/app/lib/helpers";
+import { convertToFloat, isDateInWeek, parsetoNum } from "@/app/lib/helpers";
 import { category, expense } from "@/app/lib/types";
 import SummaryRow from "./SummaryRow";
-import { useState } from "react";
 
 const SummaryTable = ({
   categories,

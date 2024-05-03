@@ -1,20 +1,12 @@
-import { convertToFloat } from "@/app/lib/helpers";
+import { convertToFloat, sortExpenses } from "@/app/lib/helpers";
 import { expense } from "@/app/lib/types";
 import { useMemo, useState } from "react";
 
 const ExpenseTable = ({ expense }: { expense: expense[] }) => {
   const [filter, setFilter] = useState<keyof expense>("entryDate");
 
-  const sortedExpenses = useMemo(() => {
-    return expense.sort((a, b) => {
-      if (a[filter] < b[filter]) {
-        return -1;
-      }
-      if (a[filter] > b[filter]) {
-        return 1;
-      }
-      return 0;
-    });
+  const sortedExpenses: expense[] = useMemo(() => {
+    return sortExpenses(expense, filter);
   }, [expense, filter]);
 
   return (
