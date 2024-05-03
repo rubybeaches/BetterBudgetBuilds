@@ -59,6 +59,7 @@ main#expensePage {
 .section {
   padding: 1.5em 2em;
   border-radius: 20px;
+  position: relative;
 }
 
 .section > h2,
@@ -334,12 +335,13 @@ span.summaryProgressBar {
 }
 
 .filter {
-  margin-left: auto;
   width: fit-content;
-  margin-bottom: 6px;
   background: #fff;
   border-radius: 20px;
   padding: 3px 9px;
+  position: absolute;
+  right: 32px;
+  top: 24px;
 }
 
 .filter select {
