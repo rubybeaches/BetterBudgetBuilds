@@ -5,7 +5,6 @@ import { category, expense } from "../lib/types";
 import {
   allMonths,
   filterExpensesByMonth,
-  isDateInWeek,
   multiplyPercentToFloat,
   seedExpenses,
   sortCategories,
