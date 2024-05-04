@@ -13,7 +13,7 @@ const SummaryTable = ({
 }) => {
   const newDate = new Date();
   const fullYear = newDate.getFullYear();
-  const month = newDate.getMonth();
+  let month = newDate.getMonth() + 1;
 
   const weeksInMonth = (year: number, month: number, weekCount: number) => {
     const lastDay = new Date(year, month + 1, 0).getDate();
