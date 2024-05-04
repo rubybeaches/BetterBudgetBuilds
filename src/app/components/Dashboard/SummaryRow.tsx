@@ -1,4 +1,9 @@
-import { isDateInWeek, multiplyPercentToFloat } from "@/app/lib/helpers";
+import {
+  convertToFloat,
+  isDateInWeek,
+  multiplyPercentToFloat,
+  parsetoNum,
+} from "@/app/lib/helpers";
 import { category, expense } from "@/app/lib/types";
 import ProgressBar from "../ProgressBar";
 
@@ -17,18 +22,25 @@ const SummaryRow = ({
   const weekTwo: Date[] = weeks[1];
   const weekThree: Date[] = weeks[2];
   const weekFour: Date[] = weeks[3];
-  const fullMonth: Date[] = [weekOne[0], weekFour[1]];
 
   const getCategoryExpenses = (weekBounds: Date[]) => {
-    return expenses.reduce(
-      (sum, expense) =>
-        expense.category == category.category &&
-        isDateInWeek(weekBounds[0], weekBounds[1], new Date(expense.entryDate))
-          ? sum + expense.amount
-          : sum,
-      0
+    return convertToFloat(
+      expenses.reduce(
+        (sum, expense) =>
+          expense.category == category.category &&
+          isDateInWeek(
+            weekBounds[0],
+            weekBounds[1],
+            new Date(expense.entryDate)
+          )
+            ? sum + expense.amount
+            : sum,
+        0
+      )
     );
   };
+
+  const monthExpenseTotal = getCategoryExpenses([weekOne[0], weekFour[1]]);
 
   return (
     <tr>
@@ -40,7 +52,7 @@ const SummaryRow = ({
       <td id="empty"></td>
       <td className="summaryProgressBar" colSpan={2}>
         <ProgressBar
-          categoryExpenseTotal={getCategoryExpenses(fullMonth)}
+          categoryExpenseTotal={parsetoNum(monthExpenseTotal)}
           budgetTotal={multiplyPercentToFloat(category.curr, monthlyIncome)}
         />
       </td>

@@ -1,4 +1,4 @@
-import { convertToFloat, isDateInWeek, parsetoNum } from "@/app/lib/helpers";
+import { convertToFloat, isDateInWeek, parsetoNum, weeksInMonth } from "@/app/lib/helpers";
 import { category, expense } from "@/app/lib/types";
 import SummaryRow from "./SummaryRow";
 
@@ -6,25 +6,16 @@ const SummaryTable = ({
   categories,
   expenses,
   monthlyIncome,
+  monthIndex,
 }: {
   categories: category[];
   expenses: expense[];
   monthlyIncome: number;
+  monthIndex: number;
 }) => {
-  const newDate = new Date();
-  const fullYear = newDate.getFullYear();
-  let month = newDate.getMonth() + 1;
-
-  const weeksInMonth = (year: number, month: number, weekCount: number) => {
-    const lastDay = new Date(year, month + 1, 0).getDate();
-    const beginArray = [1, 8, 15, 22];
-    const endArray = [7, 14, 21, lastDay];
-
-    const weekBoundBegin = new Date(year, month, beginArray[weekCount - 1]);
-    const weekBoundEnd = new Date(year, month, endArray[weekCount - 1]);
-
-    return [weekBoundBegin, weekBoundEnd];
-  };
+  const today = new Date();
+  const fullYear = today.getFullYear();
+  let month = new Date(fullYear, monthIndex).getMonth();
 
   const [weekOne, weekTwo, weekThree, weekFour] = [
     weeksInMonth(fullYear, month, 1),

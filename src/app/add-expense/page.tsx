@@ -1,8 +1,10 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./page.css";
 import { category, expense } from "../lib/types";
 import {
+  allMonths,
+  filterExpensesByMonth,
   isDateInWeek,
   multiplyPercentToFloat,
   seedExpenses,
@@ -14,13 +16,27 @@ import ExpenseTable from "../components/Dashboard/ExpenseTable";
 import AddExpenseBar from "../components/AddExpense/AddExpenseBar";
 import ProgressBar from "../components/ProgressBar";
 
-const AddExpense = () => {
-  let newDate = new Date();
-  let month = newDate.toLocaleString("en-US", { month: "long" });
+const AddExpense = ({
+  searchParams,
+}: {
+  searchParams?: {
+    month?: string;
+  };
+}) => {
+  const monthParam = searchParams?.month || "";
+  let today = new Date();
+  let month = allMonths.includes(monthParam)
+    ? monthParam
+    : today.toLocaleString("en-US", { month: "long" });
+  const year = today.getFullYear();
   const [userCategories, setUserCategories] = useState<category[]>(categories);
   const [userExpenses, setUserExpenses] = useState<expense[]>(seedExpenses);
   const [income, setIncome] = useState(0);
   const monthlyIncome = income / 12;
+
+  const monthExpenses = useMemo(() => {
+    return filterExpensesByMonth(userExpenses, year, allMonths.indexOf(month));
+  }, [userExpenses, month]);
 
   useEffect(() => {
     const items: any = localStorage.getItem("userCategories");
@@ -36,32 +52,37 @@ const AddExpense = () => {
     }
     if (expenses) {
       const sortedExpenses = sortExpenses(JSON.parse(expenses), "category");
+      const filteredExpenses = filterExpensesByMonth(
+        sortedExpenses,
+        year,
+        allMonths.indexOf(month)
+      );
       setDebtExpenses(
-        sortedExpenses.filter(
+        filteredExpenses.filter(
           (expense: expense) =>
             expense.type == "essential" || expense.type == "non-essential"
         )
       );
       setSavingExpenses(
-        sortedExpenses.filter((expense: expense) => expense.type == "savings")
+        filteredExpenses.filter((expense: expense) => expense.type == "savings")
       );
       setIncomeExpenses(
-        sortedExpenses.filter((expense: expense) => expense.type == "income")
+        filteredExpenses.filter((expense: expense) => expense.type == "income")
       );
     }
   }, []);
 
   const [debtExpenses, setDebtExpenses] = useState(
-    userExpenses.filter(
+    monthExpenses.filter(
       (expense) =>
         expense.type == "essential" || expense.type == "non-essential"
     )
   );
   const [savingExpenses, setSavingExpenses] = useState(
-    userExpenses.filter((expense) => expense.type == "savings")
+    monthExpenses.filter((expense) => expense.type == "savings")
   );
   const [incomeExpenses, setIncomeExpenses] = useState(
-    userExpenses.filter((expense) => expense.type == "income")
+    monthExpenses.filter((expense) => expense.type == "income")
   );
 
   const handleAddExpense = (expense: expense) => {
@@ -87,20 +108,9 @@ const AddExpense = () => {
     callback[expense.type]();
   };
 
-  const weekBoundBegin = new Date(2024, 3, 1);
-  const weekBoundEnd = new Date(2024, 4, 0).getDate();
-
   const getCategoryExpenses = (expenseGroup: expense[], category: string) => {
     return expenseGroup.reduce(
-      (sum, exp) =>
-        exp.category == category &&
-        isDateInWeek(
-          weekBoundBegin,
-          new Date(2024, 3, weekBoundEnd),
-          new Date(exp.entryDate)
-        )
-          ? sum + exp.amount
-          : sum,
+      (sum, exp) => (exp.category == category ? sum + exp.amount : sum),
       0
     );
   };
@@ -201,17 +211,30 @@ const AddExpense = () => {
         </div>
 
         <div className="expenseTablesWrapper">
-          <div id="Income" className="section">
+          <div
+            id="Income"
+            className={`section ${
+              incomeExpenses.length > 0 ? "show" : "hidden"
+            }`}
+          >
             <h2>Generated Income</h2>
             <ExpenseTable expense={incomeExpenses} />
           </div>
 
-          <div id="Savings" className="section">
+          <div
+            id="Savings"
+            className={`section ${
+              savingExpenses.length > 0 ? "show" : "hidden"
+            }`}
+          >
             <h2>Saving and Planning Accounts</h2>
             <ExpenseTable expense={savingExpenses} />
           </div>
 
-          <div id="Expenses" className="section">
+          <div
+            id="Expenses"
+            className={`section ${debtExpenses.length > 0 ? "show" : "hidden"}`}
+          >
             <h2>Recurring and Variable Expenses</h2>
             <ExpenseTable expense={debtExpenses} />
           </div>

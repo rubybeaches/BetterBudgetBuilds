@@ -1,7 +1,11 @@
 import { category, expense } from "./types";
 
 export const convertToFloat = (number: number) => {
-  return number.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return number.toLocaleString("en-US", {
+    maximumFractionDigits: 2,
+    minimumFractionDigits: 2,
+  });
+  //.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
 export const multiplyPercentToFloat = (percent: number, number: number) => {
@@ -20,6 +24,21 @@ export function pascalCase(str: string) {
   });
 }
 
+export const allMonths = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
 export const isDateInWeek = (
   boundBegin: Date,
   boundEnd: Date,
@@ -27,6 +46,34 @@ export const isDateInWeek = (
 ) => {
   checkDate.setHours(0, 0, 0, 0);
   return boundBegin <= checkDate && checkDate <= boundEnd;
+};
+
+export const isDateInMonth = (
+  monthIndex: number,
+  year: number,
+  checkDate: Date
+) => {
+  const lastDay = new Date(year, monthIndex + 1, 0).getDate();
+  const boundBegin = new Date(year, monthIndex, 1);
+  const boundEnd = new Date(year, monthIndex, lastDay);
+
+  checkDate.setHours(0, 0, 0, 0);
+  return boundBegin <= checkDate && checkDate <= boundEnd;
+};
+
+export const weeksInMonth = (
+  year: number,
+  month: number,
+  weekCount: number
+) => {
+  const lastDay = new Date(year, month + 1, 0).getDate();
+  const beginArray = [1, 8, 15, 22];
+  const endArray = [7, 14, 21, lastDay];
+
+  const weekBoundBegin = new Date(year, month, beginArray[weekCount - 1]);
+  const weekBoundEnd = new Date(year, month, endArray[weekCount - 1]);
+
+  return [weekBoundBegin, weekBoundEnd];
 };
 
 export const sortCategories = (array: category[], filter: keyof category) => {
@@ -54,6 +101,16 @@ export const sortExpenses = (array: expense[], filter: keyof expense) => {
 };
 
 // load user info
+
+export const filterExpensesByMonth = (
+  expense: expense[],
+  year: number,
+  month: number
+) => {
+  return expense.filter((exp) =>
+    isDateInMonth(month, year, new Date(exp.entryDate))
+  );
+};
 
 export const setActiveCategories = (categories: category[], type: string) => {
   return categories.filter((cat) => cat.type == type && cat.active);

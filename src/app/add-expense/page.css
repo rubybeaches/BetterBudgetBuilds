@@ -324,32 +324,17 @@ span.summaryProgressBar {
   background-color: #fff;
 }
 
-.hidden {
+.hidden,
+.hidden * {
   appearance: none;
   opacity: 0;
+  height: 0;
+  padding: 0;
 }
 
 .show {
   appearance: visible;
   opacity: 1;
-}
-
-.filter {
-  width: fit-content;
-  background: #fff;
-  border-radius: 20px;
-  padding: 3px 9px;
-  position: absolute;
-  right: 32px;
-  top: 24px;
-}
-
-.filter select {
-  outline: none;
-  background: none;
-  border: none;
-  position: relative;
-  font-weight: 600;
 }
 
 /* Section colors */

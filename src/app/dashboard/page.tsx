@@ -1,7 +1,12 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import "./page.css";
-import { setActiveCategories, sortCategories } from "../lib/helpers";
+import {
+  allMonths,
+  filterExpensesByMonth,
+  setActiveCategories,
+  sortCategories,
+} from "../lib/helpers";
 import SummaryTable from "../components/Dashboard/SummaryTable";
 import { category, expense } from "../lib/types";
 import { defaultIncomeCategories } from "../lib/helpers";
@@ -17,30 +22,20 @@ const Dashboard = ({
     month?: string;
   };
 }) => {
-  const allMonths = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
   const monthParam = searchParams?.month || "";
   let today = new Date();
   let month = allMonths.includes(monthParam)
     ? monthParam
     : today.toLocaleString("en-US", { month: "long" });
+  const year = today.getFullYear();
   const [userCategories, setUserCategories] = useState<category[]>(categories);
   const [userExpenses, setUserExpenses] = useState<expense[]>(seedExpenses);
   const [income, setIncome] = useState(0);
   const monthlyIncome = income / 12;
+
+  const monthExpenses = useMemo(() => {
+    return filterExpensesByMonth(userExpenses, year, allMonths.indexOf(month));
+  }, [userExpenses, month]);
 
   useEffect(() => {
     const items: any = localStorage.getItem("userCategories");
@@ -86,17 +81,17 @@ const Dashboard = ({
   );
 
   const essentialExpenses = useMemo(() => {
-    return userExpenses.filter((expense) => expense.type == "essential");
-  }, [userExpenses]);
+    return monthExpenses.filter((expense) => expense.type == "essential");
+  }, [monthExpenses]);
   const nonEssentialExpenses = useMemo(() => {
-    return userExpenses.filter((expense) => expense.type == "non-essential");
-  }, [userExpenses]);
+    return monthExpenses.filter((expense) => expense.type == "non-essential");
+  }, [monthExpenses]);
   const savingExpenses = useMemo(() => {
-    return userExpenses.filter((expense) => expense.type == "savings");
-  }, [userExpenses]);
+    return monthExpenses.filter((expense) => expense.type == "savings");
+  }, [monthExpenses]);
   const incomeExpenses = useMemo(() => {
-    return userExpenses.filter((expense) => expense.type == "income");
-  }, [userExpenses]);
+    return monthExpenses.filter((expense) => expense.type == "income");
+  }, [monthExpenses]);
 
   const incomeMod: category[] = [
     ...defaultIncomeCategories,
@@ -117,7 +112,7 @@ const Dashboard = ({
           onChange={(e) => changeMonth(e.target.value)}
         >
           {allMonths.map((m) => (
-            <option value={m} label={m} />
+            <option key={m} value={m} label={m} />
           ))}
         </select>{" "}
         Budget Dashboard
@@ -129,6 +124,7 @@ const Dashboard = ({
           categories={incomeMod}
           expenses={incomeExpenses}
           monthlyIncome={monthlyIncome}
+          monthIndex={allMonths.indexOf(month)}
         />
         <ExpenseTable expense={incomeExpenses} />
       </div>
@@ -141,6 +137,7 @@ const Dashboard = ({
           categories={essentialCategories}
           expenses={essentialExpenses}
           monthlyIncome={monthlyIncome}
+          monthIndex={allMonths.indexOf(month)}
         />
         <ExpenseTable expense={essentialExpenses} />
       </div>
@@ -153,6 +150,7 @@ const Dashboard = ({
           categories={nonEssentialCategories}
           expenses={nonEssentialExpenses}
           monthlyIncome={monthlyIncome}
+          monthIndex={allMonths.indexOf(month)}
         />
         <ExpenseTable expense={nonEssentialExpenses} />
       </div>
@@ -165,6 +163,7 @@ const Dashboard = ({
           categories={savingCategories}
           expenses={savingExpenses}
           monthlyIncome={monthlyIncome}
+          monthIndex={allMonths.indexOf(month)}
         />
         <ExpenseTable expense={savingExpenses} />
       </div>

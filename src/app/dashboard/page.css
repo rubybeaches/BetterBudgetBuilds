@@ -17,6 +17,7 @@
 .section {
   padding: 1.5em 2em 2em 2em;
   border-radius: 20px;
+  position: relative;
 }
 
 .section > h1 {
