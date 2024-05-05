@@ -2,6 +2,7 @@ import { category, expense } from "@/app/lib/types";
 import { setActiveCategories, sortCategories } from "../../lib/helpers";
 import { defaultIncomeCategories } from "../../lib/helpers";
 import { useMemo, useRef, useState } from "react";
+import { v4 as uuid } from "uuid";
 
 const AddExpenseBar = ({
   categorySelections,
@@ -23,6 +24,7 @@ const AddExpenseBar = ({
 
   const handleAdd = () => {
     const newExpense: expense = {
+      id: uuid(),
       amount: Number(amountRef.current.value),
       category: selectRef.current.value.split(",")[0],
       description: descriptionRef.current.value,

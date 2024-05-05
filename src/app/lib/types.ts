@@ -9,6 +9,7 @@ export type category = {
 };
 
 export type expense = {
+  id: string;
   amount: number;
   category: string;
   description: string;

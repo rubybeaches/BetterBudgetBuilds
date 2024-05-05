@@ -30,6 +30,7 @@ const AddExpense = ({
   const year = today.getFullYear();
   const [userCategories, setUserCategories] = useState<category[]>(categories);
   const [userExpenses, setUserExpenses] = useState<expense[]>(seedExpenses);
+  const [addedExpenses, setAddedExpenses] = useState<expense[]>();
   const [income, setIncome] = useState(0);
   const monthlyIncome = income / 12;
 
@@ -50,6 +51,8 @@ const AddExpense = ({
       });
     }
     if (expenses) {
+      setUserExpenses(JSON.parse(expenses));
+
       const sortedExpenses = sortExpenses(JSON.parse(expenses), "category");
       const filteredExpenses = filterExpensesByMonth(
         sortedExpenses,
@@ -85,6 +88,12 @@ const AddExpense = ({
   );
 
   const handleAddExpense = (expense: expense) => {
+    if (addedExpenses && addedExpenses?.length > 0) {
+      setAddedExpenses([...addedExpenses, expense]);
+    } else {
+      setAddedExpenses([expense]);
+    }
+
     const callback: any = {
       savings: () => {
         const NewSort = sortExpenses([...savingExpenses, expense], "category");
@@ -115,13 +124,11 @@ const AddExpense = ({
   };
 
   const saveExpenses = () => {
-    let mergeBudgetArrays: expense[] = [];
-    mergeBudgetArrays = mergeBudgetArrays.concat(
-      mergeBudgetArrays,
-      debtExpenses,
-      savingExpenses,
-      incomeExpenses
-    );
+    if (!addedExpenses) return;
+    let mergeBudgetArrays: expense[] = [...userExpenses];
+    mergeBudgetArrays = [...mergeBudgetArrays, ...addedExpenses];
+
+    setUserExpenses(mergeBudgetArrays);
     localStorage.setItem("userExpenses", JSON.stringify(mergeBudgetArrays));
   };
 

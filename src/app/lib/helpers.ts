@@ -158,6 +158,7 @@ export const defaultIncomeCategories = [
 
 export const seedExpenses = [
   {
+    id: "1",
     amount: 34.53,
     category: "Eating Out",
     description: "A lovely trip to El charro",
@@ -167,6 +168,7 @@ export const seedExpenses = [
     linkedAccount: "",
   },
   {
+    id: "2",
     amount: 64.0,
     category: "Subscriptions",
     description: "planta app",
@@ -176,6 +178,7 @@ export const seedExpenses = [
     linkedAccount: "",
   },
   {
+    id: "3",
     amount: 407.6,
     category: "Housing",
     description: "mortgage for house",
@@ -185,6 +188,7 @@ export const seedExpenses = [
     linkedAccount: "",
   },
   {
+    id: "4",
     amount: 208.25,
     category: "Groceries",
     description: "meatbals, french fires, and shrimp",
@@ -194,6 +198,7 @@ export const seedExpenses = [
     linkedAccount: "",
   },
   {
+    id: "5",
     amount: 104.6,
     category: "Health and Wellness",
     description: "milan laser loan",
@@ -203,6 +208,7 @@ export const seedExpenses = [
     linkedAccount: "",
   },
   {
+    id: "6",
     amount: 101.0,
     category: "Utilities",
     description: "alliant electric",
@@ -212,6 +218,7 @@ export const seedExpenses = [
     linkedAccount: "",
   },
   {
+    id: "7",
     amount: 41.0,
     category: "Utilities",
     description: "Natural Gas",
@@ -221,6 +228,7 @@ export const seedExpenses = [
     linkedAccount: "",
   },
   {
+    id: "8",
     amount: 21.93,
     category: "Subscriptions",
     description: "Netflix",
@@ -230,6 +238,7 @@ export const seedExpenses = [
     linkedAccount: "",
   },
   {
+    id: "9",
     amount: 26.36,
     category: "Subscriptions",
     description: "Hulu/disney",
@@ -239,6 +248,7 @@ export const seedExpenses = [
     linkedAccount: "",
   },
   {
+    id: "10",
     amount: 89.81,
     category: "Self-Care",
     description: "new dress and bra",
@@ -248,6 +258,7 @@ export const seedExpenses = [
     linkedAccount: "",
   },
   {
+    id: "11",
     amount: 89.81,
     category: "Eating Out",
     description: "jimmy johns",
@@ -257,6 +268,7 @@ export const seedExpenses = [
     linkedAccount: "",
   },
   {
+    id: "12",
     amount: 152.65,
     category: "Savings",
     description: "ally interest",
@@ -266,6 +278,7 @@ export const seedExpenses = [
     linkedAccount: "",
   },
   {
+    id: "13",
     amount: 58.45,
     category: "Stocks",
     description: "purchasing some stocks",
@@ -275,6 +288,7 @@ export const seedExpenses = [
     linkedAccount: "",
   },
   {
+    id: "14",
     amount: 1451.35,
     category: "Income",
     description: "first paycheck",
@@ -284,6 +298,7 @@ export const seedExpenses = [
     linkedAccount: "",
   },
   {
+    id: "15",
     amount: 1451.35,
     category: "Income",
     description: "second paycheck",
@@ -293,6 +308,7 @@ export const seedExpenses = [
     linkedAccount: "",
   },
   {
+    id: "16",
     amount: 1451.35,
     category: "Travel",
     description: "ireland trip",
