@@ -30,13 +30,8 @@ const AddExpense = ({
   const year = today.getFullYear();
   const [userCategories, setUserCategories] = useState<category[]>(categories);
   const [userExpenses, setUserExpenses] = useState<expense[]>(seedExpenses);
-  const [addedExpenses, setAddedExpenses] = useState<expense[]>();
   const [income, setIncome] = useState(0);
   const monthlyIncome = income / 12;
-
-  const monthExpenses = useMemo(() => {
-    return filterExpensesByMonth(userExpenses, year, allMonths.indexOf(month));
-  }, [userExpenses, month]);
 
   useEffect(() => {
     const items: any = localStorage.getItem("userCategories");
@@ -52,68 +47,37 @@ const AddExpense = ({
     }
     if (expenses) {
       setUserExpenses(JSON.parse(expenses));
-
-      const sortedExpenses = sortExpenses(JSON.parse(expenses), "category");
-      const filteredExpenses = filterExpensesByMonth(
-        sortedExpenses,
-        year,
-        allMonths.indexOf(month)
-      );
-      setDebtExpenses(
-        filteredExpenses.filter(
-          (expense: expense) =>
-            expense.type == "essential" || expense.type == "non-essential"
-        )
-      );
-      setSavingExpenses(
-        filteredExpenses.filter((expense: expense) => expense.type == "savings")
-      );
-      setIncomeExpenses(
-        filteredExpenses.filter((expense: expense) => expense.type == "income")
-      );
     }
   }, []);
 
-  const [debtExpenses, setDebtExpenses] = useState(
-    monthExpenses.filter(
-      (expense) =>
-        expense.type == "essential" || expense.type == "non-essential"
-    )
+  const monthExpenses = useMemo(() => {
+    const sortedExpenses = sortExpenses(userExpenses, "category");
+    return filterExpensesByMonth(
+      sortedExpenses,
+      year,
+      allMonths.indexOf(month)
+    );
+  }, [userExpenses, month]);
+
+  const debtExpenses = useMemo(
+    () =>
+      monthExpenses.filter(
+        (expense) =>
+          expense.type == "essential" || expense.type == "non-essential"
+      ),
+    [monthExpenses]
   );
-  const [savingExpenses, setSavingExpenses] = useState(
-    monthExpenses.filter((expense) => expense.type == "savings")
+  const savingExpenses = useMemo(
+    () => monthExpenses.filter((expense) => expense.type == "savings"),
+    [monthExpenses]
   );
-  const [incomeExpenses, setIncomeExpenses] = useState(
-    monthExpenses.filter((expense) => expense.type == "income")
+  const incomeExpenses = useMemo(
+    () => monthExpenses.filter((expense) => expense.type == "income"),
+    [monthExpenses]
   );
 
   const handleAddExpense = (expense: expense) => {
-    if (addedExpenses && addedExpenses?.length > 0) {
-      setAddedExpenses([...addedExpenses, expense]);
-    } else {
-      setAddedExpenses([expense]);
-    }
-
-    const callback: any = {
-      savings: () => {
-        const NewSort = sortExpenses([...savingExpenses, expense], "category");
-        setSavingExpenses(NewSort);
-      },
-      essential: () => {
-        const NewSort = sortExpenses([...debtExpenses, expense], "category");
-        setDebtExpenses(NewSort);
-      },
-      "non-essential": () => {
-        const NewSort = sortExpenses([...debtExpenses, expense], "category");
-        setDebtExpenses(NewSort);
-      },
-      income: () => {
-        const NewSort = sortExpenses([...incomeExpenses, expense], "category");
-        setIncomeExpenses(NewSort);
-      },
-    };
-
-    callback[expense.type]();
+    setUserExpenses([...userExpenses, expense]);
   };
 
   const getCategoryExpenses = (expenseGroup: expense[], category: string) => {
@@ -124,12 +88,7 @@ const AddExpense = ({
   };
 
   const saveExpenses = () => {
-    if (!addedExpenses) return;
-    let mergeBudgetArrays: expense[] = [...userExpenses];
-    mergeBudgetArrays = [...mergeBudgetArrays, ...addedExpenses];
-
-    setUserExpenses(mergeBudgetArrays);
-    localStorage.setItem("userExpenses", JSON.stringify(mergeBudgetArrays));
+    localStorage.setItem("userExpenses", JSON.stringify(userExpenses));
   };
 
   return (
