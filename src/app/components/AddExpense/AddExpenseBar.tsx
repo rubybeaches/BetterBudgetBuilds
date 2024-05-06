@@ -18,11 +18,19 @@ const AddExpenseBar = ({
   const [expenseType, setExpenseType] = useState("expense");
 
   const handleTypeSelector = (type: string) => {
-    selectRef.current.value = "Select a Category";
+    selectRef.current.value = ["Select a Category", "none"];
     setExpenseType(() => type);
   };
 
   const handleAdd = () => {
+    if (
+      Number(amountRef.current.value) == 0 ||
+      dateRef.current.value == "" ||
+      selectRef.current.value.split(",")[1] == "none"
+    ) {
+      return alert("please fill out each field");
+    }
+
     const newExpense: expense = {
       id: uuid(),
       amount: Number(amountRef.current.value),
