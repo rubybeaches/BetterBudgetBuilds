@@ -29,7 +29,7 @@ const Dashboard = ({
     : today.toLocaleString("en-US", { month: "long" });
   const year = today.getFullYear();
   const [userCategories, setUserCategories] = useState<category[]>(categories);
-  const [userExpenses, setUserExpenses] = useState<expense[]>(seedExpenses);
+  const [userExpenses, setUserExpenses] = useState<expense[]>([]);
   const [income, setIncome] = useState(0);
   const monthlyIncome = income / 12;
 
@@ -127,6 +127,13 @@ const Dashboard = ({
           monthIndex={allMonths.indexOf(month)}
         />
         <ExpenseTable expense={incomeExpenses} />
+        <div className="incomeButton border left">
+          <div className="incomeButton background">
+            <a href={`/add-expense?month=${month}`}>
+              <p className="incomeButton text">Add Income</p>
+            </a>
+          </div>
+        </div>
       </div>
 
       <div id="Essential" className="section">
@@ -140,6 +147,13 @@ const Dashboard = ({
           monthIndex={allMonths.indexOf(month)}
         />
         <ExpenseTable expense={essentialExpenses} />
+        <div className="expenseButton border left">
+          <div className="expenseButton background">
+            <a href={`/add-expense?month=${month}`}>
+              <p className="expenseButton text">Add Expense</p>
+            </a>
+          </div>
+        </div>
       </div>
 
       <div id="Non-Essential" className="section">
@@ -153,6 +167,13 @@ const Dashboard = ({
           monthIndex={allMonths.indexOf(month)}
         />
         <ExpenseTable expense={nonEssentialExpenses} />
+        <div className="expenseButton border left">
+          <div className="expenseButton background">
+            <a href={`/add-expense?month=${month}`}>
+              <p className="expenseButton text">Add Expense</p>
+            </a>
+          </div>
+        </div>
       </div>
 
       <div id="Savings" className="section">
@@ -166,6 +187,13 @@ const Dashboard = ({
           monthIndex={allMonths.indexOf(month)}
         />
         <ExpenseTable expense={savingExpenses} />
+        <div className="expenseButton border left">
+          <div className="expenseButton background">
+            <a href={`/add-expense?month=${month}`}>
+              <p className="expenseButton text">Add Savings</p>
+            </a>
+          </div>
+        </div>
       </div>
     </main>
   );

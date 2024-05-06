@@ -1,3 +1,7 @@
+body {
+  background: white;
+}
+
 .monthTitle {
   font-size: 1.8em;
   font-weight: 600;
@@ -16,6 +20,57 @@
 
 .monthTitle select option {
   font-size: 0.6em;
+}
+
+.expenseButton.left,
+.incomeButton.left {
+  position: absolute;
+  right: 1.5rem;
+  top: 1.5em;
+}
+
+.expenseButton.border,
+.incomeButton.border {
+  padding: 2px;
+  width: fit-content;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.expenseButton.background,
+.incomeButton.background {
+  padding: 5px 20px;
+  border-radius: 20px;
+}
+
+.expenseButton.text,
+.incomeButton.text {
+  font-size: 1em;
+  font-weight: 600;
+}
+
+.expenseButton.border {
+  background: linear-gradient(122deg, #467af8, #9c32e2, #ff2955, #ffb15a);
+}
+
+.incomeButton.border {
+  background: #09d22f;
+}
+
+.expenseButton.background {
+  background: linear-gradient(122deg, #f0f4fe, #f7effd, #fecfdf, #fff7ee);
+}
+
+.expenseButton.text {
+  color: #ff2955;
+}
+
+.incomeButton.background {
+  background-color: #d0ffd0;
+}
+
+.incomeButton.text {
+  color: #09d22f;
 }
 
 .section {

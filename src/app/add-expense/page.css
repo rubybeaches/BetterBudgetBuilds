@@ -19,16 +19,16 @@ main#expensePage {
 }
 .saveBudgetContainer {
   background: linear-gradient(122deg, #467af8, #9c32e2, #ff2955, #ffb15a);
-  padding: 1.5px;
+  padding: 2px;
   width: fit-content;
-  border-radius: 6px;
+  border-radius: 20px;
   cursor: pointer;
 }
 
 .saveBudget {
   background: linear-gradient(122deg, #f0f4fe, #f7effd, #fecfdf, #fff7ee);
   padding: 8px 12px;
-  border-radius: 4px;
+  border-radius: 20px;
 }
 
 .saveBudgetButton {

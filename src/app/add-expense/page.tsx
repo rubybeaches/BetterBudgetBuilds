@@ -14,6 +14,7 @@ import categories from "../lib/seed.json";
 import ExpenseTable from "../components/Dashboard/ExpenseTable";
 import AddExpenseBar from "../components/AddExpense/AddExpenseBar";
 import ProgressBar from "../components/ProgressBar";
+import { useRouter } from "next/navigation";
 
 const AddExpense = ({
   searchParams,
@@ -28,6 +29,7 @@ const AddExpense = ({
     ? monthParam
     : today.toLocaleString("en-US", { month: "long" });
   const year = today.getFullYear();
+  const router = useRouter();
   const [userCategories, setUserCategories] = useState<category[]>(categories);
   const [userExpenses, setUserExpenses] = useState<expense[]>(seedExpenses);
   const [income, setIncome] = useState(0);
@@ -89,6 +91,7 @@ const AddExpense = ({
 
   const saveExpenses = () => {
     localStorage.setItem("userExpenses", JSON.stringify(userExpenses));
+    router.push(`/dashboard?month=${month}`);
   };
 
   return (
@@ -96,8 +99,9 @@ const AddExpense = ({
       <span className="headerWrapper">
         <h2 className="monthTitle">{month} Expenses</h2>
         <div className="saveBudgetContainer" onClick={() => saveExpenses()}>
-          <div className="saveBudget">
+          <div className="saveBudget" style={{ display: "flex", gap: "4px" }}>
             <p className="saveBudgetButton">Save</p>
+            <p>and return to dashboard</p>
           </div>
         </div>
       </span>
