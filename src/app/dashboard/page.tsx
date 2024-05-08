@@ -151,13 +151,25 @@ const Dashboard = ({
           ${convertToFloat(nonEssentialExpenseTotal)}
         </span>{" "}
         ={" "}
-        <span className={incomeMinusExpenseBool ? "overBudgetText" : ""}>
+        <span
+          className={
+            incomeMinusExpenseBool
+              ? "overBudgetText baseBarBubble"
+              : "baseBarBubble"
+          }
+        >
           {incomeMinusExpenseBool && <>&ndash;</>}$
           {convertToFloat(Math.abs(incomeMinusExpenseTotal))}
         </span>{" "}
         <em>(after expenses)</em> -{" "}
         <span id="Savings">${convertToFloat(savingExpenseTotal)}</span> ={" "}
-        <span className={negativeBudgetBool ? "overBudgetText" : ""}>
+        <span
+          className={
+            negativeBudgetBool
+              ? "overBudgetText baseBarBubble"
+              : "baseBarBubble"
+          }
+        >
           {negativeBudgetBool && <>&ndash;</>}$
           {convertToFloat(Math.abs(netBudgetTotal))}
         </span>{" "}

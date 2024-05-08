@@ -36,6 +36,12 @@ body {
   font-weight: 400;
 }
 
+.baseBarBubble {
+  padding: 3px 12px;
+  background-color: #fff;
+  border-radius: 20px;
+}
+
 .expenseButton.left,
 .incomeButton.left,
 .savingsButton.left {
