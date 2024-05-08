@@ -37,14 +37,16 @@ body {
 }
 
 .expenseButton.left,
-.incomeButton.left {
+.incomeButton.left,
+.savingsButton.left {
   position: absolute;
   right: 1.5rem;
   top: 1.5em;
 }
 
 .expenseButton.border,
-.incomeButton.border {
+.incomeButton.border,
+.savingsButton.border {
   padding: 2px;
   width: fit-content;
   border-radius: 20px;
@@ -52,13 +54,15 @@ body {
 }
 
 .expenseButton.background,
-.incomeButton.background {
+.incomeButton.background,
+.savingsButton.background {
   padding: 5px 20px;
   border-radius: 20px;
 }
 
 .expenseButton.text,
-.incomeButton.text {
+.incomeButton.text,
+.savingsButton.text {
   font-size: 1em;
   font-weight: 600;
 }
@@ -71,20 +75,33 @@ body {
   background: #09d22f;
 }
 
-.expenseButton.background {
-  background: linear-gradient(122deg, #f0f4fe, #f7effd, #fecfdf, #fff7ee);
+.savingsButton.border {
+  background: var(--orange-color);
 }
 
-.expenseButton.text {
-  color: #ff2955;
+.expenseButton.background {
+  background: linear-gradient(122deg, #f0f4fe, #f7effd, #fecfdf, #fff7ee);
 }
 
 .incomeButton.background {
   background-color: #d0ffd0;
 }
 
+.savingsButton.background {
+  background: var(--orange-highlight);
+}
+
+.expenseButton.text,
+.overBudgetText {
+  color: #ff2955;
+}
+
 .incomeButton.text {
   color: #09d22f;
+}
+
+.savingsButton.text {
+  color: var(--orange-color);
 }
 
 .section {

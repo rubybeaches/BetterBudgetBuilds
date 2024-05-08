@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import "./page.css";
 import {
   allMonths,
+  convertToFloat,
   filterExpensesByMonth,
   setActiveCategories,
   sortCategories,
@@ -112,6 +113,12 @@ const Dashboard = ({
     0
   );
 
+  const incomeMinusExpenseTotal =
+    incomeExpenseTotal - essentialExpenseTotal - nonEssentialExpenseTotal;
+  const incomeMinusExpenseBool = incomeMinusExpenseTotal < 0;
+  const netBudgetTotal = incomeMinusExpenseTotal - savingExpenseTotal;
+  const negativeBudgetBool = netBudgetTotal < 0;
+
   const incomeMod: category[] = [
     ...defaultIncomeCategories,
     {
@@ -138,16 +145,22 @@ const Dashboard = ({
       </h2>
 
       <div className="baseBar">
-        <span id="Income">${incomeExpenseTotal}</span> -{" "}
-        <span id="Essential">${essentialExpenseTotal}</span> -{" "}
-        <span id="Non-Essential">{nonEssentialExpenseTotal}</span> = $
-        {incomeExpenseTotal - essentialExpenseTotal - nonEssentialExpenseTotal}{" "}
+        <span id="Income">${convertToFloat(incomeExpenseTotal)}</span> -{" "}
+        <span id="Essential">${convertToFloat(essentialExpenseTotal)}</span> -{" "}
+        <span id="Non-Essential">
+          ${convertToFloat(nonEssentialExpenseTotal)}
+        </span>{" "}
+        ={" "}
+        <span className={incomeMinusExpenseBool ? "overBudgetText" : ""}>
+          {incomeMinusExpenseBool && <>&ndash;</>}$
+          {convertToFloat(Math.abs(incomeMinusExpenseTotal))}
+        </span>{" "}
         <em>(after expenses)</em> -{" "}
-        <span id="Savings">{savingExpenseTotal}</span> = $
-        {incomeExpenseTotal -
-          essentialExpenseTotal -
-          nonEssentialExpenseTotal -
-          savingExpenseTotal}{" "}
+        <span id="Savings">${convertToFloat(savingExpenseTotal)}</span> ={" "}
+        <span className={negativeBudgetBool ? "overBudgetText" : ""}>
+          {negativeBudgetBool && <>&ndash;</>}$
+          {convertToFloat(Math.abs(netBudgetTotal))}
+        </span>{" "}
         <em>(net remaining)</em>
       </div>
 
@@ -158,6 +171,7 @@ const Dashboard = ({
           expenses={incomeExpenses}
           monthlyIncome={monthlyIncome}
           monthIndex={allMonths.indexOf(month)}
+          totalExpenses={incomeExpenseTotal}
         />
         <ExpenseTable expense={incomeExpenses} />
         <div className="incomeButton border left">
@@ -178,6 +192,7 @@ const Dashboard = ({
           expenses={essentialExpenses}
           monthlyIncome={monthlyIncome}
           monthIndex={allMonths.indexOf(month)}
+          totalExpenses={essentialExpenseTotal}
         />
         <ExpenseTable expense={essentialExpenses} />
         <div className="expenseButton border left">
@@ -198,6 +213,7 @@ const Dashboard = ({
           expenses={nonEssentialExpenses}
           monthlyIncome={monthlyIncome}
           monthIndex={allMonths.indexOf(month)}
+          totalExpenses={nonEssentialExpenseTotal}
         />
         <ExpenseTable expense={nonEssentialExpenses} />
         <div className="expenseButton border left">
@@ -218,12 +234,13 @@ const Dashboard = ({
           expenses={savingExpenses}
           monthlyIncome={monthlyIncome}
           monthIndex={allMonths.indexOf(month)}
+          totalExpenses={savingExpenseTotal}
         />
         <ExpenseTable expense={savingExpenses} />
-        <div className="expenseButton border left">
-          <div className="expenseButton background">
+        <div className="savingsButton border left">
+          <div className="savingsButton background">
             <a href={`/add-expense?month=${month}`}>
-              <p className="expenseButton text">Add Savings</p>
+              <p className="savingsButton text">Add Savings</p>
             </a>
           </div>
         </div>

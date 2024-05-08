@@ -1,4 +1,9 @@
-import { convertToFloat, isDateInWeek, parsetoNum, weeksInMonth } from "@/app/lib/helpers";
+import {
+  convertToFloat,
+  isDateInWeek,
+  parsetoNum,
+  weeksInMonth,
+} from "@/app/lib/helpers";
 import { category, expense } from "@/app/lib/types";
 import SummaryRow from "./SummaryRow";
 
@@ -7,11 +12,13 @@ const SummaryTable = ({
   expenses,
   monthlyIncome,
   monthIndex,
+  totalExpenses,
 }: {
   categories: category[];
   expenses: expense[];
   monthlyIncome: number;
   monthIndex: number;
+  totalExpenses: number;
 }) => {
   const today = new Date();
   const fullYear = today.getFullYear();
@@ -48,8 +55,6 @@ const SummaryTable = ({
     return convertToFloat(sum);
   };
 
-  const totalExpenses = sumExpenses([weekOne[0], weekFour[1]]);
-
   return (
     <table id="summaryTable">
       <tbody>
@@ -83,12 +88,12 @@ const SummaryTable = ({
           <td id="empty"></td>
           <td
             id={
-              parsetoNum(totalExpenses) > parsetoNum(sumBudget())
+              totalExpenses > parsetoNum(sumBudget())
                 ? "overBudgetExpenses"
                 : ""
             }
           >
-            ${totalExpenses}
+            ${convertToFloat(totalExpenses)}
           </td>
           <td>${sumBudget()}</td>
         </tr>
