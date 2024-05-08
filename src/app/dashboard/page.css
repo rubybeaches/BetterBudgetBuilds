@@ -22,6 +22,20 @@ body {
   font-size: 0.6em;
 }
 
+.baseBar {
+  padding: 16px 24px;
+  border-radius: 50px;
+  background: linear-gradient(122deg, #f0f4fe, #f7effd, #fecfdf, #fff7ee);
+  margin-top: 20px;
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+.baseBar em {
+  font-size: 0.95em;
+  font-weight: 400;
+}
+
 .expenseButton.left,
 .incomeButton.left {
   position: absolute;

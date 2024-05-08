@@ -83,15 +83,34 @@ const Dashboard = ({
   const essentialExpenses = useMemo(() => {
     return monthExpenses.filter((expense) => expense.type == "essential");
   }, [monthExpenses]);
+  const essentialExpenseTotal = essentialExpenses.reduce(
+    (sum, exp) => sum + exp.amount,
+    0
+  );
+
   const nonEssentialExpenses = useMemo(() => {
     return monthExpenses.filter((expense) => expense.type == "non-essential");
   }, [monthExpenses]);
+  const nonEssentialExpenseTotal = nonEssentialExpenses.reduce(
+    (sum, exp) => sum + exp.amount,
+    0
+  );
+
   const savingExpenses = useMemo(() => {
     return monthExpenses.filter((expense) => expense.type == "savings");
   }, [monthExpenses]);
+  const savingExpenseTotal = savingExpenses.reduce(
+    (sum, exp) => sum + exp.amount,
+    0
+  );
+
   const incomeExpenses = useMemo(() => {
     return monthExpenses.filter((expense) => expense.type == "income");
   }, [monthExpenses]);
+  const incomeExpenseTotal = incomeExpenses.reduce(
+    (sum, exp) => sum + exp.amount,
+    0
+  );
 
   const incomeMod: category[] = [
     ...defaultIncomeCategories,
@@ -117,6 +136,20 @@ const Dashboard = ({
         </select>{" "}
         Budget Dashboard
       </h2>
+
+      <div className="baseBar">
+        <span id="Income">${incomeExpenseTotal}</span> -{" "}
+        <span id="Essential">${essentialExpenseTotal}</span> -{" "}
+        <span id="Non-Essential">{nonEssentialExpenseTotal}</span> = $
+        {incomeExpenseTotal - essentialExpenseTotal - nonEssentialExpenseTotal}{" "}
+        <em>(after expenses)</em> -{" "}
+        <span id="Savings">{savingExpenseTotal}</span> = $
+        {incomeExpenseTotal -
+          essentialExpenseTotal -
+          nonEssentialExpenseTotal -
+          savingExpenseTotal}{" "}
+        <em>(net remaining)</em>
+      </div>
 
       <div id="Income" className="section">
         <h1>Income</h1>
