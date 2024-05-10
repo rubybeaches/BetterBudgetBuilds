@@ -32,6 +32,43 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+.incomeSection {
+  display: flex;
+  gap: 1em;
+}
+
+.incomeContainer {
+  background-color: #ebfceb;
+  padding: 12px;
+  display: flex;
+  gap: 12px;
+  width: fit-content;
+  border-radius: 6px;
+  color: #30df30;
+}
+
+.incomeContainer select {
+  border: none;
+  outline: none;
+  background-color: #d0ffd0;
+  padding: 4px 8px;
+  color: #30df30;
+  font-size: 1em;
+  font-weight: 600;
+  font-family: Montserrat;
+}
+
+.incomeContainer select option {
+  background-color: #fff;
+}
+
+.incomeContainer > div:has(> input[type="text"]) {
+  border-color: #30df30;
+}
+
+.incomeContainer input[type="text"] {
+  color: #30df30;
+}
 
 .sectionContainer {
   display: flex;
@@ -139,6 +176,7 @@ input[type="text"] {
   font-size: 1em;
   font-weight: 600;
   width: 100px;
+  font-family: Montserrat;
 }
 
 .slider {

@@ -167,6 +167,22 @@ const Budget = () => {
         )}
       </label>
 
+      <div className="incomeSection">
+        <span>
+          <p>Balance</p>
+          <p>$0.00</p>
+        </span>
+        <div className="incomeContainer">
+          <select defaultValue="Income">
+            <option value="Income" label="Income" />
+            <option value="Paycheck" label="Paycheck" />
+          </select>
+          <div>
+            <span>$</span> <input type="text" />
+          </div>
+        </div>
+      </div>
+
       <CategorySection
         categories={essentialCategories}
         setCategories={setEssentialCategories}
