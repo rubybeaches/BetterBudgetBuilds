@@ -6,6 +6,7 @@ import CategorySection from "../components/Budget/CategorySection";
 import {
   buildInitialAddList,
   convertToFloat,
+  defaultIncomeCategories,
   parsetoNum,
   setActiveCategories,
   setInactiveCategoryList,
@@ -15,10 +16,18 @@ import { category } from "../lib/types";
 
 const Budget = () => {
   const [userCategories, setUserCategories] = useState(categories);
+  const [userIncomeCategories, setUserIncomeCategories] = useState(
+    setActiveCategories(defaultIncomeCategories, "income")
+  );
   const [income, setIncome] = useState(0);
+  const incomeCategoryList = sortCategories(
+    [...userIncomeCategories, ...buildInitialAddList(userIncomeCategories)],
+    "category"
+  );
 
   useEffect(() => {
     const items: any = localStorage.getItem("userCategories");
+    const incomeCats: any = localStorage.getItem("userIncomeCategories");
     if (items) {
       const sortedCategories = sortCategories(JSON.parse(items), "category");
       setUserCategories(sortedCategories);
@@ -35,6 +44,15 @@ const Budget = () => {
     const income: any = localStorage.getItem("income");
     if (income) {
       updateIncome(String(JSON.parse(income)));
+    }
+    if (incomeCats) {
+      const sortedIncomeCategories = sortCategories(
+        JSON.parse(incomeCats),
+        "category"
+      );
+      setUserIncomeCategories(
+        setActiveCategories(sortedIncomeCategories, "income")
+      );
     }
   }, []);
 
@@ -113,6 +131,10 @@ const Budget = () => {
     );
     localStorage.setItem("userCategories", JSON.stringify(mergeBudgetArrays));
     localStorage.setItem("income", JSON.stringify(income));
+    localStorage.setItem(
+      "userIncomeCategories",
+      JSON.stringify(userIncomeCategories)
+    );
   };
   // load user profile or template profile
   // if using template profile, aka no user, then values should be all percent based so they can be dynamic
@@ -174,11 +196,12 @@ const Budget = () => {
         </span>
         <div className="incomeContainer">
           <select defaultValue="Income">
-            <option value="Income" label="Income" />
-            <option value="Paycheck" label="Paycheck" />
+            {incomeCategoryList.map((cat, index) => (
+              <option key={index} value={cat.category} label={cat.category} />
+            ))}
           </select>
           <div>
-            <span>$</span> <input type="text" />
+            <span>$</span> <input type="text" defaultValue="0.00" />
           </div>
         </div>
       </div>
