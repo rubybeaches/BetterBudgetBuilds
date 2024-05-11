@@ -30,8 +30,11 @@ const AddExpense = ({
     : today.toLocaleString("en-US", { month: "long" });
   const year = today.getFullYear();
   const router = useRouter();
+  const [userIncomeCategories, setUserIncomeCategories] = useState<category[]>(
+    []
+  );
   const [userCategories, setUserCategories] = useState<category[]>(categories);
-  const [userExpenses, setUserExpenses] = useState<expense[]>(seedExpenses);
+  const [userExpenses, setUserExpenses] = useState<expense[]>([]);
   const [income, setIncome] = useState(0);
   const monthlyIncome = income / 12;
 
@@ -39,8 +42,14 @@ const AddExpense = ({
     const items: any = localStorage.getItem("userCategories");
     const expenses: any = localStorage.getItem("userExpenses");
     const income: any = localStorage.getItem("income");
+    const incomeCats: any = localStorage.getItem("userIncomeCategories");
     if (income) {
       setIncome(Number(JSON.parse(income)));
+    }
+    if (incomeCats) {
+      setUserIncomeCategories(() => {
+        return sortCategories(JSON.parse(incomeCats), "category");
+      });
     }
     if (items) {
       setUserCategories(() => {
@@ -110,27 +119,25 @@ const AddExpense = ({
         <div className="summaryWrapper">
           <div id="summaryIncome">
             <h2>INCOME</h2>
-            <span className="summaryProgressBar">
-              <p className="categoryName">{"Income"}</p>
-              <ProgressBar
-                categoryExpenseTotal={incomeExpenses.reduce(
-                  (sum, exp) =>
-                    exp.category == "Income" ? sum + exp.amount : sum,
-                  0
-                )}
-                budgetTotal={"3500"}
-              />
-            </span>
-            <span className="summaryProgressBar">
-              <p className="categoryName">{"Paycheck"}</p>
-              <ProgressBar
-                categoryExpenseTotal={getCategoryExpenses(
-                  incomeExpenses,
-                  "Paycheck"
-                )}
-                budgetTotal={"350"}
-              />
-            </span>
+            {userIncomeCategories.map(
+              (category, index) =>
+                category.type == "income" &&
+                category.active == 1 && (
+                  <span key={index} className="summaryProgressBar">
+                    <p className="categoryName">{category.category}</p>
+                    <ProgressBar
+                      categoryExpenseTotal={getCategoryExpenses(
+                        incomeExpenses,
+                        category.category
+                      )}
+                      budgetTotal={multiplyPercentToFloat(
+                        category.curr,
+                        monthlyIncome
+                      )}
+                    />
+                  </span>
+                )
+            )}
           </div>
           <div id="summarySavings">
             <h2>Saving and Planning</h2>

@@ -10,8 +10,6 @@ import {
 } from "../lib/helpers";
 import SummaryTable from "../components/Dashboard/SummaryTable";
 import { category, expense } from "../lib/types";
-import { defaultIncomeCategories } from "../lib/helpers";
-import { seedExpenses } from "../lib/helpers";
 import ExpenseTable from "../components/Dashboard/ExpenseTable";
 import categories from "../lib/seed.json";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -30,6 +28,9 @@ const Dashboard = ({
     : today.toLocaleString("en-US", { month: "long" });
   const year = today.getFullYear();
   const [userCategories, setUserCategories] = useState<category[]>(categories);
+  const [userIncomeCategories, setUserIncomeCategories] = useState<category[]>(
+    []
+  );
   const [userExpenses, setUserExpenses] = useState<expense[]>([]);
   const [income, setIncome] = useState(0);
   const monthlyIncome = income / 12;
@@ -41,8 +42,16 @@ const Dashboard = ({
   useEffect(() => {
     const items: any = localStorage.getItem("userCategories");
     const expenses: any = localStorage.getItem("userExpenses");
+    const incomeCats: any = localStorage.getItem("userIncomeCategories");
     if (expenses) {
       setUserExpenses(JSON.parse(expenses));
+    }
+    if (incomeCats) {
+      const sortedCategories = sortCategories(
+        JSON.parse(incomeCats),
+        "category"
+      );
+      setUserIncomeCategories(sortedCategories);
     }
     if (items) {
       const sortedCategories = sortCategories(JSON.parse(items), "category");
@@ -119,17 +128,6 @@ const Dashboard = ({
   const netBudgetTotal = incomeMinusExpenseTotal - savingExpenseTotal;
   const negativeBudgetBool = netBudgetTotal < 0;
 
-  const incomeMod: category[] = [
-    ...defaultIncomeCategories,
-    {
-      ...defaultIncomeCategories[0],
-      category: "Paycheck",
-      min: 1,
-      max: 35,
-      curr: 5,
-    },
-  ];
-
   return (
     <main className="main">
       <h2 className="monthTitle">
@@ -179,7 +177,7 @@ const Dashboard = ({
       <div id="Income" className="section">
         <h1>Income</h1>
         <SummaryTable
-          categories={incomeMod}
+          categories={userIncomeCategories}
           expenses={incomeExpenses}
           monthlyIncome={monthlyIncome}
           monthIndex={allMonths.indexOf(month)}
