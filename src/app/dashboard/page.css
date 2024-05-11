@@ -22,6 +22,10 @@ body {
   font-size: 0.6em;
 }
 
+.section .baseBarBubble {
+  border: 1px solid #fff;
+}
+
 .baseBar {
   padding: 16px 24px;
   border-radius: 50px;
@@ -432,7 +436,8 @@ body {
   table#summaryTable
   td.summaryProgressBar
   #progressMonthly.overBudgetWarning,
-#Income .overBudgetBlock {
+#Income .overBudgetBlock,
+#Income.section .baseBarBubble {
   border-color: #09d22f;
 }
 
@@ -461,7 +466,8 @@ body {
 #Essential.section > table#expenseTable tr:first-child td,
 #Essential.section > table#expenseTable tr td:first-child,
 #Essential.section > table#expenseTable tr td:first-child,
-#Essential.section > table#expenseTable tr td:last-child {
+#Essential.section > table#expenseTable tr td:last-child,
+#Essential.section .baseBarBubble {
   border-color: var(--blue-color);
 }
 
@@ -486,7 +492,8 @@ body {
 #Non-Essential.section > table#expenseTable tr:first-child td,
 #Non-Essential.section > table#expenseTable tr td:first-child,
 #Non-Essential.section > table#expenseTable tr td:first-child,
-#Non-Essential.section > table#expenseTable tr td:last-child {
+#Non-Essential.section > table#expenseTable tr td:last-child,
+#Non-Essential.section .baseBarBubble {
   border-color: var(--purple-color);
 }
 
@@ -542,7 +549,8 @@ body {
   table#summaryTable
   td.summaryProgressBar
   #progressMonthly.overBudgetWarning,
-#Savings .overBudgetBlock {
+#Savings .overBudgetBlock,
+#Savings.section .baseBarBubble {
   border-color: var(--orange-color);
 }
 

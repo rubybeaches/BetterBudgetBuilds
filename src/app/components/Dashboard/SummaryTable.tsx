@@ -93,7 +93,9 @@ const SummaryTable = ({
                 : ""
             }
           >
-            ${convertToFloat(totalExpenses)}
+            <span className="baseBarBubble">
+              ${convertToFloat(totalExpenses)}
+            </span>
           </td>
           <td>${sumBudget()}</td>
         </tr>
