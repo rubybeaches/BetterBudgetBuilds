@@ -13,7 +13,11 @@ const IncomeContainer = ({
   categoryList: category[];
   monthlyIncome: number;
   index: number;
-  setIncomeCallback: (category: category, identifier: number) => void;
+  setIncomeCallback: (
+    category: category,
+    identifier: number,
+    remove?: boolean
+  ) => void;
 }) => {
   const selectedCategoryRef = useRef<any>();
   const handleInput = (
@@ -36,7 +40,10 @@ const IncomeContainer = ({
 
   return (
     <div className="incomeContainer">
-      <div className="removeIncomeCategory">
+      <div
+        className="removeIncomeCategory"
+        onClick={() => setIncomeCallback(incomeCategory, index, true)}
+      >
         <p>x</p>
       </div>
       <select

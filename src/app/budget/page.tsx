@@ -24,7 +24,10 @@ const Budget = () => {
   const incomeCategoryList = useMemo(
     () =>
       sortCategories(
-        buildInitialAddList(defaultIncomeCategories).filter((filter) => {
+        [
+          ...defaultIncomeCategories,
+          ...buildInitialAddList(defaultIncomeCategories),
+        ].filter((filter) => {
           let include = true;
           userIncomeCategories.map((cat) => {
             if (filter.category == cat.category) include = false;
@@ -70,6 +73,12 @@ const Budget = () => {
   const intervalID = useRef<any>();
   const incomeRef = useRef<any>();
   const monthlyIncome = income / 12;
+  const incomeSectionBalance =
+    monthlyIncome -
+    userIncomeCategories.reduce(
+      (sum, cat) => (cat.curr * monthlyIncome) / 100 + sum,
+      0
+    );
 
   const updateIncome = (input: string) => {
     const newValue = input || "";
@@ -131,10 +140,19 @@ const Budget = () => {
     }
   };
 
-  const handleIncomeAmounts = (category: category, identifier: number) => {
-    const updateIncome = userIncomeCategories.map((cat, index) => {
+  const handleIncomeAmounts = (
+    category: category,
+    identifier: number,
+    remove = false
+  ) => {
+    let updateIncome = userIncomeCategories.map((cat, index) => {
       return index == identifier ? category : cat;
     });
+    if (remove) {
+      updateIncome = userIncomeCategories.filter((cat, index) => {
+        return index != identifier;
+      });
+    }
     setUserIncomeCategories(updateIncome);
   };
 
@@ -208,16 +226,12 @@ const Budget = () => {
       </label>
 
       <div className="incomeSection">
-        <span>
+        <span id={Math.round(incomeSectionBalance) < 0 ? "negativeTotal" : ""}>
           <p>Balance</p>
           <p>
             $
             {convertToFloat(
-              monthlyIncome -
-                userIncomeCategories.reduce(
-                  (sum, cat) => (cat.curr * monthlyIncome) / 100 + sum,
-                  0
-                )
+              Math.round(incomeSectionBalance) == 0 ? 0 : incomeSectionBalance
             )}
           </p>
         </span>
