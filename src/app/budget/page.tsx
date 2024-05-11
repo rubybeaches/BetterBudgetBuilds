@@ -13,6 +13,7 @@ import {
   sortCategories,
 } from "../lib/helpers";
 import { category } from "../lib/types";
+import IncomeContainer from "../components/Budget/IncomeContainer";
 
 const Budget = () => {
   const [userCategories, setUserCategories] = useState(categories);
@@ -21,7 +22,10 @@ const Budget = () => {
   );
   const [income, setIncome] = useState(0);
   const incomeCategoryList = sortCategories(
-    [...userIncomeCategories, ...buildInitialAddList(userIncomeCategories)],
+    [
+      ...defaultIncomeCategories,
+      ...buildInitialAddList(defaultIncomeCategories),
+    ],
     "category"
   );
 
@@ -120,6 +124,13 @@ const Budget = () => {
     }
   };
 
+  const handleIncomeAmounts = (category: category, identifier: number) => {
+    const updateIncome = userIncomeCategories.map((cat, index) => {
+      return index == identifier ? category : cat;
+    });
+    setUserIncomeCategories(updateIncome);
+  };
+
   const saveBudget = () => {
     let mergeBudgetArrays: category[] = [];
     mergeBudgetArrays = mergeBudgetArrays.concat(
@@ -140,6 +151,8 @@ const Budget = () => {
   // if using template profile, aka no user, then values should be all percent based so they can be dynamic
 
   // need a reset button so users can start from scratch if needed, and update with new salary
+
+  console.log(userIncomeCategories);
 
   return (
     <main className="main">
@@ -192,18 +205,37 @@ const Budget = () => {
       <div className="incomeSection">
         <span>
           <p>Balance</p>
-          <p>$0.00</p>
+          <p>
+            $
+            {convertToFloat(
+              monthlyIncome -
+                userIncomeCategories.reduce(
+                  (sum, cat) => (cat.curr * monthlyIncome) / 100 + sum,
+                  0
+                )
+            )}
+          </p>
         </span>
-        <div className="incomeContainer">
-          <select defaultValue="Income">
-            {incomeCategoryList.map((cat, index) => (
+        {userIncomeCategories.map((cat, index) => (
+          <IncomeContainer
+            key={index}
+            incomeCategory={cat}
+            categoryList={incomeCategoryList}
+            monthlyIncome={monthlyIncome}
+            index={index}
+            setIncomeCallback={handleIncomeAmounts}
+          />
+        ))}
+        <span id="addIncomeCategory" className="incomeContainer">
+          <select defaultValue="Add Category">
+            {[
+              { ...incomeCategoryList[0], category: "Add Category" },
+              ...incomeCategoryList,
+            ].map((cat, index) => (
               <option key={index} value={cat.category} label={cat.category} />
             ))}
           </select>
-          <div>
-            <span>$</span> <input type="text" defaultValue="0.00" />
-          </div>
-        </div>
+        </span>
       </div>
 
       <CategorySection

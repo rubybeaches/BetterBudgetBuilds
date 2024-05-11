@@ -37,6 +37,11 @@
   gap: 1em;
 }
 
+#addIncomeCategory,
+#addIncomeCategory select {
+  border-radius: 50px;
+}
+
 .incomeContainer {
   background-color: #ebfceb;
   padding: 12px;
