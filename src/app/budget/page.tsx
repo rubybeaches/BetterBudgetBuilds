@@ -238,36 +238,38 @@ const Budget = () => {
             setIncomeCallback={handleIncomeAmounts}
           />
         ))}
-        <span id="addIncomeCategory" className="incomeContainer">
-          <select
-            defaultValue="Add Category"
-            onChange={(e) => {
-              if (e.target.value != "Add Category") {
-                const newIncomeCategory: category = {
-                  category: e.target.value,
-                  help: [],
-                  min: 0,
-                  max: 100,
-                  curr: 0,
-                  type: "income",
-                  active: 1,
-                };
-                setUserIncomeCategories([
-                  ...userIncomeCategories,
-                  newIncomeCategory,
-                ]);
-                e.target.value = "Add Category";
-              }
-            }}
-          >
-            {[
-              { ...incomeCategoryList[0], category: "Add Category" },
-              ...incomeCategoryList,
-            ].map((cat, index) => (
-              <option key={index} value={cat.category} label={cat.category} />
-            ))}
-          </select>
-        </span>
+        {incomeCategoryList.length > 0 && (
+          <span id="addIncomeCategory" className="incomeContainer">
+            <select
+              defaultValue="Add Category"
+              onChange={(e) => {
+                if (e.target.value != "Add Category") {
+                  const newIncomeCategory: category = {
+                    category: e.target.value,
+                    help: [],
+                    min: 0,
+                    max: 100,
+                    curr: 0,
+                    type: "income",
+                    active: 1,
+                  };
+                  setUserIncomeCategories([
+                    ...userIncomeCategories,
+                    newIncomeCategory,
+                  ]);
+                  e.target.value = "Add Category";
+                }
+              }}
+            >
+              {[
+                { ...incomeCategoryList[0], category: "Add Category" },
+                ...incomeCategoryList,
+              ].map((cat, index) => (
+                <option key={index} value={cat.category} label={cat.category} />
+              ))}
+            </select>
+          </span>
+        )}
       </div>
 
       <CategorySection
