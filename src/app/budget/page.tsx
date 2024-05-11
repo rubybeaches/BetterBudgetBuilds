@@ -1,7 +1,7 @@
 "use client";
 import "./page.css";
 import categories from "../lib/seed.json";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import CategorySection from "../components/Budget/CategorySection";
 import {
   buildInitialAddList,
@@ -21,12 +21,16 @@ const Budget = () => {
     setActiveCategories(defaultIncomeCategories, "income")
   );
   const [income, setIncome] = useState(0);
-  const incomeCategoryList = sortCategories(
-    [
-      ...defaultIncomeCategories,
-      ...buildInitialAddList(defaultIncomeCategories),
-    ],
-    "category"
+  const incomeCategoryList = useMemo(
+    () =>
+      sortCategories(
+        [
+          ...defaultIncomeCategories,
+          ...buildInitialAddList(defaultIncomeCategories),
+        ],
+        "category"
+      ),
+    [userIncomeCategories]
   );
 
   useEffect(() => {
@@ -125,6 +129,13 @@ const Budget = () => {
   };
 
   const handleIncomeAmounts = (category: category, identifier: number) => {
+    /*
+    let exists = false;
+    userIncomeCategories.map((cat) => {
+      if (cat.category == category.category) exists = true;
+    });
+    if (exists) return;
+    */
     const updateIncome = userIncomeCategories.map((cat, index) => {
       return index == identifier ? category : cat;
     });
@@ -151,8 +162,6 @@ const Budget = () => {
   // if using template profile, aka no user, then values should be all percent based so they can be dynamic
 
   // need a reset button so users can start from scratch if needed, and update with new salary
-
-  console.log(userIncomeCategories);
 
   return (
     <main className="main">
@@ -221,16 +230,43 @@ const Budget = () => {
             key={index}
             incomeCategory={cat}
             categoryList={incomeCategoryList}
+            selectedCategories={userIncomeCategories}
             monthlyIncome={monthlyIncome}
             index={index}
             setIncomeCallback={handleIncomeAmounts}
           />
         ))}
         <span id="addIncomeCategory" className="incomeContainer">
-          <select defaultValue="Add Category">
+          <select
+            defaultValue="Add Category"
+            onChange={(e) => {
+              if (e.target.value != "Add Category") {
+                const newIncomeCategory: category = {
+                  category: e.target.value,
+                  help: [],
+                  min: 0,
+                  max: 100,
+                  curr: 0,
+                  type: "income",
+                  active: 1,
+                };
+                setUserIncomeCategories([
+                  ...userIncomeCategories,
+                  newIncomeCategory,
+                ]);
+                e.target.value = "Add Category";
+              }
+            }}
+          >
             {[
               { ...incomeCategoryList[0], category: "Add Category" },
-              ...incomeCategoryList,
+              ...incomeCategoryList.filter((filter) => {
+                let include = true;
+                userIncomeCategories.map((cat) => {
+                  if (filter.category == cat.category) include = false;
+                });
+                if (include) return filter;
+              }),
             ].map((cat, index) => (
               <option key={index} value={cat.category} label={cat.category} />
             ))}
