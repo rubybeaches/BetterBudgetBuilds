@@ -132,13 +132,6 @@ const Budget = () => {
   };
 
   const handleIncomeAmounts = (category: category, identifier: number) => {
-    /*
-    let exists = false;
-    userIncomeCategories.map((cat) => {
-      if (cat.category == category.category) exists = true;
-    });
-    if (exists) return;
-    */
     const updateIncome = userIncomeCategories.map((cat, index) => {
       return index == identifier ? category : cat;
     });

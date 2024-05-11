@@ -349,7 +349,8 @@ p.addListItem:first-child {
   right: 0;
 }
 
-.removeCategory {
+.removeCategory,
+.removeIncomeCategory {
   height: 18px;
   width: 18px;
   background-color: #fff;
@@ -358,9 +359,18 @@ p.addListItem:first-child {
   line-height: 18px;
   font-size: 0.9em;
   font-weight: 600;
+  cursor: pointer;
+}
+
+.removeCategory {
   position: absolute;
   left: 0;
-  cursor: pointer;
+}
+
+.removeIncomeCategory {
+  justify-content: center;
+  margin-top: 5px;
+  margin-right: -5px;
 }
 
 .removeCategory p {

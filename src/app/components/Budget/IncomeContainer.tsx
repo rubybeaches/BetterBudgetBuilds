@@ -36,6 +36,9 @@ const IncomeContainer = ({
 
   return (
     <div className="incomeContainer">
+      <div className="removeIncomeCategory">
+        <p>x</p>
+      </div>
       <select
         defaultValue={incomeCategory.category}
         ref={selectedCategoryRef}
