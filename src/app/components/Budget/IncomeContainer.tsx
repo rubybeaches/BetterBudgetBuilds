@@ -5,14 +5,12 @@ import { useRef } from "react";
 const IncomeContainer = ({
   incomeCategory,
   categoryList,
-  selectedCategories,
   monthlyIncome,
   index,
   setIncomeCallback,
 }: {
   incomeCategory: category;
   categoryList: category[];
-  selectedCategories: category[];
   monthlyIncome: number;
   index: number;
   setIncomeCallback: (category: category, identifier: number) => void;
@@ -42,20 +40,13 @@ const IncomeContainer = ({
         defaultValue={incomeCategory.category}
         ref={selectedCategoryRef}
         onChange={(e) => {
-          let included = false;
-          selectedCategories.map((cat) => {
-            if (cat.category == e.target.value) included = true;
-          });
-          if (included) {
-            alert("Cannot select an item already in use");
-            return (e.target.value = incomeCategory.category);
-          }
           handleInput(
             incomeCategory.min,
             incomeCategory.max,
             incomeCategory.curr,
             index
           );
+          e.target.value = incomeCategory.category;
         }}
       >
         {categoryList.map((cat, index) => (

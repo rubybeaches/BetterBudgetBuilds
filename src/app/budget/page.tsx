@@ -24,10 +24,13 @@ const Budget = () => {
   const incomeCategoryList = useMemo(
     () =>
       sortCategories(
-        [
-          ...defaultIncomeCategories,
-          ...buildInitialAddList(defaultIncomeCategories),
-        ],
+        buildInitialAddList(defaultIncomeCategories).filter((filter) => {
+          let include = true;
+          userIncomeCategories.map((cat) => {
+            if (filter.category == cat.category) include = false;
+          });
+          if (include) return filter;
+        }),
         "category"
       ),
     [userIncomeCategories]
@@ -229,8 +232,7 @@ const Budget = () => {
           <IncomeContainer
             key={index}
             incomeCategory={cat}
-            categoryList={incomeCategoryList}
-            selectedCategories={userIncomeCategories}
+            categoryList={[cat, ...incomeCategoryList]}
             monthlyIncome={monthlyIncome}
             index={index}
             setIncomeCallback={handleIncomeAmounts}
@@ -260,13 +262,7 @@ const Budget = () => {
           >
             {[
               { ...incomeCategoryList[0], category: "Add Category" },
-              ...incomeCategoryList.filter((filter) => {
-                let include = true;
-                userIncomeCategories.map((cat) => {
-                  if (filter.category == cat.category) include = false;
-                });
-                if (include) return filter;
-              }),
+              ...incomeCategoryList,
             ].map((cat, index) => (
               <option key={index} value={cat.category} label={cat.category} />
             ))}
