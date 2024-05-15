@@ -80,6 +80,7 @@
 .sectionContainer {
   display: flex;
   gap: 1em;
+  flex-wrap: wrap;
 }
 
 .sectionContainer > div:first-child {
@@ -432,7 +433,8 @@ p.addListItem:first-child {
 #Essentials .removeCategory,
 #Essentials .sectionBGColor,
 #Essentials .graphHeader,
-#Essentials p.addListItem:hover {
+#Essentials p.addListItem:hover,
+#Essentials .addCategoryButton:hover {
   background-color: #f0f4fe;
 }
 
@@ -471,7 +473,8 @@ p.addListItem:first-child {
 #Non-Essentials .removeCategory,
 #Non-Essentials .sectionBGColor,
 #Non-Essentials .graphHeader,
-#Non-Essentials p.addListItem:hover {
+#Non-Essentials p.addListItem:hover,
+#Non-Essentials .addCategoryButton:hover {
   background-color: #f7effd;
 }
 
@@ -504,7 +507,8 @@ p.addListItem:first-child {
 #Savings .removeCategory,
 #Savings .sectionBGColor,
 #Savings .graphHeader,
-#Savings p.addListItem:hover {
+#Savings p.addListItem:hover,
+#Savings .addCategoryButton:hover {
   background-color: #fff7ee;
 }
 
@@ -512,7 +516,24 @@ p.addListItem:first-child {
   background-color: #fce5cd;
 }
 
-@media screen and (max-width: 650px) {
+@media (max-width: 1024px) {
+  .categoryRow > span > p {
+    font-size: 0.9em;
+  }
+
+  #sectionHeader,
+  .categoryTitle,
+  .categoryTitleUnderline,
+  .categoryHelpText {
+    font-size: 0.95em;
+  }
+
+  .slider {
+    width: 150px;
+  }
+}
+
+@media (max-width: 768px) {
   .categoryRow > span {
     visibility: hidden;
     appearance: none;
