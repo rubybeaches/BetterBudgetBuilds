@@ -5,7 +5,13 @@
   align-items: center;
   padding: 4rem 6rem;
   min-height: 100vh;
-  background: #8EFD8E;
+  background: linear-gradient(
+    135deg,
+    #f0f4fe,
+    #f7effd 25%,
+    #fecfdf 75%,
+    #fff7ee 100%
+  );
 }
 
 .description {
@@ -37,32 +43,51 @@
 }
 
 .title {
-  background: linear-gradient(135deg, #F0F4FE, #F7EFFD 25%, #FECFDF 75%, #FFF7EE 100%);
   width: 100%;
-  padding: .8em;
+  padding: 0.8em;
   border-radius: 50px;
   display: flex;
-  box-shadow: inset 3px 1px 10px #F178ED87;
+  /*box-shadow: inset 3px 1px 10px #f178ed87;*/
 }
 
-.title>p:first-child {
+.title > p:first-child {
   font-weight: bold;
-  font-size: 1.2em;
-  text-shadow: 3px 1px 10px #F178ED87;
+  font-style: italic;
+  font-size: 2em;
+  text-shadow: 3px 3px 10px #de8af1;
+  margin: auto 1em;
+}
+
+.dollar p {
+  font-weight: bold;
+  font-size: 3em;
+  text-shadow: 3px 3px 10px #de8af1;
   margin: auto 1em;
 }
 
 a.button {
-  background: linear-gradient(135deg, #467AF8 25%, #9C32E2 50%, #FF2955 75%, #FFB15A 100%);
+  background: linear-gradient(
+    135deg,
+    #467af8 25%,
+    #9c32e2 50%,
+    #ff2955 75%,
+    #ffb15a 100%
+  );
   margin-left: auto;
   border-radius: 20px;
   padding: 1.5px;
 }
 
 a.button p {
-  background: linear-gradient(135deg, #F0F4FE, #F7EFFD 25%, #FECFDF 75%, #FFF7EE 100%);
+  background: linear-gradient(
+    135deg,
+    #f0f4fe,
+    #f7effd 25%,
+    #fecfdf 75%,
+    #fff7ee 100%
+  );
   border-radius: 20px;
-  padding: .5em 1.5em;
+  padding: 0.5em 1.5em;
   font-size: 1em;
   font-weight: 600;
 }
@@ -74,10 +99,11 @@ a.button p {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(25%, auto));
+  grid-template-columns: repeat(3, minmax(33%, auto));
   max-width: 100%;
   width: var(--max-width);
-  align-self: flex-start;
+  align-self: center;
+  margin-block: 1em;
 }
 
 .card {
@@ -86,6 +112,7 @@ a.button p {
   background: rgba(var(--card-rgb), 0);
   border: 1px solid rgba(var(--card-border-rgb), 0);
   transition: background 200ms, border 200ms;
+  width: fit-content;
 }
 
 .card span {
@@ -98,13 +125,8 @@ a.button p {
   margin-bottom: 0.7rem;
 }
 
-.card p {
-  margin: 0;
-  opacity: 0.6;
-  font-size: 0.9rem;
-  line-height: 1.5;
-  max-width: 30ch;
-  text-wrap: balance;
+.card img {
+  margin: auto;
 }
 
 .center {
@@ -116,10 +138,24 @@ a.button p {
 }
 
 .header {
-  font-size: 4em;
+  font-size: 3em;
   font-weight: bold;
   color: #323232;
-  text-shadow: 3px 3px 10px #0aab2b87;
+  background: linear-gradient(
+    135deg,
+    #f0f4fe,
+    #f7effd 25%,
+    #fecfdf 75%,
+    #fff7ee 100%
+  );
+  border-radius: 100px;
+  padding: 0.25em 1em;
+}
+
+.header p {
+  background: linear-gradient(122deg, #467af8, #9c32e2, #ff2955, #ffb15a);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /*
@@ -155,7 +191,7 @@ a.button p {
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
   .card:hover {
-    background: rgba(var(--card-rgb), 0.1);
+    background: #d0ffd0;
     border: 1px solid rgba(var(--card-border-rgb), 0.15);
   }
 
@@ -164,11 +200,13 @@ a.button p {
   }
 }
 
+/*
 @media (prefers-reduced-motion) {
   .card:hover span {
     transform: none;
   }
 }
+*/
 
 /* Mobile */
 @media (max-width: 700px) {
@@ -223,9 +261,11 @@ a.button p {
     border-radius: 0;
     border: none;
     border-bottom: 1px solid rgba(var(--callout-border-rgb), 0.25);
-    background: linear-gradient(to bottom,
-        rgba(var(--background-start-rgb), 1),
-        rgba(var(--callout-rgb), 0.5));
+    background: linear-gradient(
+      to bottom,
+      rgba(var(--background-start-rgb), 1),
+      rgba(var(--callout-rgb), 0.5)
+    );
     background-clip: padding-box;
     backdrop-filter: blur(24px);
   }
@@ -236,9 +276,11 @@ a.button p {
     inset: auto 0 0;
     padding: 2rem;
     height: 200px;
-    background: linear-gradient(to bottom,
-        transparent 0%,
-        rgb(var(--background-end-rgb)) 40%);
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgb(var(--background-end-rgb)) 40%
+    );
     z-index: 1;
   }
 }
