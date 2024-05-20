@@ -1,3 +1,25 @@
+.main.budgetTop {
+  background-color: #096012;
+  min-height: auto;
+  color: white;
+}
+
+.main.budgetBottom {
+  background-color: #d0ffd0;
+}
+
+.budgetExpenseWrapper {
+  /*background-color: rgba(255, 255, 255, 60%);*/
+  background: white;
+  padding: 2em;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5em;
+  position: relative;
+  z-index: 0;
+}
+
 #income {
   display: flex;
   gap: 1em;
@@ -402,12 +424,6 @@ p.addListItem:first-child {
 }
 
 /****** Section Specific Colors ******/
-
-#Essentials,
-#Non-Essentials,
-#Savings {
-  margin-top: 2.5em;
-}
 
 #Essentials,
 #Essentials .categoryRow input[type="text"] {
