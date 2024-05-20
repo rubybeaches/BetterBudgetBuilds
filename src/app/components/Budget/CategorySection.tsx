@@ -90,7 +90,10 @@ const CategorySection = ({
       <div className="sectionContainer">
         <div>
           {categories.map((cat, index) => (
-            <div key={index} className="categoryRow">
+            <div
+              key={index}
+              className={`categoryRow ${index % 2 == 0 ? "rowBG" : ""}`}
+            >
               <div
                 className="removeCategory"
                 onClick={() => removeCategory(index)}
@@ -102,10 +105,9 @@ const CategorySection = ({
                 showHelp={cat.help.length >= 1}
                 helpCategories={cat.help}
               />
-              <span>
+              <span className="sliderWrapper">
                 <p>
-                  <span className="sliderPercent">({cat.min}%)</span> $
-                  {multiplyPercentToFloat(cat.min, monthlyIncome)}
+                  <span className="sliderPercent">({cat.min}%)</span>
                 </p>
                 <Slider
                   min={cat.min}
@@ -115,10 +117,19 @@ const CategorySection = ({
                   positionSetter={updateTotals}
                 />
                 <p>
-                  <span className="sliderPercent">({cat.max}%)</span> $
-                  {multiplyPercentToFloat(cat.max, monthlyIncome)}
+                  <span className="sliderPercent">({cat.max}%)</span>
                 </p>
               </span>
+              <div style={{ padding: ".25em" }}>
+                <BudgetInput
+                  monthlyIncome={monthlyIncome}
+                  min={cat.min}
+                  max={cat.max}
+                  current={cat.curr}
+                  index={index}
+                  inputSetter={updateTotals}
+                />
+              </div>
             </div>
           ))}
           <AddCategory
@@ -126,31 +137,10 @@ const CategorySection = ({
             addCategory={addCategory}
           />
         </div>
-        <div className="sectionBGColor">
-          {/* <input type="checkbox" value={'Includes and annual lump sum expenditure'} /> */}
-          {categories.map((cat, index) => (
-            <div key={index} style={{ padding: ".25em" }}>
-              <BudgetInput
-                monthlyIncome={monthlyIncome}
-                min={cat.min}
-                max={cat.max}
-                current={cat.curr}
-                index={index}
-                inputSetter={updateTotals}
-              />
-            </div>
-          ))}
-        </div>
         <div className="graphContainer">
           <span>
             <p className="graphHeader">
-              <em>
-                <strong>${convertToFloat(monthlyIncome)}</strong> at{" "}
-                {percentTemplate * 100}% is ~<u>${budgetEstimate.toFixed()}</u>
-              </em>
-            </p>
-            <p style={{ marginTop: "12px" }}>
-              <strong>Selected Totals: ${convertToFloat(budgetTotals)}</strong>
+              Selected Totals:<strong> ${convertToFloat(budgetTotals)}</strong>
             </p>
           </span>
           <div

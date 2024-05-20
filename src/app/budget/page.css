@@ -93,6 +93,8 @@
   font-weight: 500;
   padding-left: 30px;
   position: relative;
+  margin-bottom: 3px;
+  border-radius: 6px;
 }
 
 .categoryRow:first-child {
@@ -100,13 +102,16 @@
 }
 
 .categoryRow,
-.categoryRow > span {
+.categoryRow .sliderWrapper {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
-.categoryRow > span {
-  gap: 1em;
+.sliderWrapper {
+  margin-left: auto;
+  margin-right: 1em;
+  gap: 10px;
 }
 
 .sliderPercent {
@@ -129,7 +134,7 @@
   position: absolute;
   z-index: 99;
   min-height: 150px;
-  top: 0;
+  top: 10px;
   left: 22px;
   width: 400px;
   background-color: #fff;
@@ -191,7 +196,7 @@ input[type="text"] {
   -webkit-appearance: none;
   appearance: none;
   width: 260px;
-  height: 12px;
+  height: 6px;
   border-radius: 5px;
   background: #323232;
   outline: none;
@@ -205,8 +210,8 @@ input[type="text"] {
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background: #fff;
   border: 2px #323232 solid;
@@ -248,14 +253,16 @@ input[type="text"] {
 
 .graphContainer > span:first-child {
   flex: 1;
+  margin-top: 1em;
 }
 
 .graphHeader {
   background: #fff;
   width: fit-content;
   padding: 5px 10px;
-  border-radius: 5px;
+  border-radius: 20px;
   font-weight: 500;
+  font-size: 1.1em;
 }
 
 .budgetGraph {
@@ -365,7 +372,7 @@ p.addListItem:first-child {
 
 .removeCategory {
   position: absolute;
-  left: 0;
+  left: 6px;
 }
 
 .removeIncomeCategory {
@@ -386,17 +393,11 @@ p.addListItem:first-child {
   margin-bottom: -0.5em;
 }
 
-.sectionBGColor {
-  padding: 0.75em;
-  background-color: #fff;
-  border-radius: 10px;
-}
-
-.sectionBGColor div:has(> input[type="text"]) {
+.categoryRow div:has(> input[type="text"]) {
   border: #323232 2px solid;
 }
 
-.sectionBGColor input[type="text"] {
+.categoryRow input[type="text"] {
   color: #323232;
 }
 
@@ -409,7 +410,7 @@ p.addListItem:first-child {
 }
 
 #Essentials,
-#Essentials .sectionBGColor input[type="text"] {
+#Essentials .categoryRow input[type="text"] {
   color: #467af8;
 }
 
@@ -420,7 +421,7 @@ p.addListItem:first-child {
 #Essentials .slider::-webkit-slider-thumb,
 #Essentials .summaryTotals p:nth-child(2),
 #Essentials .summaryTotals::after,
-#Essentials .sectionBGColor div:has(> input[type="text"]),
+#Essentials .categoryRow div:has(> input[type="text"]),
 #Essentials .budgetGraph,
 #Essentials .categoryHelpText,
 #Essentials .addCategoryButton,
@@ -431,7 +432,7 @@ p.addListItem:first-child {
 
 #Essentials .budgetTotalChart,
 #Essentials .removeCategory,
-#Essentials .sectionBGColor,
+#Essentials .categoryRow.rowBG,
 #Essentials .graphHeader,
 #Essentials p.addListItem:hover,
 #Essentials .addCategoryButton:hover {
@@ -449,7 +450,7 @@ p.addListItem:first-child {
 }
 
 #Non-Essentials,
-#Non-Essentials .sectionBGColor input[type="text"] {
+#Non-Essentials .categoryRow input[type="text"] {
   color: #9c32e2;
 }
 
@@ -460,7 +461,7 @@ p.addListItem:first-child {
 #Non-Essentials .slider::-webkit-slider-thumb,
 #Non-Essentials .summaryTotals p:nth-child(2),
 #Non-Essentials .summaryTotals::after,
-#Non-Essentials .sectionBGColor div:has(> input[type="text"]),
+#Non-Essentials .categoryRow div:has(> input[type="text"]),
 #Non-Essentials .budgetGraph,
 #Non-Essentials .categoryHelpText,
 #Non-Essentials .addCategoryButton,
@@ -471,7 +472,7 @@ p.addListItem:first-child {
 
 #Non-Essentials .budgetTotalChart,
 #Non-Essentials .removeCategory,
-#Non-Essentials .sectionBGColor,
+#Non-Essentials .categoryRow.rowBG,
 #Non-Essentials .graphHeader,
 #Non-Essentials p.addListItem:hover,
 #Non-Essentials .addCategoryButton:hover {
@@ -483,7 +484,7 @@ p.addListItem:first-child {
 }
 
 #Savings,
-#Savings .sectionBGColor input[type="text"] {
+#Savings .categoryRow input[type="text"] {
   color: #ffa73d;
 }
 
@@ -494,7 +495,7 @@ p.addListItem:first-child {
 #Savings .slider::-webkit-slider-thumb,
 #Savings .summaryTotals p:nth-child(2),
 #Savings .summaryTotals::after,
-#Savings .sectionBGColor div:has(> input[type="text"]),
+#Savings .categoryRow div:has(> input[type="text"]),
 #Savings .budgetGraph,
 #Savings .categoryHelpText,
 #Savings .addCategoryButton,
@@ -505,7 +506,7 @@ p.addListItem:first-child {
 
 #Savings .budgetTotalChart,
 #Savings .removeCategory,
-#Savings .sectionBGColor,
+#Savings .categoryRow.rowBG,
 #Savings .graphHeader,
 #Savings p.addListItem:hover,
 #Savings .addCategoryButton:hover {
