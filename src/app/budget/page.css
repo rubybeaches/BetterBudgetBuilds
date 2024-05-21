@@ -185,6 +185,7 @@
 div:has(> input[type="text"]) {
   background: white;
   border: #323232 2px solid;
+  border-radius: 4px;
   padding: 0.25em;
   font-size: 1em;
   font-weight: 600;
