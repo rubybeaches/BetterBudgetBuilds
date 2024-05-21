@@ -78,6 +78,10 @@ body {
   align-items: center;
 }
 
+#income span {
+  color: #323232;
+}
+
 .baseBar {
   padding: 16px 24px;
   border-radius: 50px;
