@@ -180,110 +180,117 @@ const Budget = () => {
   return (
     <>
       <main className="main budgetTop">
-        <h2>Budget Calculator</h2>
-        <p>
-          Let's generate a basic bucketing system based on national averages.
-          Don't worry about getting it perfect the first time, you can revisit
-          this at anytime and update your budget moving forward. We've provided
-          percentages based on what is most recommended as a guidepost, and you
-          can adjust the categories and buckets to your needs. If you're unsure
-          of what you should put in any given bucket, use your best guess until
-          you have a better idea.
-        </p>
+        <span className="borderTop"></span>
+        <span className="border left"></span>
+        <span className="border right"></span>
+        <div>
+          <h2>Budget Calculator</h2>
+          <p>
+            Let's generate a basic bucketing system based on national averages.
+            Don't worry about getting it perfect the first time, you can revisit
+            this at anytime and update your budget moving forward. We've
+            provided percentages based on what is most recommended as a
+            guidepost, and you can adjust the categories and buckets to your
+            needs. If you're unsure of what you should put in any given bucket,
+            use your best guess until you have a better idea.
+          </p>
 
-        <label id="income">
-          What is your annual income after taxes and deductions?
-          <div>
-            <span>$</span>{" "}
-            <input
-              type="text"
-              defaultValue={0}
-              ref={incomeRef}
-              onChange={(e) => updateIncome(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key == "Backspace") {
-                  e.preventDefault();
-                  updateIncome("");
-                }
-                if (e.key == "Enter") {
-                  e.preventDefault();
-                  const inputValue = incomeRef.current;
-                  if (inputValue) {
-                    setIncome(() => inputValue.value);
-                    inputValue.value = convertToFloat(
-                      parsetoNum(inputValue.value)
-                    );
+          <label id="income">
+            What is your annual income after taxes and deductions?
+            <div>
+              <span>$</span>{" "}
+              <input
+                type="text"
+                defaultValue={0}
+                ref={incomeRef}
+                onChange={(e) => updateIncome(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key == "Backspace") {
+                    e.preventDefault();
+                    updateIncome("");
                   }
-                }
-              }}
-            />
-          </div>
-          {income > 0 && (
-            <em>
-              your monthly allowance is{" "}
-              <strong>${convertToFloat(monthlyIncome)}</strong>
-            </em>
-          )}
-        </label>
-
-        <div className="incomeSection">
-          <span
-            id={Math.round(incomeSectionBalance) < 0 ? "negativeTotal" : ""}
-          >
-            <p>Balance</p>
-            <p>
-              $
-              {convertToFloat(
-                Math.round(incomeSectionBalance) == 0 ? 0 : incomeSectionBalance
-              )}
-            </p>
-          </span>
-          {userIncomeCategories.map((cat, index) => (
-            <IncomeContainer
-              key={index}
-              incomeCategory={cat}
-              categoryList={[cat, ...incomeCategoryList]}
-              monthlyIncome={monthlyIncome}
-              index={index}
-              setIncomeCallback={handleIncomeAmounts}
-            />
-          ))}
-          {incomeCategoryList.length > 0 && (
-            <span id="addIncomeCategory" className="incomeContainer">
-              <select
-                defaultValue="Add Category"
-                onChange={(e) => {
-                  if (e.target.value != "Add Category") {
-                    const newIncomeCategory: category = {
-                      category: e.target.value,
-                      help: [],
-                      min: 0,
-                      max: 100,
-                      curr: 0,
-                      type: "income",
-                      active: 1,
-                    };
-                    setUserIncomeCategories([
-                      ...userIncomeCategories,
-                      newIncomeCategory,
-                    ]);
-                    e.target.value = "Add Category";
+                  if (e.key == "Enter") {
+                    e.preventDefault();
+                    const inputValue = incomeRef.current;
+                    if (inputValue) {
+                      setIncome(() => inputValue.value);
+                      inputValue.value = convertToFloat(
+                        parsetoNum(inputValue.value)
+                      );
+                    }
                   }
                 }}
-              >
-                {[
-                  { ...incomeCategoryList[0], category: "Add Category" },
-                  ...incomeCategoryList,
-                ].map((cat, index) => (
-                  <option
-                    key={index}
-                    value={cat.category}
-                    label={cat.category}
-                  />
-                ))}
-              </select>
+              />
+            </div>
+            {income > 0 && (
+              <em>
+                your monthly allowance is{" "}
+                <strong>${convertToFloat(monthlyIncome)}</strong>
+              </em>
+            )}
+          </label>
+
+          <div className="incomeSection">
+            <span
+              id={Math.round(incomeSectionBalance) < 0 ? "negativeTotal" : ""}
+            >
+              <p>Balance</p>
+              <p>
+                $
+                {convertToFloat(
+                  Math.round(incomeSectionBalance) == 0
+                    ? 0
+                    : incomeSectionBalance
+                )}
+              </p>
             </span>
-          )}
+            {userIncomeCategories.map((cat, index) => (
+              <IncomeContainer
+                key={index}
+                incomeCategory={cat}
+                categoryList={[cat, ...incomeCategoryList]}
+                monthlyIncome={monthlyIncome}
+                index={index}
+                setIncomeCallback={handleIncomeAmounts}
+              />
+            ))}
+            {incomeCategoryList.length > 0 && (
+              <span id="addIncomeCategory" className="incomeContainer">
+                <select
+                  defaultValue="Add Category"
+                  onChange={(e) => {
+                    if (e.target.value != "Add Category") {
+                      const newIncomeCategory: category = {
+                        category: e.target.value,
+                        help: [],
+                        min: 0,
+                        max: 100,
+                        curr: 0,
+                        type: "income",
+                        active: 1,
+                      };
+                      setUserIncomeCategories([
+                        ...userIncomeCategories,
+                        newIncomeCategory,
+                      ]);
+                      e.target.value = "Add Category";
+                    }
+                  }}
+                >
+                  {[
+                    { ...incomeCategoryList[0], category: "Add Category" },
+                    ...incomeCategoryList,
+                  ].map((cat, index) => (
+                    <option
+                      key={index}
+                      value={cat.category}
+                      label={cat.category}
+                    />
+                  ))}
+                </select>
+              </span>
+            )}
+          </div>
         </div>
       </main>
 
