@@ -6,11 +6,13 @@ body {
   min-height: auto;
   color: white;
   position: relative;
+  align-items: center;
 }
 
 .main.budgetTop > div {
   display: flex;
   flex-direction: column;
+  max-width: 1280px;
   gap: 1em;
   padding: 2em;
 }
@@ -43,21 +45,10 @@ body {
   left: 0;
 }
 
-@media screen and (max-width: 650px) {
-  .left {
-    left: 1em;
-  }
-  .right {
-    right: 1em;
-  }
-  .borderTop {
-    top: 1em;
-  }
-}
-
 .main.budgetBottom {
   background-color: #d0ffd0;
   border-radius: 60px 60px 0 0;
+  align-items: center;
 }
 
 .budgetExpenseWrapper {
@@ -70,6 +61,7 @@ body {
   gap: 3.5em;
   position: relative;
   z-index: 0;
+  max-width: 1280px;
 }
 
 #income {
@@ -612,5 +604,17 @@ p.addListItem:first-child {
     visibility: hidden;
     appearance: none;
     width: 0;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .left {
+    left: 1em;
+  }
+  .right {
+    right: 1em;
+  }
+  .borderTop {
+    top: 1em;
   }
 }

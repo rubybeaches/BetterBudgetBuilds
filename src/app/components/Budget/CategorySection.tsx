@@ -171,7 +171,10 @@ const CategorySection = ({
             }}
           >
             <p>Selected Totals</p>
-            <p>{percentTemplate * 100}% Template</p>
+            <p>
+              {percentTemplate * 100}% of
+              <strong> ${convertToFloat(monthlyIncome)}</strong>
+            </p>
           </span>
         </div>
         <div className="summaryTotals">
