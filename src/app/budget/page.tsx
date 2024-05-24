@@ -4,6 +4,7 @@ import categories from "../lib/seed.json";
 import { useEffect, useMemo, useRef, useState } from "react";
 import CategorySection from "../components/Budget/CategorySection";
 import {
+  allMonths,
   buildInitialAddList,
   convertToFloat,
   defaultIncomeCategories,
@@ -346,11 +347,58 @@ const Budget = () => {
           />
 
           <div className="baseBar">
-            <div className="saveBudgetContainer" onClick={() => saveBudget()}>
-              <div className="saveBudget">
-                <p className="saveBudgetButton">Apply Budget</p>
+            <div className="applyBudgetWrapper">
+              <p>Apply budget starting in</p>
+              <div className="saveBudgetContainer">
+                <p className="monthTitle">
+                  <select defaultValue="June">
+                    {allMonths.map((m) => (
+                      <option key={m} value={m} label={m} />
+                    ))}
+                  </select>
+                </p>
+              </div>
+              <div className="saveBudgetContainer" onClick={() => saveBudget()}>
+                <div className="saveBudget">
+                  <p className="saveBudgetButton">
+                    <svg
+                      viewBox="0 0 161 160"
+                      version="1.1"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g transform="matrix(1,0,0,1,-12211.6,-1.42109e-14)">
+                        <g transform="matrix(0.291801,0,0,0.406683,8495.88,-3.69116)">
+                          <g transform="matrix(4.25343,0,0,3.02405,-41497.1,-63.4492)">
+                            <path d="M12768.8,153.722L12768.8,104.686L12862.7,104.686L12862.7,153.722L12878.8,153.722L12878.8,33.69C12878.8,28.333 12874.5,23.983 12869.1,23.983L12760.1,23.983C12754.5,23.983 12749.9,28.573 12749.9,34.227L12749.9,153.722L12768.8,153.722Z" />
+                          </g>
+                        </g>
+                        <g transform="matrix(0.291801,0,0,0.406683,8495.88,-3.69116)">
+                          <g transform="matrix(14.1252,0,0,27.407,-9379.2,-26579.6)">
+                            <rect
+                              x="1583.32"
+                              y="979.914"
+                              width="12.823"
+                              height="4.19"
+                            />
+                          </g>
+                        </g>
+                      </g>
+                    </svg>
+                    Save
+                  </p>
+                </div>
               </div>
             </div>
+            <a href="/dashboard">
+              <div
+                className="saveBudgetContainer"
+                style={{ marginRight: "2px" }}
+              >
+                <div className="saveBudget" style={{ padding: "8px 18px" }}>
+                  <p className="saveBudgetButton">Dashboard &#8594;</p>
+                </div>
+              </div>
+            </a>
           </div>
         </div>
       </main>
