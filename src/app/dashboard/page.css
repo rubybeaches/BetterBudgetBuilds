@@ -1,5 +1,5 @@
 body {
-  background: white;
+  background: linear-gradient(122deg, #f0f4fe, #f7effd, #fecfdf, #fff7ee);
 }
 
 .monthTitle {
@@ -13,7 +13,7 @@ body {
   font-family: Montserrat;
   border: none;
   outline: none;
-  background: linear-gradient(122deg, #f0f4fe, #f7effd, #fecfdf, #fff7ee);
+  background: #fff;
   padding: 3px 9px;
   border-radius: 6px;
 }
@@ -22,14 +22,10 @@ body {
   font-size: 0.6em;
 }
 
-.section .baseBarBubble {
-  border: 1px solid #fff;
-}
-
 .baseBar {
   padding: 16px 24px;
   border-radius: 50px;
-  background: linear-gradient(122deg, #f0f4fe, #f7effd, #fecfdf, #fff7ee);
+  background: #fff;
   margin-top: 20px;
   font-size: 1em;
   font-weight: 600;
@@ -42,7 +38,7 @@ body {
 
 .baseBarBubble {
   padding: 3px 12px;
-  background-color: #fff;
+  background: linear-gradient(122deg, #f0f4fe, #f7effd, #fecfdf, #fff7ee);
   border-radius: 20px;
 }
 
@@ -118,6 +114,13 @@ body {
   padding: 1.5em 2em 2em 2em;
   border-radius: 20px;
   position: relative;
+  border: 2px solid #fff;
+  overflow-x: auto;
+}
+
+.section .baseBarBubble {
+  border: 1px solid #fff;
+  background: #fff;
 }
 
 .section > h1 {
@@ -138,7 +141,7 @@ body {
   border-spacing: 0px;
   font-size: 0.9em;
   margin-top: 20px;
-  width: 80%;
+  width: 1024px;
 }
 
 .section > table#expenseTable {

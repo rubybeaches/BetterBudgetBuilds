@@ -15,6 +15,7 @@ import {
 } from "../lib/helpers";
 import { category } from "../lib/types";
 import IncomeContainer from "../components/Budget/IncomeContainer";
+import SuccessPopUp from "../components/SuccessPopUp";
 
 const Budget = () => {
   const [userCategories, setUserCategories] = useState(categories);
@@ -39,6 +40,10 @@ const Budget = () => {
       ),
     [userIncomeCategories]
   );
+
+  const [displaySaved, setDisplaySaved] = useState(false);
+  const successTimer = useRef<any>();
+  let month = new Date().toLocaleString("en-US", { month: "long" });
 
   useEffect(() => {
     const items: any = localStorage.getItem("userCategories");
@@ -172,6 +177,12 @@ const Budget = () => {
       "userIncomeCategories",
       JSON.stringify(userIncomeCategories)
     );
+
+    setDisplaySaved(() => true);
+
+    successTimer.current = setTimeout(() => {
+      setDisplaySaved(() => false);
+    }, 3000);
   };
   // load user profile or template profile
   // if using template profile, aka no user, then values should be all percent based so they can be dynamic
@@ -351,7 +362,7 @@ const Budget = () => {
               <p>Apply budget starting in</p>
               <div className="saveBudgetContainer">
                 <p className="monthTitle">
-                  <select defaultValue="June">
+                  <select defaultValue={month}>
                     {allMonths.map((m) => (
                       <option key={m} value={m} label={m} />
                     ))}
@@ -402,6 +413,16 @@ const Budget = () => {
           </div>
         </div>
       </main>
+      {displaySaved && (
+        <span
+          onClick={() => {
+            clearTimeout(successTimer.current);
+            setDisplaySaved(() => false);
+          }}
+        >
+          <SuccessPopUp message="Budget Expenses Saved!" />
+        </span>
+      )}
     </>
   );
 };
