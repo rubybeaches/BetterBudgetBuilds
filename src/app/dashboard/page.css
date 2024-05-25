@@ -81,7 +81,7 @@ body {
 .expenseButton.border,
 .incomeButton.border,
 .savingsButton.border {
-  padding: 2px;
+  padding: 1.8px;
   width: fit-content;
   border-radius: 20px;
   cursor: pointer;
