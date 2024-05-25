@@ -131,14 +131,16 @@ const Dashboard = ({
   return (
     <main className="main">
       <h2 className="monthTitle">
-        <select
-          defaultValue={month}
-          onChange={(e) => changeMonth(e.target.value)}
-        >
-          {allMonths.map((m) => (
-            <option key={m} value={m} label={m} />
-          ))}
-        </select>{" "}
+        <span>
+          <select
+            defaultValue={month}
+            onChange={(e) => changeMonth(e.target.value)}
+          >
+            {allMonths.map((m) => (
+              <option key={m} value={m} label={m} />
+            ))}
+          </select>
+        </span>{" "}
         Budget Dashboard
       </h2>
 

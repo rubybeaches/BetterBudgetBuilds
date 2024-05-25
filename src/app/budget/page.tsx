@@ -420,7 +420,7 @@ const Budget = () => {
             setDisplaySaved(() => false);
           }}
         >
-          <SuccessPopUp message="Budget Expenses Saved!" />
+          <SuccessPopUp message={`New Budget Saved Starting ${month}`} />
         </span>
       )}
     </>

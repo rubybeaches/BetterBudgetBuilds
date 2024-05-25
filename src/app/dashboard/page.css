@@ -7,6 +7,13 @@ body {
   font-weight: 600;
 }
 
+.monthTitle span:has(select) {
+  padding: 1.8px;
+  background: linear-gradient(122deg, #467af8, #9c32e2, #ff2955, #ffb15a);
+  display: inline-block;
+  border-radius: 8px;
+}
+
 .monthTitle select {
   font-size: 1em;
   font-weight: 600;
@@ -22,13 +29,18 @@ body {
   font-size: 0.6em;
 }
 
+.monthWrapper {
+  padding: 1.5px;
+  background: linear-gradient(122deg, #f0f4fe, #f7effd, #fecfdf, #fff7ee);
+}
+
 .baseBar {
   padding: 16px 24px;
   border-radius: 50px;
   background: #fff;
-  margin-top: 20px;
   font-size: 1em;
   font-weight: 600;
+  margin-top: 20px;
 }
 
 .baseBar em {
