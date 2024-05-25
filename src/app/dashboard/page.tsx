@@ -145,6 +145,11 @@ const Dashboard = ({
       </h2>
 
       <div className="baseBar">
+        <div className="updateBudget">
+          <div>
+            <a href="/budget">Update Budget</a>
+          </div>
+        </div>
         <span id="Income">${convertToFloat(incomeExpenseTotal)}</span> -{" "}
         <span id="Essential">${convertToFloat(essentialExpenseTotal)}</span> -{" "}
         <span id="Non-Essential">
