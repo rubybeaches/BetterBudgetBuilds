@@ -16,8 +16,13 @@ import {
 import { category } from "../lib/types";
 import IncomeContainer from "../components/Budget/IncomeContainer";
 import SuccessPopUp from "../components/SuccessPopUp";
+import { useUser } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
 
 const Budget = () => {
+  const { isSignedIn, user } = useUser();
+  if (!isSignedIn || !user) redirect("/sign-in");
+
   const [userCategories, setUserCategories] = useState(categories);
   const [userIncomeCategories, setUserIncomeCategories] = useState(
     setActiveCategories(defaultIncomeCategories, "income")

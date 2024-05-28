@@ -12,7 +12,13 @@ import SummaryTable from "../components/Dashboard/SummaryTable";
 import { category, expense } from "../lib/types";
 import ExpenseTable from "../components/Dashboard/ExpenseTable";
 import categories from "../lib/seed.json";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import {
+  redirect,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
+import { useUser } from "@clerk/nextjs";
 
 const Dashboard = ({
   searchParams,
@@ -21,6 +27,9 @@ const Dashboard = ({
     month?: string;
   };
 }) => {
+  const {isSignedIn, user } = useUser();
+  if (!isSignedIn || !user) redirect("/sign-in");
+
   const monthParam = searchParams?.month || "";
   let today = new Date();
   let month = allMonths.includes(monthParam)

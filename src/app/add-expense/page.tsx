@@ -14,7 +14,8 @@ import categories from "../lib/seed.json";
 import ExpenseTable from "../components/Dashboard/ExpenseTable";
 import AddExpenseBar from "../components/AddExpense/AddExpenseBar";
 import ProgressBar from "../components/ProgressBar";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
 
 const AddExpense = ({
   searchParams,
@@ -23,6 +24,9 @@ const AddExpense = ({
     month?: string;
   };
 }) => {
+  const { isSignedIn, user } = useUser();
+  if (!isSignedIn || !user) redirect("/sign-in");
+
   const monthParam = searchParams?.month || "";
   let today = new Date();
   let month = allMonths.includes(monthParam)
