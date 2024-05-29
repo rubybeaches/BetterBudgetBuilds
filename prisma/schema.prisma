@@ -22,6 +22,7 @@ model Budget {
   id        Int     @id @default(autoincrement())
   start    DateTime
   end     DateTime?
+  income  Float
   expenseCategories ExpenseCategory[]
   incomeCategories  IncomeCategory[]
 
