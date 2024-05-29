@@ -125,6 +125,10 @@ body {
   border-radius: 20px;
 }
 
+.saveBudget:hover {
+  background: #fff;
+}
+
 .saveBudgetButton {
   font-size: 1em;
   font-weight: 800;
