@@ -282,7 +282,7 @@ const Budget = ({
                     if (e.target.value != "Add Category") {
                       const newIncomeCategory: category = {
                         category: e.target.value,
-                        help: [],
+                        help: '',
                         min: 0,
                         max: 100,
                         curr: 0,

@@ -47,7 +47,7 @@ model ExpenseCategory {
 model IncomeCategory {
   id        Int     @id @default(autoincrement())
   category String
-  help String?
+  help String
   min Int
   max Int
   curr Int
