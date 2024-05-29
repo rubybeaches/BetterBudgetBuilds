@@ -17,7 +17,7 @@ const Page = async () => {
     <Budget
       expenseCategories={budget?.expenseCategories || []}
       incomeCategories={budget?.incomeCategories || []}
-      baseIncome={budget.income}
+      baseIncome={budget?.income || 0}
     />
   );
 };
