@@ -25,7 +25,13 @@ const AddExpense = ({
   };
 }) => {
   const { isSignedIn, user } = useUser();
-  if (!isSignedIn || !user) redirect("/sign-in");
+  setTimeout(() => {
+    if (!isSignedIn || !user) {
+      redirect("/sign-in");
+    }
+  }, 1000);
+
+  if (!isSignedIn || !user) return null;
 
   const monthParam = searchParams?.month || "";
   let today = new Date();

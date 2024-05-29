@@ -27,8 +27,14 @@ const Dashboard = ({
     month?: string;
   };
 }) => {
-  const {isSignedIn, user } = useUser();
-  if (!isSignedIn || !user) redirect("/sign-in");
+  const { isSignedIn, user } = useUser();
+  setTimeout(() => {
+    if (!isSignedIn || !user) {
+      redirect("/sign-in");
+    }
+  }, 1000);
+
+  if (!isSignedIn || !user) return null;
 
   const monthParam = searchParams?.month || "";
   let today = new Date();

@@ -5,7 +5,7 @@ export default function Home() {
     <main className={styles.main}>
       <div className={styles.title}>
         <p>Better Budget Builds</p>
-        <a href="/budget" className={styles.button}>
+        <a href="/sign-in" className={styles.button}>
           <p>Login</p>
         </a>
       </div>
