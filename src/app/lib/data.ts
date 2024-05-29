@@ -6,6 +6,7 @@ export const getUserBudget = async (
   year: number,
   userId: number
 ) => {
+  // https://github.com/prisma/prisma/discussions/11443
   const budget = await prisma.budget.findFirst({
     orderBy: [
       {
@@ -19,8 +20,28 @@ export const getUserBudget = async (
       },
     },
     include: {
-      incomeCategories: true,
-      expenseCategories: true,
+      incomeCategories: {
+        select: {
+          category: true,
+          help: true,
+          min: true,
+          max: true,
+          curr: true,
+          type: true,
+          active: true,
+        },
+      },
+      expenseCategories: {
+        select: {
+          category: true,
+          help: true,
+          min: true,
+          max: true,
+          curr: true,
+          type: true,
+          active: true,
+        },
+      },
     },
   });
 

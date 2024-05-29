@@ -14,7 +14,6 @@ import {
   sortCategories,
 } from "../lib/helpers";
 import { category } from "../lib/types";
-import { ExpenseCategory, IncomeCategory } from "@prisma/client";
 import IncomeContainer from "../components/Budget/IncomeContainer";
 import SuccessPopUp from "../components/SuccessPopUp";
 
@@ -23,8 +22,8 @@ const Budget = ({
   incomeCategories,
   baseIncome,
 }: {
-  expenseCategories: ExpenseCategory[];
-  incomeCategories: IncomeCategory[];
+  expenseCategories: category[];
+  incomeCategories: category[];
   baseIncome: number;
 }) => {
   const [userCategories, setUserCategories] = useState(categories);

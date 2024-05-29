@@ -1,6 +1,6 @@
 export type category = {
   category: string;
-  help: string[];
+  help: string;
   min: number;
   max: number;
   curr: number;

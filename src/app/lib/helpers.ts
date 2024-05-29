@@ -125,9 +125,9 @@ export const setInactiveCategoryList = (categories: category[]) => {
 export const buildInitialAddList = (categories: category[]) => {
   const addList: category[] = [];
   categories.map((cat) => {
-    if (cat.help.length > 0) {
-      cat.help.map((item) => {
-        addList.push({ ...cat, category: item, help: [] });
+    if (cat.help) {
+      cat.help.split(",").map((item) => {
+        addList.push({ ...cat, category: item, help: "" });
       });
     }
     if (!cat.active) {
@@ -140,14 +140,7 @@ export const buildInitialAddList = (categories: category[]) => {
 export const defaultIncomeCategories = [
   {
     category: "Income",
-    help: [
-      "Paycheck",
-      "Dividends",
-      "Interest Accrual",
-      "Self-Income",
-      "Repayment",
-      "Rebate",
-    ],
+    help: "Paycheck, Dividends, Interest Accrual, Self-Income, Repayment, Rebate",
     min: 5,
     max: 100,
     curr: 100,

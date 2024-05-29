@@ -1,334 +1,200 @@
 [
-    {
-        "category": "Housing",
-        "help": [
-            "Mortgage/Rent",
-            "HOA Fees",
-            "Homeowners Insurance",
-            "Renters Insurance",
-            "Home Maintenance",
-            "Property Taxes"
-        ],
-        "min": 5,
-        "max": 35,
-        "curr": 20,
-        "active": 1,
-        "type": "essential"
-    },
-    {
-        "category": "Home and Garden",
-        "help": [
-            "House cleaning",
-            "Lawn care",
-            "Security System",
-            "Pest control",
-            "Tools",
-            "Furniture",
-            "Home decor"
-        ],
-        "min": 1,
-        "max": 10,
-        "curr": 5,
-        "active": 1,
-        "type": "essential"
-    },
-    {
-        "category": "Utilities",
-        "help": [
-            "Electricity",
-            "Natural Gas",
-            "Internet",
-            "Mobile Phone",
-            "Garbage",
-            "Recycling",
-            "Water",
-            "Sewer"
-        ],
-        "min": 1,
-        "max": 10,
-        "curr": 5,
-        "active": 1,
-        "type": "essential"
-    },
-    {
-        "category": "Groceries",
-        "help": [],
-        "min": 1,
-        "max": 15,
-        "curr": 7,
-        "active": 1,
-        "type": "essential"
-    },
-    {
-        "category": "Transportation",
-        "help": [
-            "Car Payment",
-            "Car Insurance",
-            "Gas",
-            "Oil Change",
-            "Maintenance",
-            "Registration",
-            "Public Transportation",
-            "Ride Share",
-            "Toll",
-            "Parking Fees",
-            "Roadside Assistaince"
-        ],
-        "min": 1,
-        "max": 10,
-        "curr": 5,
-        "active": 1,
-        "type": "essential"
-    },
-    {
-        "category": "Health and Wellness",
-        "help": [
-            "Prescriptions",
-            "Medical visits",
-            "Vitamins"
-        ],
-        "min": 1,
-        "max": 5,
-        "curr": 2,
-        "active": 1,
-        "type": "essential"
-    },
-    {
-        "category": "Kids",
-        "help": [
-            "Tuition",
-            "Daycare",
-            "Babysitter",
-            "Diapers/Formula",
-            "School Supplies",
-            "Kids Clothing",
-            "Allowance",
-            "Toys",
-            "Child Support"
-        ],
-        "min": 1,
-        "max": 30,
-        "curr": 20,
-        "active": 0,
-        "type": "essential"
-    },
-    {
-        "category": "Pets",
-        "help": [
-            "Veterinarian Visits",
-            "Pet Food",
-            "Pet Medication",
-            "Pet Toys",
-            "Pet Accesories",
-            "Pet Grooming",
-            "Pet Insurance"
-        ],
-        "min": 1,
-        "max": 10,
-        "curr": 5,
-        "active": 1,
-        "type": "essential"
-    },
-    {
-        "category": "Subscriptions",
-        "help": [
-            "Netflix",
-            "Hulu",
-            "HBO",
-            "Amazon Prime",
-            "Spotify",
-            "Phone Apps",
-            "Software Subscriptions",
-            "Membership Subscriptions",
-            "Gym Memberships",
-            "Magazines"
-        ],
-        "min": 1,
-        "max": 5,
-        "curr": 2,
-        "active": 1,
-        "type": "non-essential"
-    },
-    {
-        "category": "Eating Out",
-        "help": [
-            "Restaurants",
-            "Coffee",
-            "Fast Food"
-        ],
-        "min": 1,
-        "max": 5,
-        "curr": 2,
-        "active": 1,
-        "type": "non-essential"
-    },
-    {
-        "category": "Self-Care",
-        "help": [
-            "Hair Cuts/Coloring",
-            "Hair Products",
-            "Cosmetics",
-            "Massages",
-            "Spa Services"
-        ],
-        "min": 1,
-        "max": 5,
-        "curr": 2,
-        "active": 1,
-        "type": "non-essential"
-    },
-    {
-        "category": "Personal Development",
-        "help": [
-            "Books",
-            "Personal Coach",
-            "Self-Improvement",
-            "Conferences",
-            "Online Courses"
-        ],
-        "min": 1,
-        "max": 10,
-        "curr": 5,
-        "active": 1,
-        "type": "non-essential"
-    },
-    {
-        "category": "Professional Fees",
-        "help": [
-            "Financial Advisor",
-            "Attorney Fees",
-            "Tax Professional",
-            "Movers",
-            "Storage Facility Fees",
-            "Electrician"
-        ],
-        "min": 1,
-        "max": 5,
-        "curr": 2,
-        "active": 1,
-        "type": "non-essential"
-    },
-    {
-        "category": "Recreation",
-        "help": [
-            "Movies",
-            "Concerts",
-            "Hobbies/Crafts",
-            "Entertainment",
-            "Sporting Events",
-            "Trivia",
-            "Amusement Parks"
-        ],
-        "min": 1,
-        "max": 5,
-        "curr": 3,
-        "active": 1,
-        "type": "non-essential"
-    },
-    {
-        "category": "Travel",
-        "help": [
-            "Vacation",
-            "Wedding Trips",
-            "Souvenirs",
-            "Baggage Fees",
-            "Airplane Tickets"
-        ],
-        "min": 1,
-        "max": 10,
-        "curr": 5,
-        "active": 1,
-        "type": "non-essential"
-    },
-    {
-        "category": "Tech and Accessories",
-        "help": [
-            "Mobile Phone Accessories",
-            "Computer",
-            "Computer Accessories",
-            "Speaker System",
-            "Smart Home Supplies",
-            "Gaming System"
-        ],
-        "min": 1,
-        "max": 5,
-        "curr": 2,
-        "active": 0,
-        "type": "non-essential"
-    },
-    {
-        "category": "Gifts",
-        "help": [
-            "Birthday Gifts",
-            "Wedding shower Gifts",
-            "Anniversary Gifts",
-            "Teacher Gifts",
-            "Holiday Cards"
-        ],
-        "min": 1,
-        "max": 5,
-        "curr": 2,
-        "active": 1,
-        "type": "non-essential"
-    },
-    {
-        "category": "Charitable Giving",
-        "help": [
-            "Charity",
-            "Donations",
-            "Tithing",
-            "Community",
-            "Non-Cash Donations"
-        ],
-        "min": 1,
-        "max": 5,
-        "curr": 3,
-        "active": 1,
-        "type": "non-essential"
-    },
-    {
-        "category": "Savings",
-        "help": [
-            "Personal Savings",
-            "College Savings",
-            "Emergency Fund",
-            "Home Down Payment"
-        ],
-        "min": 1,
-        "max": 10,
-        "curr": 5,
-        "active": 1,
-        "type": "savings"
-    },
-    {
-        "category": "Retirement Savings",
-        "help": [
-            "Non-Employer 401K",
-            "Traditional/Roth IRA",
-            "Brokerage Investments"
-        ],
-        "min": 1,
-        "max": 10,
-        "curr": 5,
-        "active": 1,
-        "type": "savings"
-    },
-    {
-        "category": "Stocks",
-        "help": [],
-        "min": 1,
-        "max": 5,
-        "curr": 2,
-        "active": 1,
-        "type": "savings"
-    },
-    {
-        "category": "Auto Roundup",
-        "help": [],
-        "min": 0,
-        "max": 3,
-        "curr": 1,
-        "active": 1,
-        "type": "savings"
-    }
+  {
+    "category": "Housing",
+    "help": "Mortgage/Rent, HOA Fees, Homeowners Insurance, Renters Insurance, Home Maintenance, Property Taxes",
+    "min": 5,
+    "max": 35,
+    "curr": 20,
+    "active": 1,
+    "type": "essential"
+  },
+  {
+    "category": "Home and Garden",
+    "help": "House cleaning, Lawn care, Security System, Pest control, Tools, Furniture, Home decor",
+    "min": 1,
+    "max": 10,
+    "curr": 5,
+    "active": 1,
+    "type": "essential"
+  },
+  {
+    "category": "Utilities",
+    "help": "Electricity, Natural Gas, Internet, Mobile Phone, Garbage, Recycling, Water, Sewer",
+    "min": 1,
+    "max": 10,
+    "curr": 5,
+    "active": 1,
+    "type": "essential"
+  },
+  {
+    "category": "Groceries",
+    "help": "",
+    "min": 1,
+    "max": 15,
+    "curr": 7,
+    "active": 1,
+    "type": "essential"
+  },
+  {
+    "category": "Transportation",
+    "help": "Car Payment, Car Insurance, Gas, Oil Change, Maintenance, Registration, Public Transportation, Ride Share, Toll, Parking Fees, Roadside Assistaince",
+    "min": 1,
+    "max": 10,
+    "curr": 5,
+    "active": 1,
+    "type": "essential"
+  },
+  {
+    "category": "Health and Wellness",
+    "help": "Prescriptions, Medical visits, Vitamins",
+    "min": 1,
+    "max": 5,
+    "curr": 2,
+    "active": 1,
+    "type": "essential"
+  },
+  {
+    "category": "Kids",
+    "help": "Tuition, Daycare, Babysitter, Diapers/Formula, School Supplies, Kids Clothing, Allowance, Toys, Child Support",
+    "min": 1,
+    "max": 30,
+    "curr": 20,
+    "active": 0,
+    "type": "essential"
+  },
+  {
+    "category": "Pets",
+    "help": "Veterinarian Visits, Pet Food, Pet Medication, Pet Toys, Pet Accesories, Pet Grooming, Pet Insurance",
+    "min": 1,
+    "max": 10,
+    "curr": 5,
+    "active": 1,
+    "type": "essential"
+  },
+  {
+    "category": "Subscriptions",
+    "help": "Netflix, Hulu, HBO, Amazon Prime, Spotify, Phone Apps, Software Subscriptions, Membership Subscriptions, Gym Memberships, Magazines",
+    "min": 1,
+    "max": 5,
+    "curr": 2,
+    "active": 1,
+    "type": "non-essential"
+  },
+  {
+    "category": "Eating Out",
+    "help": "Restaurants, Coffee, Fast Food",
+    "min": 1,
+    "max": 5,
+    "curr": 2,
+    "active": 1,
+    "type": "non-essential"
+  },
+  {
+    "category": "Self-Care",
+    "help": "Hair Cuts/Coloring, Hair Products, Cosmetics, Massages, Spa Services",
+    "min": 1,
+    "max": 5,
+    "curr": 2,
+    "active": 1,
+    "type": "non-essential"
+  },
+  {
+    "category": "Personal Development",
+    "help": "Books, Personal Coach, Self-Improvement, Conferences, Online Courses",
+    "min": 1,
+    "max": 10,
+    "curr": 5,
+    "active": 1,
+    "type": "non-essential"
+  },
+  {
+    "category": "Professional Fees",
+    "help": "Financial Advisor, Attorney Fees, Tax Professional, Movers, Storage Facility Fees, Electrician",
+    "min": 1,
+    "max": 5,
+    "curr": 2,
+    "active": 1,
+    "type": "non-essential"
+  },
+  {
+    "category": "Recreation",
+    "help": "Movies, Concerts, Hobbies/Crafts, Entertainment, Sporting Events, Trivia, Amusement Parks",
+    "min": 1,
+    "max": 5,
+    "curr": 3,
+    "active": 1,
+    "type": "non-essential"
+  },
+  {
+    "category": "Travel",
+    "help": "Vacation, Wedding Trips, Souvenirs, Baggage Fees, Airplane Tickets",
+    "min": 1,
+    "max": 10,
+    "curr": 5,
+    "active": 1,
+    "type": "non-essential"
+  },
+  {
+    "category": "Tech and Accessories",
+    "help": "Mobile Phone Accessories, Computer, Computer Accessories, Speaker System, Smart Home Supplies, Gaming System",
+    "min": 1,
+    "max": 5,
+    "curr": 2,
+    "active": 0,
+    "type": "non-essential"
+  },
+  {
+    "category": "Gifts",
+    "help": "Birthday Gifts, Wedding shower Gifts, Anniversary Gifts, Teacher Gifts, Holiday Cards",
+    "min": 1,
+    "max": 5,
+    "curr": 2,
+    "active": 1,
+    "type": "non-essential"
+  },
+  {
+    "category": "Charitable Giving",
+    "help": "Charity, Donations, Tithing, Community, Non-Cash Donations",
+    "min": 1,
+    "max": 5,
+    "curr": 3,
+    "active": 1,
+    "type": "non-essential"
+  },
+  {
+    "category": "Savings",
+    "help": "Personal Savings, College Savings, Emergency Fund, Home Down Payment",
+    "min": 1,
+    "max": 10,
+    "curr": 5,
+    "active": 1,
+    "type": "savings"
+  },
+  {
+    "category": "Retirement Savings",
+    "help": "Non-Employer 401K, Traditional/Roth IRA, Brokerage Investments",
+    "min": 1,
+    "max": 10,
+    "curr": 5,
+    "active": 1,
+    "type": "savings"
+  },
+  {
+    "category": "Stocks",
+    "help": "",
+    "min": 1,
+    "max": 5,
+    "curr": 2,
+    "active": 1,
+    "type": "savings"
+  },
+  {
+    "category": "Auto Roundup",
+    "help": "",
+    "min": 0,
+    "max": 3,
+    "curr": 1,
+    "active": 1,
+    "type": "savings"
+  }
 ]
