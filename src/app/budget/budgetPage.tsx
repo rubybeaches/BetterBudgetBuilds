@@ -16,6 +16,7 @@ import {
 import { category } from "../lib/types";
 import IncomeContainer from "../components/Budget/IncomeContainer";
 import SuccessPopUp from "../components/SuccessPopUp";
+import { createBudget } from "../lib/actions";
 
 const Budget = ({
   expenseCategories,
@@ -172,7 +173,7 @@ const Budget = ({
     setUserIncomeCategories(updateIncome);
   };
 
-  const saveBudget = () => {
+  const saveBudget = async () => {
     let mergeBudgetArrays: category[] = [];
     mergeBudgetArrays = mergeBudgetArrays.concat(
       mergeBudgetArrays,
@@ -181,12 +182,19 @@ const Budget = ({
       savingCategories,
       inactiveCategories
     );
-    localStorage.setItem("userCategories", JSON.stringify(mergeBudgetArrays));
-    localStorage.setItem("income", JSON.stringify(income));
-    localStorage.setItem(
-      "userIncomeCategories",
-      JSON.stringify(userIncomeCategories)
+
+    const budget = await createBudget(
+      mergeBudgetArrays,
+      userIncomeCategories,
+      income,
+      5,
+      2024,
+      2
     );
+
+    // localStorage.setItem("userCategories", JSON.stringify(mergeBudgetArrays));
+    // localStorage.setItem("income", JSON.stringify(income));
+    // localStorage.setItem("userIncomeCategories",JSON.stringify(userIncomeCategories));
 
     setDisplaySaved(() => true);
 
