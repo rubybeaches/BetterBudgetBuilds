@@ -148,7 +148,7 @@ body {
 }
 
 .incomeContainer {
-  background-color: #ebfceb;
+  background-color: #d0ffd0;
   padding: 12px;
   display: flex;
   gap: 12px;
@@ -166,6 +166,10 @@ body {
   font-size: 1em;
   font-weight: 600;
   font-family: Montserrat;
+}
+
+.incomeContainer:hover select {
+  background-color: #ebfceb;
 }
 
 .incomeContainer select option {
