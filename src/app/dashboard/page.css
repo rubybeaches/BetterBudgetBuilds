@@ -107,40 +107,33 @@ body {
 }
 
 .expenseButton.border {
-  /*background: linear-gradient(122deg, #467af8, #9c32e2, #ff2955, #ffb15a);*/
   background-color: #fff;
 }
 
 .incomeButton.border {
-  /*background: #09d22f;*/
   background-color: #fff;
 }
 
 .savingsButton.border {
-  /*background: var(--orange-color);*/
   background-color: #fff;
 }
 
-.expenseButton.background {
+.expenseButton.background:hover,
+.incomeButton.background:hover,
+.savingsButton.background:hover {
   background-color: #fff;
+  background: #fff;
 }
-.expenseButton.background:hover {
+
+.expenseButton.background {
   background: linear-gradient(122deg, #f0f4fe, #f7effd, #fecfdf, #fff7ee);
 }
 
 .incomeButton.background {
-  background-color: #fff;
-}
-
-.incomeButton.background:hover {
   background-color: #d0ffd0;
 }
 
 .savingsButton.background {
-  background-color: #fff;
-}
-
-.savingsButton.background:hover {
   background: var(--orange-highlight);
 }
 
