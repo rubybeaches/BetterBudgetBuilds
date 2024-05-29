@@ -1,5 +1,5 @@
 "use server";
-import { prisma } from "./prisma-client";
+import { prisma } from "../../prisma-client";
 
 export const getUserBudget = async (
   month: number,
