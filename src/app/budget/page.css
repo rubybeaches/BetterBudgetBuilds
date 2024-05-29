@@ -168,8 +168,9 @@ body {
   font-family: Montserrat;
 }
 
-.incomeContainer:hover select {
+.incomeContainer select:hover {
   background-color: #ebfceb;
+  cursor: pointer;
 }
 
 .incomeContainer select option {
