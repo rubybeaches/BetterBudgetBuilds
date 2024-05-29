@@ -20,8 +20,8 @@ model User {
 
 model Budget {
   id        Int     @id @default(autoincrement())
-  start    String
-  end     String?
+  start    DateTime
+  end     DateTime?
   expenseCategories ExpenseCategory[]
   incomeCategories  IncomeCategory[]
 
