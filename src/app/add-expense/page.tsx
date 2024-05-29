@@ -6,7 +6,6 @@ import {
   allMonths,
   filterExpensesByMonth,
   multiplyPercentToFloat,
-  seedExpenses,
   sortCategories,
   sortExpenses,
 } from "../lib/helpers";
