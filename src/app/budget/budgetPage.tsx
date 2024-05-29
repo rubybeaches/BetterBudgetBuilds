@@ -53,6 +53,7 @@ const Budget = ({
   const successTimer = useRef<any>();
   let month = new Date().toLocaleString("en-US", { month: "long" });
 
+  /*
   useEffect(() => {
     const items: any = localStorage.getItem("userCategories");
     const incomeCats: any = localStorage.getItem("userIncomeCategories");
@@ -83,6 +84,7 @@ const Budget = ({
       );
     }
   }, []);
+  */
 
   const intervalID = useRef<any>();
   const incomeRef = useRef<any>();
@@ -282,7 +284,7 @@ const Budget = ({
                     if (e.target.value != "Add Category") {
                       const newIncomeCategory: category = {
                         category: e.target.value,
-                        help: '',
+                        help: "",
                         min: 0,
                         max: 100,
                         curr: 0,
