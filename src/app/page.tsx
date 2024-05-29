@@ -5,9 +5,14 @@ export default function Home() {
     <main className={styles.main}>
       <div className={styles.title}>
         <p>Better Budget Builds</p>
-        <a href="/sign-in" className={styles.button}>
-          <p>Login</p>
-        </a>
+        <span style={{ display: "flex", gap: "10px" }}>
+          <a href="/sign-in" className={styles.button}>
+            <p>Login</p>
+          </a>
+          <a href="/sign-up" className={styles.button}>
+            <p>Sign-Up</p>
+          </a>
+        </span>
       </div>
 
       <div className={styles.center}>
