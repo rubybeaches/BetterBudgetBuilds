@@ -1,5 +1,6 @@
 import { UserAuth } from "../lib/UserAuth";
 import { getUserBudget } from "../lib/data";
+import categories from "../lib/seed.json";
 import Budget from "./budgetPage";
 
 const Page = async () => {
@@ -12,6 +13,12 @@ const Page = async () => {
     user.id
   );
 
-  return <Budget />;
+  return (
+    <Budget
+      expenseCategories={budget?.expenseCategories || []}
+      incomeCategories={budget?.incomeCategories || []}
+      baseIncome={budget.income}
+    />
+  );
 };
 export default Page;

@@ -14,10 +14,19 @@ import {
   sortCategories,
 } from "../lib/helpers";
 import { category } from "../lib/types";
+import { ExpenseCategory, IncomeCategory } from "@prisma/client";
 import IncomeContainer from "../components/Budget/IncomeContainer";
 import SuccessPopUp from "../components/SuccessPopUp";
 
-const Budget = () => {
+const Budget = ({
+  expenseCategories,
+  incomeCategories,
+  baseIncome,
+}: {
+  expenseCategories: ExpenseCategory[];
+  incomeCategories: IncomeCategory[];
+  baseIncome: number;
+}) => {
   const [userCategories, setUserCategories] = useState(categories);
   const [userIncomeCategories, setUserIncomeCategories] = useState(
     setActiveCategories(defaultIncomeCategories, "income")
