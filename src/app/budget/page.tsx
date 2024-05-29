@@ -1,5 +1,6 @@
 import { UserAuth } from "../lib/UserAuth";
 import { getUserBudget } from "../lib/data";
+import { defaultIncomeCategories } from "../lib/helpers";
 import categories from "../lib/seed.json";
 import Budget from "./budgetPage";
 
@@ -15,8 +16,8 @@ const Page = async () => {
 
   return (
     <Budget
-      expenseCategories={budget?.expenseCategories || []}
-      incomeCategories={budget?.incomeCategories || []}
+      expenseCategories={budget?.expenseCategories || categories}
+      incomeCategories={budget?.incomeCategories || defaultIncomeCategories}
       baseIncome={budget?.income || 0}
     />
   );
