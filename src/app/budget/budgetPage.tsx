@@ -20,10 +20,12 @@ const Budget = ({
   expenseCategories,
   incomeCategories,
   baseIncome,
+  activeBudgetMonth,
 }: {
   expenseCategories: category[];
   incomeCategories: category[];
   baseIncome: number;
+  activeBudgetMonth: number;
 }) => {
   const [userCategories, setUserCategories] = useState(expenseCategories);
   const [userIncomeCategories, setUserIncomeCategories] = useState(
@@ -86,6 +88,7 @@ const Budget = ({
 
   const intervalID = useRef<any>();
   const incomeRef = useRef<any>();
+  const saveMonthRef = useRef<any>();
   const monthlyIncome = income / 12;
   const incomeSectionBalance =
     monthlyIncome -
@@ -179,6 +182,9 @@ const Budget = ({
       savingCategories,
       inactiveCategories
     );
+
+    const replaceActiveBudget = activeBudgetMonth == saveMonthRef.current;
+    const budgetExists = baseIncome == 0;
 
     const budget = await createBudget(
       mergeBudgetArrays,
@@ -374,14 +380,25 @@ const Budget = ({
               <p>Apply budget starting in</p>
               <div className="saveBudgetContainer">
                 <p className="monthTitle">
-                  <select defaultValue={month}>
-                    {allMonths.map((m) => (
-                      <option key={m} value={m} label={m} />
+                  <select defaultValue={month} ref={saveMonthRef}>
+                    {allMonths.map((m, index) => (
+                      <option
+                        key={index}
+                        value={index + 1}
+                        label={m}
+                        disabled={index < activeBudgetMonth}
+                      />
                     ))}
                   </select>
                 </p>
               </div>
-              <div className="saveBudgetContainer" onClick={() => saveBudget()}>
+              <div
+                className="saveBudgetContainer"
+                onClick={() => {
+                  if (income == 0) return;
+                  saveBudget();
+                }}
+              >
                 <div className="saveBudget">
                   <p className="saveBudgetButton">
                     <svg
