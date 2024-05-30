@@ -1,13 +1,11 @@
 "use client";
 import "./page.css";
-import categories from "../lib/seed.json";
 import { useEffect, useMemo, useRef, useState } from "react";
 import CategorySection from "../components/Budget/CategorySection";
 import {
   allMonths,
   buildInitialAddList,
   convertToFloat,
-  defaultIncomeCategories,
   parsetoNum,
   setActiveCategories,
   setInactiveCategoryList,
@@ -27,24 +25,23 @@ const Budget = ({
   incomeCategories: category[];
   baseIncome: number;
 }) => {
-  const [userCategories, setUserCategories] = useState(categories);
+  const [userCategories, setUserCategories] = useState(expenseCategories);
   const [userIncomeCategories, setUserIncomeCategories] = useState(
-    setActiveCategories(defaultIncomeCategories, "income")
+    setActiveCategories(incomeCategories, "income")
   );
-  const [income, setIncome] = useState(0);
+  const [income, setIncome] = useState(baseIncome);
   const incomeCategoryList = useMemo(
     () =>
       sortCategories(
-        [
-          ...defaultIncomeCategories,
-          ...buildInitialAddList(defaultIncomeCategories),
-        ].filter((filter) => {
-          let include = true;
-          userIncomeCategories.map((cat) => {
-            if (filter.category == cat.category) include = false;
-          });
-          if (include) return filter;
-        }),
+        [...incomeCategories, ...buildInitialAddList(incomeCategories)].filter(
+          (filter) => {
+            let include = true;
+            userIncomeCategories.map((cat) => {
+              if (filter.category == cat.category) include = false;
+            });
+            if (include) return filter;
+          }
+        ),
         "category"
       ),
     [userIncomeCategories]
@@ -202,9 +199,6 @@ const Budget = ({
       setDisplaySaved(() => false);
     }, 3000);
   };
-  // load user profile or template profile
-  // if using template profile, aka no user, then values should be all percent based so they can be dynamic
-
   // need a reset button so users can start from scratch if needed, and update with new salary
 
   return (
@@ -231,7 +225,7 @@ const Budget = ({
               <span>$</span>{" "}
               <input
                 type="text"
-                defaultValue={0}
+                defaultValue={convertToFloat(income)}
                 ref={incomeRef}
                 onChange={(e) => updateIncome(e.target.value)}
                 onKeyDown={(e) => {

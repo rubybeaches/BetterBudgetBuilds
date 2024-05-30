@@ -60,6 +60,7 @@ const BudgetInput = ({
       <input
         type="text"
         ref={inputRef}
+        defaultValue={multiplyPercentToFloat(current, monthlyIncome) || "0.00"}
         onChange={(e) => updateInput(e.target.value)}
         onKeyDown={(e) => {
           if (e.key == "Backspace") {
