@@ -37,6 +37,7 @@ const CategorySection = ({
     (sum, cat) => sum + (cat.curr / 100) * monthlyIncome,
     0
   );
+  const finalBalance = startingBalance - budgetTotals;
   const budgetEstimate = monthlyIncome * percentTemplate;
   const barHeight = Math.min((budgetTotals / budgetEstimate) * 150, 250);
 
@@ -180,8 +181,8 @@ const CategorySection = ({
         <div className="summaryTotals">
           <p>${convertToFloat(startingBalance)}</p>
           <p>${convertToFloat(budgetTotals)}</p>
-          <p id={startingBalance - budgetTotals < 0 ? "negativeTotal" : ""}>
-            ${convertToFloat(startingBalance - budgetTotals)}
+          <p id={Math.round(finalBalance) < 0 ? "negativeTotal" : ""}>
+            ${convertToFloat(Math.round(finalBalance) == 0 ? 0 : finalBalance)}
           </p>
         </div>
       </div>
