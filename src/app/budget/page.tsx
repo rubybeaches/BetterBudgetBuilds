@@ -19,7 +19,12 @@ const Page = async () => {
       expenseCategories={budget?.expenseCategories || categories}
       incomeCategories={budget?.incomeCategories || defaultIncomeCategories}
       baseIncome={budget?.income || 0}
-      activeBudgetMonth={budget?.start.getMonth() || new Date().getMonth()}
+      activeBudgetMonthStart={
+        budget && budget?.start.getFullYear() == new Date().getFullYear()
+          ? budget?.start.getMonth()
+          : 0
+      }
+      userID={user.id}
     />
   );
 };

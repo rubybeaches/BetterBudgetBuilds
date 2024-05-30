@@ -20,12 +20,14 @@ const Budget = ({
   expenseCategories,
   incomeCategories,
   baseIncome,
-  activeBudgetMonth,
+  activeBudgetMonthStart,
+  userID,
 }: {
   expenseCategories: category[];
   incomeCategories: category[];
   baseIncome: number;
-  activeBudgetMonth: number;
+  activeBudgetMonthStart: number;
+  userID: number;
 }) => {
   const [userCategories, setUserCategories] = useState(expenseCategories);
   const [userIncomeCategories, setUserIncomeCategories] = useState(
@@ -173,6 +175,16 @@ const Budget = ({
     setUserIncomeCategories(updateIncome);
   };
 
+  // Determines what method of budget creation to use
+  // We determine if a budget exists by checking default income, if not then simple create call
+  // // income default is 0 when budget does not exist, and we prevent creating a budget with 0 for income
+  // Our next check is whether to update or replace the current active budget
+  // // Elsewhere, we restrict overriding previous non-active budgets by disabling months before activeBudgetStart
+  // We check if the user selected month differs from the active start month
+  // To datermine to either set an end date for prior active budget and then create new active,
+  // // set end of n-1 of user selected month. This allows both past and future selected months to be updated correctly
+  // // works for future months too because it updates active budget start - which means all months before that would be disabled
+  // OR update/replace the current active budget if it starts in the same month the user selected
   const saveBudget = async () => {
     let mergeBudgetArrays: category[] = [];
     mergeBudgetArrays = mergeBudgetArrays.concat(
@@ -183,17 +195,23 @@ const Budget = ({
       inactiveCategories
     );
 
-    const replaceActiveBudget = activeBudgetMonth == saveMonthRef.current;
+    const replaceActiveBudget = activeBudgetMonthStart == saveMonthRef.current;
     const budgetExists = baseIncome == 0;
 
-    const budget = await createBudget(
-      mergeBudgetArrays,
-      userIncomeCategories,
-      income,
-      5,
-      2024,
-      2
-    );
+    if (!budgetExists) {
+      return await createBudget(
+        mergeBudgetArrays,
+        userIncomeCategories,
+        income,
+        saveMonthRef.current,
+        new Date().getFullYear(),
+        userID
+      );
+
+      if (budgetExists && replaceActiveBudget) {
+        // current budget is active starting this month, and new save budget is for this month so just update existing one
+      }
+    }
 
     // localStorage.setItem("userCategories", JSON.stringify(mergeBudgetArrays));
     // localStorage.setItem("income", JSON.stringify(income));
@@ -380,13 +398,16 @@ const Budget = ({
               <p>Apply budget starting in</p>
               <div className="saveBudgetContainer">
                 <p className="monthTitle">
-                  <select defaultValue={month} ref={saveMonthRef}>
+                  <select
+                    defaultValue={new Date().getMonth() + 1}
+                    ref={saveMonthRef}
+                  >
                     {allMonths.map((m, index) => (
                       <option
                         key={index}
                         value={index + 1}
                         label={m}
-                        disabled={index < activeBudgetMonth}
+                        disabled={index < activeBudgetMonthStart}
                       />
                     ))}
                   </select>
