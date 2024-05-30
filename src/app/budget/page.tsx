@@ -22,7 +22,7 @@ const Page = async () => {
       activeBudgetMonthStart={
         budget && budget?.start.getFullYear() == new Date().getFullYear()
           ? budget?.start.getMonth()
-          : 0
+          : -1
       }
       budgetID={budget?.id || -1}
       userID={user.id}

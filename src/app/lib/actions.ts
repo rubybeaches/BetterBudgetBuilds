@@ -14,7 +14,7 @@ export const createBudget = async (
     data: {
       userId: userId,
       income: income,
-      start: new Date(`${year}-${month}`).toISOString(),
+      start: new Date(`${year}-${month + 1}`).toISOString(),
       incomeCategories: {
         create: incomeCategories,
       },
@@ -64,7 +64,7 @@ export const updateAndCreateBudget = async (
       id: budgetId,
     },
     data: {
-      end: new Date(`${year}-${month - 1}`).toISOString(),
+      end: new Date(`${year}-${month}`).toISOString(),
     },
   });
 

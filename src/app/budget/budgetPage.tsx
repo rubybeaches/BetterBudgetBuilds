@@ -61,39 +61,6 @@ const Budget = ({
   const successTimer = useRef<any>();
   let month = new Date().toLocaleString("en-US", { month: "long" });
 
-  /*
-  useEffect(() => {
-    const items: any = localStorage.getItem("userCategories");
-    const incomeCats: any = localStorage.getItem("userIncomeCategories");
-    if (items) {
-      const sortedCategories = sortCategories(JSON.parse(items), "category");
-      setUserCategories(sortedCategories);
-      setEssentialCategories(
-        setActiveCategories(sortedCategories, "essential")
-      );
-      setNonEssentialCategories(
-        setActiveCategories(sortedCategories, "non-essential")
-      );
-      setSavingCategories(setActiveCategories(sortedCategories, "savings"));
-      setInactiveCategories(setInactiveCategoryList(sortedCategories));
-      setAddCategoryList(buildInitialAddList(sortedCategories));
-    }
-    const income: any = localStorage.getItem("income");
-    if (income) {
-      updateIncome(String(JSON.parse(income)));
-    }
-    if (incomeCats) {
-      const sortedIncomeCategories = sortCategories(
-        JSON.parse(incomeCats),
-        "category"
-      );
-      setUserIncomeCategories(
-        setActiveCategories(sortedIncomeCategories, "income")
-      );
-    }
-  }, []);
-  */
-
   const intervalID = useRef<any>();
   const incomeRef = useRef<any>();
   const saveMonthRef = useRef<any>();
@@ -181,37 +148,36 @@ const Budget = ({
     setUserIncomeCategories(updateIncome);
   };
 
-  const saveBudget = async () => {
-    let mergeBudgetArrays: category[] = [];
-    mergeBudgetArrays = mergeBudgetArrays.concat(
-      mergeBudgetArrays,
+  const saveBudgetHandler = async () => {
+    let expenseCategoriesMerged: category[] = [];
+    expenseCategoriesMerged = expenseCategoriesMerged.concat(
+      expenseCategoriesMerged,
       essentialCategories,
       nonEssentialCategories,
       savingCategories,
       inactiveCategories
     );
 
-    const updateActiveCheck = activeBudgetMonthStart == saveMonthRef.current;
+    const updateActiveCheck =
+      activeBudgetMonthStart == Number(saveMonthRef.current.value);
     const budgetExists = budgetID >= 0;
 
     if (!budgetExists) {
       await createBudget(
-        mergeBudgetArrays,
+        expenseCategoriesMerged,
         userIncomeCategories,
         income,
-        saveMonthRef.current,
+        Number(saveMonthRef.current.value),
         new Date().getFullYear(),
         userID
       );
-    }
-
-    if (budgetExists && updateActiveCheck) {
+    } else if (budgetExists && updateActiveCheck) {
       // current active budget and user selected month have same start date, so update existing budget
       await updateActiveBudget(
-        mergeBudgetArrays,
+        expenseCategoriesMerged,
         userIncomeCategories,
         income,
-        saveMonthRef.current,
+        Number(saveMonthRef.current.value),
         new Date().getFullYear(),
         userID,
         budgetID
@@ -219,19 +185,15 @@ const Budget = ({
     } else if (budgetExists) {
       // current active budget can safely be ended at n-1 user selected month, and create a new one at selected date
       await updateAndCreateBudget(
-        mergeBudgetArrays,
+        expenseCategoriesMerged,
         userIncomeCategories,
         income,
-        saveMonthRef.current,
+        Number(saveMonthRef.current.value),
         new Date().getFullYear(),
         userID,
         budgetID
       );
     }
-
-    // localStorage.setItem("userCategories", JSON.stringify(mergeBudgetArrays));
-    // localStorage.setItem("income", JSON.stringify(income));
-    // localStorage.setItem("userIncomeCategories",JSON.stringify(userIncomeCategories));
 
     setDisplaySaved(() => true);
 
@@ -239,7 +201,6 @@ const Budget = ({
       setDisplaySaved(() => false);
     }, 3000);
   };
-  // need a reset button so users can start from scratch if needed, and update with new salary
 
   return (
     <>
@@ -415,13 +376,13 @@ const Budget = ({
               <div className="saveBudgetContainer">
                 <p className="monthTitle">
                   <select
-                    defaultValue={new Date().getMonth() + 1}
+                    defaultValue={new Date().getMonth()}
                     ref={saveMonthRef}
                   >
                     {allMonths.map((m, index) => (
                       <option
                         key={index}
-                        value={index + 1}
+                        value={index}
                         label={m}
                         disabled={index < activeBudgetMonthStart}
                       />
@@ -433,7 +394,7 @@ const Budget = ({
                 className="saveBudgetContainer"
                 onClick={() => {
                   if (income == 0) return;
-                  saveBudget();
+                  saveBudgetHandler();
                 }}
               >
                 <div className="saveBudget">
