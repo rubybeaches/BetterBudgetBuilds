@@ -24,3 +24,56 @@ export const createBudget = async (
     },
   });
 };
+
+export const updateActiveBudget = async (
+  expenseCategories: category[],
+  incomeCategories: category[],
+  income: number,
+  month: number,
+  year: number,
+  userId: number,
+  budgetId: number
+) => {
+  await prisma.budget.delete({
+    where: {
+      id: budgetId,
+    },
+  });
+
+  createBudget(
+    expenseCategories,
+    incomeCategories,
+    income,
+    month,
+    year,
+    userId
+  );
+};
+
+export const updateAndCreateBudget = async (
+  expenseCategories: category[],
+  incomeCategories: category[],
+  income: number,
+  month: number,
+  year: number,
+  userId: number,
+  budgetId: number
+) => {
+  await prisma.budget.update({
+    where: {
+      id: budgetId,
+    },
+    data: {
+      end: new Date(`${year}-${month - 1}`).toISOString(),
+    },
+  });
+
+  createBudget(
+    expenseCategories,
+    incomeCategories,
+    income,
+    month,
+    year,
+    userId
+  );
+};

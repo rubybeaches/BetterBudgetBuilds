@@ -24,6 +24,7 @@ const Page = async () => {
           ? budget?.start.getMonth()
           : 0
       }
+      budgetID={budget?.id || -1}
       userID={user.id}
     />
   );
