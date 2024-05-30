@@ -50,8 +50,9 @@ const BudgetInput = ({
 
     intervalID.current = setTimeout(() => {
       const numValue = parsetoNum(newValue);
-      if ((current * monthlyIncome) / 100 == numValue)
-        inputValue.value = convertToFloat(numValue);
+      const sameValueCheck =
+        ((current * monthlyIncome) / 100).toFixed(2) == numValue.toFixed(2);
+      if (sameValueCheck) inputValue.value = convertToFloat(numValue);
       inputSetter(min, max, (numValue / monthlyIncome) * 100, index);
     }, 1000);
   };
