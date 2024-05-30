@@ -1,6 +1,6 @@
 "use client";
 import "./page.css";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import CategorySection from "../components/Budget/CategorySection";
 import {
   allMonths,
@@ -376,7 +376,10 @@ const Budget = ({
               <div className="saveBudgetContainer">
                 <p className="monthTitle">
                   <select
-                    defaultValue={new Date().getMonth()}
+                    defaultValue={Math.max(
+                      new Date().getMonth(),
+                      activeBudgetMonthStart
+                    )}
                     ref={saveMonthRef}
                   >
                     {allMonths.map((m, index) => (
