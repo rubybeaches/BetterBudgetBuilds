@@ -34,9 +34,9 @@ model ExpenseCategory {
   id        Int     @id @default(autoincrement())
   category String
   help String
-  min Int
-  max Int
-  curr Int
+  min Float
+  max Float
+  curr Float
   type String
   active Int
 
@@ -48,9 +48,9 @@ model IncomeCategory {
   id        Int     @id @default(autoincrement())
   category String
   help String
-  min Int
-  max Int
-  curr Int
+  min Float
+  max Float
+  curr Float
   type String
   active Int
 
