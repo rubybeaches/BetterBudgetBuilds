@@ -1,5 +1,9 @@
 import { useEffect, useRef } from "react";
-import { multiplyPercentToFloat, parsetoNum } from "../../lib/helpers";
+import {
+  convertToFloat,
+  multiplyPercentToFloat,
+  parsetoNum,
+} from "../../lib/helpers";
 
 const BudgetInput = ({
   monthlyIncome,
@@ -45,12 +49,10 @@ const BudgetInput = ({
     }
 
     intervalID.current = setTimeout(() => {
-      inputSetter(
-        min,
-        max,
-        (parsetoNum(newValue) / monthlyIncome) * 100,
-        index
-      );
+      const numValue = parsetoNum(newValue);
+      if ((current * monthlyIncome) / 100 == numValue)
+        inputValue.value = convertToFloat(numValue);
+      inputSetter(min, max, (numValue / monthlyIncome) * 100, index);
     }, 1000);
   };
 
