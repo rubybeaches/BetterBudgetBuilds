@@ -19,6 +19,7 @@ import {
   updateActiveBudget,
   updateAndCreateBudget,
 } from "../lib/actions";
+import { useRouter } from "next/navigation";
 
 const Budget = ({
   expenseCategories,
@@ -58,9 +59,15 @@ const Budget = ({
   );
 
   const [displaySaved, setDisplaySaved] = useState(false);
-  const successTimer = useRef<any>();
-  let month = new Date().toLocaleString("en-US", { month: "long" });
+  const [selectedMonth, setSelectedMonth] = useState(
+    Math.max(activeBudgetMonthStart, new Date().getMonth())
+  );
+  const selectedMonthLong = new Date(
+    `${new Date().getFullYear()}-${selectedMonth + 1}`
+  ).toLocaleString("en-US", { month: "long" });
 
+  const successTimer = useRef<any>();
+  const router = useRouter();
   const intervalID = useRef<any>();
   const incomeRef = useRef<any>();
   const saveMonthRef = useRef<any>();
@@ -194,7 +201,7 @@ const Budget = ({
         budgetID
       );
     }
-
+    router.refresh();
     setDisplaySaved(() => true);
 
     successTimer.current = setTimeout(() => {
@@ -381,6 +388,7 @@ const Budget = ({
                       activeBudgetMonthStart
                     )}
                     ref={saveMonthRef}
+                    onChange={(e) => setSelectedMonth(Number(e.target.value))}
                   >
                     {allMonths.map((m, index) => (
                       <option
@@ -450,7 +458,9 @@ const Budget = ({
             setDisplaySaved(() => false);
           }}
         >
-          <SuccessPopUp message={`New Budget Saved Starting ${month}`} />
+          <SuccessPopUp
+            message={`New Budget Saved Starting ${selectedMonthLong}`}
+          />
         </span>
       )}
     </>
