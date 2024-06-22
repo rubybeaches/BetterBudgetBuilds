@@ -30,8 +30,6 @@ const AddExpense = ({
     }
   }, 1000);
 
-  if (!isSignedIn || !user) return null;
-
   const monthParam = searchParams?.month || "";
   let today = new Date();
   let month = allMonths.includes(monthParam)
@@ -111,6 +109,8 @@ const AddExpense = ({
     localStorage.setItem("userExpenses", JSON.stringify(userExpenses));
     router.push(`/dashboard?month=${month}`);
   };
+
+  if (!isSignedIn || !user) return null;
 
   return (
     <main className="main" id="expensePage">
