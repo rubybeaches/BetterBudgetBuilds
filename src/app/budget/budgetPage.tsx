@@ -218,14 +218,14 @@ const Budget = ({
         <div>
           <h2>Budget Calculator</h2>
           <p>
-            Let&lsquo;s generate a basic bucket system based on national
-            averages. Don&lsquo;t worry about getting it perfect the first time,
-            you can revisit this at anytime and update your budget moving
-            forward. We&lsquo;ve provided percentages based on what is most
-            recommended as a guidepost, and you can adjust the categories and
-            buckets to your needs. If you&lsquo;re unsure of what you should put
-            in any given bucket, use your best guess until you have a better
-            idea.
+            Use this page to create a bucket system representing your average
+            monthly expenditures. To start, we&lsquo;ve provided a default list
+            of categories based on national averages and percentages.
+            Don&lsquo;t worry about getting it perfect the first time, you can
+            revisit this at anytime and update your budget moving forward. If
+            you&lsquo;re unsure of what you should put in any given bucket, use
+            your best guess and review again after a few months of tracking
+            expenses.
           </p>
 
           <label id="income">
