@@ -80,7 +80,7 @@ const AddExpenseBar = ({
   const activeCategorySelection = useMemo(() => {
     const selectCategory: category = {
       category: "Select a Category",
-      help: [],
+      help: "",
       min: 0,
       max: 0,
       curr: 0,

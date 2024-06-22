@@ -18,7 +18,7 @@ const AddCategory = ({ addCategoryList, addCategory }: { addCategoryList: catego
     const buildNewCategory = () => {
         const newCategory: category = {
             "category": pascalCase(searchQuery),
-            "help": [],
+            "help": "",
             "min": 1,
             "max": 10,
             "curr": 5,
