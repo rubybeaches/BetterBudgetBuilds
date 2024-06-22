@@ -218,7 +218,7 @@ const Budget = ({
         <div>
           <h2>Budget Calculator</h2>
           <p>
-            Let&lsquo;s generate a basic bucketing system based on national
+            Let&lsquo;s generate a basic bucket system based on national
             averages. Don&lsquo;t worry about getting it perfect the first time,
             you can revisit this at anytime and update your budget moving
             forward. We&lsquo;ve provided percentages based on what is most
