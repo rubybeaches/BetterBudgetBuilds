@@ -42,31 +42,14 @@ const AddExpense = ({
   */
 
   const router = useRouter();
-  const [userIncomeCategories, setUserIncomeCategories] = useState<category[]>(
-    []
-  );
-  const [userCategories, setUserCategories] = useState<category[]>(categories);
-  const [userExpenses, setUserExpenses] = useState<Expense[]>([]);
+  const userIncomeCategories = useMemo(() => {
+    return sortCategories(incomeCategories, "category");
+  }, [incomeCategories]);
+  const userCategories = useMemo(() => {
+    return sortCategories(expenseCategories, "category");
+  }, [expenseCategories]);
+  const [userExpenses, setUserExpenses] = useState(expenses);
   const monthlyIncome = baseIncome / 12;
-
-  useEffect(() => {
-    const items: any = localStorage.getItem("userCategories");
-    const expenses: any = localStorage.getItem("userExpenses");
-    const incomeCats: any = localStorage.getItem("userIncomeCategories");
-    if (incomeCats) {
-      setUserIncomeCategories(() => {
-        return sortCategories(JSON.parse(incomeCats), "category");
-      });
-    }
-    if (items) {
-      setUserCategories(() => {
-        return sortCategories(JSON.parse(items), "category");
-      });
-    }
-    if (expenses) {
-      setUserExpenses(JSON.parse(expenses));
-    }
-  }, []);
 
   const monthExpenses = useMemo(() => {
     return sortExpenses(userExpenses, "category");
