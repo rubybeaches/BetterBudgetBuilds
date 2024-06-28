@@ -21,7 +21,11 @@ const Page = async ({
       : new Date().toLocaleString("en-US", { month: "long" });
   const year = Number(searchParams?.year) || new Date().getFullYear();
 
-  const budget = await getUserBudget(allMonths.indexOf(month), year, user.id);
+  const budget = await getUserBudget(
+    allMonths.indexOf(month) + 1,
+    year,
+    user.id
+  );
   const expenses = await getUserExpenses(
     allMonths.indexOf(month),
     year,
