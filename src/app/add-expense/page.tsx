@@ -15,6 +15,7 @@ import AddExpenseBar from "../components/AddExpense/AddExpenseBar";
 import ProgressBar from "../components/ProgressBar";
 import { redirect, useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
+import { Expense } from "@prisma/client";
 
 const AddExpense = ({
   searchParams,
@@ -41,7 +42,7 @@ const AddExpense = ({
     []
   );
   const [userCategories, setUserCategories] = useState<category[]>(categories);
-  const [userExpenses, setUserExpenses] = useState<expense[]>([]);
+  const [userExpenses, setUserExpenses] = useState<Expense[]>([]);
   const [income, setIncome] = useState(0);
   const monthlyIncome = income / 12;
 
@@ -94,11 +95,11 @@ const AddExpense = ({
     [monthExpenses]
   );
 
-  const handleAddExpense = (expense: expense) => {
+  const handleAddExpense = (expense: Expense) => {
     setUserExpenses([...userExpenses, expense]);
   };
 
-  const getCategoryExpenses = (expenseGroup: expense[], category: string) => {
+  const getCategoryExpenses = (expenseGroup: Expense[], category: string) => {
     return expenseGroup.reduce(
       (sum, exp) => (exp.category == category ? sum + exp.amount : sum),
       0

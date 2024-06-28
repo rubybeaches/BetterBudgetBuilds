@@ -1,67 +1,40 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import "./page.css";
 import {
   allMonths,
   convertToFloat,
-  filterExpensesByMonth,
   setActiveCategories,
   sortCategories,
 } from "../lib/helpers";
 import SummaryTable from "../components/Dashboard/SummaryTable";
-import { category, expense } from "../lib/types";
+import { category } from "../lib/types";
 import ExpenseTable from "../components/Dashboard/ExpenseTable";
-import categories from "../lib/seed.json";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Expense } from "@prisma/client";
 
-const Dashboard = ({ monthParam }: { monthParam: string }) => {
-  let today = new Date();
-  let month = allMonths.includes(monthParam)
-    ? monthParam
-    : today.toLocaleString("en-US", { month: "long" });
-  const year = today.getFullYear();
-  const [userCategories, setUserCategories] = useState<category[]>(categories);
-  const [userIncomeCategories, setUserIncomeCategories] = useState<category[]>(
-    []
-  );
-  const [userExpenses, setUserExpenses] = useState<expense[]>([]);
-  const [income, setIncome] = useState(0);
-  const monthlyIncome = income / 12;
-
-  const monthExpenses = useMemo(() => {
-    return filterExpensesByMonth(userExpenses, year, allMonths.indexOf(month));
-  }, [userExpenses, month]);
-
-  useEffect(() => {
-    const items: any = localStorage.getItem("userCategories");
-    const expenses: any = localStorage.getItem("userExpenses");
-    const incomeCats: any = localStorage.getItem("userIncomeCategories");
-    if (expenses) {
-      setUserExpenses(JSON.parse(expenses));
-    }
-    if (incomeCats) {
-      const sortedCategories = sortCategories(
-        JSON.parse(incomeCats),
-        "category"
-      );
-      setUserIncomeCategories(sortedCategories);
-    }
-    if (items) {
-      const sortedCategories = sortCategories(JSON.parse(items), "category");
-      setUserCategories(sortedCategories);
-      setEssentialCategories(
-        setActiveCategories(sortedCategories, "essential")
-      );
-      setNonEssentialCategories(
-        setActiveCategories(sortedCategories, "non-essential")
-      );
-      setSavingCategories(setActiveCategories(sortedCategories, "savings"));
-    }
-    const income: any = localStorage.getItem("income");
-    if (income) {
-      setIncome(Number(JSON.parse(income)));
-    }
-  }, []);
+const Dashboard = ({
+  expenseCategories,
+  incomeCategories,
+  expenses,
+  baseIncome,
+  month,
+}: {
+  expenseCategories: category[];
+  incomeCategories: category[];
+  expenses: Expense[];
+  baseIncome: number;
+  month: string;
+}) => {
+  const userCategories = useMemo(() => {
+    return sortCategories(expenseCategories, "category");
+  }, [expenseCategories]);
+  const userIncomeCategories = useMemo(() => {
+    return sortCategories(incomeCategories, "category");
+  }, [incomeCategories]);
+  const monthlyIncome = useMemo(() => {
+    return baseIncome / 12;
+  }, [baseIncome]);
 
   const sParams = useSearchParams();
   const pathname = usePathname();
@@ -73,43 +46,47 @@ const Dashboard = ({ monthParam }: { monthParam: string }) => {
     replace(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
-  const [essentialCategories, setEssentialCategories] = useState(
-    setActiveCategories(userCategories, "essential")
-  );
-  const [nonEssentialCategories, setNonEssentialCategories] = useState(
-    setActiveCategories(userCategories, "non-essential")
-  );
-  const [savingCategories, setSavingCategories] = useState(
-    setActiveCategories(userCategories, "savings")
-  );
+  const essentialCategories = useMemo(() => {
+    return setActiveCategories(userCategories, "essential");
+  }, [userCategories]);
+  const nonEssentialCategories = useMemo(() => {
+    return setActiveCategories(userCategories, "non-essential");
+  }, [userCategories]);
+  const savingCategories = useMemo(() => {
+    return setActiveCategories(userCategories, "savings");
+  }, [userCategories]);
 
   const essentialExpenses = useMemo(() => {
-    return monthExpenses.filter((expense) => expense.type == "essential");
-  }, [monthExpenses]);
+    return expenses.filter((expense) => expense.type == "essential");
+  }, [expenses]);
+
   const essentialExpenseTotal = essentialExpenses.reduce(
     (sum, exp) => sum + exp.amount,
     0
   );
 
   const nonEssentialExpenses = useMemo(() => {
-    return monthExpenses.filter((expense) => expense.type == "non-essential");
-  }, [monthExpenses]);
+    return expenses.filter((expense) => expense.type == "non-essential");
+  }, [expenses]);
+
   const nonEssentialExpenseTotal = nonEssentialExpenses.reduce(
     (sum, exp) => sum + exp.amount,
     0
   );
 
   const savingExpenses = useMemo(() => {
-    return monthExpenses.filter((expense) => expense.type == "savings");
-  }, [monthExpenses]);
+    return expenses.filter((expense) => expense.type == "savings");
+  }, [expenses]);
+
   const savingExpenseTotal = savingExpenses.reduce(
     (sum, exp) => sum + exp.amount,
     0
   );
 
   const incomeExpenses = useMemo(() => {
-    return monthExpenses.filter((expense) => expense.type == "income");
-  }, [monthExpenses]);
+    return expenses.filter((expense) => expense.type == "income");
+  }, [expenses]);
+
   const incomeExpenseTotal = incomeExpenses.reduce(
     (sum, exp) => sum + exp.amount,
     0

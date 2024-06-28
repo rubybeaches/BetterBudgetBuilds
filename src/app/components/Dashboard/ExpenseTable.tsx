@@ -1,11 +1,12 @@
 import { convertToFloat, sortExpenses } from "@/app/lib/helpers";
 import { expense } from "@/app/lib/types";
+import { Expense } from "@prisma/client";
 import { useMemo, useState } from "react";
 
-const ExpenseTable = ({ expense }: { expense: expense[] }) => {
+const ExpenseTable = ({ expense }: { expense: Expense[] }) => {
   const [filter, setFilter] = useState<keyof expense>("entryDate");
 
-  const sortedExpenses: expense[] = useMemo(() => {
+  const sortedExpenses = useMemo(() => {
     return sortExpenses(expense, filter);
   }, [expense, filter]);
 
@@ -27,20 +28,23 @@ const ExpenseTable = ({ expense }: { expense: expense[] }) => {
       </div>
       <table id="expenseTable">
         <tbody>
-          {sortedExpenses.map((exp, index) => (
-            <tr key={index}>
-              <td className="expenseAmount">$ {convertToFloat(exp.amount)}</td>
-              <td>{exp.description}</td>
-              <td>{exp.category}</td>
-              <td>
-                {new Date(exp.entryDate).toLocaleString("en-US", {
-                  month: "2-digit",
-                  day: "2-digit",
-                  year: "numeric",
-                })}
-              </td>
-            </tr>
-          ))}
+          {sortedExpenses &&
+            sortedExpenses.map((exp, index) => (
+              <tr key={index}>
+                <td className="expenseAmount">
+                  $ {convertToFloat(exp.amount)}
+                </td>
+                <td>{exp.description}</td>
+                <td>{exp.category}</td>
+                <td>
+                  {new Date(exp.entryDate).toLocaleString("en-US", {
+                    month: "2-digit",
+                    day: "2-digit",
+                    year: "numeric",
+                  })}
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </>
