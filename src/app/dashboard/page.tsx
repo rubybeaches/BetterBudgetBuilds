@@ -27,7 +27,7 @@ const Page = async ({
     user.id
   );
   const expenses = await getUserExpenses(
-    allMonths.indexOf(month),
+    allMonths.indexOf(month) + 1,
     year,
     user.id
   );

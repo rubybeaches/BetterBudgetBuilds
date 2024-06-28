@@ -1,6 +1,8 @@
 "use server";
+import { Expense } from "@prisma/client";
 import { prisma } from "../../prisma-client";
 import { category } from "./types";
+import exp from "constants";
 
 export const createBudget = async (
   expenseCategories: category[],
@@ -76,4 +78,42 @@ export const updateAndCreateBudget = async (
     year,
     userId
   );
+};
+
+export const createExpenses = async (expenses: Expense[]) => {
+  const addArray = expenses.map((expense) => {
+    return {
+      amount: expense.amount,
+      category: expense.category,
+      description: expense.description,
+      entryDate: expense.entryDate,
+      entryMonth: expense.entryMonth,
+      entryYear: expense.entryYear,
+      type: expense.type,
+      linkedAccount: expense.linkedAccount,
+      recurring: expense.recurring,
+      userId: expense.userId,
+    };
+  });
+
+  await prisma.expense.createMany({
+    data: addArray,
+  });
+};
+
+export const updateAndCreateExpenses = async (
+  expenses: Expense[],
+  month: number,
+  year: number,
+  userId: number
+) => {
+  await prisma.expense.deleteMany({
+    where: {
+      userId: userId,
+      entryMonth: month,
+      entryYear: year,
+    },
+  });
+
+  createExpenses(expenses);
 };

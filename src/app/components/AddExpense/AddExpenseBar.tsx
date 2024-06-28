@@ -1,14 +1,20 @@
 import { category, expense } from "@/app/lib/types";
-import { setActiveCategories, sortCategories } from "../../lib/helpers";
+import { allMonths, setActiveCategories, sortCategories } from "../../lib/helpers";
 import { defaultIncomeCategories } from "../../lib/helpers";
 import { useMemo, useRef, useState } from "react";
 import { v4 as uuid } from "uuid";
 import { Expense } from "@prisma/client";
 
 const AddExpenseBar = ({
+  userID,
+  month,
+  year,
   categorySelections,
   addExpenseCallback,
 }: {
+  userID: number;
+  month: string;
+  year: number;
   categorySelections: category[];
   addExpenseCallback: (expense: Expense) => void;
 }) => {
@@ -38,12 +44,12 @@ const AddExpenseBar = ({
       category: selectRef.current.value.split(",")[0],
       description: descriptionRef.current.value,
       entryDate: dateRef.current.value,
-      entryMonth: new Date().getMonth(),
-      entryYear: new Date().getFullYear(),
+      entryMonth: allMonths.indexOf(month) + 1,
+      entryYear: year,
       type: selectRef.current.value.split(",")[1],
       recurring: false,
       linkedAccount: "",
-      userId: 1,
+      userId: userID,
     };
 
     amountRef.current.value = "0.00";
