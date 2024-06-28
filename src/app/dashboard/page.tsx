@@ -1,5 +1,5 @@
 import { UserAuth } from "../lib/UserAuth";
-import { getUserBudget } from "../lib/data";
+import { getUserBudget, getUserExpenses } from "../lib/data";
 import { allMonths, defaultIncomeCategories } from "../lib/helpers";
 import Dashboard from "./dashboardPage";
 import categories from "../lib/seed.json";
@@ -22,14 +22,19 @@ const Page = async ({
   const year = Number(searchParams?.year) || new Date().getFullYear();
 
   const budget = await getUserBudget(allMonths.indexOf(month), year, user.id);
+  const expenses = await getUserExpenses(
+    allMonths.indexOf(month),
+    year,
+    user.id
+  );
 
   return (
     <Dashboard
       expenseCategories={budget?.expenseCategories || categories}
       incomeCategories={budget?.incomeCategories || defaultIncomeCategories}
+      expenses={expenses}
       baseIncome={budget?.income || 0}
       month={month}
-      year={year}
     />
   );
 };

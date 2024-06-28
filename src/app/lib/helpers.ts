@@ -1,3 +1,4 @@
+import { Expense } from "@prisma/client";
 import { category, expense } from "./types";
 
 export const convertToFloat = (number: number) => {
@@ -88,7 +89,8 @@ export const sortCategories = (array: category[], filter: keyof category) => {
   });
 };
 
-export const sortExpenses = (array: expense[], filter: keyof expense) => {
+export const sortExpenses = (array: Expense[], filter: keyof Expense) => {
+  if (filter == "linkedAccount") return;
   return array.sort((a, b) => {
     if (a[filter] < b[filter]) {
       return -1;

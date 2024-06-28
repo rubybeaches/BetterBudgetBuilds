@@ -4,8 +4,9 @@ import {
   parsetoNum,
   weeksInMonth,
 } from "@/app/lib/helpers";
-import { category, expense } from "@/app/lib/types";
+import { category } from "@/app/lib/types";
 import SummaryRow from "./SummaryRow";
+import { Expense } from "@prisma/client";
 
 const SummaryTable = ({
   categories,
@@ -15,7 +16,7 @@ const SummaryTable = ({
   totalExpenses,
 }: {
   categories: category[];
-  expenses: expense[];
+  expenses: Expense[];
   monthlyIncome: number;
   monthIndex: number;
   totalExpenses: number;

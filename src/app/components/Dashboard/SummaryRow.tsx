@@ -4,8 +4,9 @@ import {
   multiplyPercentToFloat,
   parsetoNum,
 } from "@/app/lib/helpers";
-import { category, expense } from "@/app/lib/types";
+import { category } from "@/app/lib/types";
 import ProgressBar from "../ProgressBar";
+import { Expense } from "@prisma/client";
 
 const SummaryRow = ({
   category,
@@ -14,7 +15,7 @@ const SummaryRow = ({
   weeks,
 }: {
   category: category;
-  expenses: expense[];
+  expenses: Expense[];
   monthlyIncome: number;
   weeks: Date[][];
 }) => {
