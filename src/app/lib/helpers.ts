@@ -89,8 +89,21 @@ export const sortCategories = (array: category[], filter: keyof category) => {
   });
 };
 
+export const sortExpensesLegacy = (array: expense[], filter: keyof expense) => {
+  if (filter == "linkedAccount") return array;
+  return array.sort((a, b) => {
+    if (a[filter] < b[filter]) {
+      return -1;
+    }
+    if (a[filter] > b[filter]) {
+      return 1;
+    }
+    return 0;
+  });
+};
+
 export const sortExpenses = (array: Expense[], filter: keyof Expense) => {
-  if (filter == "linkedAccount") return;
+  if (filter == "linkedAccount") return array;
   return array.sort((a, b) => {
     if (a[filter] < b[filter]) {
       return -1;
@@ -105,7 +118,7 @@ export const sortExpenses = (array: Expense[], filter: keyof Expense) => {
 // load user info
 
 export const filterExpensesByMonth = (
-  expense: expense[],
+  expense: Expense[],
   year: number,
   month: number
 ) => {

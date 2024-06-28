@@ -3,13 +3,14 @@ import { setActiveCategories, sortCategories } from "../../lib/helpers";
 import { defaultIncomeCategories } from "../../lib/helpers";
 import { useMemo, useRef, useState } from "react";
 import { v4 as uuid } from "uuid";
+import { Expense } from "@prisma/client";
 
 const AddExpenseBar = ({
   categorySelections,
   addExpenseCallback,
 }: {
   categorySelections: category[];
-  addExpenseCallback: (expense: expense) => void;
+  addExpenseCallback: (expense: Expense) => void;
 }) => {
   const amountRef = useRef<any>();
   const descriptionRef = useRef<any>();
@@ -31,15 +32,18 @@ const AddExpenseBar = ({
       return alert("please fill out each field");
     }
 
-    const newExpense: expense = {
-      id: uuid(),
+    const newExpense: Expense = {
+      id: Number(uuid()),
       amount: Number(amountRef.current.value),
       category: selectRef.current.value.split(",")[0],
       description: descriptionRef.current.value,
       entryDate: dateRef.current.value,
+      entryMonth: new Date().getMonth(),
+      entryYear: new Date().getFullYear(),
       type: selectRef.current.value.split(",")[1],
       recurring: false,
       linkedAccount: "",
+      userId: 1,
     };
 
     amountRef.current.value = "0.00";
