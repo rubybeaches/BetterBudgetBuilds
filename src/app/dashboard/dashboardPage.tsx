@@ -14,12 +14,7 @@ import ExpenseTable from "../components/Dashboard/ExpenseTable";
 import categories from "../lib/seed.json";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-const Dashboard = ({ monthParam }: { monthParam: string }) => {
-  let today = new Date();
-  let month = allMonths.includes(monthParam)
-    ? monthParam
-    : today.toLocaleString("en-US", { month: "long" });
-  const year = today.getFullYear();
+const Dashboard = ({ month, year }: { month: string; year: number }) => {
   const [userCategories, setUserCategories] = useState<category[]>(categories);
   const [userIncomeCategories, setUserIncomeCategories] = useState<category[]>(
     []
