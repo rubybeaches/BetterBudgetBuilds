@@ -1,11 +1,7 @@
 "use server";
 import { prisma } from "../../prisma-client";
 
-export const getActiveBudget = async (
-  month: number,
-  year: number,
-  userId: number
-) => {
+export const getActiveBudget = async (userId: number) => {
   // https://github.com/prisma/prisma/discussions/11443
   const budget = await prisma.budget.findFirst({
     where: {

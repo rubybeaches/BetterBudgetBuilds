@@ -36,6 +36,7 @@ const Dashboard = ({ monthParam }: { monthParam: string }) => {
     const items: any = localStorage.getItem("userCategories");
     const expenses: any = localStorage.getItem("userExpenses");
     const incomeCats: any = localStorage.getItem("userIncomeCategories");
+    const income: any = localStorage.getItem("income");
     if (expenses) {
       setUserExpenses(JSON.parse(expenses));
     }
@@ -57,7 +58,6 @@ const Dashboard = ({ monthParam }: { monthParam: string }) => {
       );
       setSavingCategories(setActiveCategories(sortedCategories, "savings"));
     }
-    const income: any = localStorage.getItem("income");
     if (income) {
       setIncome(Number(JSON.parse(income)));
     }

@@ -8,11 +8,7 @@ const Page = async () => {
   const user = await UserAuth();
   if (!user) return null;
 
-  const budget = await getActiveBudget(
-    new Date().getMonth(),
-    new Date().getFullYear(),
-    user.id
-  );
+  const budget = await getActiveBudget(user.id);
 
   return (
     <Budget
