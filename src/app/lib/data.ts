@@ -52,7 +52,7 @@ export const getUserBudget = async (
     where: {
       userId: userId,
       start: {
-        gte: new Date(`${year}-${month}`).toISOString(),
+        lte: new Date(`${year}-${month}`).toISOString(),
       },
     },
     include: {
