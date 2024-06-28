@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import "./page.css";
 import { category } from "../lib/types";
 import {
+  allMonths,
   multiplyPercentToFloat,
   sortCategories,
   sortExpenses,
@@ -14,6 +15,7 @@ import ProgressBar from "../components/ProgressBar";
 import { redirect, useRouter } from "next/navigation";
 // import { useUser } from "@clerk/nextjs";
 import { Expense } from "@prisma/client";
+import { updateAndCreateExpenses } from "../lib/actions";
 
 const AddExpense = ({
   expenseCategories,
@@ -21,6 +23,7 @@ const AddExpense = ({
   expenses,
   baseIncome,
   month,
+  year,
   userID,
 }: {
   expenseCategories: category[];
@@ -28,6 +31,7 @@ const AddExpense = ({
   expenses: Expense[];
   baseIncome: number;
   month: string;
+  year: number;
   userID: number;
 }) => {
   /*
@@ -42,6 +46,7 @@ const AddExpense = ({
   */
 
   const router = useRouter();
+
   const userIncomeCategories = useMemo(() => {
     return sortCategories(incomeCategories, "category");
   }, [incomeCategories]);
@@ -83,9 +88,15 @@ const AddExpense = ({
     );
   };
 
-  const saveExpenses = () => {
-    localStorage.setItem("userExpenses", JSON.stringify(userExpenses));
+  const saveExpenses = async () => {
+    await updateAndCreateExpenses(
+      userExpenses,
+      allMonths.indexOf(month) + 1,
+      year,
+      userID
+    );
     router.push(`/dashboard?month=${month}`);
+    router.refresh();
   };
 
   return (
@@ -203,6 +214,9 @@ const AddExpense = ({
       </div>
 
       <AddExpenseBar
+        userID={userID}
+        month={month}
+        year={year}
         categorySelections={userCategories}
         addExpenseCallback={handleAddExpense}
       />
