@@ -1,7 +1,8 @@
 import { UserAuth } from "../lib/UserAuth";
 import { getUserBudget } from "../lib/data";
-import { allMonths } from "../lib/helpers";
+import { allMonths, defaultIncomeCategories } from "../lib/helpers";
 import Dashboard from "./dashboardPage";
+import categories from "../lib/seed.json";
 
 const Page = async ({
   searchParams,
@@ -22,6 +23,14 @@ const Page = async ({
 
   const budget = await getUserBudget(allMonths.indexOf(month), year, user.id);
 
-  return <Dashboard month={month} year={year} />;
+  return (
+    <Dashboard
+      expenseCategories={budget?.expenseCategories || categories}
+      incomeCategories={budget?.incomeCategories || defaultIncomeCategories}
+      baseIncome={budget?.income || 0}
+      month={month}
+      year={year}
+    />
+  );
 };
 export default Page;
