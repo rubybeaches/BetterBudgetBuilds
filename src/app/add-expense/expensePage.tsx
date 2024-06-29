@@ -8,7 +8,6 @@ import {
   sortCategories,
   sortExpenses,
 } from "../lib/helpers";
-import categories from "../lib/seed.json";
 import ExpenseTable from "../components/Dashboard/ExpenseTable";
 import AddExpenseBar from "../components/AddExpense/AddExpenseBar";
 import ProgressBar from "../components/ProgressBar";
@@ -188,6 +187,7 @@ const AddExpense = ({
             month={month}
             year={year}
             categorySelections={userCategories}
+            incomeCategorySelections={userIncomeCategories}
             addExpenseCallback={handleAddExpense}
           />
           <div

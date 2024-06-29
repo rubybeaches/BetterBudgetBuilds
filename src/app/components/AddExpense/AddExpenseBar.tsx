@@ -14,12 +14,14 @@ const AddExpenseBar = ({
   month,
   year,
   categorySelections,
+  incomeCategorySelections,
   addExpenseCallback,
 }: {
   userID: number;
   month: string;
   year: number;
   categorySelections: category[];
+  incomeCategorySelections: category[];
   addExpenseCallback: (expense: Expense) => void;
 }) => {
   const amountRef = useRef<any>();
@@ -70,18 +72,9 @@ const AddExpenseBar = ({
     addExpenseCallback(newExpense);
   };
 
-  const incomeCategories: category[] = [
-    ...defaultIncomeCategories,
-    {
-      ...defaultIncomeCategories[0],
-      category: "Paycheck",
-      min: 1,
-      max: 35,
-      curr: 5,
-    },
-  ];
-
-  sortCategories(incomeCategories, "category");
+  const incomeCategories: category[] = useMemo(() => {
+    return sortCategories(incomeCategorySelections, "category");
+  }, [incomeCategorySelections]);
 
   const expenseCategories = useMemo(() => {
     const expenses = categorySelections.filter(
