@@ -31,16 +31,16 @@ main#expensePage {
   border-radius: 20px;
 }
 
+.saveBudget:hover {
+  background: #fff;
+}
+
 .saveBudgetButton {
   font-size: 1em;
   font-weight: 800;
   background: linear-gradient(122deg, #467af8, #9c32e2, #ff2955, #ffb15a);
   background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-
-.saveBudgetButton:hover {
-  background: #fff;
 }
 
 .monthTitle {
