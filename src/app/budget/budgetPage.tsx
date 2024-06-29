@@ -217,7 +217,7 @@ const Budget = ({
         <span className="border right"></span>
         <div>
           <h2>Budget Calculator</h2>
-          <p>
+          <p style={{ fontWeight: 500 }}>
             Use this page to create a bucket system representing your average
             monthly expenditures. To start, we&lsquo;ve provided a default list
             of categories based on national averages and percentages.
