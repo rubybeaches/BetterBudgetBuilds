@@ -39,6 +39,10 @@ main#expensePage {
   -webkit-text-fill-color: transparent;
 }
 
+.saveBudgetButton:hover {
+  background: #fff;
+}
+
 .monthTitle {
   font-size: 1.8em;
   font-weight: 600;
