@@ -53,6 +53,7 @@ const AddExpense = ({
     return sortCategories(expenseCategories, "category");
   }, [expenseCategories]);
   const [userExpenses, setUserExpenses] = useState(expenses);
+  const [userExpensesFlag, setUserExpensesFlag] = useState(false);
   const monthlyIncome = baseIncome / 12;
 
   const monthExpenses = useMemo(() => {
@@ -78,6 +79,7 @@ const AddExpense = ({
 
   const handleAddExpense = (expense: Expense) => {
     setUserExpenses([...userExpenses, expense]);
+    setUserExpensesFlag(() => true);
   };
 
   const getCategoryExpenses = (expenseGroup: Expense[], category: string) => {
@@ -88,12 +90,15 @@ const AddExpense = ({
   };
 
   const saveExpenses = async () => {
-    await updateAndCreateExpenses(
-      userExpenses,
-      allMonths.indexOf(month) + 1,
-      year,
-      userID
-    );
+    if (userExpensesFlag) {
+      await updateAndCreateExpenses(
+        userExpenses,
+        allMonths.indexOf(month) + 1,
+        year,
+        userID
+      );
+    }
+
     router.push(`/dashboard?month=${month}`);
     router.refresh();
   };
