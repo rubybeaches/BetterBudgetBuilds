@@ -145,19 +145,29 @@ span.summaryProgressBar {
 }
 
 #AddExpenseBar {
-  position: fixed;
+  /*position: fixed;
   bottom: 20px;
-  width: calc(100% - 20rem);
   left: 10rem;
+  width: calc(100% - 20rem);*/
   padding: 8px;
+  margin: 0 2em;
   border-radius: 50px;
+  background-color: #fff;
+  /*border: 3px solid #323232;*/
+  z-index: 99;
+}
+
+#AddExpenseBarInner {
+  padding: 6px;
+  border-radius: 50px;
+  background: #fff;
   border: 3px solid #323232;
   display: flex;
   gap: 1em;
   z-index: 99;
 }
 
-#AddExpenseBar .typeSelector {
+#AddExpenseBarInner .typeSelector {
   background: linear-gradient(
     135deg,
     #f0f4fe,
@@ -165,97 +175,122 @@ span.summaryProgressBar {
     #fecfdf 75%,
     #fff7ee 100%
   );
-  padding: 5px 12px;
   border-radius: 20px;
-  padding: 5px;
+  padding: 4px;
   cursor: pointer;
 }
 
 .Expense .expenseInput.expense,
 .Expense .expenseInput.expense input,
-#AddExpenseBar .typeSelector #expense {
+#AddExpenseBarInner .typeSelector #expense {
   color: #e8034d;
 }
 
 .Expense .expenseInput.income,
 .Expense .expenseInput.income input,
-#AddExpenseBar .typeSelector #income {
+#AddExpenseBarInner .typeSelector #income {
   color: #09d22f;
 }
 
 .Expense .expenseInput.saving,
 .Expense .expenseInput.saving input,
-#AddExpenseBar .typeSelector #saving {
+#AddExpenseBarInner .typeSelector #saving {
   color: #ff9900;
 }
 
-#AddExpenseBar .typeSelector span {
+#AddExpenseBarInner .typeSelector span {
   font-size: 1.4em;
   font-weight: 800;
 }
 
-#AddExpenseBar .typeSelector .active,
-#AddExpenseBar .typeSelector .inactive {
+#AddExpenseBarInner .typeSelector .active,
+#AddExpenseBarInner .typeSelector .inactive {
   border-radius: 50px;
   padding: 0 8px;
 }
 
-#AddExpenseBar .typeSelector .active {
+#AddExpenseBarInner .typeSelector .active {
   background-color: #fff;
 }
 
-#AddExpenseBar input,
-#AddExpenseBar select {
-  padding: 5px 12px;
+#AddExpenseBarInner input,
+#AddExpenseBarInner select {
+  padding: 4px 10px;
   outline: none;
   border: none;
   border-radius: 20px;
-  font-size: 1.1em;
+  font-size: 1em;
   font-weight: 500;
-}
-
-#AddExpenseBar input[name="description"] {
   flex: 1;
 }
 
-#AddExpenseBar .expenseInput {
+#AddExpenseBarInner input:focus,
+#AddExpenseBarInner select:focus,
+#AddExpenseBarInner .expenseInput:has(input:focus),
+#AddExpenseBarInner #addExpenseButton:focus {
+  outline: #323232 2px solid;
+}
+
+#AddExpenseBarInner input[type="date"] {
+  font-size: 1.1em;
+}
+
+#AddExpenseBarInner input[name="description"] {
+  flex: 1;
+}
+
+#AddExpenseBarInner .expenseInput {
   border-radius: 20px;
   background-color: #fff;
   padding-left: 8px;
-  font-size: 1.2em;
+  font-size: 1em;
   font-weight: 700;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
 }
 
-#AddExpenseBar .expenseInput input {
+#AddExpenseBarInner .expenseInput input {
   font-weight: 700;
   padding-left: 6px;
-  width: 120px;
+  width: 100px;
+  outline: none;
 }
 
-#AddExpenseBar #addExpenseButton {
+#AddExpenseBarInner #addExpenseButton {
   outline: none;
   background-color: #e8034d;
-  border: #fe9fbf 2px solid;
+  border: none;
+  /*border: #fe9fbf 2px solid;*/
   border-radius: 20px;
-  padding: 5px 15px;
+  padding: 4px 12px;
   font-size: 1.2em;
   color: white;
   font-weight: 600;
+  cursor: pointer;
 }
 
-.Expense#AddExpenseBar {
-  background-color: #ff6799;
+.Expense #AddExpenseBarInner {
+  /*background-color: #ff6799;*/
   border-color: #e8034d;
 }
 
-.Expense#AddExpenseBar:has(.typeSelector #income.active) {
-  background-color: #83f899;
+.Expense #AddExpenseBarInner:has(.typeSelector #income.active) {
+  /*background-color: #83f899;*/
   border-color: #09d22f;
 }
 
-.Expense#AddExpenseBar:has(.typeSelector #saving.active) {
-  background-color: var(--orange-highlight);
+#AddExpenseBarInner:has(.typeSelector #income.active) #addExpenseButton {
+  background-color: #09d22f;
+}
+
+.Expense #AddExpenseBarInner:has(.typeSelector #saving.active) {
+  /*background-color: var(--orange-highlight);*/
   border-color: var(--orange-color);
+}
+
+#AddExpenseBarInner:has(.typeSelector #saving.active) #addExpenseButton {
+  background-color: var(--orange-color);
 }
 
 .section > table#expenseTable {

@@ -183,6 +183,13 @@ const AddExpense = ({
         </div>
 
         <div className="expenseTablesWrapper">
+          <AddExpenseBar
+            userID={userID}
+            month={month}
+            year={year}
+            categorySelections={userCategories}
+            addExpenseCallback={handleAddExpense}
+          />
           <div
             id="Income"
             className={`section ${
@@ -212,14 +219,6 @@ const AddExpense = ({
           </div>
         </div>
       </div>
-
-      <AddExpenseBar
-        userID={userID}
-        month={month}
-        year={year}
-        categorySelections={userCategories}
-        addExpenseCallback={handleAddExpense}
-      />
     </main>
   );
 };

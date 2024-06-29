@@ -119,57 +119,59 @@ const AddExpenseBar = ({
 
   return (
     <div id="AddExpenseBar" className="Expense">
-      <div className={`expenseInput ${expenseType}`}>
-        $
-        <input
-          ref={amountRef}
-          type="text"
-          name="amount"
-          defaultValue={"0.00"}
-        />
-      </div>
-      <div className="typeSelector">
-        <span
-          id="expense"
-          className={expenseType == "expense" ? "active" : "inactive"}
-          onClick={() => handleTypeSelector("expense")}
-        >
-          &minus;
-        </span>
-        <span
-          id="income"
-          className={expenseType == "income" ? "active" : "inactive"}
-          onClick={() => handleTypeSelector("income")}
-        >
-          &#x2B;
-        </span>
-        <span
-          id="saving"
-          className={expenseType == "saving" ? "active" : "inactive"}
-          onClick={() => handleTypeSelector("saving")}
-        >
-          &#x2B;
-        </span>
-      </div>
-      <input
-        ref={descriptionRef}
-        type="text"
-        placeholder="Enter a description of this expense"
-        name="description"
-      />
-      <select ref={selectRef} defaultValue="Select a Category" required>
-        {activeCategorySelection.map((cat, index) => (
-          <option
-            key={index}
-            value={[cat.category, cat.type]}
-            label={cat.category}
+      <div id="AddExpenseBarInner">
+        <div className={`expenseInput ${expenseType}`}>
+          $
+          <input
+            ref={amountRef}
+            type="text"
+            name="amount"
+            defaultValue={"0.00"}
           />
-        ))}
-      </select>
-      <input ref={dateRef} type="date" name="date" required />
-      <button id="addExpenseButton" onClick={() => handleAdd()}>
-        + Add
-      </button>
+        </div>
+        <div className="typeSelector">
+          <span
+            id="expense"
+            className={expenseType == "expense" ? "active" : "inactive"}
+            onClick={() => handleTypeSelector("expense")}
+          >
+            &minus;
+          </span>
+          <span
+            id="income"
+            className={expenseType == "income" ? "active" : "inactive"}
+            onClick={() => handleTypeSelector("income")}
+          >
+            &#x2B;
+          </span>
+          <span
+            id="saving"
+            className={expenseType == "saving" ? "active" : "inactive"}
+            onClick={() => handleTypeSelector("saving")}
+          >
+            &#x2B;
+          </span>
+        </div>
+        <input
+          ref={descriptionRef}
+          type="text"
+          placeholder="Description of the expense you've accrued"
+          name="description"
+        />
+        <select ref={selectRef} defaultValue="Select a Category" required>
+          {activeCategorySelection.map((cat, index) => (
+            <option
+              key={index}
+              value={[cat.category, cat.type]}
+              label={cat.category}
+            />
+          ))}
+        </select>
+        <input ref={dateRef} type="date" name="date" required />
+        <button id="addExpenseButton" onClick={() => handleAdd()}>
+          + Add
+        </button>
+      </div>
     </div>
   );
 };
