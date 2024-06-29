@@ -1,5 +1,9 @@
 import { category, expense } from "@/app/lib/types";
-import { allMonths, setActiveCategories, sortCategories } from "../../lib/helpers";
+import {
+  allMonths,
+  setActiveCategories,
+  sortCategories,
+} from "../../lib/helpers";
 import { defaultIncomeCategories } from "../../lib/helpers";
 import { useMemo, useRef, useState } from "react";
 import { v4 as uuid } from "uuid";
@@ -29,6 +33,12 @@ const AddExpenseBar = ({
     setExpenseType(() => type);
   };
 
+  const formatDate = (dateString: string) => {
+    const [year, day, month] = dateString.split("-");
+
+    return `${day}-${month}-${year}`;
+  };
+
   const handleAdd = () => {
     if (
       Number(amountRef.current.value) == 0 ||
@@ -43,7 +53,7 @@ const AddExpenseBar = ({
       amount: Number(amountRef.current.value),
       category: selectRef.current.value.split(",")[0],
       description: descriptionRef.current.value,
-      entryDate: dateRef.current.value,
+      entryDate: formatDate(dateRef.current.value),
       entryMonth: allMonths.indexOf(month) + 1,
       entryYear: year,
       type: selectRef.current.value.split(",")[1],

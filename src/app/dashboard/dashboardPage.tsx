@@ -120,6 +120,7 @@ const Dashboard = ({
             <div>Update Budget</div>
           </div>
         </a>
+        <span>Summary:</span>{" "}
         <span id="Income">${convertToFloat(incomeExpenseTotal)}</span> -{" "}
         <span id="Essential">${convertToFloat(essentialExpenseTotal)}</span> -{" "}
         <span id="Non-Essential">
