@@ -163,11 +163,11 @@ const Dashboard = ({
         />
         <ExpenseTable expense={incomeExpenses} />
         <div className="incomeButton border left">
-          <div className="incomeButton background">
-            <a href={`/add-expense?month=${month}`}>
+          <a href={`/add-expense?month=${month}`}>
+            <div className="incomeButton background">
               <p className="incomeButton text">Add Income</p>
-            </a>
-          </div>
+            </div>
+          </a>
         </div>
       </div>
 
@@ -184,11 +184,11 @@ const Dashboard = ({
         />
         <ExpenseTable expense={essentialExpenses} />
         <div className="expenseButton border left">
-          <div className="expenseButton background">
-            <a href={`/add-expense?month=${month}`}>
+          <a href={`/add-expense?month=${month}`}>
+            <div className="expenseButton background">
               <p className="expenseButton text">Add Expense</p>
-            </a>
-          </div>
+            </div>
+          </a>
         </div>
       </div>
 
@@ -205,11 +205,11 @@ const Dashboard = ({
         />
         <ExpenseTable expense={nonEssentialExpenses} />
         <div className="expenseButton border left">
-          <div className="expenseButton background">
-            <a href={`/add-expense?month=${month}`}>
+          <a href={`/add-expense?month=${month}`}>
+            <div className="expenseButton background">
               <p className="expenseButton text">Add Expense</p>
-            </a>
-          </div>
+            </div>
+          </a>
         </div>
       </div>
 
@@ -226,11 +226,11 @@ const Dashboard = ({
         />
         <ExpenseTable expense={savingExpenses} />
         <div className="savingsButton border left">
-          <div className="savingsButton background">
-            <a href={`/add-expense?month=${month}`}>
+          <a href={`/add-expense?month=${month}`}>
+            <div className="savingsButton background">
               <p className="savingsButton text">Add Savings</p>
-            </a>
-          </div>
+            </div>
+          </a>
         </div>
       </div>
     </main>
