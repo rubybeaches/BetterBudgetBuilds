@@ -9,7 +9,7 @@ import {
 } from "../lib/helpers";
 import SummaryTable from "../components/Dashboard/SummaryTable";
 import { category } from "../lib/types";
-import ExpenseTable from "../components/Dashboard/ExpenseTable";
+import ExpenseTable from "../components/ExpenseTable";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Expense } from "@prisma/client";
 

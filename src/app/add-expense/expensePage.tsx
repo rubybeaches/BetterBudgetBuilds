@@ -8,7 +8,7 @@ import {
   sortCategories,
   sortExpenses,
 } from "../lib/helpers";
-import ExpenseTable from "../components/Dashboard/ExpenseTable";
+import ExpenseTable from "../components/ExpenseTable";
 import AddExpenseBar from "../components/AddExpense/AddExpenseBar";
 import ProgressBar from "../components/ProgressBar";
 import { redirect, useRouter } from "next/navigation";
