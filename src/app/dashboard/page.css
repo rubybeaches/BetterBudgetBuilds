@@ -438,7 +438,8 @@ body {
   td.summaryProgressBar
   #progressMonthly.overBudgetMonthly
   p,
-#Income.section table#summaryTable tr#summaryTotals #overBudgetExpenses {
+#Income.section table#summaryTable tr#summaryTotals #overBudgetExpenses,
+#Income.section table#expenseTable td.expenseAmount {
   color: #09d22f;
 }
 
