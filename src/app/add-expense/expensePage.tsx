@@ -202,7 +202,7 @@ const AddExpense = ({
             }`}
           >
             <h2>Generated Income</h2>
-            <ExpenseTable expense={incomeExpenses} />
+            <ExpenseTable expense={incomeExpenses} addFlag={true} />
           </div>
 
           <div
@@ -212,7 +212,7 @@ const AddExpense = ({
             }`}
           >
             <h2>Saving and Planning Accounts</h2>
-            <ExpenseTable expense={savingExpenses} />
+            <ExpenseTable expense={savingExpenses} addFlag={true} />
           </div>
 
           <div
@@ -220,7 +220,7 @@ const AddExpense = ({
             className={`section ${debtExpenses.length > 0 ? "show" : "hidden"}`}
           >
             <h2>Recurring and Variable Expenses</h2>
-            <ExpenseTable expense={debtExpenses} />
+            <ExpenseTable expense={debtExpenses} addFlag={true} />
           </div>
         </div>
       </div>

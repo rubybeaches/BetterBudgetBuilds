@@ -2,13 +2,28 @@ import { sortExpenses } from "@/app/lib/helpers";
 import { Expense } from "@prisma/client";
 import { useMemo, useState } from "react";
 import ExpenseRow from "./Dashboard/ExpenseRow";
+import AddExpenseRow from "./AddExpense/AddExpenseRow";
 
-const ExpenseTable = ({ expense }: { expense: Expense[] }) => {
+const ExpenseTable = ({
+  expense,
+  addFlag = false,
+}: {
+  expense: Expense[];
+  addFlag?: boolean;
+}) => {
   const [filter, setFilter] = useState<keyof Expense>("entryDate");
 
   const sortedExpenses = useMemo(() => {
     return sortExpenses(expense, filter);
   }, [expense, filter]);
+
+  const getExpenseRow = (index: number, expense: Expense) => {
+    return addFlag ? (
+      <AddExpenseRow key={index} expense={expense} />
+    ) : (
+      <ExpenseRow key={index} expense={expense} />
+    );
+  };
 
   return (
     <>
@@ -29,9 +44,7 @@ const ExpenseTable = ({ expense }: { expense: Expense[] }) => {
       <table id="expenseTable">
         <tbody>
           {sortedExpenses &&
-            sortedExpenses.map((exp, index) => (
-              <ExpenseRow key={index} expense={exp} />
-            ))}
+            sortedExpenses.map((exp, index) => getExpenseRow(index, exp))}
         </tbody>
       </table>
     </>
