@@ -1,5 +1,5 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./page.css";
 import { category } from "../lib/types";
 import {
@@ -88,6 +88,30 @@ const AddExpense = ({
       0
     );
   };
+
+  const saveExpensesOnRecurrenceClick = (event: Event) => {
+    console.log(event.target);
+  };
+
+  useEffect(() => {
+    let recurrenceIconElements =
+      document.getElementsByClassName("recurringIcon");
+
+    for (var i = 0; i < recurrenceIconElements.length; i++) {
+      recurrenceIconElements[i].addEventListener(
+        "click",
+        saveExpensesOnRecurrenceClick
+      );
+    }
+    return () => {
+      for (var i = 0; i < recurrenceIconElements.length; i++) {
+        recurrenceIconElements[i].removeEventListener(
+          "click",
+          saveExpensesOnRecurrenceClick
+        );
+      }
+    };
+  }, [saveExpensesOnRecurrenceClick]);
 
   const saveExpenses = async () => {
     if (userExpensesFlag) {
