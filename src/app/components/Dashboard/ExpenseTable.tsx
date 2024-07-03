@@ -2,6 +2,7 @@ import { convertToFloat, sortExpenses } from "@/app/lib/helpers";
 import { expense } from "@/app/lib/types";
 import { Expense } from "@prisma/client";
 import { useMemo, useState } from "react";
+import RecurringIcon from "../AddExpense/RecurringSVG";
 
 const ExpenseTable = ({ expense }: { expense: Expense[] }) => {
   const [filter, setFilter] = useState<keyof expense>("entryDate");
@@ -32,7 +33,7 @@ const ExpenseTable = ({ expense }: { expense: Expense[] }) => {
             sortedExpenses.map((exp, index) => (
               <tr key={index}>
                 <td className="expenseAmount">
-                  $ {convertToFloat(exp.amount)}
+                  <RecurringIcon />$ {convertToFloat(exp.amount)}
                 </td>
                 <td>{exp.description}</td>
                 <td>{exp.category}</td>

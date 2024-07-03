@@ -61,7 +61,7 @@ main#expensePage {
 }
 
 .section {
-  padding: 1.5em 2em;
+  padding: 1.5em 2em 1.5em 2.5em;
   border-radius: 20px;
   position: relative;
 }
@@ -146,6 +146,16 @@ span.summaryProgressBar {
 .summaryProgressBar #progressBudget.overBudgetProgress {
   border-left: none;
   margin-left: -2px;
+}
+
+.recurringIcon {
+  position: absolute;
+  left: 12px;
+  opacity: 0.25;
+}
+
+.recurringIcon:hover {
+  opacity: 1;
 }
 
 #AddExpenseBar {
