@@ -7,9 +7,11 @@ import AddExpenseRow from "./AddExpense/AddExpenseRow";
 const ExpenseTable = ({
   expense,
   addFlag = false,
+  updateExpense,
 }: {
   expense: Expense[];
   addFlag?: boolean;
+  updateExpense?: (expense: Expense) => void | null;
 }) => {
   const [filter, setFilter] = useState<keyof Expense>("entryDate");
 
@@ -18,8 +20,12 @@ const ExpenseTable = ({
   }, [expense, filter]);
 
   const getExpenseRow = (index: number, expense: Expense) => {
-    return addFlag ? (
-      <AddExpenseRow key={index} expense={expense} />
+    return addFlag && updateExpense ? (
+      <AddExpenseRow
+        key={index}
+        expense={expense}
+        updateExpense={updateExpense}
+      />
     ) : (
       <ExpenseRow key={index} expense={expense} />
     );

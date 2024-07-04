@@ -323,7 +323,14 @@ span.summaryProgressBar {
   padding-right: 15px;
 }
 
-.section > table#expenseTable tr td:nth-child(2) {
+.section > table#expenseTable tr td input {
+  outline: none;
+  border: none;
+  font-family: Montserrat;
+  max-width: 100px;
+}
+
+.section > table#expenseTable tr td:nth-child(2) input {
   min-width: 400px;
 }
 
@@ -331,8 +338,17 @@ span.summaryProgressBar {
   border-top: 2px solid;
 }
 
-.section > table#expenseTable tr td.expenseAmount {
+.section > table#expenseTable tr td.expenseAmount,
+.section > table#expenseTable tr td.expenseAmount input {
   font-weight: 700;
+  font-size: 1em;
+}
+
+.section > table#expenseTable tr td.expenseAmount input {
+  width: 80px;
+}
+
+.section > table#expenseTable tr td.expenseAmount {
   padding-left: 15px;
 }
 
@@ -396,6 +412,7 @@ span.summaryProgressBar {
 #summaryIncome > h2,
 #Income.section table#summaryTable tr#summaryTotals #overBudgetExpenses,
 #Income.section > table#expenseTable tr td.expenseAmount,
+#Income.section > table#expenseTable tr td.expenseAmount input,
 #Income .filter,
 #Income .filter select {
   color: #09d22f;
@@ -450,6 +467,7 @@ span.summaryProgressBar {
 #Expenses,
 #summaryExpense > h2,
 #Expenses.section > table#expenseTable tr td.expenseAmount,
+#Expenses.section > table#expenseTable tr td.expenseAmount input,
 #Expenses .filter select {
   color: #ff2955;
 }
@@ -471,6 +489,7 @@ span.summaryProgressBar {
 #summarySavings > h2,
 #Savings.section table#summaryTable tr#summaryTotals #overBudgetExpenses,
 #Savings.section > table#expenseTable tr td.expenseAmount,
+#Savings.section > table#expenseTable tr td.expenseAmount input,
 #Savings .filter select {
   color: var(--orange-color);
 }

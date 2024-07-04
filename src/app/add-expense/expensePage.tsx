@@ -79,7 +79,15 @@ const AddExpense = ({
 
   const handleAddExpense = (expense: Expense) => {
     setUserExpenses([...userExpenses, expense]);
-    setUserExpensesFlag(() => true);
+    !userExpensesFlag ?? setUserExpensesFlag(() => true);
+  };
+
+  const updateExpenseById = (expense: Expense) => {
+    const updatedExpenses = userExpenses.map((exp) =>
+      exp.id == expense.id ? expense : exp
+    );
+    setUserExpenses(() => [...updatedExpenses]);
+    !userExpensesFlag ?? setUserExpensesFlag(() => true);
   };
 
   const getCategoryExpenses = (expenseGroup: Expense[], category: string) => {
@@ -89,6 +97,7 @@ const AddExpense = ({
     );
   };
 
+  /*
   const saveExpensesOnRecurrenceClick = (event: Event) => {
     console.log(event.target);
   };
@@ -112,6 +121,7 @@ const AddExpense = ({
       }
     };
   }, [saveExpensesOnRecurrenceClick]);
+  */
 
   const saveExpenses = async () => {
     if (userExpensesFlag) {
@@ -226,7 +236,11 @@ const AddExpense = ({
             }`}
           >
             <h2>Generated Income</h2>
-            <ExpenseTable expense={incomeExpenses} addFlag={true} />
+            <ExpenseTable
+              expense={incomeExpenses}
+              addFlag={true}
+              updateExpense={updateExpenseById}
+            />
           </div>
 
           <div
@@ -236,7 +250,11 @@ const AddExpense = ({
             }`}
           >
             <h2>Saving and Planning Accounts</h2>
-            <ExpenseTable expense={savingExpenses} addFlag={true} />
+            <ExpenseTable
+              expense={savingExpenses}
+              addFlag={true}
+              updateExpense={updateExpenseById}
+            />
           </div>
 
           <div
@@ -244,7 +262,11 @@ const AddExpense = ({
             className={`section ${debtExpenses.length > 0 ? "show" : "hidden"}`}
           >
             <h2>Recurring and Variable Expenses</h2>
-            <ExpenseTable expense={debtExpenses} addFlag={true} />
+            <ExpenseTable
+              expense={debtExpenses}
+              addFlag={true}
+              updateExpense={updateExpenseById}
+            />
           </div>
         </div>
       </div>

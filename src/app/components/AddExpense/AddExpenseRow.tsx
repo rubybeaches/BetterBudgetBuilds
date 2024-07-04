@@ -2,22 +2,45 @@ import { convertToFloat } from "@/app/lib/helpers";
 import { Expense } from "@prisma/client";
 import RecurringIcon from "./RecurringSVG";
 
-const AddExpenseRow = ({ expense }: { expense: Expense }) => {
-  // switch this to use input fields and form submit, use server action and expense id to update the expense values of recurring and associated recurring table
-  // Also need a way to make sure the add expense page gets saved and doesn't wipe any in-progress expenses
+const AddExpenseRow = ({
+  expense,
+  updateExpense,
+}: {
+  expense: Expense;
+  updateExpense: (expense: Expense) => void;
+}) => {
+  const displayDate = (date: string) => {
+    let [month, day, year] = date.split("-");
+    return `${year}-${month}-${day}`;
+  };
+
   return (
     <tr>
       <td className="expenseAmount">
-        <RecurringIcon />$ {convertToFloat(expense.amount)}
+        <RecurringIcon />${" "}
+        <input
+          type="text"
+          name="amount"
+          value={convertToFloat(expense.amount)}
+          readOnly
+        />
       </td>
-      <td>{expense.description}</td>
+      <td>
+        <input
+          type="text"
+          name="description"
+          value={expense.description}
+          readOnly
+        />
+      </td>
       <td>{expense.category}</td>
       <td>
-        {new Date(expense.entryDate).toLocaleString("en-US", {
-          month: "2-digit",
-          day: "2-digit",
-          year: "numeric",
-        })}
+        <input
+          type="date"
+          name="date"
+          value={displayDate(expense.entryDate)}
+          readOnly
+        />
       </td>
     </tr>
   );
