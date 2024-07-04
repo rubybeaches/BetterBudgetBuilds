@@ -1,6 +1,7 @@
 import { convertToFloat } from "@/app/lib/helpers";
 import { Expense } from "@prisma/client";
 import RecurringIcon from "./RecurringSVG";
+import { useState } from "react";
 
 const AddExpenseRow = ({
   expense,
@@ -9,6 +10,8 @@ const AddExpenseRow = ({
   expense: Expense;
   updateExpense: (expense: Expense) => void;
 }) => {
+  const [recurringActive, setRecurringActive] = useState(expense.recurring);
+
   const displayDate = (date: string) => {
     let [month, day, year] = date.split("-");
     return `${year}-${month}-${day}`;
@@ -16,8 +19,13 @@ const AddExpenseRow = ({
 
   return (
     <tr>
-      <td className="expenseAmount">
-        <RecurringIcon />${" "}
+      <td
+        className={`expenseAmount ${recurringActive ? "recurringActive" : ""}`}
+      >
+        <span onClick={() => setRecurringActive(true)}>
+          <RecurringIcon />
+        </span>
+        ${" "}
         <input
           type="text"
           name="amount"

@@ -154,7 +154,8 @@ span.summaryProgressBar {
   opacity: 0.25;
 }
 
-.recurringIcon:hover {
+.recurringIcon:hover,
+.recurringActive .recurringIcon {
   opacity: 1;
 }
 
