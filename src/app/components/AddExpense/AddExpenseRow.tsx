@@ -11,6 +11,7 @@ const AddExpenseRow = ({
   updateExpense: (expense: Expense) => void;
 }) => {
   const [recurringActive, setRecurringActive] = useState(expense.recurring);
+  const [recurringEdit, setRecurringEdit] = useState(false);
 
   const displayDate = (date: string) => {
     let [month, day, year] = date.split("-");
