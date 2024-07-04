@@ -418,7 +418,9 @@ span.summaryProgressBar {
   color: #09d22f;
 }
 
-#Income .filter SVG {
+#Income .filter SVG,
+#Income .recurringIcon #recurringArrows,
+#Income .recurringIcon #recurringR {
   fill: #09d22f;
 }
 
@@ -472,7 +474,9 @@ span.summaryProgressBar {
   color: #ff2955;
 }
 
-#Expenses .filter SVG {
+#Expenses .filter SVG,
+#Expenses .recurringIcon #recurringArrows,
+#Expenses .recurringIcon #recurringR {
   fill: #ff2955;
 }
 
@@ -494,7 +498,9 @@ span.summaryProgressBar {
   color: var(--orange-color);
 }
 
-#Savings .filter SVG {
+#Savings .filter SVG,
+#Savings .recurringIcon #recurringArrows,
+#Savings .recurringIcon #recurringR {
   fill: var(--orange-color);
 }
 
