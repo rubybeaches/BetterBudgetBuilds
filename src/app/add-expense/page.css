@@ -308,6 +308,21 @@ span.summaryProgressBar {
   background-color: var(--orange-color);
 }
 
+.section > table#expenseTable tr:has(td.recurringEdit) td > input,
+.section > table#expenseTable tr:has(td.recurringEdit) div {
+  outline: #323232 2px solid;
+  padding: 3px 6px;
+  border-radius: 20px;
+}
+
+.section > table#expenseTable tr:has(td.recurringEdit) div {
+  background-color: #fff;
+}
+
+.section > table#expenseTable tr td.recurringEdit:first-child {
+  border-right: none;
+}
+
 .section > table#expenseTable {
   border-collapse: separate;
   border-spacing: 0px;
@@ -328,7 +343,7 @@ span.summaryProgressBar {
   outline: none;
   border: none;
   font-family: Montserrat;
-  max-width: 100px;
+  max-width: 115px;
 }
 
 .section > table#expenseTable tr td:nth-child(2) input {
@@ -425,6 +440,19 @@ span.summaryProgressBar {
   fill: #09d22f;
 }
 
+#Income.section > table#expenseTable tr:has(td.recurringEdit) {
+  background: #ebfceb;
+}
+
+#Income.section > table#expenseTable tr:has(td.recurringEdit) td {
+  background: none;
+}
+
+#Income.section > table#expenseTable tr:has(td.recurringEdit) td > input,
+#Income.section > table#expenseTable tr:has(td.recurringEdit) div {
+  outline-color: #09d22f;
+}
+
 #Income #summaryTotals,
 #summaryIncome #summaryBudget,
 #summaryIncome #summaryMonthly {
@@ -481,6 +509,25 @@ span.summaryProgressBar {
   fill: #ff2955;
 }
 
+#Expenses.section > table#expenseTable tr:has(td.recurringEdit) {
+  background: linear-gradient(
+    135deg,
+    #f0f4fe,
+    #f7effd 25%,
+    #fecfdf 75%,
+    #fff7ee 100%
+  );
+}
+
+#Expenses.section > table#expenseTable tr:has(td.recurringEdit) td {
+  background: none;
+}
+
+#Expenses.section > table#expenseTable tr:has(td.recurringEdit) td > input,
+#Expenses.section > table#expenseTable tr:has(td.recurringEdit) div {
+  outline-color: #ff2955;
+}
+
 #Expenses.section > table#summaryTable tr:not(:first-child) td,
 #Expenses.section > table#expenseTable tr td,
 #Expenses.section > table#expenseTable tr:first-child td,
@@ -503,6 +550,18 @@ span.summaryProgressBar {
 #Savings .recurringIcon #recurringArrows,
 #Savings .recurringIcon #recurringR {
   fill: var(--orange-color);
+}
+
+#Savings.section > table#expenseTable tr:has(td.recurringEdit) {
+  background: #fff7ee;
+}
+#Savings.section > table#expenseTable tr:has(td.recurringEdit) td {
+  background: none;
+}
+
+#Savings.section > table#expenseTable tr:has(td.recurringEdit) td > input,
+#Savings.section > table#expenseTable tr:has(td.recurringEdit) div {
+  outline-color: var(--orange-color);
 }
 
 #Savings #summaryTotals,
