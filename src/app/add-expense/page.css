@@ -39,7 +39,7 @@ main#expensePage {
   right: -150px;
   top: 5px;
   outline: none;
-  padding: 2px;
+  padding: 1px;
 }
 
 .section
@@ -48,7 +48,6 @@ main#expensePage {
   div.saveRecurrenceContainer
   .saveRecurrence {
   outline: none;
-  padding: 1px;
   padding: 4px 12px;
 }
 
@@ -417,6 +416,12 @@ span.summaryProgressBar {
 
 .section > table#expenseTable tr td.expenseAmount {
   padding-left: 15px;
+}
+
+.section > table#expenseTable tr td.expenseAmount div {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 5px;
 }
 
 .section > table#expenseTable tr td:not(:first-child) {

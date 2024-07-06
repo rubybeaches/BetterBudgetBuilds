@@ -62,22 +62,28 @@ const AddExpenseRow = ({
           </div>
         </td>
         <td>
-          <input
-            type="text"
-            name="description"
-            placeholder="Description of the expense you've accrued"
-            defaultValue={expense.description}
-            ref={descriptionRef}
-          />
+          <div>
+            <input
+              type="text"
+              name="description"
+              placeholder="Description of the expense you've accrued"
+              defaultValue={expense.description}
+              ref={descriptionRef}
+            />
+          </div>
         </td>
-        <td>{expense.category}</td>
         <td>
-          <input
-            type="date"
-            name="date"
-            defaultValue={displayDate(expense.entryDate)}
-            ref={dateRef}
-          />
+          <div>{expense.category}</div>
+        </td>
+        <td>
+          <div>
+            <input
+              type="date"
+              name="date"
+              defaultValue={displayDate(expense.entryDate)}
+              ref={dateRef}
+            />
+          </div>
           <div
             className="saveRecurrenceContainer"
             onClick={() => saveTemplate()}
