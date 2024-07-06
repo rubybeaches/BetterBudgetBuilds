@@ -1,6 +1,7 @@
 import { category } from "@/app/lib/types";
 import {
   allMonths,
+  parsetoNum,
   setActiveCategories,
   sortCategories,
 } from "../../lib/helpers";
@@ -50,7 +51,7 @@ const AddExpenseBar = ({
 
     const newExpense: Expense = {
       id: Date.now(),
-      amount: Number(amountRef.current.value),
+      amount: parsetoNum(amountRef.current.value),
       category: selectRef.current.value.split(",")[0],
       description: descriptionRef.current.value,
       entryDate: formatDate(dateRef.current.value),

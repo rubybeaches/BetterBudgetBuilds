@@ -14,7 +14,7 @@ main#expensePage {
 }
 
 .section .filter {
-  right: 8em;
+  right: 10em;
 }
 
 .section:has(.recurringEdit) .filter {
@@ -40,8 +40,6 @@ main#expensePage {
   tr:has(td.recurringEdit)
   div.saveRecurrenceContainer {
   position: absolute;
-  right: -150px;
-  top: 5px;
   outline: none;
   padding: 1px;
 }
@@ -49,10 +47,35 @@ main#expensePage {
 .section
   > table#expenseTable
   tr:has(td.recurringEdit)
+  div.saveRecurrenceContainer.save {
+  right: -180px;
+  top: 5px;
+}
+
+.section
+  > table#expenseTable
+  tr:has(td.recurringEdit)
+  div.saveRecurrenceContainer.close {
+  right: -40px;
+  top: 5px;
+}
+
+.section
+  > table#expenseTable
+  tr:has(td.recurringEdit)
   div.saveRecurrenceContainer
-  .saveRecurrence {
+  .saveRecurrence.save {
   outline: none;
   padding: 4px 12px;
+}
+
+.section
+  > table#expenseTable
+  tr:has(td.recurringEdit)
+  div.saveRecurrenceContainer
+  .saveRecurrence.close {
+  outline: none;
+  padding: 4px 8px;
 }
 
 .saveBudget,
@@ -102,7 +125,7 @@ main#expensePage {
 }
 
 .section {
-  padding: 1.5em 8em 1.5em 2.5em;
+  padding: 1.5em 10em 1.5em 2.5em;
   border-radius: 20px;
   position: relative;
 }
@@ -189,14 +212,18 @@ span.summaryProgressBar {
   margin-left: -2px;
 }
 
-.recurringIcon {
+.section > table#expenseTable tr td .recurringIcon:first-child {
   position: absolute;
   left: -30px;
   opacity: 0.25;
 }
 
-.recurringIcon:hover,
-.recurringActive .recurringIcon {
+.section
+  > table#expenseTable
+  tr
+  td:first-child
+  .recurringIcon:first-child:hover,
+.section > table#expenseTable tr td.recurringActive .recurringIcon {
   opacity: 1;
 }
 
@@ -362,6 +389,7 @@ span.summaryProgressBar {
 
 .section > table#expenseTable tr:has(td.recurringEdit) div {
   background-color: #fff;
+  padding-right: 12px;
 }
 
 .section > table#expenseTable tr td.recurringEdit:first-child {
@@ -401,7 +429,7 @@ span.summaryProgressBar {
 }
 
 .section > table#expenseTable tr td:nth-child(2) input {
-  min-width: 400px;
+  min-width: 300px;
 }
 
 .section > table#expenseTable tr:first-child td {

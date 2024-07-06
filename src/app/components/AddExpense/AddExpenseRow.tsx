@@ -1,4 +1,4 @@
-import { convertToFloat } from "@/app/lib/helpers";
+import { convertToFloat, parsetoNum } from "@/app/lib/helpers";
 import { Expense } from "@prisma/client";
 import RecurringIcon from "./RecurringSVG";
 import { useRef, useState } from "react";
@@ -23,7 +23,7 @@ const AddExpenseRow = ({
     if (newAmount && newDescription && newDate) {
       let newExpense: Expense = {
         ...expense,
-        amount: Number(amountRef.current.value),
+        amount: parsetoNum(amountRef.current.value),
         description: newDescription.value,
         entryDate: saveDate(newDate.value),
         recurring: true,
@@ -59,6 +59,7 @@ const AddExpenseRow = ({
               defaultValue={convertToFloat(expense.amount)}
               ref={amountRef}
             />
+            <RecurringIcon />
           </div>
         </td>
         <td>
@@ -70,6 +71,7 @@ const AddExpenseRow = ({
               defaultValue={expense.description}
               ref={descriptionRef}
             />
+            <RecurringIcon />
           </div>
         </td>
         <td>
@@ -83,15 +85,21 @@ const AddExpenseRow = ({
               defaultValue={displayDate(expense.entryDate)}
               ref={dateRef}
             />
+            <RecurringIcon />
           </div>
           <div
-            className="saveRecurrenceContainer"
+            className="saveRecurrenceContainer close"
+            onClick={() => setRecurringEdit(() => false)}
+          >
+            <div className="saveRecurrence close">
+              <p className="saveRecurrenceButton">X</p>
+            </div>
+          </div>
+          <div
+            className="saveRecurrenceContainer save"
             onClick={() => saveTemplate()}
           >
-            <div
-              className="saveRecurrence"
-              style={{ display: "flex", gap: "4px" }}
-            >
+            <div className="saveRecurrence save">
               <p className="saveRecurrenceButton">Make Template</p>
             </div>
           </div>
@@ -113,13 +121,15 @@ const AddExpenseRow = ({
           >
             <RecurringIcon />
           </span>
-          ${" "}
-          <input
-            type="text"
-            name="amount"
-            value={convertToFloat(expense.amount)}
-            readOnly
-          />
+          <div>
+            ${" "}
+            <input
+              type="text"
+              name="amount"
+              value={convertToFloat(expense.amount)}
+              readOnly
+            />
+          </div>
         </td>
         <td>
           <input
