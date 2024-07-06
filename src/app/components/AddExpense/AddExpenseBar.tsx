@@ -1,12 +1,10 @@
-import { category, expense } from "@/app/lib/types";
+import { category } from "@/app/lib/types";
 import {
   allMonths,
   setActiveCategories,
   sortCategories,
 } from "../../lib/helpers";
-import { defaultIncomeCategories } from "../../lib/helpers";
 import { useMemo, useRef, useState } from "react";
-import { v4 as uuid } from "uuid";
 import { Expense } from "@prisma/client";
 
 const AddExpenseBar = ({
@@ -51,7 +49,7 @@ const AddExpenseBar = ({
     }
 
     const newExpense: Expense = {
-      id: Number(uuid()),
+      id: Date.now(),
       amount: Number(amountRef.current.value),
       category: selectRef.current.value.split(",")[0],
       description: descriptionRef.current.value,

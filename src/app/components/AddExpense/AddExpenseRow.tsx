@@ -1,7 +1,7 @@
 import { convertToFloat } from "@/app/lib/helpers";
 import { Expense } from "@prisma/client";
 import RecurringIcon from "./RecurringSVG";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const AddExpenseRow = ({
   expense,
@@ -10,8 +10,33 @@ const AddExpenseRow = ({
   expense: Expense;
   updateExpense: (expense: Expense) => void;
 }) => {
-  const [recurringActive, setRecurringActive] = useState(expense.recurring);
   const [recurringEdit, setRecurringEdit] = useState(false);
+  const amountRef = useRef<any>();
+  const descriptionRef = useRef<any>();
+  const dateRef = useRef<any>();
+
+  const saveTemplate = () => {
+    let newAmount = amountRef.current;
+    let newDescription = descriptionRef.current;
+    let newDate = dateRef.current;
+
+    if (newAmount && newDescription && newDate) {
+      let newExpense: Expense = {
+        ...expense,
+        amount: Number(amountRef.current.value),
+        description: newDescription.value,
+        entryDate: saveDate(newDate.value),
+        recurring: true,
+      };
+      setRecurringEdit(() => false);
+      updateExpense(newExpense);
+    }
+  };
+
+  const saveDate = (date: string) => {
+    let [year, month, day] = date.split("-");
+    return `${month}-${day}-${year}`;
+  };
 
   const displayDate = (date: string) => {
     let [month, day, year] = date.split("-");
@@ -21,11 +46,7 @@ const AddExpenseRow = ({
   if (recurringEdit) {
     return (
       <tr>
-        <td
-          className={`expenseAmount recurringEdit ${
-            recurringActive ? "recurringActive" : ""
-          }`}
-        >
+        <td className={`expenseAmount recurringEdit recurringActive`}>
           <span onClick={() => setRecurringEdit(false)}>
             <RecurringIcon />
           </span>
@@ -36,6 +57,7 @@ const AddExpenseRow = ({
               type="text"
               name="amount"
               defaultValue={convertToFloat(expense.amount)}
+              ref={amountRef}
             />
           </div>
         </td>
@@ -45,6 +67,7 @@ const AddExpenseRow = ({
             name="description"
             placeholder="Description of the expense you've accrued"
             defaultValue={expense.description}
+            ref={descriptionRef}
           />
         </td>
         <td>{expense.category}</td>
@@ -53,7 +76,19 @@ const AddExpenseRow = ({
             type="date"
             name="date"
             defaultValue={displayDate(expense.entryDate)}
+            ref={dateRef}
           />
+          <div
+            className="saveRecurrenceContainer"
+            onClick={() => saveTemplate()}
+          >
+            <div
+              className="saveRecurrence"
+              style={{ display: "flex", gap: "4px" }}
+            >
+              <p className="saveRecurrenceButton">Make Template</p>
+            </div>
+          </div>
         </td>
       </tr>
     );
@@ -62,13 +97,12 @@ const AddExpenseRow = ({
       <tr>
         <td
           className={`expenseAmount ${
-            recurringActive ? "recurringActive" : ""
+            expense.recurring ? "recurringActive" : ""
           }`}
         >
           <span
             onClick={() => {
               setRecurringEdit(true);
-              setRecurringActive(true);
             }}
           >
             <RecurringIcon />

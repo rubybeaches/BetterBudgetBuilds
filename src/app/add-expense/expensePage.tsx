@@ -78,8 +78,8 @@ const AddExpense = ({
   );
 
   const handleAddExpense = (expense: Expense) => {
-    setUserExpenses([...userExpenses, expense]);
-    !userExpensesFlag ?? setUserExpensesFlag(() => true);
+    setUserExpenses(() => [...userExpenses, expense]);
+    setUserExpensesFlag(() => true);
   };
 
   const updateExpenseById = (expense: Expense) => {
@@ -87,7 +87,7 @@ const AddExpense = ({
       exp.id == expense.id ? expense : exp
     );
     setUserExpenses(() => [...updatedExpenses]);
-    !userExpensesFlag ?? setUserExpensesFlag(() => true);
+    setUserExpensesFlag(() => true);
   };
 
   const getCategoryExpenses = (expenseGroup: Expense[], category: string) => {

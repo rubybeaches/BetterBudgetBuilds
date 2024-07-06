@@ -13,11 +13,17 @@ main#expensePage {
   padding-bottom: 4rem;
 }
 
+.section .filter {
+  right: 8em;
+}
+
 .headerWrapper {
   display: flex;
   justify-content: space-between;
 }
-.saveBudgetContainer {
+
+.saveBudgetContainer,
+.saveRecurrenceContainer {
   background: linear-gradient(122deg, #467af8, #9c32e2, #ff2955, #ffb15a);
   padding: 2px;
   width: fit-content;
@@ -25,17 +31,49 @@ main#expensePage {
   cursor: pointer;
 }
 
-.saveBudget {
+.section
+  > table#expenseTable
+  tr:has(td.recurringEdit)
+  div.saveRecurrenceContainer {
+  position: absolute;
+  right: -150px;
+  top: 5px;
+  outline: none;
+  padding: 2px;
+}
+
+.section
+  > table#expenseTable
+  tr:has(td.recurringEdit)
+  div.saveRecurrenceContainer
+  .saveRecurrence {
+  outline: none;
+  padding: 1px;
+  padding: 4px 12px;
+}
+
+.saveBudget,
+.saveRecurrence {
   background: linear-gradient(122deg, #f0f4fe, #f7effd, #fecfdf, #fff7ee);
   padding: 8px 12px;
   border-radius: 20px;
 }
 
-.saveBudget:hover {
+.saveBudget:hover,
+.saveRecurrence:hover {
   background: #fff;
 }
 
-.saveBudgetButton {
+.section
+  > table#expenseTable
+  tr:has(td.recurringEdit)
+  div.saveRecurrenceContainer
+  .saveRecurrenceButton {
+  font-weight: 600;
+}
+
+.saveBudgetButton,
+.saveRecurrenceButton {
   font-size: 1em;
   font-weight: 800;
   background: linear-gradient(122deg, #467af8, #9c32e2, #ff2955, #ffb15a);
@@ -61,7 +99,7 @@ main#expensePage {
 }
 
 .section {
-  padding: 1.5em 2em 1.5em 2.5em;
+  padding: 1.5em 8em 1.5em 2.5em;
   border-radius: 20px;
   position: relative;
 }
@@ -150,7 +188,7 @@ span.summaryProgressBar {
 
 .recurringIcon {
   position: absolute;
-  left: 12px;
+  left: -30px;
   opacity: 0.25;
 }
 
@@ -308,6 +346,10 @@ span.summaryProgressBar {
   background-color: var(--orange-color);
 }
 
+.section > table#expenseTable tr {
+  position: relative;
+}
+
 .section > table#expenseTable tr:has(td.recurringEdit) td > input,
 .section > table#expenseTable tr:has(td.recurringEdit) div {
   outline: #323232 2px solid;
@@ -321,6 +363,15 @@ span.summaryProgressBar {
 
 .section > table#expenseTable tr td.recurringEdit:first-child {
   border-right: none;
+}
+
+.section > table#expenseTable tr:has(td.recurringEdit) td,
+.section > table#expenseTable tr:has(td.recurringActive) td,
+.section
+  > table#expenseTable
+  tr:has(td:not(.recurringEdit).recurringActive)
+  input {
+  background: none;
 }
 
 .section > table#expenseTable {
@@ -440,12 +491,9 @@ span.summaryProgressBar {
   fill: #09d22f;
 }
 
-#Income.section > table#expenseTable tr:has(td.recurringEdit) {
+#Income.section > table#expenseTable tr:has(td.recurringEdit),
+#Income.section > table#expenseTable tr:has(td.recurringActive) {
   background: #ebfceb;
-}
-
-#Income.section > table#expenseTable tr:has(td.recurringEdit) td {
-  background: none;
 }
 
 #Income.section > table#expenseTable tr:has(td.recurringEdit) td > input,
@@ -509,7 +557,8 @@ span.summaryProgressBar {
   fill: #ff2955;
 }
 
-#Expenses.section > table#expenseTable tr:has(td.recurringEdit) {
+#Expenses.section > table#expenseTable tr:has(td.recurringEdit),
+#Expenses.section > table#expenseTable tr:has(td.recurringActive) {
   background: linear-gradient(
     135deg,
     #f0f4fe,
@@ -517,10 +566,6 @@ span.summaryProgressBar {
     #fecfdf 75%,
     #fff7ee 100%
   );
-}
-
-#Expenses.section > table#expenseTable tr:has(td.recurringEdit) td {
-  background: none;
 }
 
 #Expenses.section > table#expenseTable tr:has(td.recurringEdit) td > input,
@@ -552,11 +597,9 @@ span.summaryProgressBar {
   fill: var(--orange-color);
 }
 
-#Savings.section > table#expenseTable tr:has(td.recurringEdit) {
+#Savings.section > table#expenseTable tr:has(td.recurringEdit),
+#Savings.section > table#expenseTable tr:has(td.recurringActive) {
   background: #fff7ee;
-}
-#Savings.section > table#expenseTable tr:has(td.recurringEdit) td {
-  background: none;
 }
 
 #Savings.section > table#expenseTable tr:has(td.recurringEdit) td > input,
