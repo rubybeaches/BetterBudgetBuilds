@@ -51,7 +51,7 @@ const AddExpenseRow = ({
             <RecurringIcon />
           </span>
 
-          <div>
+          <div className={`recurringInput active`}>
             ${" "}
             <input
               type="text"
@@ -63,7 +63,7 @@ const AddExpenseRow = ({
           </div>
         </td>
         <td>
-          <div>
+          <div className={`recurringInput active`}>
             <input
               type="text"
               name="description"
@@ -75,10 +75,17 @@ const AddExpenseRow = ({
           </div>
         </td>
         <td>
-          <div>{expense.category}</div>
+          <div className={`recurringInput inactive`}>
+            <input
+              type="text"
+              name="category"
+              defaultValue={expense.category}
+            />
+            <RecurringIcon />
+          </div>
         </td>
         <td>
-          <div>
+          <div className={`recurringInput active`}>
             <input
               type="date"
               name="date"

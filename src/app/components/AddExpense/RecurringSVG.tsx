@@ -16,7 +16,6 @@ const RecurringIcon = () => {
               cy="1203.04"
               r="4.871"
               id="recurringBackground"
-              style={{ fill: "#FAE5F4" }}
             />
           </g>
         </g>

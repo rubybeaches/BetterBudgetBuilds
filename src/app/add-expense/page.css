@@ -11,6 +11,7 @@ body {
 main#expensePage {
   padding: 2rem;
   padding-bottom: 4rem;
+  overflow-x: scroll;
 }
 
 .section .filter {
@@ -212,31 +213,30 @@ span.summaryProgressBar {
   margin-left: -2px;
 }
 
-.section > table#expenseTable tr td .recurringIcon:first-child {
+#expenseTable tr td .recurringIcon:first-child #recurringBackground {
+  fill: #fae5f4;
+}
+
+#expenseTable tr td .recurringIcon #recurringBackground {
+  fill: #fff;
+}
+
+#expenseTable tr td .recurringIcon:first-child {
   position: absolute;
   left: -30px;
   opacity: 0.25;
 }
 
-.section
-  > table#expenseTable
-  tr
-  td:first-child
-  .recurringIcon:first-child:hover,
-.section > table#expenseTable tr td.recurringActive .recurringIcon {
+#expenseTable tr td:first-child .recurringIcon:first-child:hover,
+#expenseTable tr td.recurringActive .recurringIcon {
   opacity: 1;
 }
 
 #AddExpenseBar {
-  /*position: fixed;
-  bottom: 20px;
-  left: 10rem;
-  width: calc(100% - 20rem);*/
   padding: 8px;
   margin: 0 2em;
   border-radius: 50px;
   background-color: #fff;
-  /*border: 3px solid #323232;*/
   z-index: 99;
 }
 
@@ -389,7 +389,6 @@ span.summaryProgressBar {
 
 .section > table#expenseTable tr:has(td.recurringEdit) div {
   background-color: #fff;
-  padding-right: 12px;
 }
 
 .section > table#expenseTable tr td.recurringEdit:first-child {
@@ -425,11 +424,11 @@ span.summaryProgressBar {
   outline: none;
   border: none;
   font-family: Montserrat;
-  max-width: 115px;
+  max-width: 100px;
 }
 
 .section > table#expenseTable tr td:nth-child(2) input {
-  min-width: 300px;
+  min-width: 250px;
 }
 
 .section > table#expenseTable tr:first-child td {
@@ -443,17 +442,18 @@ span.summaryProgressBar {
 }
 
 .section > table#expenseTable tr td.expenseAmount input {
-  width: 80px;
+  width: 70px;
 }
 
 .section > table#expenseTable tr td.expenseAmount {
   padding-left: 15px;
 }
 
-.section > table#expenseTable tr td.expenseAmount div {
+.section > table#expenseTable tr td div {
   display: flex;
   flex-wrap: nowrap;
   gap: 5px;
+  align-items: center;
 }
 
 .section > table#expenseTable tr td:not(:first-child) {
