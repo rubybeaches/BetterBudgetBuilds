@@ -227,8 +227,19 @@ span.summaryProgressBar {
   opacity: 0.25;
 }
 
+#expenseTable tr td .recurringIcon:first-child,
+#expenseTable tr td div.recurringInput.inactive .recurringIcon {
+  opacity: 0.25;
+}
+
+.section > table#expenseTable tr td div.recurringInput.inactive {
+  border: none;
+  outline: none;
+}
+
 #expenseTable tr td:first-child .recurringIcon:first-child:hover,
-#expenseTable tr td.recurringActive .recurringIcon {
+#expenseTable tr td.recurringActive .recurringIcon,
+#expenseTable tr td div.recurringInput .recurringIcon:hover {
   opacity: 1;
 }
 
@@ -425,6 +436,7 @@ span.summaryProgressBar {
   border: none;
   font-family: Montserrat;
   max-width: 100px;
+  text-overflow: ellipsis;
 }
 
 .section > table#expenseTable tr td:nth-child(2) input {
