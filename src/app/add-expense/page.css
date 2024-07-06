@@ -17,6 +17,10 @@ main#expensePage {
   right: 8em;
 }
 
+.section:has(.recurringEdit) .filter {
+  display: none;
+}
+
 .headerWrapper {
   display: flex;
   justify-content: space-between;
