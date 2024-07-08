@@ -2,6 +2,7 @@ import { convertToFloat, parsetoNum } from "@/app/lib/helpers";
 import { Expense } from "@prisma/client";
 import RecurringIcon from "./RecurringSVG";
 import { useRef, useState } from "react";
+import { createRecurrence } from "@/app/lib/actions";
 
 const AddExpenseRow = ({
   expense,
@@ -21,12 +22,24 @@ const AddExpenseRow = ({
     let newDate = dateRef.current;
 
     if (newAmount && newDescription && newDate) {
+      let recurrenceEntryDate = saveDate(newDate.value);
+      let allMonths = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+
+      const recurrenceId = await createRecurrence(
+        parsetoNum(amountRef.current.value),
+        expense.category,
+        newDescription.value,
+        Number(recurrenceEntryDate.split("-")[1]),
+        allMonths
+      );
+
       let newExpense: Expense = {
         ...expense,
         amount: parsetoNum(amountRef.current.value),
         description: newDescription.value,
-        entryDate: saveDate(newDate.value),
+        entryDate: recurrenceEntryDate,
         recurring: true,
+        recurringExpenseId: recurrenceId,
       };
       setRecurringEdit(() => false);
       updateExpense(newExpense);

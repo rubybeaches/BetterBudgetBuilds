@@ -92,6 +92,7 @@ export const createExpenses = async (expenses: Expense[]) => {
       linkedAccount: expense.linkedAccount,
       recurring: expense.recurring,
       userId: expense.userId,
+      recurringExpenseId: expense.recurringExpenseId || null,
     };
   });
 
@@ -133,4 +134,6 @@ export const createRecurrence = async (
       months: months,
     },
   });
+
+  return recurrence.id;
 };

@@ -61,6 +61,7 @@ const AddExpenseBar = ({
       recurring: false,
       linkedAccount: "",
       userId: userID,
+      recurringExpenseId: null,
     };
 
     amountRef.current.value = "0.00";
