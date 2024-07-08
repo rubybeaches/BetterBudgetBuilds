@@ -70,6 +70,19 @@ model Expense {
   recurring Boolean @default(false)
   linkedAccount String?
   
+  recurringExpense RecurringExpense?
   user    User    @relation(fields: [userId], references: [id])
   userId  Int
+}
+
+model RecurringExpense {
+  id        Int     @id @default(autoincrement())
+  amount Float?
+  category String?
+  description String?
+  day Int?
+  months Int[]
+  
+  expense  Expense?    @relation(fields: [expenseId], references: [id])
+  expenseId  Int @unique
 }

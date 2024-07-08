@@ -15,7 +15,7 @@ const AddExpenseRow = ({
   const descriptionRef = useRef<any>();
   const dateRef = useRef<any>();
 
-  const saveTemplate = () => {
+  const saveTemplate = async () => {
     let newAmount = amountRef.current;
     let newDescription = descriptionRef.current;
     let newDate = dateRef.current;
