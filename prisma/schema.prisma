@@ -70,7 +70,8 @@ model Expense {
   recurring Boolean @default(false)
   linkedAccount String?
   
-  recurringExpense RecurringExpense?
+  recurringExpense RecurringExpense? @relation(fields: [recurringExpenseId], references: [id])
+  recurringExpenseId Int?
   user    User    @relation(fields: [userId], references: [id])
   userId  Int
 }
@@ -83,6 +84,5 @@ model RecurringExpense {
   day Int?
   months Int[]
   
-  expense  Expense?    @relation(fields: [expenseId], references: [id])
-  expenseId  Int @unique
+  expense  Expense[]
 }

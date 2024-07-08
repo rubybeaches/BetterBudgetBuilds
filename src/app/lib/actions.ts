@@ -2,7 +2,6 @@
 import { Expense } from "@prisma/client";
 import { prisma } from "../../prisma-client";
 import { category } from "./types";
-import exp from "constants";
 
 export const createBudget = async (
   expenseCategories: category[],
@@ -116,4 +115,22 @@ export const updateAndCreateExpenses = async (
   });
 
   createExpenses(expenses);
+};
+
+export const createRecurrence = async (
+  amount: number,
+  category: string,
+  description: string,
+  day: number,
+  months: number[]
+) => {
+  let recurrence = await prisma.recurringExpense.create({
+    data: {
+      amount: amount,
+      category: category,
+      description: description,
+      day: day,
+      months: months,
+    },
+  });
 };
