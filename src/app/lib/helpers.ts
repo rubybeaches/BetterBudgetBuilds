@@ -89,8 +89,16 @@ export const sortCategories = (array: category[], filter: keyof category) => {
   });
 };
 
-export const sortExpensesLegacy = (array: expense[], filter: keyof expense) => {
-  if (filter == "linkedAccount") return array;
+export const sortExpensesWithRecurrence = (
+  array: ExpenseRecurrence[],
+  filter: keyof ExpenseRecurrence
+) => {
+  if (
+    filter == "linkedAccount" ||
+    filter == "recurringExpenseId" ||
+    filter == "recurrence"
+  )
+    return array;
   return array.sort((a, b) => {
     if (a[filter] < b[filter]) {
       return -1;
@@ -102,16 +110,8 @@ export const sortExpensesLegacy = (array: expense[], filter: keyof expense) => {
   });
 };
 
-export const sortExpenses = (
-  array: Expense[] | ExpenseRecurrence[],
-  filter: keyof Expense | keyof ExpenseRecurrence
-) => {
-  if (
-    filter == "linkedAccount" ||
-    filter == "recurringExpenseId" ||
-    filter == "recurrence"
-  )
-    return array;
+export const sortExpenses = (array: Expense[], filter: keyof Expense) => {
+  if (filter == "linkedAccount" || filter == "recurringExpenseId") return array;
   return array.sort((a, b) => {
     if (a[filter] < b[filter]) {
       return -1;

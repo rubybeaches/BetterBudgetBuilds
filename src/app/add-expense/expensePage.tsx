@@ -6,7 +6,7 @@ import {
   allMonths,
   multiplyPercentToFloat,
   sortCategories,
-  sortExpenses,
+  sortExpensesWithRecurrence,
 } from "../lib/helpers";
 import ExpenseTable from "../components/ExpenseTable";
 import AddExpenseBar from "../components/AddExpense/AddExpenseBar";
@@ -56,8 +56,8 @@ const AddExpense = ({
   const [userExpensesFlag, setUserExpensesFlag] = useState(false);
   const monthlyIncome = baseIncome / 12;
 
-  const monthExpenses: ExpenseRecurrence[] = useMemo(() => {
-    return sortExpenses(userExpenses, "category");
+  const monthExpenses = useMemo(() => {
+    return sortExpensesWithRecurrence(userExpenses, "category");
   }, [userExpenses, month]);
 
   const debtExpenses = useMemo(

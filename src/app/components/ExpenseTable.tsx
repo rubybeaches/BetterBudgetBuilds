@@ -20,8 +20,17 @@ const ExpenseTable = ({
     return sortExpenses(expense, filter);
   }, [expense, filter]);
 
-  const getExpenseRow = (index: number, expense: ExpenseRecurrence) => {
-    return addFlag && updateExpense ? (
+  function isExpenseRecurrence(
+    expense: Expense | ExpenseRecurrence
+  ): expense is ExpenseRecurrence {
+    return "recurrence" in expense;
+  }
+
+  const getExpenseRow = (
+    index: number,
+    expense: Expense | ExpenseRecurrence
+  ) => {
+    return addFlag && updateExpense && isExpenseRecurrence(expense) ? (
       <AddExpenseRow
         key={index}
         expense={expense}
