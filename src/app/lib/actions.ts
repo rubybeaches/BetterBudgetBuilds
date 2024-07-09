@@ -119,9 +119,9 @@ export const updateAndCreateExpenses = async (
 };
 
 export const createRecurrence = async (
-  amount: number,
-  category: string,
-  description: string,
+  amount: number | undefined,
+  category: string | undefined,
+  description: string | undefined,
   day: number,
   months: number[],
   userId: number

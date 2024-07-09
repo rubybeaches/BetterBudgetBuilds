@@ -17,6 +17,33 @@ const AddExpenseRow = ({
   const descriptionRef = useRef<any>();
   const dateRef = useRef<any>();
 
+  const [amountToggle, setAmountToggle] = useState(
+    expense.recurringExpenseId && !expense.recurrence?.amount ? false : true
+  );
+  const [descriptionToggle, setDescriptionToggle] = useState(
+    expense.recurringExpenseId && !expense.recurrence?.description
+      ? false
+      : true
+  );
+  const [categoryToggle, setCategoryToggle] = useState(
+    expense.recurringExpenseId && !expense.recurrence?.category ? false : false
+  );
+  const [dateToggle, setDateToggle] = useState(
+    expense.recurringExpenseId && !expense.recurrence?.day ? false : true
+  );
+
+  const cancelEdit = () => {
+    setAmountToggle(() =>
+      expense.recurringExpenseId && !expense.recurrence?.amount ? false : true
+    );
+    setDescriptionToggle(() =>
+      expense.recurringExpenseId && !expense.recurrence?.description
+        ? false
+        : true
+    );
+    setRecurringEdit(() => false);
+  };
+
   const saveTemplate = async () => {
     let newAmount = amountRef.current;
     let newDescription = descriptionRef.current;
@@ -27,9 +54,9 @@ const AddExpenseRow = ({
       let allMonths = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
       const recurrence = await createRecurrence(
-        parsetoNum(amountRef.current.value),
-        expense.category,
-        newDescription.value,
+        amountToggle ? parsetoNum(amountRef.current.value) : undefined,
+        categoryToggle ? expense.category : undefined,
+        descriptionToggle ? newDescription.value : undefined,
         Number(recurrenceEntryDate.split("-")[1]),
         allMonths,
         expense.userId
@@ -63,11 +90,15 @@ const AddExpenseRow = ({
     return (
       <tr>
         <td className={`expenseAmount recurringEdit recurringActive`}>
-          <span onClick={() => setRecurringEdit(false)}>
+          <span onClick={() => cancelEdit()}>
             <RecurringIcon />
           </span>
 
-          <div className={`recurringInput active`}>
+          <div
+            className={`recurringInput ${
+              amountToggle ? "active" : "inactive"
+            } `}
+          >
             ${" "}
             <input
               type="text"
@@ -75,11 +106,17 @@ const AddExpenseRow = ({
               defaultValue={convertToFloat(expense.amount)}
               ref={amountRef}
             />
-            <RecurringIcon />
+            <span onClick={() => setAmountToggle(() => !amountToggle)}>
+              <RecurringIcon />
+            </span>
           </div>
         </td>
         <td>
-          <div className={`recurringInput active`}>
+          <div
+            className={`recurringInput ${
+              descriptionToggle ? "active" : "inactive"
+            } `}
+          >
             <input
               type="text"
               name="description"
@@ -87,32 +124,46 @@ const AddExpenseRow = ({
               defaultValue={expense.description}
               ref={descriptionRef}
             />
-            <RecurringIcon />
+            <span
+              onClick={() => setDescriptionToggle(() => !descriptionToggle)}
+            >
+              <RecurringIcon />
+            </span>
           </div>
         </td>
         <td>
-          <div className={`recurringInput inactive`}>
+          <div
+            className={`recurringInput ${
+              categoryToggle ? "active" : "inactive"
+            } `}
+          >
             <input
               type="text"
               name="category"
               defaultValue={expense.category}
             />
-            <RecurringIcon />
+            <span className="hideIcon">
+              <RecurringIcon />
+            </span>
           </div>
         </td>
         <td>
-          <div className={`recurringInput active`}>
+          <div
+            className={`recurringInput ${dateToggle ? "active" : "inactive"} `}
+          >
             <input
               type="date"
               name="date"
               defaultValue={displayDate(expense.entryDate)}
               ref={dateRef}
             />
-            <RecurringIcon />
+            <span className="hideIcon">
+              <RecurringIcon />
+            </span>
           </div>
           <div
             className="saveRecurrenceContainer close"
-            onClick={() => setRecurringEdit(() => false)}
+            onClick={() => cancelEdit()}
           >
             <div className="saveRecurrence close">
               <p className="saveRecurrenceButton">X</p>
@@ -158,7 +209,9 @@ const AddExpenseRow = ({
         </td>
         <td>
           <div
-            className={`${expense.recurrence?.amount ? "recurringInput" : ""}`}
+            className={`${
+              expense.recurrence?.description ? "recurringInput" : ""
+            }`}
           >
             <input
               type="text"
@@ -170,9 +223,7 @@ const AddExpenseRow = ({
         </td>
         <td>{expense.category}</td>
         <td>
-          <div
-            className={`${expense.recurrence?.amount ? "recurringInput" : ""}`}
-          >
+          <div className={`${expense.recurrence?.day ? "recurringInput" : ""}`}>
             <input
               type="date"
               name="date"

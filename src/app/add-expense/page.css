@@ -213,22 +213,38 @@ span.summaryProgressBar {
   margin-left: -2px;
 }
 
-#expenseTable tr td .recurringIcon:first-child #recurringBackground {
+#expenseTable
+  tr
+  td:first-child
+  span:first-child
+  .recurringIcon
+  #recurringBackground {
   fill: #fae5f4;
 }
 
-#expenseTable tr td .recurringIcon #recurringBackground {
+#expenseTable tr td div.recurringInput .recurringIcon #recurringBackground {
   fill: #fff;
 }
 
-#expenseTable tr td .recurringIcon:first-child {
+#expenseTable tr td div.recurringInput SVG.recurringIcon {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+}
+
+#expenseTable tr td div.recurringInput span {
+  margin-left: auto;
+}
+
+#expenseTable tr td:first-child span:first-child .recurringIcon {
   position: absolute;
   left: -30px;
   opacity: 0.25;
 }
 
-#expenseTable tr td .recurringIcon:first-child,
-#expenseTable tr td div.recurringInput.inactive .recurringIcon {
+#expenseTable tr td:first-child span:first-child .recurringIcon,
+#expenseTable tr td div.recurringInput.inactive .recurringIcon,
+#expenseTable tr td div.recurringInput.active .recurringIcon:hover {
   opacity: 0.25;
 }
 
@@ -237,8 +253,19 @@ span.summaryProgressBar {
   outline: none;
 }
 
-#expenseTable tr td:first-child .recurringIcon:first-child:hover,
-#expenseTable tr td.recurringActive .recurringIcon,
+.section > table#expenseTable tr td div.recurringInput .hideIcon #recurringR,
+.section
+  > table#expenseTable
+  tr
+  td
+  div.recurringInput
+  .hideIcon
+  #recurringArrows {
+  fill: none;
+}
+
+#expenseTable tr td:first-child span:first-child .recurringIcon:hover,
+#expenseTable tr td.recurringActive:first-child span:first-child .recurringIcon,
 #expenseTable tr td div.recurringInput .recurringIcon:hover {
   opacity: 1;
 }
