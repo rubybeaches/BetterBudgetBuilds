@@ -88,5 +88,5 @@ model RecurringExpense {
   
   expense  Expense[]
   user    User    @relation(fields: [userId], references: [id])
-  userId  Int @default(1)
+  userId  Int
 }
