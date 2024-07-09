@@ -116,6 +116,7 @@ export const updateAndCreateExpenses = async (
   });
 
   createExpenses(expenses);
+  return true;
 };
 
 export const createRecurrence = async (
@@ -138,4 +139,13 @@ export const createRecurrence = async (
   });
 
   return recurrence;
+};
+
+export const clearUnusedRecurrences = async (userId: number) => {
+  await prisma.recurringExpense.deleteMany({
+    where: {
+      userId: userId,
+      expense: undefined,
+    },
+  });
 };

@@ -84,7 +84,7 @@ model RecurringExpense {
   description String?
   day Int?
   months Int[]
-  active Boolean @default(false)
+  active Boolean @default(true)
   
   expense  Expense[]
   user    User    @relation(fields: [userId], references: [id])

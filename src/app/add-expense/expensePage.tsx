@@ -14,7 +14,10 @@ import ProgressBar from "../components/ProgressBar";
 import { redirect, useRouter } from "next/navigation";
 // import { useUser } from "@clerk/nextjs";
 import { Expense } from "@prisma/client";
-import { updateAndCreateExpenses } from "../lib/actions";
+import {
+  clearUnusedRecurrences,
+  updateAndCreateExpenses,
+} from "../lib/actions";
 
 const AddExpense = ({
   expenseCategories,
@@ -97,40 +100,15 @@ const AddExpense = ({
     );
   };
 
-  /*
-  const saveExpensesOnRecurrenceClick = (event: Event) => {
-    console.log(event.target);
-  };
-
-  useEffect(() => {
-    let recurrenceIconElements =
-      document.getElementsByClassName("recurringIcon");
-
-    for (var i = 0; i < recurrenceIconElements.length; i++) {
-      recurrenceIconElements[i].addEventListener(
-        "click",
-        saveExpensesOnRecurrenceClick
-      );
-    }
-    return () => {
-      for (var i = 0; i < recurrenceIconElements.length; i++) {
-        recurrenceIconElements[i].removeEventListener(
-          "click",
-          saveExpensesOnRecurrenceClick
-        );
-      }
-    };
-  }, [saveExpensesOnRecurrenceClick]);
-  */
-
   const saveExpenses = async () => {
     if (userExpensesFlag) {
-      await updateAndCreateExpenses(
+      let expensesSaved = await updateAndCreateExpenses(
         userExpenses,
         allMonths.indexOf(month) + 1,
         year,
         userID
       );
+      expensesSaved && (await clearUnusedRecurrences(userID));
     }
 
     router.push(`/dashboard?month=${month}`);
