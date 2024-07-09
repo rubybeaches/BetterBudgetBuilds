@@ -16,6 +16,7 @@ model User {
   name  String?
   expenses Expense[]
   budgets Budget[]
+  recurringExpenses RecurringExpense[]
 }
 
 model Budget {
@@ -83,6 +84,9 @@ model RecurringExpense {
   description String?
   day Int?
   months Int[]
+  active Boolean @default(false)
   
   expense  Expense[]
+  user    User    @relation(fields: [userId], references: [id])
+  userId  Int @default(1)
 }
