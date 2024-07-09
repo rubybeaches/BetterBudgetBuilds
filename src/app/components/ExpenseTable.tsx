@@ -10,7 +10,7 @@ const ExpenseTable = ({
   addFlag = false,
   updateExpense,
 }: {
-  expense: ExpenseRecurrence[];
+  expense: Expense[] | ExpenseRecurrence[];
   addFlag?: boolean;
   updateExpense?: (expense: ExpenseRecurrence) => void | null;
 }) => {
