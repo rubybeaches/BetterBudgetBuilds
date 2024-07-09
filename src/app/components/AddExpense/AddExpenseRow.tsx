@@ -3,13 +3,14 @@ import { Expense } from "@prisma/client";
 import RecurringIcon from "./RecurringSVG";
 import { useRef, useState } from "react";
 import { createRecurrence } from "@/app/lib/actions";
+import { ExpenseRecurrence } from "@/app/lib/types";
 
 const AddExpenseRow = ({
   expense,
   updateExpense,
 }: {
-  expense: Expense;
-  updateExpense: (expense: Expense) => void;
+  expense: ExpenseRecurrence;
+  updateExpense: (expense: ExpenseRecurrence) => void;
 }) => {
   const [recurringEdit, setRecurringEdit] = useState(false);
   const amountRef = useRef<any>();
@@ -25,21 +26,23 @@ const AddExpenseRow = ({
       let recurrenceEntryDate = saveDate(newDate.value);
       let allMonths = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
-      const recurrenceId = await createRecurrence(
+      const recurrence = await createRecurrence(
         parsetoNum(amountRef.current.value),
         expense.category,
         newDescription.value,
         Number(recurrenceEntryDate.split("-")[1]),
-        allMonths
+        allMonths,
+        expense.userId
       );
 
-      let newExpense: Expense = {
+      let newExpense: ExpenseRecurrence = {
         ...expense,
         amount: parsetoNum(amountRef.current.value),
         description: newDescription.value,
         entryDate: recurrenceEntryDate,
         recurring: true,
-        recurringExpenseId: recurrenceId,
+        recurringExpenseId: recurrence.id,
+        recurrence: recurrence,
       };
       setRecurringEdit(() => false);
       updateExpense(newExpense);
@@ -141,7 +144,9 @@ const AddExpenseRow = ({
           >
             <RecurringIcon />
           </span>
-          <div>
+          <div
+            className={`${expense.recurrence?.amount ? "recurringInput" : ""}`}
+          >
             ${" "}
             <input
               type="text"
@@ -152,21 +157,29 @@ const AddExpenseRow = ({
           </div>
         </td>
         <td>
-          <input
-            type="text"
-            name="description"
-            value={expense.description}
-            readOnly
-          />
+          <div
+            className={`${expense.recurrence?.amount ? "recurringInput" : ""}`}
+          >
+            <input
+              type="text"
+              name="description"
+              value={expense.description}
+              readOnly
+            />
+          </div>
         </td>
         <td>{expense.category}</td>
         <td>
-          <input
-            type="date"
-            name="date"
-            value={displayDate(expense.entryDate)}
-            readOnly
-          />
+          <div
+            className={`${expense.recurrence?.amount ? "recurringInput" : ""}`}
+          >
+            <input
+              type="date"
+              name="date"
+              value={displayDate(expense.entryDate)}
+              readOnly
+            />
+          </div>
         </td>
       </tr>
     );

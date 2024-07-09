@@ -1,3 +1,5 @@
+import { Expense, RecurringExpense } from "@prisma/client";
+
 export type category = {
   category: string;
   help: string;
@@ -17,4 +19,8 @@ export type expense = {
   type: string;
   recurring: boolean;
   linkedAccount: string;
+};
+
+export type ExpenseRecurrence = Expense & {
+  recurrence: RecurringExpense | null;
 };

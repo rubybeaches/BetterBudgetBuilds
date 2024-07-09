@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import "./page.css";
-import { category } from "../lib/types";
+import { category, ExpenseRecurrence } from "../lib/types";
 import {
   allMonths,
   multiplyPercentToFloat,
@@ -27,7 +27,7 @@ const AddExpense = ({
 }: {
   expenseCategories: category[];
   incomeCategories: category[];
-  expenses: Expense[];
+  expenses: ExpenseRecurrence[];
   baseIncome: number;
   month: string;
   year: number;
@@ -56,7 +56,7 @@ const AddExpense = ({
   const [userExpensesFlag, setUserExpensesFlag] = useState(false);
   const monthlyIncome = baseIncome / 12;
 
-  const monthExpenses = useMemo(() => {
+  const monthExpenses: ExpenseRecurrence[] = useMemo(() => {
     return sortExpenses(userExpenses, "category");
   }, [userExpenses, month]);
 
@@ -77,12 +77,12 @@ const AddExpense = ({
     [monthExpenses]
   );
 
-  const handleAddExpense = (expense: Expense) => {
+  const handleAddExpense = (expense: ExpenseRecurrence) => {
     setUserExpenses(() => [...userExpenses, expense]);
     setUserExpensesFlag(() => true);
   };
 
-  const updateExpenseById = (expense: Expense) => {
+  const updateExpenseById = (expense: ExpenseRecurrence) => {
     const updatedExpenses = userExpenses.map((exp) =>
       exp.id == expense.id ? expense : exp
     );

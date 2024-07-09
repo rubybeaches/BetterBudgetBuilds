@@ -1,8 +1,13 @@
 import { UserAuth } from "../lib/UserAuth";
-import { getUserBudget, getUserExpenses } from "../lib/data";
+import {
+  getUserBudget,
+  getUserExpenses,
+  getUserRecurringExpenses,
+} from "../lib/data";
 import { allMonths, defaultIncomeCategories } from "../lib/helpers";
 import categories from "../lib/seed.json";
 import AddExpense from "./expensePage";
+import { ExpenseRecurrence } from "../lib/types";
 
 const Page = async ({
   searchParams,
@@ -27,17 +32,39 @@ const Page = async ({
     user.id
   );
 
-  const expenses = await getUserExpenses(
+  let expenses = await getUserExpenses(
     allMonths.indexOf(month) + 1,
     year,
     user.id
   );
 
+  const recurringExpenses = await getUserRecurringExpenses(user.id);
+
+  let expensesWithRecurrence: ExpenseRecurrence[] = expenses.map((expense) => {
+    return { ...expense, recurrence: null };
+  });
+
+  if (expenses && recurringExpenses) {
+    expensesWithRecurrence = expensesWithRecurrence.map((expense) => {
+      if (
+        expense.recurring &&
+        recurringExpenses.some((r) => r.id == expense.recurringExpenseId)
+      ) {
+        let recurrenceData = recurringExpenses.filter(
+          (r) => r.id == expense.recurringExpenseId
+        );
+        return { ...expense, recurrence: recurrenceData[0] };
+      } else {
+        return expense;
+      }
+    });
+  }
+
   return (
     <AddExpense
       expenseCategories={budget?.expenseCategories || categories}
       incomeCategories={budget?.incomeCategories || defaultIncomeCategories}
-      expenses={expenses}
+      expenses={expensesWithRecurrence}
       baseIncome={budget?.income || 0}
       month={month}
       year={year}

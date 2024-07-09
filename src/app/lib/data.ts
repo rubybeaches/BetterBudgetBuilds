@@ -99,3 +99,13 @@ export const getUserExpenses = async (
 
   return expenses;
 };
+
+export const getUserRecurringExpenses = async (userId: number) => {
+  const expenses = await prisma.recurringExpense.findMany({
+    where: {
+      userId: userId,
+    },
+  });
+
+  return expenses;
+};

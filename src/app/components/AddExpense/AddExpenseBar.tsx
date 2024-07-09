@@ -1,4 +1,4 @@
-import { category } from "@/app/lib/types";
+import { category, ExpenseRecurrence } from "@/app/lib/types";
 import {
   allMonths,
   parsetoNum,
@@ -21,7 +21,7 @@ const AddExpenseBar = ({
   year: number;
   categorySelections: category[];
   incomeCategorySelections: category[];
-  addExpenseCallback: (expense: Expense) => void;
+  addExpenseCallback: (expense: ExpenseRecurrence) => void;
 }) => {
   const amountRef = useRef<any>();
   const descriptionRef = useRef<any>();
@@ -49,7 +49,7 @@ const AddExpenseBar = ({
       return alert("please fill out each field");
     }
 
-    const newExpense: Expense = {
+    const newExpense: ExpenseRecurrence = {
       id: Date.now(),
       amount: parsetoNum(amountRef.current.value),
       category: selectRef.current.value.split(",")[0],
@@ -62,6 +62,7 @@ const AddExpenseBar = ({
       linkedAccount: "",
       userId: userID,
       recurringExpenseId: null,
+      recurrence: null,
     };
 
     amountRef.current.value = "0.00";

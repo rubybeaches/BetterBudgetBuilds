@@ -392,13 +392,18 @@ span.summaryProgressBar {
 }
 
 .section > table#expenseTable tr:has(td.recurringEdit) td > input,
-.section > table#expenseTable tr:has(td.recurringEdit) div {
-  outline: #323232 2px solid;
+.section > table#expenseTable tr:has(td.recurringEdit) div,
+.section > table#expenseTable tr:has(td.recurringActive) div.recurringInput {
   padding: 3px 6px;
   border-radius: 20px;
 }
 
+.section > table#expenseTable tr:has(td.recurringEdit) td > input,
 .section > table#expenseTable tr:has(td.recurringEdit) div {
+  outline: #323232 2px solid;
+}
+
+.section > table#expenseTable tr:has(td.recurringActive) div.recurringInput {
   background-color: #fff;
 }
 

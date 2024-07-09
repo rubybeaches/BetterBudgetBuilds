@@ -1,5 +1,5 @@
 import { Expense } from "@prisma/client";
-import { category, expense } from "./types";
+import { category, expense, ExpenseRecurrence } from "./types";
 
 export const convertToFloat = (number: number) => {
   return number.toLocaleString("en-US", {
@@ -102,8 +102,16 @@ export const sortExpensesLegacy = (array: expense[], filter: keyof expense) => {
   });
 };
 
-export const sortExpenses = (array: Expense[], filter: keyof Expense) => {
-  if (filter == "linkedAccount") return array;
+export const sortExpenses = (
+  array: Expense[] | ExpenseRecurrence[],
+  filter: keyof Expense | keyof ExpenseRecurrence
+) => {
+  if (
+    filter == "linkedAccount" ||
+    filter == "recurringExpenseId" ||
+    filter == "recurrence"
+  )
+    return array;
   return array.sort((a, b) => {
     if (a[filter] < b[filter]) {
       return -1;

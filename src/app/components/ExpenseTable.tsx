@@ -3,15 +3,16 @@ import { Expense } from "@prisma/client";
 import { useMemo, useState } from "react";
 import ExpenseRow from "./Dashboard/ExpenseRow";
 import AddExpenseRow from "./AddExpense/AddExpenseRow";
+import { ExpenseRecurrence } from "../lib/types";
 
 const ExpenseTable = ({
   expense,
   addFlag = false,
   updateExpense,
 }: {
-  expense: Expense[];
+  expense: ExpenseRecurrence[];
   addFlag?: boolean;
-  updateExpense?: (expense: Expense) => void | null;
+  updateExpense?: (expense: ExpenseRecurrence) => void | null;
 }) => {
   const [filter, setFilter] = useState<keyof Expense>("entryDate");
 
@@ -19,7 +20,7 @@ const ExpenseTable = ({
     return sortExpenses(expense, filter);
   }, [expense, filter]);
 
-  const getExpenseRow = (index: number, expense: Expense) => {
+  const getExpenseRow = (index: number, expense: ExpenseRecurrence) => {
     return addFlag && updateExpense ? (
       <AddExpenseRow
         key={index}

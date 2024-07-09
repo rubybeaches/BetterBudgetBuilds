@@ -123,7 +123,8 @@ export const createRecurrence = async (
   category: string,
   description: string,
   day: number,
-  months: number[]
+  months: number[],
+  userId: number
 ) => {
   let recurrence = await prisma.recurringExpense.create({
     data: {
@@ -132,8 +133,9 @@ export const createRecurrence = async (
       description: description,
       day: day,
       months: months,
+      userId: userId,
     },
   });
 
-  return recurrence.id;
+  return recurrence;
 };
