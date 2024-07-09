@@ -26,7 +26,7 @@ const AddExpenseRow = ({
       : true
   );
   const [categoryToggle, setCategoryToggle] = useState(
-    expense.recurringExpenseId && !expense.recurrence?.category ? false : false
+    expense.recurringExpenseId && !expense.recurrence?.category ? false : true
   );
   const [dateToggle, setDateToggle] = useState(
     expense.recurringExpenseId && !expense.recurrence?.day ? false : true
@@ -196,7 +196,7 @@ const AddExpenseRow = ({
             <RecurringIcon />
           </span>
           <div
-            className={`${expense.recurrence?.amount ? "recurringInput" : ""}`}
+            className={`${!expense.recurrence?.amount ? "recurringInput" : ""}`}
           >
             ${" "}
             <input
@@ -210,7 +210,7 @@ const AddExpenseRow = ({
         <td>
           <div
             className={`${
-              expense.recurrence?.description ? "recurringInput" : ""
+              !expense.recurrence?.description ? "recurringInput" : ""
             }`}
           >
             <input
@@ -223,7 +223,9 @@ const AddExpenseRow = ({
         </td>
         <td>{expense.category}</td>
         <td>
-          <div className={`${expense.recurrence?.day ? "recurringInput" : ""}`}>
+          <div
+            className={`${!expense.recurrence?.day ? "recurringInput" : ""}`}
+          >
             <input
               type="date"
               name="date"
