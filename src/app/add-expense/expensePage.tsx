@@ -108,7 +108,10 @@ const AddExpense = ({
         year,
         userID
       );
-      expensesSaved && (await clearUnusedRecurrences(userID));
+
+      if (expensesSaved.count == userExpenses.length) {
+        await clearUnusedRecurrences(userID);
+      }
     }
 
     router.push(`/dashboard?month=${month}`);

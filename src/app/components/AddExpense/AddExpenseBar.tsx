@@ -6,7 +6,6 @@ import {
   sortCategories,
 } from "../../lib/helpers";
 import { useMemo, useRef, useState } from "react";
-import { Expense } from "@prisma/client";
 
 const AddExpenseBar = ({
   userID,
@@ -69,6 +68,7 @@ const AddExpenseBar = ({
     descriptionRef.current.value = "";
     dateRef.current.value = "";
     handleTypeSelector("expense");
+    amountRef.current.focus();
 
     addExpenseCallback(newExpense);
   };

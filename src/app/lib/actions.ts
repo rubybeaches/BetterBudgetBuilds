@@ -96,7 +96,7 @@ export const createExpenses = async (expenses: Expense[]) => {
     };
   });
 
-  await prisma.expense.createMany({
+  return await prisma.expense.createMany({
     data: addArray,
   });
 };
@@ -115,8 +115,7 @@ export const updateAndCreateExpenses = async (
     },
   });
 
-  createExpenses(expenses);
-  return true;
+  return createExpenses(expenses);
 };
 
 export const createRecurrence = async (
@@ -145,7 +144,9 @@ export const clearUnusedRecurrences = async (userId: number) => {
   await prisma.recurringExpense.deleteMany({
     where: {
       userId: userId,
-      expense: undefined,
+      expense: {
+        none: {},
+      },
     },
   });
 };
