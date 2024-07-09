@@ -81,6 +81,7 @@ model RecurringExpense {
   id        Int     @id @default(autoincrement())
   amount Float?
   category String?
+  type String?
   description String?
   day Int?
   months Int[]

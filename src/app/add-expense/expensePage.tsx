@@ -13,7 +13,7 @@ import AddExpenseBar from "../components/AddExpense/AddExpenseBar";
 import ProgressBar from "../components/ProgressBar";
 import { redirect, useRouter } from "next/navigation";
 // import { useUser } from "@clerk/nextjs";
-import { Expense } from "@prisma/client";
+import { Expense, RecurringExpense } from "@prisma/client";
 import {
   clearUnusedRecurrences,
   updateAndCreateExpenses,
@@ -23,6 +23,7 @@ const AddExpense = ({
   expenseCategories,
   incomeCategories,
   expenses,
+  recurringExpenses,
   baseIncome,
   month,
   year,
@@ -31,6 +32,7 @@ const AddExpense = ({
   expenseCategories: category[];
   incomeCategories: category[];
   expenses: ExpenseRecurrence[];
+  recurringExpenses: RecurringExpense[];
   baseIncome: number;
   month: string;
   year: number;

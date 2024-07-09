@@ -32,14 +32,12 @@ const Page = async ({
     user.id
   );
 
-  let expenses = await getUserExpenses(
+  const expenses = await getUserExpenses(
     allMonths.indexOf(month) + 1,
     year,
     user.id
   );
-
   const recurringExpenses = await getUserRecurringExpenses(user.id);
-
   let expensesWithRecurrence: ExpenseRecurrence[] = expenses.map((expense) => {
     return { ...expense, recurrence: null };
   });
@@ -60,11 +58,40 @@ const Page = async ({
     });
   }
 
+  let activeRecurrences = recurringExpenses.filter(
+    (recurrence) => recurrence.active
+  );
+  // add conditional for month/year
+  if (!expenses && recurringExpenses) {
+    // create new expense alt
+    expensesWithRecurrence = activeRecurrences.map((recurrence) => {
+
+      let newExpense: ExpenseRecurrence = {
+        id: Date.now(),
+        amount: recurrence.amount ? recurrence.amount : 0,
+        category: recurrence.category || '',
+        description: recurrence.description || '',
+        entryDate: recurrence.day ? `${allMonths.indexOf(month) + 1}-${recurrence.day}-${year}`,
+        entryMonth: allMonths.indexOf(month) + 1,
+        entryYear: year,
+        type: recurrence.type || '',
+        recurring: true,
+        linkedAccount: "",
+        userId: recurrence.userId,
+        recurringExpenseId: recurrence.id,
+        recurrence: recurrence,
+      };
+
+    return newExpense
+    })
+  }
+
   return (
     <AddExpense
       expenseCategories={budget?.expenseCategories || categories}
       incomeCategories={budget?.incomeCategories || defaultIncomeCategories}
       expenses={expensesWithRecurrence}
+      recurringExpenses={recurringExpenses}
       baseIncome={budget?.income || 0}
       month={month}
       year={year}
