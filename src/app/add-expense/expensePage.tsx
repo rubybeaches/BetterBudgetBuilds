@@ -23,7 +23,7 @@ const AddExpense = ({
   expenseCategories,
   incomeCategories,
   expenses,
-  recurringExpenses,
+  expenseAddedFlag,
   baseIncome,
   month,
   year,
@@ -32,7 +32,7 @@ const AddExpense = ({
   expenseCategories: category[];
   incomeCategories: category[];
   expenses: ExpenseRecurrence[];
-  recurringExpenses: RecurringExpense[];
+  expenseAddedFlag: boolean;
   baseIncome: number;
   month: string;
   year: number;
@@ -58,7 +58,7 @@ const AddExpense = ({
     return sortCategories(expenseCategories, "category");
   }, [expenseCategories]);
   const [userExpenses, setUserExpenses] = useState(expenses);
-  const [userExpensesFlag, setUserExpensesFlag] = useState(false);
+  const [userExpensesFlag, setUserExpensesFlag] = useState(expenseAddedFlag);
   const monthlyIncome = baseIncome / 12;
 
   const monthExpenses = useMemo(() => {

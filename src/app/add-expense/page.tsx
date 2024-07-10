@@ -42,7 +42,7 @@ const Page = async ({
     return { ...expense, recurrence: null };
   });
 
-  if (expenses && recurringExpenses) {
+  if (expenses.length > 0 && recurringExpenses.length > 0) {
     expensesWithRecurrence = expensesWithRecurrence.map((expense) => {
       if (
         expense.recurring &&
@@ -59,22 +59,31 @@ const Page = async ({
   }
 
   let activeRecurrences = recurringExpenses.filter(
-    (recurrence) => recurrence.active
+    (recurrence) =>
+      recurrence.active && recurrence.months.includes(allMonths.indexOf(month))
   );
-  // add conditional for month/year
-  if (!expenses && recurringExpenses) {
-    // create new expense alt
-    expensesWithRecurrence = activeRecurrences.map((recurrence) => {
+  let expenseAddedFlag = false;
 
+  if (
+    expenses.length == 0 &&
+    recurringExpenses.length > 0 &&
+    allMonths.indexOf(month) == new Date().getMonth() &&
+    year == new Date().getFullYear()
+  ) {
+    expensesWithRecurrence = activeRecurrences.map((recurrence) => {
       let newExpense: ExpenseRecurrence = {
         id: Date.now(),
         amount: recurrence.amount ? recurrence.amount : 0,
-        category: recurrence.category || '',
-        description: recurrence.description || '',
-        entryDate: recurrence.day ? `${allMonths.indexOf(month) + 1}-${recurrence.day}-${year}`,
+        category: recurrence.category || "",
+        description: recurrence.description || "",
+        entryDate: recurrence.day
+          ? `${allMonths.indexOf(month) < 9 ? "0" : ""}${
+              allMonths.indexOf(month) + 1
+            }-${recurrence.day < 10 ? "0" : ""}${recurrence.day}-${year}`
+          : "",
         entryMonth: allMonths.indexOf(month) + 1,
         entryYear: year,
-        type: recurrence.type || '',
+        type: recurrence.type || "",
         recurring: true,
         linkedAccount: "",
         userId: recurrence.userId,
@@ -82,8 +91,9 @@ const Page = async ({
         recurrence: recurrence,
       };
 
-    return newExpense
-    })
+      return newExpense;
+    });
+    expenseAddedFlag = true;
   }
 
   return (
@@ -91,7 +101,7 @@ const Page = async ({
       expenseCategories={budget?.expenseCategories || categories}
       incomeCategories={budget?.incomeCategories || defaultIncomeCategories}
       expenses={expensesWithRecurrence}
-      recurringExpenses={recurringExpenses}
+      expenseAddedFlag={expenseAddedFlag}
       baseIncome={budget?.income || 0}
       month={month}
       year={year}

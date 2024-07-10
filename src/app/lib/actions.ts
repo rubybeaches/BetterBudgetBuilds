@@ -121,6 +121,7 @@ export const updateAndCreateExpenses = async (
 export const createRecurrence = async (
   amount: number | undefined,
   category: string | undefined,
+  type: string | undefined,
   description: string | undefined,
   day: number,
   months: number[],
@@ -130,6 +131,7 @@ export const createRecurrence = async (
     data: {
       amount: amount,
       category: category,
+      type: type,
       description: description,
       day: day,
       months: months,
