@@ -2,7 +2,6 @@
 import { Expense } from "@prisma/client";
 import { prisma } from "../../prisma-client";
 import { category } from "./types";
-import exp from "constants";
 
 export const createBudget = async (
   expenseCategories: category[],
@@ -93,10 +92,11 @@ export const createExpenses = async (expenses: Expense[]) => {
       linkedAccount: expense.linkedAccount,
       recurring: expense.recurring,
       userId: expense.userId,
+      recurringExpenseId: expense.recurringExpenseId || null,
     };
   });
 
-  await prisma.expense.createMany({
+  return await prisma.expense.createMany({
     data: addArray,
   });
 };
@@ -115,5 +115,40 @@ export const updateAndCreateExpenses = async (
     },
   });
 
-  createExpenses(expenses);
+  return createExpenses(expenses);
+};
+
+export const createRecurrence = async (
+  amount: number | undefined,
+  category: string | undefined,
+  type: string | undefined,
+  description: string | undefined,
+  day: number,
+  months: number[],
+  userId: number
+) => {
+  let recurrence = await prisma.recurringExpense.create({
+    data: {
+      amount: amount,
+      category: category,
+      type: type,
+      description: description,
+      day: day,
+      months: months,
+      userId: userId,
+    },
+  });
+
+  return recurrence;
+};
+
+export const clearUnusedRecurrences = async (userId: number) => {
+  await prisma.recurringExpense.deleteMany({
+    where: {
+      userId: userId,
+      expense: {
+        none: {},
+      },
+    },
+  });
 };

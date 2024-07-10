@@ -1,25 +1,29 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import "./page.css";
-import { category } from "../lib/types";
+import { category, ExpenseRecurrence } from "../lib/types";
 import {
   allMonths,
   multiplyPercentToFloat,
   sortCategories,
-  sortExpenses,
+  sortExpensesWithRecurrence,
 } from "../lib/helpers";
-import ExpenseTable from "../components/Dashboard/ExpenseTable";
+import ExpenseTable from "../components/ExpenseTable";
 import AddExpenseBar from "../components/AddExpense/AddExpenseBar";
 import ProgressBar from "../components/ProgressBar";
 import { redirect, useRouter } from "next/navigation";
 // import { useUser } from "@clerk/nextjs";
-import { Expense } from "@prisma/client";
-import { updateAndCreateExpenses } from "../lib/actions";
+import { Expense, RecurringExpense } from "@prisma/client";
+import {
+  clearUnusedRecurrences,
+  updateAndCreateExpenses,
+} from "../lib/actions";
 
 const AddExpense = ({
   expenseCategories,
   incomeCategories,
   expenses,
+  expenseAddedFlag,
   baseIncome,
   month,
   year,
@@ -27,7 +31,8 @@ const AddExpense = ({
 }: {
   expenseCategories: category[];
   incomeCategories: category[];
-  expenses: Expense[];
+  expenses: ExpenseRecurrence[];
+  expenseAddedFlag: boolean;
   baseIncome: number;
   month: string;
   year: number;
@@ -53,11 +58,11 @@ const AddExpense = ({
     return sortCategories(expenseCategories, "category");
   }, [expenseCategories]);
   const [userExpenses, setUserExpenses] = useState(expenses);
-  const [userExpensesFlag, setUserExpensesFlag] = useState(false);
+  const [userExpensesFlag, setUserExpensesFlag] = useState(expenseAddedFlag);
   const monthlyIncome = baseIncome / 12;
 
   const monthExpenses = useMemo(() => {
-    return sortExpenses(userExpenses, "category");
+    return sortExpensesWithRecurrence(userExpenses, "category");
   }, [userExpenses, month]);
 
   const debtExpenses = useMemo(
@@ -77,8 +82,16 @@ const AddExpense = ({
     [monthExpenses]
   );
 
-  const handleAddExpense = (expense: Expense) => {
-    setUserExpenses([...userExpenses, expense]);
+  const handleAddExpense = (expense: ExpenseRecurrence) => {
+    setUserExpenses(() => [...userExpenses, expense]);
+    setUserExpensesFlag(() => true);
+  };
+
+  const updateExpenseById = (expense: ExpenseRecurrence) => {
+    const updatedExpenses = userExpenses.map((exp) =>
+      exp.id == expense.id ? expense : exp
+    );
+    setUserExpenses(() => [...updatedExpenses]);
     setUserExpensesFlag(() => true);
   };
 
@@ -91,12 +104,16 @@ const AddExpense = ({
 
   const saveExpenses = async () => {
     if (userExpensesFlag) {
-      await updateAndCreateExpenses(
+      let expensesSaved = await updateAndCreateExpenses(
         userExpenses,
         allMonths.indexOf(month) + 1,
         year,
         userID
       );
+
+      if (expensesSaved.count == userExpenses.length) {
+        await clearUnusedRecurrences(userID);
+      }
     }
 
     router.push(`/dashboard?month=${month}`);
@@ -202,7 +219,11 @@ const AddExpense = ({
             }`}
           >
             <h2>Generated Income</h2>
-            <ExpenseTable expense={incomeExpenses} />
+            <ExpenseTable
+              expense={incomeExpenses}
+              addFlag={true}
+              updateExpense={updateExpenseById}
+            />
           </div>
 
           <div
@@ -212,7 +233,11 @@ const AddExpense = ({
             }`}
           >
             <h2>Saving and Planning Accounts</h2>
-            <ExpenseTable expense={savingExpenses} />
+            <ExpenseTable
+              expense={savingExpenses}
+              addFlag={true}
+              updateExpense={updateExpenseById}
+            />
           </div>
 
           <div
@@ -220,7 +245,11 @@ const AddExpense = ({
             className={`section ${debtExpenses.length > 0 ? "show" : "hidden"}`}
           >
             <h2>Recurring and Variable Expenses</h2>
-            <ExpenseTable expense={debtExpenses} />
+            <ExpenseTable
+              expense={debtExpenses}
+              addFlag={true}
+              updateExpense={updateExpenseById}
+            />
           </div>
         </div>
       </div>

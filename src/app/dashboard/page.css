@@ -35,6 +35,10 @@ body {
   background: linear-gradient(122deg, #f0f4fe, #f7effd, #fecfdf, #fff7ee);
 }
 
+.section .filter {
+  right: 2em;
+}
+
 .updateBudget {
   position: absolute;
   background: linear-gradient(122deg, #467af8, #9c32e2, #ff2955, #ffb15a);
@@ -438,7 +442,8 @@ body {
   td.summaryProgressBar
   #progressMonthly.overBudgetMonthly
   p,
-#Income.section table#summaryTable tr#summaryTotals #overBudgetExpenses {
+#Income.section table#summaryTable tr#summaryTotals #overBudgetExpenses,
+#Income.section table#expenseTable td.expenseAmount {
   color: #09d22f;
 }
 

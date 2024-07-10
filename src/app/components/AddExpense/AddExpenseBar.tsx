@@ -1,13 +1,11 @@
-import { category, expense } from "@/app/lib/types";
+import { category, ExpenseRecurrence } from "@/app/lib/types";
 import {
   allMonths,
+  parsetoNum,
   setActiveCategories,
   sortCategories,
 } from "../../lib/helpers";
-import { defaultIncomeCategories } from "../../lib/helpers";
 import { useMemo, useRef, useState } from "react";
-import { v4 as uuid } from "uuid";
-import { Expense } from "@prisma/client";
 
 const AddExpenseBar = ({
   userID,
@@ -22,7 +20,7 @@ const AddExpenseBar = ({
   year: number;
   categorySelections: category[];
   incomeCategorySelections: category[];
-  addExpenseCallback: (expense: Expense) => void;
+  addExpenseCallback: (expense: ExpenseRecurrence) => void;
 }) => {
   const amountRef = useRef<any>();
   const descriptionRef = useRef<any>();
@@ -50,9 +48,9 @@ const AddExpenseBar = ({
       return alert("please fill out each field");
     }
 
-    const newExpense: Expense = {
-      id: Number(uuid()),
-      amount: Number(amountRef.current.value),
+    const newExpense: ExpenseRecurrence = {
+      id: Date.now(),
+      amount: parsetoNum(amountRef.current.value),
       category: selectRef.current.value.split(",")[0],
       description: descriptionRef.current.value,
       entryDate: formatDate(dateRef.current.value),
@@ -62,12 +60,15 @@ const AddExpenseBar = ({
       recurring: false,
       linkedAccount: "",
       userId: userID,
+      recurringExpenseId: null,
+      recurrence: null,
     };
 
     amountRef.current.value = "0.00";
     descriptionRef.current.value = "";
     dateRef.current.value = "";
     handleTypeSelector("expense");
+    amountRef.current.focus();
 
     addExpenseCallback(newExpense);
   };
