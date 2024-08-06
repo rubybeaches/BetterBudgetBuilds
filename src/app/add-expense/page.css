@@ -456,6 +456,7 @@ span.summaryProgressBar {
 .section > table#expenseTable tr:has(td.recurringEdit) div,
 .section > table#expenseTable tr:has(td.recurringActive) div.recurringInput,
 .section > table#expenseTable tr:has(td.expenseEdit) td > input,
+.section > table#expenseTable tr:has(td.expenseEdit) select,
 .section > table#expenseTable tr:has(td.expenseEdit) div {
   padding: 3px 6px;
   border-radius: 20px;
@@ -464,6 +465,7 @@ span.summaryProgressBar {
 .section > table#expenseTable tr:has(td.recurringEdit) td > input,
 .section > table#expenseTable tr:has(td.recurringEdit) div,
 .section > table#expenseTable tr:has(td.expenseEdit) td > input:focus,
+.section > table#expenseTable tr:has(td.expenseEdit) select:focus,
 .section > table#expenseTable tr:has(td.expenseEdit) div:has(input:focus) {
   outline: #323232 2px solid;
 }
@@ -501,7 +503,8 @@ span.summaryProgressBar {
   padding-right: 15px;
 }
 
-.section > table#expenseTable tr td input {
+.section > table#expenseTable tr td input,
+.section > table#expenseTable tr td select {
   outline: none;
   border: none;
   font-family: Montserrat;

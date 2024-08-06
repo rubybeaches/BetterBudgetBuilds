@@ -1,23 +1,37 @@
-import { convertToFloat, parsetoNum } from "@/app/lib/helpers";
+import { convertToFloat, parsetoNum, sortCategories } from "@/app/lib/helpers";
 import { RecurringExpense } from "@prisma/client";
 import RecurringIcon from "./RecurringSVG";
 import EditIcon from "./EditSVG";
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { createRecurrence } from "@/app/lib/actions";
-import { ExpenseRecurrence } from "@/app/lib/types";
+import { category, ExpenseRecurrence } from "@/app/lib/types";
 
 const AddExpenseRow = ({
   expense,
   updateExpense,
+  categorySelections,
 }: {
   expense: ExpenseRecurrence;
   updateExpense: (expense: ExpenseRecurrence) => void;
+  categorySelections: category[];
 }) => {
+  // category list for making changes on edit
+  const categoryList = useMemo(() => {
+    let typeFilter = expense.type.includes("essential")
+      ? "essential"
+      : expense.type;
+    const expenses = categorySelections.filter(
+      (cat) => cat.type.includes(typeFilter) && cat.active
+    );
+    return sortCategories(expenses, "category");
+  }, [categorySelections]);
+
   const [expenseEdit, setExpenseEdit] = useState(false);
   const [recurringEdit, setRecurringEdit] = useState(false);
 
   const amountRef = useRef<any>();
   const descriptionRef = useRef<any>();
+  const selectRef = useRef<any>();
   const dateRef = useRef<any>();
 
   // recurring expense toggles
@@ -83,6 +97,7 @@ const AddExpenseRow = ({
       ...expense,
       amount: parsetoNum(newAmount.value),
       description: newDescription.value,
+      category: selectRef.current.value,
       entryDate: saveDate(newDate.value),
       recurring: recurrence ? true : false,
       recurringExpenseId: recurrence ? recurrence.id : null,
@@ -223,7 +238,15 @@ const AddExpenseRow = ({
           />
         </td>
         <td>
-          <input type="text" name="category" defaultValue={expense.category} />
+          <select
+            ref={selectRef}
+            name="category"
+            defaultValue={expense.category}
+          >
+            {categoryList.map((cat, index) => (
+              <option key={index} value={cat.category} label={cat.category} />
+            ))}
+          </select>
         </td>
         <td>
           <input
