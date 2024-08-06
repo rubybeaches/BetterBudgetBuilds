@@ -1,6 +1,7 @@
 import { convertToFloat, parsetoNum } from "@/app/lib/helpers";
 import { RecurringExpense } from "@prisma/client";
 import RecurringIcon from "./RecurringSVG";
+import EditIcon from "./EditSVG";
 import { useRef, useState } from "react";
 import { createRecurrence } from "@/app/lib/actions";
 import { ExpenseRecurrence } from "@/app/lib/types";
@@ -263,11 +264,7 @@ const AddExpenseRow = ({
             expense.recurring ? "recurringActive" : ""
           }`}
         >
-          <span
-            onClick={() => {
-              setRecurringEdit(true);
-            }}
-          >
+          <span onClick={() => setRecurringEdit(true)}>
             <RecurringIcon />
           </span>
           <div
@@ -308,6 +305,9 @@ const AddExpenseRow = ({
               readOnly
             />
           </div>
+          <span className="editIcon" onClick={() => setExpenseEdit(true)}>
+            <EditIcon />
+          </span>
         </td>
       </tr>
     );

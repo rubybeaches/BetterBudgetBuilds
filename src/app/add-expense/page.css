@@ -28,6 +28,23 @@ main#expensePage {
   justify-content: space-between;
 }
 
+.editIcon {
+  outline: 2px solid #323232;
+  padding: 5px 1px 1px 5px;
+  position: absolute;
+  left: calc(100% - 12px);
+  top: 6px;
+  border-radius: 20px;
+  background-color: #fff;
+  display: flex;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.section > table#expenseTable tr:hover .editIcon {
+  opacity: 1;
+}
+
 .saveBudgetContainer,
 .saveRecurrenceContainer,
 .editContainer {
@@ -588,6 +605,7 @@ span.summaryProgressBar {
 }
 
 #Income .filter SVG,
+#Income .editIcon SVG,
 #Income .recurringIcon #recurringArrows,
 #Income .recurringIcon #recurringR {
   fill: #09d22f;
@@ -599,7 +617,8 @@ span.summaryProgressBar {
 }
 
 #Income.section > table#expenseTable tr:has(td.recurringEdit) td > input,
-#Income.section > table#expenseTable tr:has(td.recurringEdit) div {
+#Income.section > table#expenseTable tr:has(td.recurringEdit) div,
+#Income .editIcon {
   outline-color: #09d22f;
 }
 
@@ -654,6 +673,7 @@ span.summaryProgressBar {
 }
 
 #Expenses .filter SVG,
+#Expenses .editIcon SVG,
 #Expenses .recurringIcon #recurringArrows,
 #Expenses .recurringIcon #recurringR {
   fill: #ff2955;
@@ -671,7 +691,8 @@ span.summaryProgressBar {
 }
 
 #Expenses.section > table#expenseTable tr:has(td.recurringEdit) td > input,
-#Expenses.section > table#expenseTable tr:has(td.recurringEdit) div {
+#Expenses.section > table#expenseTable tr:has(td.recurringEdit) div,
+#Expenses .editIcon {
   outline-color: #ff2955;
 }
 
@@ -694,6 +715,7 @@ span.summaryProgressBar {
 }
 
 #Savings .filter SVG,
+#Savings .editIcon SVG,
 #Savings .recurringIcon #recurringArrows,
 #Savings .recurringIcon #recurringR {
   fill: var(--orange-color);
@@ -705,7 +727,8 @@ span.summaryProgressBar {
 }
 
 #Savings.section > table#expenseTable tr:has(td.recurringEdit) td > input,
-#Savings.section > table#expenseTable tr:has(td.recurringEdit) div {
+#Savings.section > table#expenseTable tr:has(td.recurringEdit) div,
+#Savings .editIcon {
   outline-color: var(--orange-color);
 }
 
