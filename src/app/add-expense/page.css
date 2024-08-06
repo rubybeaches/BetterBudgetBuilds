@@ -18,7 +18,8 @@ main#expensePage {
   right: 10em;
 }
 
-.section:has(.recurringEdit) .filter {
+.section:has(.recurringEdit) .filter,
+.section:has(.expenseEdit) .filter {
   display: none;
 }
 
@@ -28,7 +29,8 @@ main#expensePage {
 }
 
 .saveBudgetContainer,
-.saveRecurrenceContainer {
+.saveRecurrenceContainer,
+.editContainer {
   background: linear-gradient(122deg, #467af8, #9c32e2, #ff2955, #ffb15a);
   padding: 2px;
   width: fit-content;
@@ -39,7 +41,8 @@ main#expensePage {
 .section
   > table#expenseTable
   tr:has(td.recurringEdit)
-  div.saveRecurrenceContainer {
+  div.saveRecurrenceContainer,
+.editContainer {
   position: absolute;
   outline: none;
   padding: 1px;
@@ -48,7 +51,8 @@ main#expensePage {
 .section
   > table#expenseTable
   tr:has(td.recurringEdit)
-  div.saveRecurrenceContainer.save {
+  div.saveRecurrenceContainer.save,
+.editContainer.save {
   right: -180px;
   top: 5px;
 }
@@ -56,7 +60,8 @@ main#expensePage {
 .section
   > table#expenseTable
   tr:has(td.recurringEdit)
-  div.saveRecurrenceContainer.close {
+  div.saveRecurrenceContainer.close,
+.editContainer.close {
   right: -40px;
   top: 5px;
 }
@@ -65,7 +70,8 @@ main#expensePage {
   > table#expenseTable
   tr:has(td.recurringEdit)
   div.saveRecurrenceContainer
-  .saveRecurrence.save {
+  .saveRecurrence.save,
+.saveExpense.save {
   outline: none;
   padding: 4px 12px;
 }
@@ -74,20 +80,23 @@ main#expensePage {
   > table#expenseTable
   tr:has(td.recurringEdit)
   div.saveRecurrenceContainer
-  .saveRecurrence.close {
+  .saveRecurrence.close,
+.saveExpense.close {
   outline: none;
   padding: 4px 8px;
 }
 
 .saveBudget,
-.saveRecurrence {
+.saveRecurrence,
+.saveExpense {
   background: linear-gradient(122deg, #f0f4fe, #f7effd, #fecfdf, #fff7ee);
   padding: 8px 12px;
   border-radius: 20px;
 }
 
 .saveBudget:hover,
-.saveRecurrence:hover {
+.saveRecurrence:hover,
+.saveExpense:hover {
   background: #fff;
 }
 
@@ -95,12 +104,14 @@ main#expensePage {
   > table#expenseTable
   tr:has(td.recurringEdit)
   div.saveRecurrenceContainer
-  .saveRecurrenceButton {
+  .saveRecurrenceButton,
+.section > table#expenseTable .saveExpenseButton {
   font-weight: 600;
 }
 
 .saveBudgetButton,
-.saveRecurrenceButton {
+.saveRecurrenceButton,
+.saveExpenseButton {
   font-size: 1em;
   font-weight: 800;
   background: linear-gradient(122deg, #467af8, #9c32e2, #ff2955, #ffb15a);

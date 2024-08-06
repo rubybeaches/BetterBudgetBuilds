@@ -1,5 +1,5 @@
 import { convertToFloat, parsetoNum } from "@/app/lib/helpers";
-import { Expense } from "@prisma/client";
+import { RecurringExpense } from "@prisma/client";
 import RecurringIcon from "./RecurringSVG";
 import { useRef, useState } from "react";
 import { createRecurrence } from "@/app/lib/actions";
@@ -12,11 +12,14 @@ const AddExpenseRow = ({
   expense: ExpenseRecurrence;
   updateExpense: (expense: ExpenseRecurrence) => void;
 }) => {
+  const [expenseEdit, setExpenseEdit] = useState(false);
   const [recurringEdit, setRecurringEdit] = useState(false);
+
   const amountRef = useRef<any>();
   const descriptionRef = useRef<any>();
   const dateRef = useRef<any>();
 
+  // recurring expense toggles
   const [amountToggle, setAmountToggle] = useState(
     expense.recurringExpenseId && !expense.recurrence?.amount ? false : true
   );
@@ -32,6 +35,7 @@ const AddExpenseRow = ({
     expense.recurringExpenseId && !expense.recurrence?.day ? false : true
   );
 
+  // recurring expense cancel
   const cancelEdit = () => {
     setAmountToggle(() =>
       expense.recurringExpenseId && !expense.recurrence?.amount ? false : true
@@ -44,6 +48,7 @@ const AddExpenseRow = ({
     setRecurringEdit(() => false);
   };
 
+  // save and create recurring expense
   const saveTemplate = async () => {
     let newAmount = amountRef.current;
     let newDescription = descriptionRef.current;
@@ -62,21 +67,30 @@ const AddExpenseRow = ({
         allMonths,
         expense.userId
       );
-
-      let newExpense: ExpenseRecurrence = {
-        ...expense,
-        amount: parsetoNum(amountRef.current.value),
-        description: newDescription.value,
-        entryDate: recurrenceEntryDate,
-        recurring: true,
-        recurringExpenseId: recurrence.id,
-        recurrence: recurrence,
-      };
+      saveExpense(recurrence, newAmount, newDescription, recurrenceEntryDate);
       setRecurringEdit(() => false);
-      updateExpense(newExpense);
     }
   };
 
+  const saveExpense = (
+    recurrence: RecurringExpense | null,
+    newAmount = amountRef.current,
+    newDescription = descriptionRef.current,
+    newDate = dateRef.current
+  ) => {
+    let newExpense: ExpenseRecurrence = {
+      ...expense,
+      amount: parsetoNum(newAmount.value),
+      description: newDescription.value,
+      entryDate: saveDate(newDate.value),
+      recurring: recurrence ? true : false,
+      recurringExpenseId: recurrence ? recurrence.id : null,
+      recurrence: recurrence,
+    };
+    updateExpense(newExpense);
+  };
+
+  // date handling conversions with date input
   const saveDate = (date: string) => {
     let [year, month, day] = date.split("-");
     return `${month}-${day}-${year}`;
@@ -181,9 +195,62 @@ const AddExpenseRow = ({
         </td>
       </tr>
     );
-  } else {
+  } else if (expenseEdit) {
     return (
       <tr>
+        <td className={`expenseAmount expenseEdit`}>
+          ${" "}
+          <input
+            type="text"
+            name="amount"
+            defaultValue={convertToFloat(expense.amount)}
+            ref={amountRef}
+          />
+        </td>
+        <td>
+          <input
+            type="text"
+            name="description"
+            placeholder="Description of the expense you've accrued"
+            defaultValue={expense.description}
+            ref={descriptionRef}
+          />
+        </td>
+        <td>
+          <input type="text" name="category" defaultValue={expense.category} />
+        </td>
+        <td>
+          <input
+            type="date"
+            name="date"
+            defaultValue={displayDate(expense.entryDate)}
+            ref={dateRef}
+          />
+          <div
+            className="editContainer close"
+            onClick={() => setExpenseEdit(false)}
+          >
+            <div className="saveExpense close">
+              <p className="saveExpenseButton">X</p>
+            </div>
+          </div>
+          <div
+            className="editContainer save"
+            onClick={() => {
+              saveExpense(expense.recurrence);
+              setExpenseEdit(false);
+            }}
+          >
+            <div className="saveExpense save">
+              <p className="saveExpenseButton">Save Expense</p>
+            </div>
+          </div>
+        </td>
+      </tr>
+    );
+  } else {
+    return (
+      <tr onDoubleClick={() => setExpenseEdit(true)}>
         <td
           className={`expenseAmount ${
             expense.recurring ? "recurringActive" : ""
