@@ -223,6 +223,7 @@ const AddExpense = ({
               expense={incomeExpenses}
               addFlag={true}
               updateExpense={updateExpenseById}
+              categorySelections={userIncomeCategories}
             />
           </div>
 
@@ -237,6 +238,7 @@ const AddExpense = ({
               expense={savingExpenses}
               addFlag={true}
               updateExpense={updateExpenseById}
+              categorySelections={userCategories}
             />
           </div>
 
@@ -249,6 +251,7 @@ const AddExpense = ({
               expense={debtExpenses}
               addFlag={true}
               updateExpense={updateExpenseById}
+              categorySelections={userCategories}
             />
           </div>
         </div>
