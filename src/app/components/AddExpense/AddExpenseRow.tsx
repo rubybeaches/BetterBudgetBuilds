@@ -176,20 +176,22 @@ const AddExpenseRow = ({
               <RecurringIcon />
             </span>
           </div>
-          <div
-            className="saveRecurrenceContainer close"
-            onClick={() => cancelEdit()}
-          >
-            <div className="saveRecurrence close">
-              <p className="saveRecurrenceButton">X</p>
+          <div className="rightSideInputs">
+            <div
+              className="saveRecurrenceContainer close"
+              onClick={() => cancelEdit()}
+            >
+              <div className="saveRecurrence close">
+                <p className="saveRecurrenceButton">X</p>
+              </div>
             </div>
-          </div>
-          <div
-            className="saveRecurrenceContainer save"
-            onClick={() => saveTemplate()}
-          >
-            <div className="saveRecurrence save">
-              <p className="saveRecurrenceButton">Make Template</p>
+            <div
+              className="saveRecurrenceContainer save"
+              onClick={() => saveTemplate()}
+            >
+              <div className="saveRecurrence save">
+                <p className="saveRecurrenceButton">Make Template</p>
+              </div>
             </div>
           </div>
         </td>
@@ -199,13 +201,16 @@ const AddExpenseRow = ({
     return (
       <tr>
         <td className={`expenseAmount expenseEdit`}>
-          ${" "}
-          <input
-            type="text"
-            name="amount"
-            defaultValue={convertToFloat(expense.amount)}
-            ref={amountRef}
-          />
+          <div>
+            ${" "}
+            <input
+              autoFocus
+              type="text"
+              name="amount"
+              defaultValue={convertToFloat(expense.amount)}
+              ref={amountRef}
+            />
+          </div>
         </td>
         <td>
           <input
@@ -226,23 +231,25 @@ const AddExpenseRow = ({
             defaultValue={displayDate(expense.entryDate)}
             ref={dateRef}
           />
-          <div
-            className="editContainer close"
-            onClick={() => setExpenseEdit(false)}
-          >
-            <div className="saveExpense close">
-              <p className="saveExpenseButton">X</p>
+          <div className="rightSideInputs">
+            <div
+              className="editContainer close"
+              onClick={() => setExpenseEdit(false)}
+            >
+              <div className="saveExpense close">
+                <p className="saveExpenseButton">X</p>
+              </div>
             </div>
-          </div>
-          <div
-            className="editContainer save"
-            onClick={() => {
-              saveExpense(expense.recurrence);
-              setExpenseEdit(false);
-            }}
-          >
-            <div className="saveExpense save">
-              <p className="saveExpenseButton">Save Expense</p>
+            <div
+              className="editContainer save"
+              onClick={() => {
+                saveExpense(expense.recurrence);
+                setExpenseEdit(false);
+              }}
+            >
+              <div className="saveExpense save">
+                <p className="saveExpenseButton">Save Expense</p>
+              </div>
             </div>
           </div>
         </td>

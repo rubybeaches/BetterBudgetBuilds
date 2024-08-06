@@ -38,32 +38,30 @@ main#expensePage {
   cursor: pointer;
 }
 
+.section > table#expenseTable tr:has(td.recurringEdit) div.rightSideInputs,
+.section > table#expenseTable tr:has(td.expenseEdit) div.rightSideInputs,
 .section
   > table#expenseTable
   tr:has(td.recurringEdit)
-  div.saveRecurrenceContainer,
-.editContainer {
-  position: absolute;
+  div.rightSideInputs
+  .saveRecurrenceContainer,
+.section
+  > table#expenseTable
+  tr:has(td.expenseEdit)
+  div.rightSideInputs
+  .editContainer {
   outline: none;
   padding: 1px;
 }
 
-.section
-  > table#expenseTable
-  tr:has(td.recurringEdit)
-  div.saveRecurrenceContainer.save,
-.editContainer.save {
-  right: -180px;
+.section > table#expenseTable tr:has(td.recurringEdit) div.rightSideInputs,
+.section > table#expenseTable tr:has(td.expenseEdit) div.rightSideInputs {
+  position: absolute;
+  left: calc(100% + 1em);
   top: 5px;
-}
-
-.section
-  > table#expenseTable
-  tr:has(td.recurringEdit)
-  div.saveRecurrenceContainer.close,
-.editContainer.close {
-  right: -40px;
-  top: 5px;
+  display: flex;
+  gap: 0.5em;
+  width: max-content;
 }
 
 .section
@@ -71,7 +69,11 @@ main#expensePage {
   tr:has(td.recurringEdit)
   div.saveRecurrenceContainer
   .saveRecurrence.save,
-.saveExpense.save {
+.section
+  > table#expenseTable
+  tr:has(td.expenseEdit)
+  div.editContainer
+  .saveExpense.save {
   outline: none;
   padding: 4px 12px;
 }
@@ -81,7 +83,11 @@ main#expensePage {
   tr:has(td.recurringEdit)
   div.saveRecurrenceContainer
   .saveRecurrence.close,
-.saveExpense.close {
+.section
+  > table#expenseTable
+  tr:has(td.expenseEdit)
+  div.editContainer
+  .saveExpense.close {
   outline: none;
   padding: 4px 8px;
 }
@@ -431,13 +437,17 @@ span.summaryProgressBar {
 
 .section > table#expenseTable tr:has(td.recurringEdit) td > input,
 .section > table#expenseTable tr:has(td.recurringEdit) div,
-.section > table#expenseTable tr:has(td.recurringActive) div.recurringInput {
+.section > table#expenseTable tr:has(td.recurringActive) div.recurringInput,
+.section > table#expenseTable tr:has(td.expenseEdit) td > input,
+.section > table#expenseTable tr:has(td.expenseEdit) div {
   padding: 3px 6px;
   border-radius: 20px;
 }
 
 .section > table#expenseTable tr:has(td.recurringEdit) td > input,
-.section > table#expenseTable tr:has(td.recurringEdit) div {
+.section > table#expenseTable tr:has(td.recurringEdit) div,
+.section > table#expenseTable tr:has(td.expenseEdit) td > input:focus,
+.section > table#expenseTable tr:has(td.expenseEdit) div:has(input:focus) {
   outline: #323232 2px solid;
 }
 
