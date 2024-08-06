@@ -67,7 +67,7 @@ const AddExpenseRow = ({
         allMonths,
         expense.userId
       );
-      saveExpense(recurrence, newAmount, newDescription, recurrenceEntryDate);
+      saveExpense(recurrence, newAmount, newDescription, newDate);
       setRecurringEdit(() => false);
     }
   };
