@@ -117,6 +117,7 @@ const AddExpenseBar = ({
         <div className={`expenseInput ${expenseType}`}>
           $
           <input
+            autoFocus
             ref={amountRef}
             type="text"
             name="amount"
