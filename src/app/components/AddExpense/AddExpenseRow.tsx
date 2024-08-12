@@ -255,6 +255,9 @@ const AddExpenseRow = ({
             defaultValue={displayDate(expense.entryDate)}
             ref={dateRef}
           />
+          <span className="editIcon" onClick={() => setExpenseEdit(true)}>
+            <EditIcon />
+          </span>
           <div className="rightSideInputs">
             <div
               className="editContainer close"

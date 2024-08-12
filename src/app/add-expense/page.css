@@ -36,8 +36,19 @@ main#expensePage {
   opacity: 0;
 }
 
+.section > table#expenseTable tr:has(.expenseEdit) .editIcon {
+  opacity: 1;
+}
+
 .section > table#expenseTable tr:hover .editIcon {
   opacity: 1;
+  top: 4px;
+}
+
+.section > table#expenseTable tr:first-child:hover .editIcon,
+.section > table#expenseTable tr:has(.expenseEdit):hover .editIcon {
+  opacity: 1;
+  top: 6px;
 }
 
 .saveBudgetContainer,
@@ -69,10 +80,10 @@ main#expensePage {
 .section > table#expenseTable tr:has(td.recurringEdit) div.rightSideInputs,
 .section > table#expenseTable tr:has(td.expenseEdit) div.rightSideInputs {
   position: absolute;
-  left: calc(100% + 1em);
-  top: 5px;
+  left: calc(100% + 1.1em);
+  top: 4px;
   display: flex;
-  gap: 0.5em;
+  gap: 0.25em;
   width: max-content;
 }
 
@@ -470,6 +481,10 @@ span.summaryProgressBar {
 }
 
 .section > table#expenseTable tr td.recurringEdit:first-child {
+  border-right: none;
+}
+
+.section > table#expenseTable tr td.expenseEdit:first-child {
   border-right: none;
 }
 
