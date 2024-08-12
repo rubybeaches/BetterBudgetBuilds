@@ -38,6 +38,7 @@ main#expensePage {
 
 .section > table#expenseTable tr:has(.expenseEdit) .editIcon {
   opacity: 1;
+  cursor: default;
 }
 
 .section > table#expenseTable tr:hover .editIcon {
@@ -112,6 +113,7 @@ main#expensePage {
   div.editContainer
   .saveExpense.close {
   outline: none;
+  background: #fff;
   padding: 4px 8px;
 }
 

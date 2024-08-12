@@ -255,7 +255,7 @@ const AddExpenseRow = ({
             defaultValue={displayDate(expense.entryDate)}
             ref={dateRef}
           />
-          <span className="editIcon" onClick={() => setExpenseEdit(true)}>
+          <span className="editIcon">
             <EditIcon />
           </span>
           <div className="rightSideInputs">
@@ -284,7 +284,7 @@ const AddExpenseRow = ({
     );
   } else {
     return (
-      <tr onDoubleClick={() => setExpenseEdit(true)}>
+      <tr>
         <td
           className={`expenseAmount ${
             expense.recurring ? "recurringActive" : ""
