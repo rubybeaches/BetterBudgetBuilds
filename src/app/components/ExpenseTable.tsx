@@ -28,22 +28,19 @@ const ExpenseTable = ({
     return "recurrence" in expense;
   }
 
-  const getExpenseRow = (
-    index: number,
-    expense: Expense | ExpenseRecurrence
-  ) => {
+  const getExpenseRow = (expense: Expense | ExpenseRecurrence) => {
     return addFlag &&
       updateExpense &&
       isExpenseRecurrence(expense) &&
       categorySelections ? (
       <AddExpenseRow
-        key={index}
+        key={expense.id}
         expense={expense}
         updateExpense={updateExpense}
         categorySelections={categorySelections}
       />
     ) : (
-      <ExpenseRow key={index} expense={expense} />
+      <ExpenseRow key={expense.id} expense={expense} />
     );
   };
 
@@ -65,8 +62,7 @@ const ExpenseTable = ({
       </div>
       <table id="expenseTable">
         <tbody>
-          {sortedExpenses &&
-            sortedExpenses.map((exp, index) => getExpenseRow(index, exp))}
+          {sortedExpenses && sortedExpenses.map((exp) => getExpenseRow(exp))}
         </tbody>
       </table>
     </>
