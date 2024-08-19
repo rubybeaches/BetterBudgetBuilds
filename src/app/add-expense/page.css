@@ -387,6 +387,10 @@ span.summaryProgressBar {
   flex: 1;
 }
 
+#AddExpenseBarInner select {
+  max-width: 170px;
+}
+
 #AddExpenseBarInner input:focus,
 #AddExpenseBarInner select:focus,
 #AddExpenseBarInner .expenseInput:has(input:focus),
