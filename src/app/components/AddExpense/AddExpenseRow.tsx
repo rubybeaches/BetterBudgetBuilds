@@ -97,7 +97,7 @@ const AddExpenseRow = ({
       ...expense,
       amount: parsetoNum(newAmount.value),
       description: newDescription.value,
-      category: selectRef.current.value,
+      category: selectRef.current ? selectRef.current.value : expense.category,
       entryDate: saveDate(newDate.value),
       recurring: recurrence ? true : false,
       recurringExpenseId: recurrence ? recurrence.id : null,
