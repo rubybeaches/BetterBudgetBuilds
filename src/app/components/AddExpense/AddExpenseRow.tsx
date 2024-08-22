@@ -325,7 +325,15 @@ const AddExpenseRow = ({
             />
           </div>
         </td>
-        <td>{expense.category}</td>
+        <td>
+          <div
+            className={`${
+              !expense.recurrence?.category ? "recurringInput" : ""
+            }`}
+          >
+            {expense.category}
+          </div>
+        </td>
         <td>
           <div
             className={`${!expense.recurrence?.day ? "recurringInput" : ""}`}
