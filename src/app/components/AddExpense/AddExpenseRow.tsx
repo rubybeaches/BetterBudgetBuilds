@@ -73,12 +73,13 @@ const AddExpenseRow = ({
     if (newAmount && newDescription && newDate && newCategory) {
       let recurrenceEntryDate = saveDate(newDate.value);
       let allMonths = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-      let category = categoryList[newCategory.value].category;
-      let type = categoryList[newCategory.value].type;
+      let type = categoryList.filter(
+        (cat) => cat.category == newCategory.value
+      )[0].type;
 
       const recurrence = await createRecurrence(
         amountToggle ? parsetoNum(amountRef.current.value) : undefined,
-        categoryToggle ? category : undefined,
+        categoryToggle ? newCategory.value : undefined,
         categoryToggle ? type : undefined,
         descriptionToggle ? newDescription.value : undefined,
         Number(recurrenceEntryDate.split("-")[1]),
@@ -97,14 +98,15 @@ const AddExpenseRow = ({
     newCategory = selectRef.current,
     newDate = dateRef.current
   ) => {
-    let category = categoryList[newCategory.value].category;
-    let type = categoryList[newCategory.value].type;
+    let type = categoryList.filter(
+      (cat) => cat.category == newCategory.value
+    )[0].type;
 
     let newExpense: ExpenseRecurrence = {
       ...expense,
       amount: parsetoNum(newAmount.value),
       description: newDescription.value,
-      category: category,
+      category: newCategory.value,
       type: type,
       entryDate: saveDate(newDate.value),
       recurring: recurrence ? true : false,
@@ -182,7 +184,7 @@ const AddExpenseRow = ({
               defaultValue={expense.category}
             >
               {categoryList.map((cat, index) => (
-                <option key={index} value={index} label={cat.category} />
+                <option key={index} value={cat.category} label={cat.category} />
               ))}
             </select>
             <span onClick={() => setCategoryToggle(() => !categoryToggle)}>
@@ -256,7 +258,7 @@ const AddExpenseRow = ({
             defaultValue={expense.category}
           >
             {categoryList.map((cat, index) => (
-              <option key={index} value={index} label={cat.category} />
+              <option key={index} value={cat.category} label={cat.category} />
             ))}
           </select>
         </td>
