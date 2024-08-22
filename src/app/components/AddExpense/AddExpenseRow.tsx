@@ -80,7 +80,7 @@ const AddExpenseRow = ({
       const recurrence = await createRecurrence(
         amountToggle ? parsetoNum(amountRef.current.value) : undefined,
         categoryToggle ? newCategory.value : undefined,
-        categoryToggle ? type : undefined,
+        type,
         descriptionToggle ? newDescription.value : undefined,
         Number(recurrenceEntryDate.split("-")[1]),
         allMonths,
