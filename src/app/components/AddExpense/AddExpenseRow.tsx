@@ -67,22 +67,26 @@ const AddExpenseRow = ({
   const saveTemplate = async () => {
     let newAmount = amountRef.current;
     let newDescription = descriptionRef.current;
+    let newCategory = selectRef.current;
     let newDate = dateRef.current;
 
-    if (newAmount && newDescription && newDate) {
+    if (newAmount && newDescription && newDate && newCategory) {
       let recurrenceEntryDate = saveDate(newDate.value);
       let allMonths = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+      let type = categoryList.filter(
+        (cat) => cat.category == newCategory.value
+      )[0].type;
 
       const recurrence = await createRecurrence(
         amountToggle ? parsetoNum(amountRef.current.value) : undefined,
-        categoryToggle ? expense.category : undefined,
-        expense.type,
+        categoryToggle ? newCategory.value : undefined,
+        type,
         descriptionToggle ? newDescription.value : undefined,
         Number(recurrenceEntryDate.split("-")[1]),
         allMonths,
         expense.userId
       );
-      saveExpense(recurrence, newAmount, newDescription, newDate);
+      saveExpense(recurrence, newAmount, newDescription, newCategory, newDate);
       setRecurringEdit(() => false);
     }
   };
@@ -91,13 +95,19 @@ const AddExpenseRow = ({
     recurrence: RecurringExpense | null,
     newAmount = amountRef.current,
     newDescription = descriptionRef.current,
+    newCategory = selectRef.current,
     newDate = dateRef.current
   ) => {
+    let type = categoryList.filter(
+      (cat) => cat.category == newCategory.value
+    )[0].type;
+
     let newExpense: ExpenseRecurrence = {
       ...expense,
       amount: parsetoNum(newAmount.value),
       description: newDescription.value,
-      category: selectRef.current ? selectRef.current.value : expense.category,
+      category: newCategory.value,
+      type: type,
       entryDate: saveDate(newDate.value),
       recurring: recurrence ? true : false,
       recurringExpenseId: recurrence ? recurrence.id : null,
@@ -168,12 +178,16 @@ const AddExpenseRow = ({
               categoryToggle ? "active" : "inactive"
             } `}
           >
-            <input
-              type="text"
+            <select
+              ref={selectRef}
               name="category"
               defaultValue={expense.category}
-            />
-            <span className="hideIcon">
+            >
+              {categoryList.map((cat, index) => (
+                <option key={index} value={cat.category} label={cat.category} />
+              ))}
+            </select>
+            <span onClick={() => setCategoryToggle(() => !categoryToggle)}>
               <RecurringIcon />
             </span>
           </div>
@@ -319,7 +333,15 @@ const AddExpenseRow = ({
             />
           </div>
         </td>
-        <td>{expense.category}</td>
+        <td>
+          <div
+            className={`${
+              !expense.recurrence?.category ? "recurringInput" : ""
+            }`}
+          >
+            {expense.category}
+          </div>
+        </td>
         <td>
           <div
             className={`${!expense.recurrence?.day ? "recurringInput" : ""}`}
