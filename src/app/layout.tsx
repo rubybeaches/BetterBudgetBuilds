@@ -9,9 +9,6 @@ export const metadata: Metadata = {
   title: "Better Budget Builds",
   description:
     "The all in one budget application, from saving, to planning, to thriving.",
-  icons: {
-    icon: "/BetterBudgetsIcon.png",
-  },
 };
 
 export default function RootLayout({

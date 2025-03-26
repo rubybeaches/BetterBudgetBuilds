@@ -127,18 +127,18 @@ body {
   }
 }
 
+/*
 body {
   color: rgb(var(--foreground-rgb));
-  /* background: linear-gradient(135deg, #F0F4FE, #F7EFFD 25%, #FECFDF 75%, #FFF7EE 100%); */
-  /* 
+  background: linear-gradient(135deg, #F0F4FE, #F7EFFD 25%, #FECFDF 75%, #FFF7EE 100%);
   background: linear-gradient(
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
-    */
 }
+*/
 
 a {
   color: inherit;
