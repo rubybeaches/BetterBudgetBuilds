@@ -7,7 +7,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main>
+    <main className="max-w-4xl">
       <nav></nav>
       <Image
         src="/BBBLogo.png"

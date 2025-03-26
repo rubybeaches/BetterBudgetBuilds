@@ -1,10 +1,6 @@
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
-  --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
-    "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
-    "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
-
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -94,14 +90,21 @@ body {
   overflow-x: hidden;
 }
 
-.main {
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-  padding: 3rem 5rem;
-  min-height: 100vh;
-  color: #323232;
+.max-w-2xl {
+  max-width: var(--container-2xl); /* 42rem (672px) */
 }
+.max-w-3xl {
+  max-width: var(--container-3xl); /* 48rem (768px) */
+}
+.max-w-4xl {
+  max-width: var(--container-4xl); /* 56rem (896px) */
+}
+
+.min-h-screen {
+  min-height: 100vh;
+}
+
+/* color: #323232; */
 
 .filter {
   width: fit-content;
@@ -119,12 +122,6 @@ body {
   border: none;
   position: relative;
   font-weight: 600;
-}
-
-@media screen and (max-width: 650px) {
-  .main {
-    padding: 1rem 1rem;
-  }
 }
 
 /*

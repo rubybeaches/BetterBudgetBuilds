@@ -18,7 +18,7 @@ const Page = async () => {
     */
 
   return (
-    <main className="main budgetTop green-bg">
+    <section className="main budgetTop green-bg">
       <h2>Budget Calculator</h2>
       <p style={{ fontWeight: 500 }}>
         Use this page to create a bucket system representing your average
@@ -29,7 +29,7 @@ const Page = async () => {
         you should put in any given bucket, use your best guess and review again
         after a few months of tracking expenses.
       </p>
-    </main>
+    </section>
   );
 };
 export default Page;
