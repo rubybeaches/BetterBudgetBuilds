@@ -1,35 +1,47 @@
+import { defaultIncomeCategories } from "@/app/lib/helpers";
 import { UserAuth } from "../../../lib/UserAuth";
 import { getActiveBudget } from "../../../lib/data";
+import IncomeCategoryBuilder from "./incomeCategoryBuilder";
+import Link from "next/link";
 
 const Page = async () => {
-  /* 
-    <Budget
-      expenseCategories={budget?.expenseCategories || categories}
-      incomeCategories={budget?.incomeCategories || defaultIncomeCategories}
-      baseIncome={budget?.income || 0}
-      activeBudgetMonthStart={
-        budget && budget?.start.getFullYear() == new Date().getFullYear()
-          ? budget?.start.getMonth()
-          : -1
-      }
-      budgetID={budget?.id || -1}
-      userID={user.id}
-    />
-    */
+  const user = await UserAuth();
+  if (!user) return null;
+
+  const budget = await getActiveBudget(user.id);
 
   return (
-    <section className="main budgetTop green-bg">
-      <h2>Budget Calculator</h2>
-      <p style={{ fontWeight: 500 }}>
-        Use this page to create a bucket system representing your average
-        monthly expenditures. To start, we&lsquo;ve provided a default list of
-        categories based on national averages and percentages. Don&lsquo;t worry
-        about getting it perfect the first time, you can revisit this at anytime
-        and update your budget moving forward. If you&lsquo;re unsure of what
-        you should put in any given bucket, use your best guess and review again
-        after a few months of tracking expenses.
-      </p>
-    </section>
+    <>
+      <section className="green-bg text-white">
+        <h2 className="text-7xl">Income.</h2>
+        <p className="text-lg font-bold">
+          The first step to working out a budget that will best fit your needs
+          will depend on the amount of, and type of, income you bring in. For
+          the purposes of this budget, we base all budget calculations off of
+          income after taxes and deductions. If you'd like a little extra
+          guidance, try our{" "}
+          <Link
+            href={""}
+            className="text-blue"
+            style={{ textDecoration: "underline" }}
+          >
+            baseline tool
+          </Link>{" "}
+          to generate a budget.
+        </p>
+      </section>
+      <IncomeCategoryBuilder
+        incomeCategories={budget?.incomeCategories || defaultIncomeCategories}
+        baseIncome={budget?.income || 0}
+        activeBudgetMonthStart={
+          budget && budget?.start.getFullYear() == new Date().getFullYear()
+            ? budget?.start.getMonth()
+            : -1
+        }
+        budgetID={budget?.id || -1}
+        userID={user.id}
+      />
+    </>
   );
 };
 export default Page;

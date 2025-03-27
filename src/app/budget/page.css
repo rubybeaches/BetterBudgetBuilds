@@ -1,6 +1,22 @@
+body:has(.green-bg) {
+  background-color: #30df30;
+}
+
+nav ul li {
+  border: #323232 2px solid;
+  padding: 4px 10px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+section {
+  margin: 20px auto;
+}
+
+/*
 .main.budgetTop {
   min-height: auto;
-  color: white;
   position: relative;
   align-items: center;
 }
@@ -19,6 +35,7 @@
   background-color: #30df30;
   position: absolute;
 }
+  */
 
 .left {
   top: 0;
@@ -58,16 +75,6 @@
   position: relative;
   z-index: 0;
   max-width: 1280px;
-}
-
-#income {
-  display: flex;
-  gap: 1em;
-  align-items: center;
-}
-
-#income span {
-  color: #323232;
 }
 
 .baseBar {
@@ -141,27 +148,33 @@
 }
 
 .incomeSection {
-  display: flex;
-  gap: 1em;
-  flex-wrap: wrap;
+  background-color: #d0ffd0;
+  padding: 25px;
+  border-radius: 25px;
 }
 
-#addIncomeCategory,
-#addIncomeCategory select {
+.addIncome,
+.addIncome select {
   border-radius: 50px;
+  background: white;
+  padding: 4px 8px;
+  width: fit-content;
+  margin: auto 0px;
 }
 
 .incomeContainer {
-  background-color: #d0ffd0;
+  background-color: white;
   padding: 12px;
   display: flex;
   gap: 12px;
   width: fit-content;
   border-radius: 6px;
   color: #30df30;
+  box-shadow: 4px 4px 0px 0px #30df30;
 }
 
-.incomeContainer select {
+.incomeContainer select,
+.addIncome select {
   border: none;
   outline: none;
   background-color: #d0ffd0;
