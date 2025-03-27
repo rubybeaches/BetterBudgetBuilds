@@ -18,8 +18,8 @@ const Page = async () => {
           The first step to create a budget that will best fit your needs will
           depend on the amount of, and type of, income that you bring in. For
           the purposes of this budget, we base all budget calculations off of
-          your income after taxes and deductions. If you'd like a little extra
-          guidance, try our{" "}
+          your income after taxes and deductions. If you<span>&lsquo;</span>d
+          like a little extra guidance, try our{" "}
           <Link
             href={""}
             className="text-blue"
