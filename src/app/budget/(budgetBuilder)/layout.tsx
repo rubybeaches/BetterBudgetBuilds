@@ -47,6 +47,12 @@ export default function RootLayout({
         alt="Better Budget Builds Logo"
       />
       {children}
+      <footer
+        style={{ margin: "20px auto", textAlign: "center" }}
+        className="text-white"
+      >
+        ©2025 Better Budget Builds LLC. All rights reserved
+      </footer>
     </main>
   );
 }

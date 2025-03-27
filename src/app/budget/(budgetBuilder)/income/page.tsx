@@ -10,6 +10,12 @@ const Page = async () => {
 
   const budget = await getActiveBudget(user.id);
 
+  /*
+    <Link href={""} className="text-white text-lg" style={{ opacity: "0" }}>
+        &#8592; Back
+    </Link>
+  */
+
   return (
     <>
       <section className="green-bg text-white">
@@ -41,6 +47,12 @@ const Page = async () => {
         budgetID={budget?.id || -1}
         userID={user.id}
       />
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <span></span>
+        <Link href={""} className="text-white text-lg">
+          Next &#8594;
+        </Link>
+      </div>
     </>
   );
 };
