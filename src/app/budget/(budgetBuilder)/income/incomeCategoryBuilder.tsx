@@ -157,10 +157,7 @@ const IncomeCategoryBuilder = ({
       <section className="incomeSection">
         {income > 0 && (
           <em className="font-bold text-lg">
-            Your monthly allowance is{" "}
-            <strong className="text-green">
-              ${convertToFloat(monthlyIncome)}
-            </strong>
+            Your monthly allowance is <u>${convertToFloat(monthlyIncome)}</u>
           </em>
         )}
 
@@ -211,8 +208,9 @@ const IncomeCategoryBuilder = ({
             className="addIncome"
           >
             <p className="text-green" style={{ fontSize: " 1em" }}>
-              Balance to Assign: $
+              Balance to Assign:
               <span className="font-bold">
+                ${" "}
                 {convertToFloat(
                   Math.round(incomeSectionBalance) == 0
                     ? 0

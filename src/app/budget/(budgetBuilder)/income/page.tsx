@@ -15,10 +15,10 @@ const Page = async () => {
       <section className="green-bg text-white">
         <h2 className="text-7xl">Income.</h2>
         <p className="text-lg font-bold">
-          The first step to working out a budget that will best fit your needs
-          will depend on the amount of, and type of, income you bring in. For
+          The first step to create a budget that will best fit your needs will
+          depend on the amount of, and type of, income that you bring in. For
           the purposes of this budget, we base all budget calculations off of
-          income after taxes and deductions. If you'd like a little extra
+          your income after taxes and deductions. If you'd like a little extra
           guidance, try our{" "}
           <Link
             href={""}
@@ -27,7 +27,7 @@ const Page = async () => {
           >
             baseline tool
           </Link>{" "}
-          to generate a budget.
+          to generate a budget template.
         </p>
       </section>
       <IncomeCategoryBuilder
