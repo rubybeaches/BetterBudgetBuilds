@@ -222,7 +222,7 @@ const IncomeCategoryBuilder = ({
         </span>
 
         {/* Added Categories in a list */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "15px" }}>
           {userIncomeCategories.map((cat, index) => (
             <IncomeContainer
               key={index}
