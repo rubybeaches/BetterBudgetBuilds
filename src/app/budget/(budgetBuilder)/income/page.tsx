@@ -49,7 +49,7 @@ const Page = async () => {
       />
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <span></span>
-        <Link href={""} className="text-white text-lg">
+        <Link href="/budget/essentials" className="text-white text-lg">
           Next &#8594;
         </Link>
       </div>

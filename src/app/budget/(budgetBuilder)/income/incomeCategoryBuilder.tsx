@@ -31,15 +31,13 @@ const IncomeCategoryBuilder = ({
   const incomeCategoryList = useMemo(
     () =>
       sortCategories(
-        [...incomeCategories, ...buildInitialAddList(incomeCategories)].filter(
-          (filter) => {
-            let include = true;
-            userIncomeCategories.map((cat) => {
-              if (filter.category == cat.category) include = false;
-            });
-            if (include) return filter;
-          }
-        ),
+        [...buildInitialAddList(incomeCategories)].filter((filter) => {
+          let include = true;
+          userIncomeCategories.map((cat) => {
+            if (filter.category == cat.category) include = false;
+          });
+          if (include) return filter;
+        }),
         "category"
       ),
     [userIncomeCategories]
@@ -88,6 +86,7 @@ const IncomeCategoryBuilder = ({
     identifier: number,
     remove = false
   ) => {
+    console.log(userIncomeCategories, identifier);
     let updateIncome = userIncomeCategories.map((cat, index) => {
       return index == identifier ? category : cat;
     });
@@ -95,8 +94,9 @@ const IncomeCategoryBuilder = ({
       updateIncome = userIncomeCategories.filter((cat, index) => {
         return index != identifier;
       });
+      console.log(userIncomeCategories, updateIncome);
     }
-    setUserIncomeCategories(updateIncome);
+    setUserIncomeCategories(() => updateIncome);
   };
 
   return (
