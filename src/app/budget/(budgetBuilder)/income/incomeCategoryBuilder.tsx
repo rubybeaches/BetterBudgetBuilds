@@ -28,20 +28,18 @@ const IncomeCategoryBuilder = ({
     setActiveCategories(incomeCategories, "income")
   );
   const [income, setIncome] = useState(baseIncome);
-  const incomeCategoryList = useMemo(
-    () =>
-      sortCategories(
-        [...buildInitialAddList(incomeCategories)].filter((filter) => {
-          let include = true;
-          userIncomeCategories.map((cat) => {
-            if (filter.category == cat.category) include = false;
-          });
-          if (include) return filter;
-        }),
-        "category"
-      ),
-    [userIncomeCategories]
-  );
+  const incomeCategoryList = useMemo(() => {
+    const activeCategories = new Set(
+      userIncomeCategories.map((cat) => cat.category)
+    );
+    return sortCategories(
+      [...buildInitialAddList(incomeCategories)].filter((filter) => {
+        let active = activeCategories.has(filter.category);
+        if (!active) return filter;
+      }),
+      "category"
+    );
+  }, [userIncomeCategories]);
 
   const [displaySaved, setDisplaySaved] = useState(false);
   const [selectedMonth, setSelectedMonth] = useState(
