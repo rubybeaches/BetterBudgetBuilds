@@ -86,7 +86,6 @@ const IncomeCategoryBuilder = ({
     identifier: number,
     remove = false
   ) => {
-    console.log(userIncomeCategories, identifier);
     let updateIncome = userIncomeCategories.map((cat, index) => {
       return index == identifier ? category : cat;
     });
@@ -94,7 +93,6 @@ const IncomeCategoryBuilder = ({
       updateIncome = userIncomeCategories.filter((cat, index) => {
         return index != identifier;
       });
-      console.log(userIncomeCategories, updateIncome);
     }
     setUserIncomeCategories(() => updateIncome);
   };
