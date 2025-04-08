@@ -135,6 +135,7 @@ export const filterExpensesByMonth = (
   );
 };
 
+// filters out non-active categories
 export const setActiveCategories = (categories: category[], type: string) => {
   return categories.filter((cat) => cat.type == type && cat.active);
 };
@@ -143,7 +144,7 @@ export const setInactiveCategoryList = (categories: category[]) => {
   return categories.filter((cat) => !cat.active);
 };
 
-// Add/Remove Category Functions
+// Add/Remove Category Functions - for drop down list of non active categories
 
 export const buildInitialAddList = (categories: category[]) => {
   const addList: category[] = [];
