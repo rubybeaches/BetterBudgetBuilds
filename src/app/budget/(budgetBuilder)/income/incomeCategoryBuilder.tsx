@@ -24,6 +24,9 @@ const IncomeCategoryBuilder = ({
   budgetID: number;
   userID: number;
 }) => {
+  // SUPER BUGED OUT RN - the buildinital add list uses incomecategories which uses a non tracked list of categoires. Meaning active versus inactvie is never updated...so It can get out of whack easy
+  // adding userincome categores as a spread in addition to the build causes dupe issues because income cats could already have a "help" item as active, and then gets add again from the buildinitialAdd. so it's added twice during the build add for non-acive categories cause of the untracked issue above
+  // ADDED Temp fix but it is ugly - think I need to refactor here for tracking active/inactive
   const [userIncomeCategories, setUserIncomeCategories] = useState(
     setActiveCategories(incomeCategories, "income")
   );
@@ -32,13 +35,20 @@ const IncomeCategoryBuilder = ({
     const activeCategories = new Set(
       userIncomeCategories.map((cat) => cat.category)
     );
-    return sortCategories(
-      [...buildInitialAddList(incomeCategories)].filter((filter) => {
-        let active = activeCategories.has(filter.category);
-        if (!active) return filter;
-      }),
-      "category"
-    );
+    let initalList = buildInitialAddList(incomeCategories).filter((filter) => {
+      let active = activeCategories.has(filter.category);
+      if (!active) return filter;
+    });
+    let unTrackedActive = setActiveCategories(incomeCategories, "income");
+    const currentList = new Set(initalList.map((cat) => cat.category));
+    let unTracked = unTrackedActive.filter((filter) => {
+      let active =
+        activeCategories.has(filter.category) ||
+        currentList.has(filter.category);
+      if (!active) return filter;
+    });
+
+    return sortCategories([...initalList, ...unTracked], "category");
   }, [userIncomeCategories]);
 
   const [displaySaved, setDisplaySaved] = useState(false);
