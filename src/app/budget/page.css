@@ -1,6 +1,18 @@
 body:has(.green-bg) {
   background-color: #30df30;
 }
+body:has(.green-bg) li.border-green {
+  background-color: #30df30;
+  color: white;
+}
+
+body:has(.blue-bg) {
+  background-color: #467af8;
+}
+body:has(.blue-bg) li.border-blue {
+  background-color: #467af8;
+  color: white;
+}
 
 nav ul li {
   border: #323232 2px solid;
@@ -12,6 +24,19 @@ nav ul li {
 
 section {
   margin: 20px auto;
+}
+
+.categorySection {
+  padding: 25px;
+  border-radius: 25px;
+}
+
+.categorySection.incomeSection {
+  background-color: #d0ffd0;
+}
+
+.categorySection.essentialSection {
+  background-color: #d7e8fb;
 }
 
 /*
@@ -147,12 +172,6 @@ section {
   fill: #7057ed;
 }
 
-.incomeSection {
-  background-color: #d0ffd0;
-  padding: 25px;
-  border-radius: 25px;
-}
-
 .addIncome,
 .addIncome select {
   border-radius: 50px;
@@ -280,10 +299,12 @@ section {
 
 .showElement {
   visibility: visible;
+  display: block;
 }
 
 .hideElement {
   visibility: hidden;
+  display: none;
 }
 
 div:has(> input[type="text"]) {
@@ -294,20 +315,6 @@ div:has(> input[type="text"]) {
   font-size: 1em;
   font-weight: 600;
   width: fit-content;
-}
-
-div.categorySearchContainer:has(> input[type="text"]) {
-  border-radius: 20px;
-  border: 2px solid #323232;
-  background-color: #fff;
-  padding: 4px 12px;
-  position: absolute;
-  z-index: 99;
-  right: 0;
-  top: -20px;
-  font-size: 0.9em;
-  box-shadow: 2px 4px 12px 0px #d5d5d5;
-  font-weight: 400;
 }
 
 input[type="text"] {
@@ -433,11 +440,28 @@ input[type="text"] {
   border: 2px solid #323232;
   padding: 4px 12px;
   cursor: pointer;
-  position: absolute;
-  right: 0;
-  top: -20px;
   font-size: 0.8em;
   font-weight: 600;
+}
+
+div.categorySearchContainer:has(> input[type="text"]) {
+  border-radius: 20px;
+  border: 2px solid #323232;
+  background-color: #fff;
+  padding: 4px 12px;
+  position: absolute;
+  z-index: 99;
+  font-size: 0.9em;
+  box-shadow: 2px 4px 12px 0px #d5d5d5;
+  font-weight: 400;
+  max-height: 350px;
+  overflow: hidden;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+div.categorySearchContainer:has(> input[type="text"])::-webkit-scrollbar {
+  display: none;
 }
 
 .categorySearchContainer > .addCategoryButton {
