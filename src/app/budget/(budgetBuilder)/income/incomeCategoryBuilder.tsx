@@ -1,7 +1,7 @@
 "use client";
 import { useMemo, useRef, useState } from "react";
 import {
-  buildInitialAddList,
+  buildHelpCategories,
   convertToFloat,
   parsetoNum,
   setActiveCategories,
@@ -9,7 +9,7 @@ import {
 } from "../../../lib/helpers";
 import { category } from "../../../lib/types";
 import IncomeContainer from "../../../components/Budget/IncomeContainer";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 
 const IncomeCategoryBuilder = ({
   incomeCategories,
@@ -24,55 +24,54 @@ const IncomeCategoryBuilder = ({
   budgetID: number;
   userID: number;
 }) => {
-  // SUPER BUGED OUT RN - the buildinital add list uses incomecategories which uses a non tracked list of categoires. Meaning active versus inactvie is never updated...so It can get out of whack easy
-  // adding userincome categores as a spread in addition to the build causes dupe issues because income cats could already have a "help" item as active, and then gets add again from the buildinitialAdd. so it's added twice during the build add for non-acive categories cause of the untracked issue above
-  // ADDED Temp fix but it is ugly - think I need to refactor here for tracking active/inactive
-  const [userIncomeCategories, setUserIncomeCategories] = useState(
+  const [income, setIncome] = useState(baseIncome);
+  const monthlyIncome = income / 12;
+
+  const [activeIncomeCategories, setActiveIncomeCategories] = useState(
     setActiveCategories(incomeCategories, "income")
   );
-  const [income, setIncome] = useState(baseIncome);
-  const incomeCategoryList = useMemo(() => {
-    const activeCategories = new Set(
-      userIncomeCategories.map((cat) => cat.category)
+  const dropDownCategoryList = useMemo(() => {
+    const alreadyActive = new Set(
+      activeIncomeCategories.map((cat) => cat.category)
     );
-    let initalList = buildInitialAddList(incomeCategories).filter((filter) => {
-      let active = activeCategories.has(filter.category);
-      if (!active) return filter;
-    });
-    let unTrackedActive = setActiveCategories(incomeCategories, "income");
-    const currentList = new Set(initalList.map((cat) => cat.category));
-    let unTracked = unTrackedActive.filter((filter) => {
-      let active =
-        activeCategories.has(filter.category) ||
-        currentList.has(filter.category);
-      if (!active) return filter;
+    let helpCategories = buildHelpCategories(incomeCategories).filter(
+      (filter) => {
+        let active = alreadyActive.has(filter.category);
+        if (!active) return filter;
+      }
+    );
+    let currentDropDown = new Set(helpCategories.map((cat) => cat.category));
+    let inactiveCategories = incomeCategories.filter((filter) => {
+      let active = alreadyActive.has(filter.category);
+      let dropDown = currentDropDown.has(filter.category);
+      if (!active && !dropDown) return { ...filter, active: 0 };
     });
 
-    return sortCategories([...initalList, ...unTracked], "category");
-  }, [userIncomeCategories]);
+    return sortCategories(
+      [...helpCategories, ...inactiveCategories],
+      "category"
+    );
+  }, [activeIncomeCategories]);
 
-  const [displaySaved, setDisplaySaved] = useState(false);
+  /* 
   const [selectedMonth, setSelectedMonth] = useState(
     Math.max(activeBudgetMonthStart, new Date().getMonth())
   );
-  const selectedMonthLong = new Date(
-    `${new Date().getFullYear()}-${selectedMonth + 1}`
-  ).toLocaleString("en-US", { month: "long" });
-
-  const successTimer = useRef<any>();
-  const router = useRouter();
+  */
+  // const saveMonthRef = useRef<any>();
+  // const [displaySaved, setDisplaySaved] = useState(false);
+  // const successTimer = useRef<any>();
+  // const router = useRouter();
   const intervalID = useRef<any>();
   const incomeRef = useRef<any>();
-  const saveMonthRef = useRef<any>();
-  const monthlyIncome = income / 12;
   const incomeSectionBalance =
     monthlyIncome -
-    userIncomeCategories.reduce(
+    activeIncomeCategories.reduce(
       (sum, cat) => (cat.curr * monthlyIncome) / 100 + sum,
       0
     );
 
-  const updateIncome = (input: string) => {
+  const updateBaseIncome = (input: string) => {
     const newValue = input || "";
     const inputValue = incomeRef.current;
     if (inputValue) {
@@ -89,20 +88,23 @@ const IncomeCategoryBuilder = ({
     }, 1000);
   };
 
-  const handleIncomeAmounts = (
+  const updateActiveIncomeInputs = (
     category: category,
     identifier: number,
     remove = false
   ) => {
-    let updateIncome = userIncomeCategories.map((cat, index) => {
+    if (remove) {
+      return setActiveIncomeCategories(() =>
+        activeIncomeCategories.filter((cat, index) => {
+          return index != identifier;
+        })
+      );
+    }
+
+    let newActiveCategories = activeIncomeCategories.map((cat, index) => {
       return index == identifier ? category : cat;
     });
-    if (remove) {
-      updateIncome = userIncomeCategories.filter((cat, index) => {
-        return index != identifier;
-      });
-    }
-    setUserIncomeCategories(() => updateIncome);
+    setActiveIncomeCategories(() => newActiveCategories);
   };
 
   return (
@@ -137,11 +139,11 @@ const IncomeCategoryBuilder = ({
               ref={incomeRef}
               className="text-white"
               style={{ background: "none", width: "90%", fontSize: "1.125rem" }}
-              onChange={(e) => updateIncome(e.target.value)}
+              onChange={(e) => updateBaseIncome(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key == "Backspace") {
                   e.preventDefault();
-                  updateIncome("");
+                  updateBaseIncome("");
                 }
                 if (e.key == "Enter") {
                   e.preventDefault();
@@ -169,7 +171,7 @@ const IncomeCategoryBuilder = ({
 
         {/* Added Categories button and balance remaining*/}
         <span style={{ display: "flex", gap: "15px", margin: "20px auto" }}>
-          {incomeCategoryList.length > 0 && (
+          {dropDownCategoryList.length > 0 && (
             <div
               className="addIncome incomeContainer"
               style={{ borderRadius: "50px", padding: "4px 8px" }}
@@ -188,8 +190,8 @@ const IncomeCategoryBuilder = ({
                       type: "income",
                       active: 1,
                     };
-                    setUserIncomeCategories([
-                      ...userIncomeCategories,
+                    setActiveIncomeCategories([
+                      ...activeIncomeCategories,
                       newIncomeCategory,
                     ]);
                     e.target.value = "Add Category";
@@ -197,8 +199,8 @@ const IncomeCategoryBuilder = ({
                 }}
               >
                 {[
-                  { ...incomeCategoryList[0], category: "Add Category" },
-                  ...incomeCategoryList,
+                  { ...dropDownCategoryList[0], category: "Add Category" },
+                  ...dropDownCategoryList,
                 ].map((cat, index) => (
                   <option
                     key={index}
@@ -229,14 +231,14 @@ const IncomeCategoryBuilder = ({
 
         {/* Added Categories in a list */}
         <div style={{ display: "flex", flexWrap: "wrap", gap: "15px" }}>
-          {userIncomeCategories.map((cat, index) => (
+          {activeIncomeCategories.map((cat, index) => (
             <IncomeContainer
               key={index}
               incomeCategory={cat}
-              categoryList={[cat, ...incomeCategoryList]}
+              categoryList={[cat, ...dropDownCategoryList]}
               monthlyIncome={monthlyIncome}
               index={index}
-              setIncomeCallback={handleIncomeAmounts}
+              setIncomeCallback={updateActiveIncomeInputs}
             />
           ))}
         </div>

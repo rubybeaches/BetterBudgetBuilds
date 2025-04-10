@@ -135,17 +135,35 @@ export const filterExpensesByMonth = (
   );
 };
 
-// filters out non-active categories
+// filters out non-active categories by type
 export const setActiveCategories = (categories: category[], type: string) => {
   return categories.filter((cat) => cat.type == type && cat.active);
 };
 
+// filters out active categories by type
+export const setInactiveCategories = (categories: category[], type: string) => {
+  return categories.filter((cat) => cat.type == type && !cat.active);
+};
+
+// filters out active categories regardless of type
 export const setInactiveCategoryList = (categories: category[]) => {
   return categories.filter((cat) => !cat.active);
 };
 
-// Add/Remove Category Functions - for drop down list of non active categories
+// creates category list from primary categories containing help data
+export const buildHelpCategories = (categories: category[]) => {
+  const addList: category[] = [];
+  categories.map((cat) => {
+    if (cat.help) {
+      cat.help.split(",").map((item) => {
+        addList.push({ ...cat, category: item, help: "" });
+      });
+    }
+  });
+  return addList;
+};
 
+// Add/Remove Category Functions - for drop down list of non active categories
 export const buildInitialAddList = (categories: category[]) => {
   const addList: category[] = [];
   categories.map((cat) => {
