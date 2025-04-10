@@ -5,7 +5,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 
 const mont = Montserrat({
   variable: "--font-mont",
-  weight: ["400", "700"],
+  weight: ["400", "500", "600", "700", "800"],
   style: ["normal", "italic"],
   subsets: ["latin"],
   display: "swap",
