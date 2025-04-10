@@ -1,5 +1,6 @@
 import Image from "next/image";
 import "../page.css";
+import Link from "next/link";
 
 export default function RootLayout({
   children,
@@ -23,18 +24,32 @@ export default function RootLayout({
             padding: "12px",
           }}
         >
-          <li className="text-green border-green">Income</li>
-          <li className="text-blue border-blue">Essentials</li>
-          <li className="text-purple border-purple">Non-Essentials</li>
-          <li className="text-orange border-orange">Savings</li>
-          <li className="text-orange border-orange">Planning</li>
-          <li className="text-red border-red">Loans</li>
+          <li className="text-green border-green">
+            <Link href="/budget/income">Income</Link>
+          </li>
+          <li className="text-blue border-blue">
+            <Link href="/budget/essentials">Essentials</Link>
+          </li>
+          <li className="text-purple border-purple">
+            <Link href="/budget/non-essentials">Non-Essentials</Link>
+          </li>
+          <li className="text-orange border-orange">
+            <Link href="/budget/savings">Savings</Link>
+          </li>
+          <li className="text-orange border-orange">
+            <Link href="/budget/planning">Planning</Link>
+          </li>
+          <li className="text-red border-red">
+            <Link href="/budget/loans">Loans</Link>
+          </li>
           <div
             className="border-rainbow"
             style={{ marginLeft: "auto", borderRadius: "50px" }}
           >
             <li style={{ background: "white", border: "none" }}>
-              <span className="text-rainbow">Review</span>
+              <span className="text-rainbow">
+                <Link href="/budget/review">Review</Link>
+              </span>
             </li>
           </div>
         </ul>
