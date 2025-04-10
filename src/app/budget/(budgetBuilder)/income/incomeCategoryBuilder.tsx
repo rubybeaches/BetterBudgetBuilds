@@ -162,7 +162,7 @@ const IncomeCategoryBuilder = ({
       </section>
 
       {/* Income Section box with monthly breakdown header */}
-      <section className="incomeSection">
+      <section className="categorySection incomeSection">
         {income > 0 && (
           <em className="font-bold text-lg">
             Your monthly allowance is <u>${convertToFloat(monthlyIncome)}</u>
