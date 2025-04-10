@@ -108,9 +108,6 @@ const CategorySection = ({
                 helpCategories={cat.help}
               />
               <span className="sliderWrapper">
-                <p>
-                  <span className="sliderPercent">({cat.min}%)</span>
-                </p>
                 <Slider
                   min={cat.min}
                   max={cat.max}
@@ -118,9 +115,6 @@ const CategorySection = ({
                   index={index}
                   positionSetter={updateTotals}
                 />
-                <p>
-                  <span className="sliderPercent">({cat.max}%)</span>
-                </p>
               </span>
               <div style={{ padding: ".25em" }}>
                 <BudgetInput

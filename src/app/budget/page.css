@@ -461,7 +461,7 @@ div.categorySearchContainer:has(> input[type="text"]) {
 }
 
 div.categorySearchContainer:has(> input[type="text"])::-webkit-scrollbar {
-  display: none;
+  visibility: hidden;
 }
 
 .categorySearchContainer > .addCategoryButton {
