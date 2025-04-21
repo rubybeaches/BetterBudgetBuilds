@@ -1,15 +1,16 @@
+import { redirect } from "next/navigation";
 import { UserAuth } from "../lib/UserAuth";
-import { getActiveBudget } from "../lib/data";
-import { defaultIncomeCategories } from "../lib/helpers";
-import categories from "../lib/seed.json";
-import Budget from "./budgetPage";
+// import { getActiveBudget } from "../lib/data";
+// import { defaultIncomeCategories } from "../lib/helpers";
+// import categories from "../lib/seed.json";
+// import Budget from "./budgetPage";
 
 const Page = async () => {
   const user = await UserAuth();
   if (!user) return null;
 
-  const budget = await getActiveBudget(user.id);
-
+  redirect(`/budget/income`);
+  /*
   return (
     <Budget
       expenseCategories={budget?.expenseCategories || categories}
@@ -24,5 +25,6 @@ const Page = async () => {
       userID={user.id}
     />
   );
+  */
 };
 export default Page;
