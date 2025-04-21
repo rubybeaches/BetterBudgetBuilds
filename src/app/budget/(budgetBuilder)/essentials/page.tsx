@@ -18,14 +18,6 @@ const Page = async () => {
           These expenses represent non-negotiable monthly needs like housing,
           food, and utilities. Typically, this should make up about 60% of your
           monthly income, but between 50% - 75% may be more likely.
-          <Link
-            href={""}
-            className="text-blue"
-            style={{ textDecoration: "underline" }}
-          >
-            baseline tool
-          </Link>{" "}
-          to generate a budget template.
         </p>
       </section>
       {/* EssentialCategoryBuilder */}

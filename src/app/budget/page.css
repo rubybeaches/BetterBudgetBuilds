@@ -29,6 +29,7 @@ section {
 .categorySection {
   padding: 25px;
   border-radius: 25px;
+  margin-top: 40px;
 }
 
 .categorySection.incomeSection {
