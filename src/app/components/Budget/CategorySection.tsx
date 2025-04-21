@@ -29,9 +29,7 @@ const CategorySection = ({
   addCategoryList: category[];
 }) => {
   // load category calculations - $ from saved profile or default %  if null to perform calc
-
   // load % ranges and $ for category along with slider and default slider position based on $ or %
-
   // need running expenses: default monthy total, default percent for essential, category totals, and balnce remaining
   const budgetTotals = categories.reduce(
     (sum, cat) => sum + (cat.curr / 100) * monthlyIncome,
@@ -85,16 +83,16 @@ const CategorySection = ({
 
   return (
     <span id={type}>
-      <h3 id="sectionHeader">
-        {type} <em>({percentTemplate * 100}%)</em>
-      </h3>
+      <div style={{ position: "relative" }}>
+        <AddCategory
+          addCategoryList={addCategoryList}
+          addCategory={addCategory}
+        />
+      </div>
       <div className="sectionContainer">
         <div>
           {categories.map((cat, index) => (
-            <div
-              key={index}
-              className={`categoryRow ${index % 2 == 0 ? "rowBG" : ""}`}
-            >
+            <div key={index} className="categoryRow">
               <div
                 className="removeCategory"
                 onClick={() => removeCategory(index)}
@@ -107,9 +105,6 @@ const CategorySection = ({
                 helpCategories={cat.help}
               />
               <span className="sliderWrapper">
-                <p>
-                  <span className="sliderPercent">({cat.min}%)</span>
-                </p>
                 <Slider
                   min={cat.min}
                   max={cat.max}
@@ -133,10 +128,6 @@ const CategorySection = ({
               </div>
             </div>
           ))}
-          <AddCategory
-            addCategoryList={addCategoryList}
-            addCategory={addCategory}
-          />
         </div>
         <div className="graphContainer">
           <span>
@@ -155,7 +146,7 @@ const CategorySection = ({
                 className="innerBar"
                 style={{ height: `${barHeight}px` }}
               ></div>
-              <p>${convertToFloat(budgetTotals)}</p>
+              <p style={{ color: "white" }}>${convertToFloat(budgetTotals)}</p>
             </div>
             <div className="budgetTotalChart">
               <p>${budgetEstimate.toFixed()}</p>
@@ -173,8 +164,8 @@ const CategorySection = ({
           >
             <p>Selected Totals</p>
             <p>
-              {percentTemplate * 100}% of
-              <strong> ${convertToFloat(monthlyIncome)}</strong>
+              <strong> ${convertToFloat(monthlyIncome)}</strong> *{" "}
+              {percentTemplate * 100}%
             </p>
           </span>
         </div>

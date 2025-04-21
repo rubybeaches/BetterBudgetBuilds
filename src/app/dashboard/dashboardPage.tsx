@@ -41,7 +41,7 @@ const Dashboard = ({
   const { replace } = useRouter();
 
   const changeMonth = (month: string) => {
-    const params = new URLSearchParams(sParams);
+    const params = new URLSearchParams(sParams.toString());
     params.set("month", month);
     replace(`${pathname}?${params.toString()}`, { scroll: false });
   };
@@ -99,7 +99,14 @@ const Dashboard = ({
   const negativeBudgetBool = netBudgetTotal < 0;
 
   return (
-    <main className="main">
+    <main
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "1em",
+        padding: "3rem 5rem",
+      }}
+    >
       <h2 className="monthTitle">
         <span>
           <select

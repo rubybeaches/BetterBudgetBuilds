@@ -1,10 +1,48 @@
-body {
-  background-color: #096012;
+body:has(.green-bg) {
+  background-color: #30df30;
+}
+body:has(.green-bg) li.border-green {
+  background-color: #30df30;
+  color: white;
 }
 
+body:has(.blue-bg) {
+  background-color: #467af8;
+}
+body:has(.blue-bg) li.border-blue {
+  background-color: #467af8;
+  color: white;
+}
+
+nav ul li {
+  border: #323232 2px solid;
+  padding: 4px 10px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+section {
+  margin: 20px auto;
+}
+
+.categorySection {
+  padding: 25px;
+  border-radius: 25px;
+  margin-top: 40px;
+}
+
+.categorySection.incomeSection {
+  background-color: #d0ffd0;
+}
+
+.categorySection.essentialSection {
+  background-color: #d7e8fb;
+}
+
+/*
 .main.budgetTop {
   min-height: auto;
-  color: white;
   position: relative;
   align-items: center;
 }
@@ -23,6 +61,7 @@ body {
   background-color: #30df30;
   position: absolute;
 }
+  */
 
 .left {
   top: 0;
@@ -62,16 +101,6 @@ body {
   position: relative;
   z-index: 0;
   max-width: 1280px;
-}
-
-#income {
-  display: flex;
-  gap: 1em;
-  align-items: center;
-}
-
-#income span {
-  color: #323232;
 }
 
 .baseBar {
@@ -144,28 +173,28 @@ body {
   fill: #7057ed;
 }
 
-.incomeSection {
-  display: flex;
-  gap: 1em;
-  flex-wrap: wrap;
-}
-
-#addIncomeCategory,
-#addIncomeCategory select {
+.addIncome,
+.addIncome select {
   border-radius: 50px;
+  background: white;
+  padding: 4px 8px;
+  width: fit-content;
+  margin: auto 0px;
 }
 
 .incomeContainer {
-  background-color: #d0ffd0;
-  padding: 12px;
+  background-color: white;
+  padding: 10px;
   display: flex;
   gap: 12px;
   width: fit-content;
   border-radius: 6px;
   color: #30df30;
+  box-shadow: 4px 4px 0px 0px #30df30;
 }
 
-.incomeContainer select {
+.incomeContainer select,
+.addIncome select {
   border: none;
   outline: none;
   background-color: #d0ffd0;
@@ -196,8 +225,8 @@ body {
 
 .sectionContainer {
   display: flex;
-  gap: 1em;
-  flex-wrap: wrap;
+  gap: 1.5em;
+  flex-wrap: nowrap;
 }
 
 .sectionContainer > div:first-child {
@@ -210,8 +239,9 @@ body {
   font-weight: 500;
   padding-left: 30px;
   position: relative;
-  margin-bottom: 3px;
+  margin-bottom: 15px;
   border-radius: 6px;
+  background-color: white;
 }
 
 .categoryRow:first-child {
@@ -237,13 +267,11 @@ body {
 }
 
 .categoryTitle {
-  font-size: 1.1em;
+  font-size: 1em;
   margin-right: 10px;
 }
 
 .categoryTitleUnderline {
-  font-size: 1.1em;
-  margin-right: 10px;
   border-bottom: 2px dashed #323232;
 }
 
@@ -251,8 +279,9 @@ body {
   position: absolute;
   z-index: 99;
   min-height: 150px;
+  max-height: 250px;
+  overflow-y: scroll;
   top: 10px;
-  left: 22px;
   width: 400px;
   background-color: #fff;
   border: #323232 3px solid;
@@ -271,10 +300,12 @@ body {
 
 .showElement {
   visibility: visible;
+  display: block;
 }
 
 .hideElement {
   visibility: hidden;
+  display: none;
 }
 
 div:has(> input[type="text"]) {
@@ -285,20 +316,6 @@ div:has(> input[type="text"]) {
   font-size: 1em;
   font-weight: 600;
   width: fit-content;
-}
-
-div.categorySearchContainer:has(> input[type="text"]) {
-  border-radius: 20px;
-  border: 2px solid #323232;
-  background-color: #fff;
-  padding: 4px 12px;
-  position: absolute;
-  z-index: 99;
-  right: 0;
-  top: -20px;
-  font-size: 0.9em;
-  box-shadow: 2px 4px 12px 0px #d5d5d5;
-  font-weight: 400;
 }
 
 input[type="text"] {
@@ -313,7 +330,7 @@ input[type="text"] {
 .slider {
   -webkit-appearance: none;
   appearance: none;
-  width: 260px;
+  width: 200px;
   height: 6px;
   border-radius: 5px;
   background: #323232;
@@ -339,7 +356,7 @@ input[type="text"] {
 .summaryTotals {
   align-self: flex-end;
   font-weight: 700;
-  font-size: 1.2em;
+  font-size: 1.15em;
   font-style: italic;
   padding-left: 24px;
   position: relative;
@@ -380,7 +397,7 @@ input[type="text"] {
   padding: 5px 10px;
   border-radius: 20px;
   font-weight: 500;
-  font-size: 1.1em;
+  font-size: 1em;
 }
 
 .budgetGraph {
@@ -396,18 +413,17 @@ input[type="text"] {
 .budgetTotalChart {
   height: 150px;
   border-radius: 10px;
-  background-color: #eee;
-  width: 110px;
+  background-color: white;
+  width: 100px;
   display: flex;
   position: relative;
 }
 
 .budgetTotalChart .innerBar {
   position: absolute;
-  width: 110px;
+  width: 100px;
   background-color: #fff;
   border-radius: 10px;
-  z-index: -1;
   bottom: 0;
   height: 150px;
 }
@@ -416,19 +432,39 @@ input[type="text"] {
   margin: auto;
   font-weight: 700;
   font-style: italic;
-  font-size: 1.2em;
+  font-size: 1.1em;
+  position: relative;
+  z-index: 2;
 }
 
 .addCategoryButton {
   border-radius: 20px;
-  border: 2px solid #323232;
   padding: 4px 12px;
   cursor: pointer;
-  position: absolute;
-  right: 0;
-  top: -20px;
-  font-size: 0.8em;
   font-weight: 600;
+  font-size: 0.875em;
+  width: fit-content;
+  background-color: white;
+}
+
+div.categorySearchContainer:has(> input[type="text"]) {
+  border-radius: 20px;
+  border: 2px solid #323232;
+  background-color: #fff;
+  padding: 4px 12px;
+  font-size: 0.9em;
+  box-shadow: 2px 4px 12px 0px #d5d5d5;
+  font-weight: 400;
+  max-height: 250px;
+  overflow: scroll;
+  position: relative;
+  z-index: 99;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+div.categorySearchContainer:has(> input[type="text"])::-webkit-scrollbar {
+  visibility: hidden;
 }
 
 .categorySearchContainer > .addCategoryButton {
@@ -526,9 +562,21 @@ p.addListItem:first-child {
 
 /****** Section Specific Colors ******/
 
+.green-bg {
+  background-color: #30df30;
+}
+
 #Essentials,
 #Essentials .categoryRow input[type="text"] {
   color: #467af8;
+}
+
+#Essentials .categoryRow {
+  box-shadow: 5px 5px #467af8;
+}
+
+#Essentials .addCategoryButton {
+  box-shadow: 3px 4px #467af8;
 }
 
 #Essentials .slider {
@@ -541,23 +589,19 @@ p.addListItem:first-child {
 #Essentials .categoryRow div:has(> input[type="text"]),
 #Essentials .budgetGraph,
 #Essentials .categoryHelpText,
-#Essentials .addCategoryButton,
 #Essentials .categoryTitleUnderline,
 #Essentials .categorySearchContainer {
   border-color: #467af8;
 }
 
-#Essentials .budgetTotalChart,
 #Essentials .removeCategory,
-#Essentials .categoryRow.rowBG,
-#Essentials .graphHeader,
 #Essentials p.addListItem:hover,
 #Essentials .addCategoryButton:hover {
   background-color: #f0f4fe;
 }
 
 #Essentials .budgetTotalChart .innerBar {
-  background-color: #d7e8fb;
+  background-color: #467af8;
 }
 
 #Essentials .budgetTotalChart:first-child,
@@ -589,7 +633,6 @@ p.addListItem:first-child {
 
 #Non-Essentials .budgetTotalChart,
 #Non-Essentials .removeCategory,
-#Non-Essentials .categoryRow.rowBG,
 #Non-Essentials .graphHeader,
 #Non-Essentials p.addListItem:hover,
 #Non-Essentials .addCategoryButton:hover {
@@ -623,7 +666,6 @@ p.addListItem:first-child {
 
 #Savings .budgetTotalChart,
 #Savings .removeCategory,
-#Savings .categoryRow.rowBG,
 #Savings .graphHeader,
 #Savings p.addListItem:hover,
 #Savings .addCategoryButton:hover {
@@ -656,6 +698,9 @@ p.addListItem:first-child {
     visibility: hidden;
     appearance: none;
     width: 0;
+  }
+  .sectionContainer {
+    flex-wrap: wrap;
   }
 }
 

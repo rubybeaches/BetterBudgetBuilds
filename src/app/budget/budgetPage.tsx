@@ -211,7 +211,7 @@ const Budget = ({
 
   return (
     <>
-      <main className="main budgetTop">
+      <main className="main budgetTop" style={{ backgroundColor: "#096012" }}>
         <span className="borderTop"></span>
         <span className="border left"></span>
         <span className="border right"></span>

@@ -1,10 +1,6 @@
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
-  --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
-    "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
-    "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
-
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -92,16 +88,87 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  font-family: var(--font-mont);
 }
 
-.main {
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-  padding: 3rem 5rem;
-  min-height: 100vh;
-  color: #323232;
+.mx-auto {
+  margin: auto;
 }
+
+.max-w-2xl {
+  max-width: 42rem; /* 42rem (672px) */
+}
+.max-w-3xl {
+  max-width: 48rem; /*  (768px) */
+}
+.max-w-4xl {
+  max-width: 56rem; /* 56rem (896px) */
+}
+.max-w-5xl {
+  max-width: 64rem; /* 56rem (896px) */
+}
+
+.font-bold {
+  font-weight: 600;
+}
+
+.text-green {
+  color: #30df30;
+}
+.text-blue {
+  color: #467af8;
+}
+.text-purple {
+  color: #9c32e2;
+}
+.text-orange {
+  color: #ffa73d;
+}
+.text-red {
+  color: #ff2955;
+}
+.text-rainbow {
+  background: linear-gradient(122deg, #467af8, #9c32e2, #ff2955, #ffb15a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.text-white {
+  color: white;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+}
+.text-7xl {
+  font-size: 4.5rem;
+}
+
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.border-green {
+  border-color: #30df30;
+}
+.border-blue {
+  border-color: #467af8;
+}
+.border-purple {
+  border-color: #9c32e2;
+}
+.border-orange {
+  border-color: #ffa73d;
+}
+.border-red {
+  border-color: #ff2955;
+}
+.border-rainbow {
+  background: linear-gradient(122deg, #467af8, #9c32e2, #ff2955, #ffb15a);
+  padding: 2px;
+}
+
+/* color: #323232; */
 
 .filter {
   width: fit-content;
@@ -121,24 +188,18 @@ body {
   font-weight: 600;
 }
 
-@media screen and (max-width: 650px) {
-  .main {
-    padding: 1rem 1rem;
-  }
-}
-
+/*
 body {
   color: rgb(var(--foreground-rgb));
-  /* background: linear-gradient(135deg, #F0F4FE, #F7EFFD 25%, #FECFDF 75%, #FFF7EE 100%); */
-  /* 
+  background: linear-gradient(135deg, #F0F4FE, #F7EFFD 25%, #FECFDF 75%, #FFF7EE 100%);
   background: linear-gradient(
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
-    */
 }
+*/
 
 a {
   color: inherit;
