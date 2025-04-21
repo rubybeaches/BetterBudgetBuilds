@@ -41,7 +41,7 @@ const Dashboard = ({
   const { replace } = useRouter();
 
   const changeMonth = (month: string) => {
-    const params = new URLSearchParams(sParams);
+    const params = new URLSearchParams(sParams.toString());
     params.set("month", month);
     replace(`${pathname}?${params.toString()}`, { scroll: false });
   };
