@@ -279,8 +279,9 @@ section {
   position: absolute;
   z-index: 99;
   min-height: 150px;
+  max-height: 250px;
+  overflow-y: scroll;
   top: 10px;
-  left: 22px;
   width: 400px;
   background-color: #fff;
   border: #323232 3px solid;
