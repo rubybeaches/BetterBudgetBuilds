@@ -92,10 +92,7 @@ const CategorySection = ({
       <div className="sectionContainer">
         <div>
           {categories.map((cat, index) => (
-            <div
-              key={index}
-              className={`categoryRow ${index % 2 == 0 ? "rowBG" : ""}`}
-            >
+            <div key={index} className="categoryRow">
               <div
                 className="removeCategory"
                 onClick={() => removeCategory(index)}
@@ -115,6 +112,9 @@ const CategorySection = ({
                   index={index}
                   positionSetter={updateTotals}
                 />
+                <p>
+                  <span className="sliderPercent">({cat.max}%)</span>
+                </p>
               </span>
               <div style={{ padding: ".25em" }}>
                 <BudgetInput
@@ -146,7 +146,7 @@ const CategorySection = ({
                 className="innerBar"
                 style={{ height: `${barHeight}px` }}
               ></div>
-              <p>${convertToFloat(budgetTotals)}</p>
+              <p style={{ color: "white" }}>${convertToFloat(budgetTotals)}</p>
             </div>
             <div className="budgetTotalChart">
               <p>${budgetEstimate.toFixed()}</p>
@@ -164,8 +164,8 @@ const CategorySection = ({
           >
             <p>Selected Totals</p>
             <p>
-              {percentTemplate * 100}% of
-              <strong> ${convertToFloat(monthlyIncome)}</strong>
+              <strong> ${convertToFloat(monthlyIncome)}</strong> *{" "}
+              {percentTemplate * 100}%
             </p>
           </span>
         </div>

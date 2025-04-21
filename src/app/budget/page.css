@@ -224,8 +224,8 @@ section {
 
 .sectionContainer {
   display: flex;
-  gap: 1em;
-  flex-wrap: wrap;
+  gap: 1.5em;
+  flex-wrap: nowrap;
 }
 
 .sectionContainer > div:first-child {
@@ -238,8 +238,9 @@ section {
   font-weight: 500;
   padding-left: 30px;
   position: relative;
-  margin-bottom: 3px;
+  margin-bottom: 15px;
   border-radius: 6px;
+  background-color: white;
 }
 
 .categoryRow:first-child {
@@ -265,13 +266,11 @@ section {
 }
 
 .categoryTitle {
-  font-size: 1.1em;
+  font-size: 1em;
   margin-right: 10px;
 }
 
 .categoryTitleUnderline {
-  font-size: 1.1em;
-  margin-right: 10px;
   border-bottom: 2px dashed #323232;
 }
 
@@ -329,7 +328,7 @@ input[type="text"] {
 .slider {
   -webkit-appearance: none;
   appearance: none;
-  width: 260px;
+  width: 200px;
   height: 6px;
   border-radius: 5px;
   background: #323232;
@@ -355,7 +354,7 @@ input[type="text"] {
 .summaryTotals {
   align-self: flex-end;
   font-weight: 700;
-  font-size: 1.2em;
+  font-size: 1.15em;
   font-style: italic;
   padding-left: 24px;
   position: relative;
@@ -396,7 +395,7 @@ input[type="text"] {
   padding: 5px 10px;
   border-radius: 20px;
   font-weight: 500;
-  font-size: 1.1em;
+  font-size: 1em;
 }
 
 .budgetGraph {
@@ -412,18 +411,17 @@ input[type="text"] {
 .budgetTotalChart {
   height: 150px;
   border-radius: 10px;
-  background-color: #eee;
-  width: 110px;
+  background-color: white;
+  width: 100px;
   display: flex;
   position: relative;
 }
 
 .budgetTotalChart .innerBar {
   position: absolute;
-  width: 110px;
+  width: 100px;
   background-color: #fff;
   border-radius: 10px;
-  z-index: -1;
   bottom: 0;
   height: 150px;
 }
@@ -432,16 +430,19 @@ input[type="text"] {
   margin: auto;
   font-weight: 700;
   font-style: italic;
-  font-size: 1.2em;
+  font-size: 1.1em;
+  position: relative;
+  z-index: 2;
 }
 
 .addCategoryButton {
   border-radius: 20px;
-  border: 2px solid #323232;
   padding: 4px 12px;
   cursor: pointer;
-  font-size: 0.8em;
   font-weight: 600;
+  font-size: 0.875em;
+  width: fit-content;
+  background-color: white;
 }
 
 div.categorySearchContainer:has(> input[type="text"]) {
@@ -449,13 +450,13 @@ div.categorySearchContainer:has(> input[type="text"]) {
   border: 2px solid #323232;
   background-color: #fff;
   padding: 4px 12px;
-  position: absolute;
-  z-index: 99;
   font-size: 0.9em;
   box-shadow: 2px 4px 12px 0px #d5d5d5;
   font-weight: 400;
-  max-height: 350px;
-  overflow: hidden;
+  max-height: 250px;
+  overflow: scroll;
+  position: relative;
+  z-index: 99;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
@@ -568,6 +569,14 @@ p.addListItem:first-child {
   color: #467af8;
 }
 
+#Essentials .categoryRow {
+  box-shadow: 5px 5px #467af8;
+}
+
+#Essentials .addCategoryButton {
+  box-shadow: 3px 4px #467af8;
+}
+
 #Essentials .slider {
   background: #467af8;
 }
@@ -578,23 +587,19 @@ p.addListItem:first-child {
 #Essentials .categoryRow div:has(> input[type="text"]),
 #Essentials .budgetGraph,
 #Essentials .categoryHelpText,
-#Essentials .addCategoryButton,
 #Essentials .categoryTitleUnderline,
 #Essentials .categorySearchContainer {
   border-color: #467af8;
 }
 
-#Essentials .budgetTotalChart,
 #Essentials .removeCategory,
-#Essentials .categoryRow.rowBG,
-#Essentials .graphHeader,
 #Essentials p.addListItem:hover,
 #Essentials .addCategoryButton:hover {
   background-color: #f0f4fe;
 }
 
 #Essentials .budgetTotalChart .innerBar {
-  background-color: #d7e8fb;
+  background-color: #467af8;
 }
 
 #Essentials .budgetTotalChart:first-child,
@@ -626,7 +631,6 @@ p.addListItem:first-child {
 
 #Non-Essentials .budgetTotalChart,
 #Non-Essentials .removeCategory,
-#Non-Essentials .categoryRow.rowBG,
 #Non-Essentials .graphHeader,
 #Non-Essentials p.addListItem:hover,
 #Non-Essentials .addCategoryButton:hover {
@@ -660,7 +664,6 @@ p.addListItem:first-child {
 
 #Savings .budgetTotalChart,
 #Savings .removeCategory,
-#Savings .categoryRow.rowBG,
 #Savings .graphHeader,
 #Savings p.addListItem:hover,
 #Savings .addCategoryButton:hover {
@@ -693,6 +696,9 @@ p.addListItem:first-child {
     visibility: hidden;
     appearance: none;
     width: 0;
+  }
+  .sectionContainer {
+    flex-wrap: wrap;
   }
 }
 

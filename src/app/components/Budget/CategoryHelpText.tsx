@@ -14,7 +14,9 @@ const CategoryHelpText = ({
   return (
     <>
       <p
-        className={showHelp ? "categoryTitleUnderline" : "categoryTitle"}
+        className={
+          showHelp ? "categoryTitle categoryTitleUnderline" : "categoryTitle"
+        }
         onMouseEnter={() => setHelpTextBool(() => true)}
       >
         {categoryTitle}

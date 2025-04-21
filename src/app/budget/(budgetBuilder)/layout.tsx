@@ -63,7 +63,7 @@ export default function RootLayout({
       />
       {children}
       <footer
-        style={{ margin: "20px auto", textAlign: "center" }}
+        style={{ margin: "20px auto", textAlign: "center", marginTop: "50px" }}
         className="text-white"
       >
         ©2025 Better Budget Builds LLC. All rights reserved
