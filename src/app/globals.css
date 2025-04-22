@@ -112,16 +112,20 @@ body {
   font-weight: 600;
 }
 
-.text-green {
+.text-green,
+.Income-text {
   color: #30df30;
 }
-.text-blue {
+.text-blue,
+.Essentials-text {
   color: #467af8;
 }
-.text-purple {
+.text-purple,
+.Non-Essentials-text {
   color: #9c32e2;
 }
-.text-orange {
+.text-orange,
+.Savings-text {
   color: #ffa73d;
 }
 .text-red {
