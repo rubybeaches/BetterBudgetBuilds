@@ -146,7 +146,11 @@ const CategorySection = ({
                 className="innerBar"
                 style={{ height: `${barHeight}px` }}
               ></div>
-              <p style={{ color: "white" }}>${convertToFloat(budgetTotals)}</p>
+              <p
+                className={`${barHeight > 70 ? "text-white" : `${type}-text`}`}
+              >
+                ${convertToFloat(budgetTotals)}
+              </p>
             </div>
             <div className="budgetTotalChart">
               <p>${budgetEstimate.toFixed()}</p>

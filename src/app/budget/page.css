@@ -14,6 +14,14 @@ body:has(.blue-bg) li.border-blue {
   color: white;
 }
 
+body:has(.purple-bg) {
+  background-color: #9c32e2;
+}
+body:has(.purple-bg) li.border-purple {
+  background-color: #9c32e2;
+  color: white;
+}
+
 nav ul li {
   border: #323232 2px solid;
   padding: 4px 10px;
@@ -38,6 +46,10 @@ section {
 
 .categorySection.essentialSection {
   background-color: #d7e8fb;
+}
+
+.categorySection.nonEssentialSection {
+  background-color: #f0f4fe;
 }
 
 /*
@@ -615,6 +627,14 @@ p.addListItem:first-child {
   color: #9c32e2;
 }
 
+#Non-Essentials .categoryRow {
+  box-shadow: 5px 5px #9c32e2;
+}
+
+#Non-Essentials .addCategoryButton {
+  box-shadow: 3px 4px #9c32e2;
+}
+
 #Non-Essentials .slider {
   background: #9c32e2;
 }
@@ -631,16 +651,14 @@ p.addListItem:first-child {
   border-color: #9c32e2;
 }
 
-#Non-Essentials .budgetTotalChart,
 #Non-Essentials .removeCategory,
-#Non-Essentials .graphHeader,
 #Non-Essentials p.addListItem:hover,
 #Non-Essentials .addCategoryButton:hover {
   background-color: #f7effd;
 }
 
 #Non-Essentials .budgetTotalChart .innerBar {
-  background-color: #ecd0ff;
+  background-color: #9c32e2;
 }
 
 #Savings,

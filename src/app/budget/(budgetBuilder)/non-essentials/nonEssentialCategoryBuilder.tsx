@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   buildInitialAddList,
   setActiveCategories,
@@ -9,7 +9,7 @@ import { category } from "../../../lib/types";
 import CategorySection from "@/app/components/Budget/CategorySection";
 // import { useRouter } from "next/navigation";
 
-const EssentialCategoryBuilder = ({
+const NonEssentialCategoryBuilder = ({
   expenseCategories,
   baseIncome,
   activeBudgetMonthStart,
@@ -27,9 +27,14 @@ const EssentialCategoryBuilder = ({
 
   const [userCategories, setUserCategories] = useState(expenseCategories);
 
+  // for calculations
+  const essentialCategories = useMemo(() => {
+    return setActiveCategories(userCategories, "essential");
+  }, [userCategories]);
+
   // handle the ongoing category list states of essentials
-  const [essentialCategories, setEssentialCategories] = useState(
-    setActiveCategories(userCategories, "essential")
+  const [nonEssentialCategories, setNonEssentialCategories] = useState(
+    setActiveCategories(userCategories, "non-essential")
   );
 
   // handle ongoing state of categories removed by user
@@ -67,16 +72,22 @@ const EssentialCategoryBuilder = ({
 
   return (
     <CategorySection
-      categories={essentialCategories}
-      setCategories={setEssentialCategories}
-      type="Essentials"
+      categories={nonEssentialCategories}
+      setCategories={setNonEssentialCategories}
+      type="Non-Essentials"
       monthlyIncome={monthlyIncome || 0}
-      percentTemplate={0.6}
-      startingBalance={monthlyIncome}
+      percentTemplate={0.3}
+      startingBalance={
+        monthlyIncome -
+        essentialCategories.reduce(
+          (sum, cat) => sum + (cat.curr / 100) * monthlyIncome,
+          0
+        )
+      }
       removedCategories={handleAddCategoryList}
       addCategoryList={addCategoryList}
     />
   );
 };
 
-export default EssentialCategoryBuilder;
+export default NonEssentialCategoryBuilder;
