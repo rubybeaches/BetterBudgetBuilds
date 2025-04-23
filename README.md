@@ -1,4 +1,4 @@
-## The Ultimate Budget - (development in progress)
+## The Ultimate Budget
 Not your typical budget portfolio project. I am a personal follower of FIRE, and have been budgeting for nearly ten years, since I graduated college and entered the workforce. Using my decade of personal experience, and several test runs and templates in excel and google sheets, I applied my background in user experience to formulate the most comprehensive budgeting application. It includes a budget calculator using demographic percentages for the US based on income, default template categories, a system for implementing recurring expenses and income, as well as in budget connections to savings goals such as for an emergency fund or yearly expenses like car insurance - baked into monthly and weekly expense planning...and more! [Vist the site here, or click image below](https://better-budget-builds.vercel.app/)
 
-<a href="https://better-budget-builds.vercel.app/" target="_blank"><img width="750" alt="Budget Design" src="https://github.com/rubybeaches/rubybeaches/assets/93539953/1cb84ab3-1e1e-4a1d-8600-09615a3e0e99"></a>
+<a href="https://better-budget-builds.vercel.app/" target="_blank"><img width="750" alt="Budget Design" src="https://github.com/user-attachments/assets/240095be-08f8-49b7-92a7-1e0a10ca8161"></a>
