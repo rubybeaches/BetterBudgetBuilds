@@ -12,7 +12,7 @@ const CategoryHelpText = ({
   const [helpTextBool, setHelpTextBool] = useState(false);
 
   return (
-    <>
+    <div onMouseLeave={() => setHelpTextBool(() => false)}>
       <p
         className={
           showHelp ? "categoryTitle categoryTitleUnderline" : "categoryTitle"
@@ -39,7 +39,7 @@ const CategoryHelpText = ({
           <p key={index}>{cat}</p>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
