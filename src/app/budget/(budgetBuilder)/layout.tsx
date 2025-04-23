@@ -33,10 +33,10 @@ export default function RootLayout({
           <li className="text-purple border-purple">
             <Link href="/budget/non-essentials">Non-Essentials</Link>
           </li>
-          <li className="text-orange border-orange">
+          <li className="text-orange border-orange savings">
             <Link href="/budget/savings">Savings</Link>
           </li>
-          <li className="text-orange border-orange">
+          <li className="text-orange border-orange planning">
             <Link href="/budget/planning">Planning</Link>
           </li>
           <li className="text-red border-red">

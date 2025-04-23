@@ -22,6 +22,14 @@ body:has(.purple-bg) li.border-purple {
   color: white;
 }
 
+body:has(.orange-bg) {
+  background-color: #ff9900;
+}
+body:has(.orange-bg) li.border-orange.savings {
+  background-color: #ff9900;
+  color: white;
+}
+
 nav ul li {
   border: #323232 2px solid;
   padding: 4px 10px;
@@ -50,6 +58,10 @@ section {
 
 .categorySection.nonEssentialSection {
   background-color: #f0f4fe;
+}
+
+.categorySection.savingsSection {
+  background-color: #fce5cd;
 }
 
 /*
@@ -663,11 +675,19 @@ p.addListItem:first-child {
 
 #Savings,
 #Savings .categoryRow input[type="text"] {
-  color: #ffa73d;
+  color: #ff9900;
+}
+
+#Savings .categoryRow {
+  box-shadow: 5px 5px #ff9900;
+}
+
+#Savings .addCategoryButton {
+  box-shadow: 3px 4px #ff9900;
 }
 
 #Savings .slider {
-  background: #ffa73d;
+  background: #ff9900;
 }
 
 #Savings .slider::-webkit-slider-thumb,
@@ -679,19 +699,18 @@ p.addListItem:first-child {
 #Savings .addCategoryButton,
 #Savings .categoryTitleUnderline,
 #Savings .categorySearchContainer {
-  border-color: #ffa73d;
+  border-color: #ff9900;
 }
 
 #Savings .budgetTotalChart,
 #Savings .removeCategory,
-#Savings .graphHeader,
 #Savings p.addListItem:hover,
 #Savings .addCategoryButton:hover {
   background-color: #fff7ee;
 }
 
 #Savings .budgetTotalChart .innerBar {
-  background-color: #fce5cd;
+  background-color: #ff9900;
 }
 
 @media (max-width: 1024px) {

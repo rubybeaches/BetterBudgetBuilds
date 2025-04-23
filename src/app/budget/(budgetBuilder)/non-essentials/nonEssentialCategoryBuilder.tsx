@@ -28,8 +28,11 @@ const NonEssentialCategoryBuilder = ({
   const [userCategories, setUserCategories] = useState(expenseCategories);
 
   // for calculations
-  const essentialCategories = useMemo(() => {
-    return setActiveCategories(userCategories, "essential");
+  const essentialTotal = useMemo(() => {
+    return setActiveCategories(userCategories, "essential").reduce(
+      (sum, cat) => sum + (cat.curr / 100) * monthlyIncome,
+      0
+    );
   }, [userCategories]);
 
   // handle the ongoing category list states of essentials
@@ -77,13 +80,7 @@ const NonEssentialCategoryBuilder = ({
       type="Non-Essentials"
       monthlyIncome={monthlyIncome || 0}
       percentTemplate={0.3}
-      startingBalance={
-        monthlyIncome -
-        essentialCategories.reduce(
-          (sum, cat) => sum + (cat.curr / 100) * monthlyIncome,
-          0
-        )
-      }
+      startingBalance={monthlyIncome - essentialTotal}
       removedCategories={handleAddCategoryList}
       addCategoryList={addCategoryList}
     />
