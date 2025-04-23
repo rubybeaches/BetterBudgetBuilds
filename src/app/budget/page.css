@@ -22,6 +22,40 @@ body:has(.purple-bg) li.border-purple {
   color: white;
 }
 
+body:has(.orange-bg) {
+  background-color: #ff9900;
+}
+body:has(.orange-bg.planning) li.border-orange.planning {
+  background-color: #ff9900;
+  color: white;
+}
+body:has(.orange-bg.savings) li.border-orange.savings {
+  background-color: #ff9900;
+  color: white;
+}
+
+body:has(.red-bg) {
+  background-color: #ff2955;
+}
+body:has(.red-bg) li.border-red {
+  background-color: #ff2955;
+  color: white;
+}
+
+div.border-rainbow li {
+  background: white;
+}
+
+body:has(.rainbow-bg),
+body:has(.rainbow-bg) div.border-rainbow li {
+  background: linear-gradient(122deg, #467af8, #9c32e2, #ff2955, #ffb15a);
+}
+body:has(.rainbow-bg) li span.text-rainbow {
+  background: none;
+  color: white;
+  -webkit-text-fill-color: white;
+}
+
 nav ul li {
   border: #323232 2px solid;
   padding: 4px 10px;
@@ -50,6 +84,10 @@ section {
 
 .categorySection.nonEssentialSection {
   background-color: #f0f4fe;
+}
+
+.categorySection.savingsSection {
+  background-color: #fce5cd;
 }
 
 /*
@@ -663,11 +701,19 @@ p.addListItem:first-child {
 
 #Savings,
 #Savings .categoryRow input[type="text"] {
-  color: #ffa73d;
+  color: #ff9900;
+}
+
+#Savings .categoryRow {
+  box-shadow: 5px 5px #ff9900;
+}
+
+#Savings .addCategoryButton {
+  box-shadow: 3px 4px #ff9900;
 }
 
 #Savings .slider {
-  background: #ffa73d;
+  background: #ff9900;
 }
 
 #Savings .slider::-webkit-slider-thumb,
@@ -679,19 +725,17 @@ p.addListItem:first-child {
 #Savings .addCategoryButton,
 #Savings .categoryTitleUnderline,
 #Savings .categorySearchContainer {
-  border-color: #ffa73d;
+  border-color: #ff9900;
 }
 
-#Savings .budgetTotalChart,
 #Savings .removeCategory,
-#Savings .graphHeader,
 #Savings p.addListItem:hover,
 #Savings .addCategoryButton:hover {
   background-color: #fff7ee;
 }
 
 #Savings .budgetTotalChart .innerBar {
-  background-color: #fce5cd;
+  background-color: #ff9900;
 }
 
 @media (max-width: 1024px) {

@@ -4,18 +4,20 @@ import {
   buildInitialAddList,
   setActiveCategories,
   setInactiveCategoryList,
-} from "../../../lib/helpers";
-import { category } from "../../../lib/types";
+} from "@/app/lib/helpers";
+import { category } from "@/app/lib/types";
 import CategorySection from "@/app/components/Budget/CategorySection";
 // import { useRouter } from "next/navigation";
 
-const NonEssentialCategoryBuilder = ({
+const CategoryBuilder = ({
+  type,
   expenseCategories,
   baseIncome,
   activeBudgetMonthStart,
   budgetID,
   userID,
 }: {
+  type: string;
   expenseCategories: category[];
   baseIncome: number;
   activeBudgetMonthStart: number;
@@ -27,17 +29,32 @@ const NonEssentialCategoryBuilder = ({
 
   const [userCategories, setUserCategories] = useState(expenseCategories);
 
-  // for calculations
-  const essentialTotal = useMemo(() => {
-    return setActiveCategories(userCategories, "essential").reduce(
-      (sum, cat) => sum + (cat.curr / 100) * monthlyIncome,
-      0
-    );
+  // starting balance calculation
+  const priorBalances = useMemo(() => {
+    let essentialTotals = setActiveCategories(
+      userCategories,
+      "essential"
+    ).reduce((sum, cat) => sum + (cat.curr / 100) * monthlyIncome, 0);
+
+    let nonEssentialTotals = setActiveCategories(
+      userCategories,
+      "non-essential"
+    ).reduce((sum, cat) => sum + (cat.curr / 100) * monthlyIncome, 0);
+
+    if (type == "Essentials") {
+      return monthlyIncome;
+    } else if (type == "Non-Essentials") {
+      return monthlyIncome - essentialTotals;
+    } else if (type == "Savings") {
+      return monthlyIncome - essentialTotals - nonEssentialTotals;
+    } else {
+      return monthlyIncome;
+    }
   }, [userCategories]);
 
-  // handle the ongoing category list states of essentials
-  const [nonEssentialCategories, setNonEssentialCategories] = useState(
-    setActiveCategories(userCategories, "non-essential")
+  // handle the ongoing category list states of active category
+  const [categoryList, setCategoryList] = useState(
+    setActiveCategories(userCategories, type.toLowerCase())
   );
 
   // handle ongoing state of categories removed by user
@@ -75,16 +92,16 @@ const NonEssentialCategoryBuilder = ({
 
   return (
     <CategorySection
-      categories={nonEssentialCategories}
-      setCategories={setNonEssentialCategories}
-      type="Non-Essentials"
+      categories={categoryList}
+      setCategories={setCategoryList}
+      type={type}
       monthlyIncome={monthlyIncome || 0}
-      percentTemplate={0.3}
-      startingBalance={monthlyIncome - essentialTotal}
+      percentTemplate={0.1}
+      startingBalance={priorBalances}
       removedCategories={handleAddCategoryList}
       addCategoryList={addCategoryList}
     />
   );
 };
 
-export default NonEssentialCategoryBuilder;
+export default CategoryBuilder;
