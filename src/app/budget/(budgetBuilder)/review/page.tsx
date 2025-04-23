@@ -14,7 +14,8 @@ const Page = async () => {
       <section className="rainbow-bg text-white">
         <h2 className="text-7xl">Review.</h2>
         <p className="text-lg font-bold">
-          Let's make sure all the numbers look correct, and that you
+          Let<span>&lsquo;</span>s make sure all the numbers look correct, and
+          that you
           <span>&lsquo;</span>ve covered all your assets. Aim to create a budget
           balance of $0, where every dollar has a home. Revisit your budget
           anytime to update categories or totals, update loans, or add new
