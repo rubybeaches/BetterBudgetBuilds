@@ -12,7 +12,7 @@ const Page = async () => {
 
   return (
     <>
-      <section className="orange-bg text-white">
+      <section className="orange-bg savings text-white">
         <h2 className="text-7xl">Savings.</h2>
         <p className="text-lg font-bold">
           Every leftover dollar should have a plan, that<span>&lsquo;</span>s

@@ -46,7 +46,7 @@ export default function RootLayout({
             className="border-rainbow"
             style={{ marginLeft: "auto", borderRadius: "50px" }}
           >
-            <li style={{ background: "white", border: "none" }}>
+            <li style={{ border: "none" }}>
               <span className="text-rainbow">
                 <Link href="/budget/review">Review</Link>
               </span>

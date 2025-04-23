@@ -25,9 +25,35 @@ body:has(.purple-bg) li.border-purple {
 body:has(.orange-bg) {
   background-color: #ff9900;
 }
-body:has(.orange-bg) li.border-orange.savings {
+body:has(.orange-bg.planning) li.border-orange.planning {
   background-color: #ff9900;
   color: white;
+}
+body:has(.orange-bg.savings) li.border-orange.savings {
+  background-color: #ff9900;
+  color: white;
+}
+
+body:has(.red-bg) {
+  background-color: #ff2955;
+}
+body:has(.red-bg) li.border-red {
+  background-color: #ff2955;
+  color: white;
+}
+
+div.border-rainbow li {
+  background: white;
+}
+
+body:has(.rainbow-bg),
+body:has(.rainbow-bg) div.border-rainbow li {
+  background: linear-gradient(122deg, #467af8, #9c32e2, #ff2955, #ffb15a);
+}
+body:has(.rainbow-bg) li span.text-rainbow {
+  background: none;
+  color: white;
+  -webkit-text-fill-color: white;
 }
 
 nav ul li {
