@@ -90,6 +90,13 @@ section {
   background-color: #fce5cd;
 }
 
+.loanSection {
+  background-color: #fde2e8;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
 /*
 .main.budgetTop {
   min-height: auto;
@@ -224,10 +231,11 @@ section {
 }
 
 .addIncome,
-.addIncome select {
+.addIncome select,
+.titleBubble {
   border-radius: 50px;
   background: white;
-  padding: 4px 8px;
+  padding: 6px 12px;
   width: fit-content;
   margin: auto 0px;
 }
@@ -271,6 +279,23 @@ section {
 
 .incomeContainer input[type="text"] {
   color: #30df30;
+}
+
+.loanInput {
+  font-weight: 600;
+  font-size: 0.875em;
+  border-radius: 20px;
+  background-color: white;
+  color: #323232;
+  padding: 4px 8px 4px 10px;
+  box-shadow: 4px 4px #ff2955;
+  width: fit-content;
+}
+.loanInput input {
+  font-weight: 600;
+  font-size: 1em;
+  border: none;
+  max-width: 100px;
 }
 
 .sectionContainer {

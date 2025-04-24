@@ -2,12 +2,13 @@ import { UserAuth } from "../../../lib/UserAuth";
 import { getActiveBudget } from "../../../lib/data";
 // import categories from "../../../lib/seed.json";
 import Link from "next/link";
+import LoanBuiler from "./loanBuilder";
 
 const Page = async () => {
   const user = await UserAuth();
   if (!user) return null;
 
-  const budget = await getActiveBudget(user.id);
+  // const budget = await getActiveBudget(user.id);
 
   return (
     <>
@@ -21,7 +22,7 @@ const Page = async () => {
         </p>
       </section>
 
-      <section className="categorySection planningSection"></section>
+      <LoanBuiler userID={user.id} />
 
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <Link href="/budget/planning" className="text-white text-lg">
