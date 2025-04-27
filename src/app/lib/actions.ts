@@ -152,3 +152,51 @@ export const clearUnusedRecurrences = async (userId: number) => {
     },
   });
 };
+
+export const createLoan = async (
+  name: string,
+  amount: number,
+  startDate: string,
+  minPayment: number,
+  term: number,
+  apr: number,
+  userId: number
+) => {
+  await prisma.loan.create({
+    data: {
+      userId: userId,
+      name: name,
+      amount: amount,
+      startDate: new Date(startDate).toISOString(),
+      minPayment: minPayment,
+      term: term,
+      apr: apr,
+    },
+  });
+};
+
+export const updateLoan = async (
+  name: string,
+  amount: number,
+  startDate: string,
+  minPayment: number,
+  term: number,
+  apr: number,
+  loanId: number,
+  userId: number
+) => {
+  await prisma.loan.update({
+    where: {
+      id: loanId,
+    },
+    data: {
+      userId: userId,
+      name: name,
+      amount: amount,
+      startDate: new Date(startDate).toISOString(),
+      minPayment: minPayment,
+      term: term,
+      apr: apr,
+    },
+  });
+};
