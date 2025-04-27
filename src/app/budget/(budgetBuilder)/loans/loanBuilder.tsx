@@ -7,6 +7,7 @@ import {
   setActiveCategories,
   sortCategories,
 } from "../../../lib/helpers";
+import { loan } from "@/app/lib/types";
 // import { useRouter } from "next/navigation";
 
 const activeLoans = [
@@ -36,7 +37,7 @@ const activeLoans = [
   },
 ];
 
-const LoanBuiler = ({ userID }: { userID: number }) => {
+const LoanBuiler = ({ userID, loans }: { userID: number; loans: loan[] }) => {
   return (
     <>
       <section>
@@ -117,6 +118,49 @@ const LoanBuiler = ({ userID }: { userID: number }) => {
             <div style={{ display: "flex", gap: "1em", alignItems: "center" }}>
               <label className="loanInput">
                 <input name="start date" value={loan.startDate} />
+              </label>
+              <p>Loan Origination Date (First Payment)</p>
+            </div>
+            <div style={{ display: "flex", gap: "1em", alignItems: "center" }}>
+              <label className="loanInput">
+                $ <input name="min payment" value={loan.minPayment} />
+              </label>
+              <p>Minimum Monthly Payment</p>
+            </div>
+            <div style={{ display: "flex", gap: "1em", alignItems: "center" }}>
+              <label className="loanInput">
+                <input name="term" value={loan.term} />
+              </label>
+              <p>Loan Term in Months</p>
+            </div>
+            <div style={{ display: "flex", gap: "1em", alignItems: "center" }}>
+              <label className="loanInput">
+                % <input name="apr %" value={loan.apr} />
+              </label>
+              <p>Loan APR %</p>
+            </div>
+          </div>
+        ))}
+        {loans.map((loan) => (
+          <div
+            className="categorySection loanSection"
+            key={loan.name}
+            style={{ marginTop: "2px" }}
+          >
+            <div className="titleBubble">
+              <p className="text-red font-bold" style={{ fontSize: "1.25em" }}>
+                {loan.name}
+              </p>
+            </div>
+            <div style={{ display: "flex", gap: "1em", alignItems: "center" }}>
+              <label className="loanInput">
+                $ <input name="amount" value={loan.amount} />
+              </label>
+              <p>Loan Origination Amount</p>
+            </div>
+            <div style={{ display: "flex", gap: "1em", alignItems: "center" }}>
+              <label className="loanInput">
+                <input name="start date" value={loan.startDate.toISOString()} />
               </label>
               <p>Loan Origination Date (First Payment)</p>
             </div>

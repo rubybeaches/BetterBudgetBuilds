@@ -24,3 +24,13 @@ export type expense = {
 export type ExpenseRecurrence = Expense & {
   recurrence: RecurringExpense | null;
 };
+
+export type loan = {
+  id: number;
+  name: string;
+  amount: number;
+  startDate: Date;
+  minPayment: number;
+  term: number;
+  apr: number;
+};
