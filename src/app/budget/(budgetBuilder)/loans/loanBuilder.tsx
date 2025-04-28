@@ -8,7 +8,9 @@ import {
   sortCategories,
 } from "../../../lib/helpers";
 import { loan } from "@/app/lib/types";
-// import { useRouter } from "next/navigation";
+import { createLoan } from "@/app/lib/actions";
+import { useRouter } from "next/navigation";
+import { LoanInputs } from "@/app/components/Budget/LoanInputs";
 
 const activeLoans = [
   {
@@ -37,7 +39,39 @@ const activeLoans = [
   },
 ];
 
+const defaultLoan = {
+  name: "",
+  amount: 0,
+  startDate: new Date().toISOString(),
+  minPayment: 0,
+  term: 0,
+  apr: 0,
+};
+
 const LoanBuiler = ({ userID, loans }: { userID: number; loans: loan[] }) => {
+  const router = useRouter();
+  const addInputRef = useRef<any>();
+
+  const addLoan = async () => {
+    const input = addInputRef.current;
+    if (!input.value) return;
+
+    let newLoan = defaultLoan;
+    newLoan.name = input.value;
+
+    await createLoan(
+      newLoan.name,
+      newLoan.amount,
+      newLoan.startDate,
+      newLoan.minPayment,
+      newLoan.term,
+      newLoan.apr,
+      userID
+    );
+    input.value = "";
+    router.refresh();
+  };
+
   return (
     <>
       <section>
@@ -65,6 +99,7 @@ const LoanBuiler = ({ userID, loans }: { userID: number; loans: loan[] }) => {
               type="text"
               className="text-white"
               style={{ background: "none", width: "90%", fontSize: "1.125rem" }}
+              ref={addInputRef}
             />
           </div>
           <div
@@ -80,6 +115,7 @@ const LoanBuiler = ({ userID, loans }: { userID: number; loans: loan[] }) => {
               margin: "0 4px 4px 0",
               cursor: "pointer",
             }}
+            onClick={() => addLoan()}
           >
             <span style={{ fontSize: "1.75rem", lineHeight: "0.875em" }}>
               &#x2B;
@@ -98,90 +134,13 @@ const LoanBuiler = ({ userID, loans }: { userID: number; loans: loan[] }) => {
           flexWrap: "wrap",
         }}
       >
-        {activeLoans.map((loan) => (
-          <div
-            className="categorySection loanSection"
-            key={loan.name}
-            style={{ marginTop: "2px" }}
-          >
-            <div className="titleBubble">
-              <p className="text-red font-bold" style={{ fontSize: "1.25em" }}>
-                {loan.name}
-              </p>
-            </div>
-            <div style={{ display: "flex", gap: "1em", alignItems: "center" }}>
-              <label className="loanInput">
-                $ <input name="amount" value={loan.amount} />
-              </label>
-              <p>Loan Origination Amount</p>
-            </div>
-            <div style={{ display: "flex", gap: "1em", alignItems: "center" }}>
-              <label className="loanInput">
-                <input name="start date" value={loan.startDate} />
-              </label>
-              <p>Loan Origination Date (First Payment)</p>
-            </div>
-            <div style={{ display: "flex", gap: "1em", alignItems: "center" }}>
-              <label className="loanInput">
-                $ <input name="min payment" value={loan.minPayment} />
-              </label>
-              <p>Minimum Monthly Payment</p>
-            </div>
-            <div style={{ display: "flex", gap: "1em", alignItems: "center" }}>
-              <label className="loanInput">
-                <input name="term" value={loan.term} />
-              </label>
-              <p>Loan Term in Months</p>
-            </div>
-            <div style={{ display: "flex", gap: "1em", alignItems: "center" }}>
-              <label className="loanInput">
-                % <input name="apr %" value={loan.apr} />
-              </label>
-              <p>Loan APR %</p>
-            </div>
-          </div>
-        ))}
         {loans.map((loan) => (
           <div
             className="categorySection loanSection"
             key={loan.name}
             style={{ marginTop: "2px" }}
           >
-            <div className="titleBubble">
-              <p className="text-red font-bold" style={{ fontSize: "1.25em" }}>
-                {loan.name}
-              </p>
-            </div>
-            <div style={{ display: "flex", gap: "1em", alignItems: "center" }}>
-              <label className="loanInput">
-                $ <input name="amount" value={loan.amount} />
-              </label>
-              <p>Loan Origination Amount</p>
-            </div>
-            <div style={{ display: "flex", gap: "1em", alignItems: "center" }}>
-              <label className="loanInput">
-                <input name="start date" value={loan.startDate.toISOString()} />
-              </label>
-              <p>Loan Origination Date (First Payment)</p>
-            </div>
-            <div style={{ display: "flex", gap: "1em", alignItems: "center" }}>
-              <label className="loanInput">
-                $ <input name="min payment" value={loan.minPayment} />
-              </label>
-              <p>Minimum Monthly Payment</p>
-            </div>
-            <div style={{ display: "flex", gap: "1em", alignItems: "center" }}>
-              <label className="loanInput">
-                <input name="term" value={loan.term} />
-              </label>
-              <p>Loan Term in Months</p>
-            </div>
-            <div style={{ display: "flex", gap: "1em", alignItems: "center" }}>
-              <label className="loanInput">
-                % <input name="apr %" value={loan.apr} />
-              </label>
-              <p>Loan APR %</p>
-            </div>
+            <LoanInputs loan={loan} userID={userID} />
           </div>
         ))}
       </section>
