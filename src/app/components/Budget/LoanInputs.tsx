@@ -29,7 +29,6 @@ export const LoanInputs = ({
     );
   };
 
-  // retrigger db build
   const debounceSave = useSave(saveLoan, 2000);
 
   return (
