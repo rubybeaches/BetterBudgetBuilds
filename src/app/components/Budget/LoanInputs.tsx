@@ -29,7 +29,6 @@ export const LoanInputs = ({
     );
   };
 
-  // db stuff
   const debounceSave = useSave(saveLoan, 2000);
 
   return (
