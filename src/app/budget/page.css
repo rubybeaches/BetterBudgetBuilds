@@ -97,6 +97,16 @@ section {
   gap: 1em;
 }
 
+.loanSection .removeLoan {
+  background: #f7effd;
+  color: #ff2955;
+  box-shadow: 2px 2px #ff2955;
+}
+
+.removeLoan p {
+  margin: auto;
+}
+
 /*
 .main.budgetTop {
   min-height: auto;
@@ -587,7 +597,8 @@ p.addListItem:first-child {
 }
 
 .removeCategory,
-.removeIncomeCategory {
+.removeIncomeCategory,
+.removeLoan {
   height: 18px;
   width: 18px;
   background-color: #fff;

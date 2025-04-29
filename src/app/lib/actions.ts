@@ -200,3 +200,12 @@ export const updateLoan = async (
     },
   });
 };
+
+export const removeLoan = async (id: number, userId: number) => {
+  await prisma.loan.delete({
+    where: {
+      userId: userId,
+      id: id,
+    },
+  });
+};

@@ -1,6 +1,7 @@
-import { updateLoan } from "@/app/lib/actions";
+import { removeLoan, updateLoan } from "@/app/lib/actions";
 import { loan } from "@/app/lib/types";
 import { useSave } from "@/app/lib/useSave";
+import { useRouter } from "next/navigation";
 import { useRef } from "react";
 
 export const LoanInputs = ({
@@ -15,6 +16,7 @@ export const LoanInputs = ({
   const paymentRef = useRef<any>();
   const termRef = useRef<any>();
   const aprRef = useRef<any>();
+  const router = useRouter();
 
   const saveLoan = async () => {
     await updateLoan(
@@ -29,11 +31,22 @@ export const LoanInputs = ({
     );
   };
 
+  const deleteLoan = async () => {
+    await removeLoan(loan.id, userID);
+    router.refresh();
+  };
+
   const debounceSave = useSave(saveLoan, 2000);
 
   return (
     <>
-      <div className="titleBubble">
+      <div
+        className="titleBubble"
+        style={{ display: "flex", flexWrap: "nowrap", gap: "10px" }}
+      >
+        <div className="removeLoan" onClick={() => deleteLoan()}>
+          <p>x</p>
+        </div>
         <p className="text-red font-bold" style={{ fontSize: "1.25em" }}>
           {loan.name}
         </p>

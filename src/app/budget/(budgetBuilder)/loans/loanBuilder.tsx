@@ -68,8 +68,8 @@ const LoanBuiler = ({ userID, loans }: { userID: number; loans: loan[] }) => {
       newLoan.apr,
       userID
     );
-    input.value = "";
     router.refresh();
+    input.value = "";
   };
 
   return (
@@ -100,6 +100,12 @@ const LoanBuiler = ({ userID, loans }: { userID: number; loans: loan[] }) => {
               className="text-white"
               style={{ background: "none", width: "90%", fontSize: "1.125rem" }}
               ref={addInputRef}
+              onKeyDown={(e) => {
+                if (e.key == "Enter") {
+                  e.preventDefault();
+                  addLoan();
+                }
+              }}
             />
           </div>
           <div
@@ -137,7 +143,7 @@ const LoanBuiler = ({ userID, loans }: { userID: number; loans: loan[] }) => {
         {loans.map((loan) => (
           <div
             className="categorySection loanSection"
-            key={loan.name}
+            key={loan.id}
             style={{ marginTop: "2px" }}
           >
             <LoanInputs loan={loan} userID={userID} />
