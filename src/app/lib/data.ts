@@ -109,3 +109,18 @@ export const getUserRecurringExpenses = async (userId: number) => {
 
   return expenses;
 };
+
+export const getUserLoans = async (userId: number) => {
+  const loans = await prisma.loan.findMany({
+    orderBy: [
+      {
+        id: "asc",
+      },
+    ],
+    where: {
+      userId: userId,
+    },
+  });
+
+  return loans;
+};

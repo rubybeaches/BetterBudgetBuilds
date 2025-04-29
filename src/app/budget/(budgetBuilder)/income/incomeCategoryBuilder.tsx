@@ -215,10 +215,13 @@ const IncomeCategoryBuilder = ({
             id={Math.round(incomeSectionBalance) < 0 ? "negativeTotal" : ""}
             className="addIncome"
           >
-            <p className="text-green" style={{ fontSize: " 1em" }}>
-              Balance to Assign:
+            <p
+              className="text-green"
+              style={{ fontSize: " 1em", fontWeight: "500" }}
+            >
+              Balance to Assign:{" "}
               <span className="font-bold">
-                ${" "}
+                $
                 {convertToFloat(
                   Math.round(incomeSectionBalance) == 0
                     ? 0
