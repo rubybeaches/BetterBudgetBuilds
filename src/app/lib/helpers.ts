@@ -77,6 +77,19 @@ export const weeksInMonth = (
   return [weekBoundBegin, weekBoundEnd];
 };
 
+// date handling conversions with date input
+export const saveDate = (date: string) => {
+  let sDate = date.split("T")[0];
+  let [year, month, day] = sDate.split("-");
+  return `${month}-${day}-${year}`;
+};
+
+export const displayDate = (date: string) => {
+  let sDate = date.split("T")[0];
+  let [month, day, year] = sDate.split("-");
+  return `${year}-${month}-${day}`;
+};
+
 export const sortCategories = (array: category[], filter: keyof category) => {
   return array.sort((a, b) => {
     if (a[filter] < b[filter]) {

@@ -1,4 +1,4 @@
-import { convertToFloat, parsetoNum, sortCategories } from "@/app/lib/helpers";
+import { convertToFloat, displayDate, parsetoNum, saveDate, sortCategories } from "@/app/lib/helpers";
 import { RecurringExpense } from "@prisma/client";
 import RecurringIcon from "./RecurringSVG";
 import EditIcon from "./EditSVG";
@@ -114,17 +114,6 @@ const AddExpenseRow = ({
       recurrence: recurrence,
     };
     updateExpense(newExpense);
-  };
-
-  // date handling conversions with date input
-  const saveDate = (date: string) => {
-    let [year, month, day] = date.split("-");
-    return `${month}-${day}-${year}`;
-  };
-
-  const displayDate = (date: string) => {
-    let [month, day, year] = date.split("-");
-    return `${year}-${month}-${day}`;
   };
 
   if (recurringEdit) {

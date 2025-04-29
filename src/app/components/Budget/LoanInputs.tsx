@@ -1,4 +1,5 @@
 import { removeLoan, updateLoan } from "@/app/lib/actions";
+import { displayDate, saveDate } from "@/app/lib/helpers";
 import { loan } from "@/app/lib/types";
 import { useSave } from "@/app/lib/useSave";
 import { useRouter } from "next/navigation";
@@ -22,7 +23,7 @@ export const LoanInputs = ({
     await updateLoan(
       loan.name,
       Number(amountRef.current.value),
-      dateRef.current.value,
+      saveDate(dateRef.current.value),
       Number(paymentRef.current.value),
       Number(termRef.current.value),
       Number(aprRef.current.value),
@@ -68,7 +69,8 @@ export const LoanInputs = ({
         <label className="loanInput">
           <input
             name="start date"
-            defaultValue={loan.startDate.toISOString()}
+            type="date"
+            defaultValue={displayDate(saveDate(loan.startDate.toISOString()))}
             {...debounceSave}
             ref={dateRef}
           />

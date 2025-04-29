@@ -303,7 +303,6 @@ section {
 }
 .loanInput input {
   font-weight: 600;
-  font-size: 1em;
   border: none;
   max-width: 100px;
 }
