@@ -12,33 +12,6 @@ import { createLoan } from "@/app/lib/actions";
 import { useRouter } from "next/navigation";
 import { LoanInputs } from "@/app/components/Budget/LoanInputs";
 
-const activeLoans = [
-  {
-    name: "Discover Loan",
-    amount: 4800,
-    startDate: "1/25/2021",
-    minPayment: 252,
-    term: 60,
-    apr: 5.25,
-  },
-  {
-    name: "Tree Loan",
-    amount: 2500,
-    startDate: "2/24/2024",
-    minPayment: 250,
-    term: 24,
-    apr: 5,
-  },
-  {
-    name: "Mortgage",
-    amount: 352000,
-    startDate: "6/17/2022",
-    minPayment: 1895,
-    term: 360,
-    apr: 5.35,
-  },
-];
-
 const defaultLoan = {
   name: "",
   amount: 0,
@@ -51,6 +24,7 @@ const defaultLoan = {
 const LoanBuiler = ({ userID, loans }: { userID: number; loans: loan[] }) => {
   const router = useRouter();
   const addInputRef = useRef<any>();
+  const loanGrouperRef = useRef<any>();
 
   const addLoan = async () => {
     const input = addInputRef.current;
@@ -70,6 +44,12 @@ const LoanBuiler = ({ userID, loans }: { userID: number; loans: loan[] }) => {
     );
     router.refresh();
     input.value = "";
+    await loanGrouperRef.current;
+    loanGrouperRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+      inline: "nearest",
+    });
   };
 
   return (
@@ -145,6 +125,7 @@ const LoanBuiler = ({ userID, loans }: { userID: number; loans: loan[] }) => {
             className="categorySection loanSection"
             key={loan.id}
             style={{ marginTop: "2px" }}
+            ref={loanGrouperRef}
           >
             <LoanInputs loan={loan} userID={userID} />
           </div>

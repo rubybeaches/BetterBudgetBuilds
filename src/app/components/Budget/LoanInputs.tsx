@@ -42,7 +42,7 @@ export const LoanInputs = ({
     <>
       <div
         className="titleBubble"
-        style={{ display: "flex", flexWrap: "nowrap", gap: "10px" }}
+        style={{ display: "flex", flexWrap: "nowrap", gap: "8px" }}
       >
         <div className="removeLoan" onClick={() => deleteLoan()}>
           <p>x</p>
