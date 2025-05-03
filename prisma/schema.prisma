@@ -56,8 +56,8 @@ model ExpenseCategory {
 
   budget        Budget    @relation(fields: [budgetId], references: [id], onDelete: Cascade)
   budgetId      Int
-  newBudget     CreateBudget     @relation(fields: [newBudgetId], references: [id], onDelete: Cascade)
-  newBudgetId   Int
+  newBudget     CreateBudget?     @relation(fields: [newBudgetId], references: [id], onDelete: Cascade)
+  newBudgetId   Int?
 }
 
 model IncomeCategory {
@@ -72,8 +72,8 @@ model IncomeCategory {
 
   budget        Budget    @relation(fields: [budgetId], references: [id], onDelete: Cascade)
   budgetId      Int
-  newBudget     CreateBudget     @relation(fields: [newBudgetId], references: [id], onDelete: Cascade)
-  newBudgetId   Int
+  newBudget     CreateBudget?     @relation(fields: [newBudgetId], references: [id], onDelete: Cascade)
+  newBudgetId   Int?
 }
 
 model Expense {
