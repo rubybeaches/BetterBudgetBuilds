@@ -17,7 +17,6 @@ model User {
 
   expenses           Expense[]
   budgets            Budget[]
-  newBudget          CreateBudget?
   recurringExpenses  RecurringExpense[]
   loans              Loan[]
 }
@@ -27,21 +26,12 @@ model Budget {
   start              DateTime
   end                DateTime?
   income             Float
+  active             Boolean    @default(false)
   expenseCategories  ExpenseCategory[]
   incomeCategories   IncomeCategory[]
 
   user    User       @relation(fields: [userId], references: [id])
   userId  Int        
-}
-
-model CreateBudget {
-  id                 Int     @id @default(autoincrement())
-  income             Float
-  expenseCategories  ExpenseCategory[]
-  incomeCategories   IncomeCategory[]
-
-  user    User       @relation(fields: [userId], references: [id])
-  userId  Int        @unique
 }
 
 model ExpenseCategory {
@@ -56,8 +46,6 @@ model ExpenseCategory {
 
   budget        Budget    @relation(fields: [budgetId], references: [id], onDelete: Cascade)
   budgetId      Int
-  newBudget     CreateBudget?     @relation(fields: [newBudgetId], references: [id], onDelete: Cascade)
-  newBudgetId   Int?
 }
 
 model IncomeCategory {
@@ -72,8 +60,6 @@ model IncomeCategory {
 
   budget        Budget    @relation(fields: [budgetId], references: [id], onDelete: Cascade)
   budgetId      Int
-  newBudget     CreateBudget?     @relation(fields: [newBudgetId], references: [id], onDelete: Cascade)
-  newBudgetId   Int?
 }
 
 model Expense {
