@@ -70,6 +70,28 @@ export const updateBudgetIncome = async (
   });
 };
 
+export const updateBudgetIncomeCategories = async (
+  incomeCategories: category[],
+  budgetId: number
+) => {
+  await prisma.incomeCategory.deleteMany({
+    where: {
+      budgetId: budgetId,
+    },
+  });
+
+  const addArray = incomeCategories.map((category) => {
+    return {
+      budgetId: budgetId,
+      ...category,
+    };
+  });
+
+  await prisma.incomeCategory.createMany({
+    data: addArray,
+  });
+};
+
 export const updateAndCreateBudget = async (
   expenseCategories: category[],
   incomeCategories: category[],

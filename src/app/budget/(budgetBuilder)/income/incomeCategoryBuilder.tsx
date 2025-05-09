@@ -9,7 +9,10 @@ import {
 } from "../../../lib/helpers";
 import { category } from "../../../lib/types";
 import IncomeContainer from "../../../components/Budget/IncomeContainer";
-import { updateBudgetIncome } from "@/app/lib/actions";
+import {
+  updateBudgetIncome,
+  updateBudgetIncomeCategories,
+} from "@/app/lib/actions";
 import { useSave } from "@/app/lib/useSave";
 import { useRouter } from "next/navigation";
 // import { useRouter } from "next/navigation";
@@ -80,26 +83,27 @@ const IncomeCategoryBuilder = ({
     await updateBudgetIncome(parsetoNum(newIncome), userID, budgetID);
     router.refresh();
   };
-
   const debounceSaveIncome = useSave(updateBaseIncome, 1000);
 
-  const updateActiveIncomeInputs = (
+  const updateActiveIncomeInputs = async (
     category: category,
     identifier: number,
     remove = false
   ) => {
     if (remove) {
-      return setActiveIncomeCategories(() =>
-        activeIncomeCategories.filter((cat, index) => {
-          return index != identifier;
-        })
-      );
+      let updatedCategories = activeIncomeCategories.filter((cat, index) => {
+        return index != identifier;
+      });
+      setActiveIncomeCategories(() => updatedCategories);
+      await updateBudgetIncomeCategories(updatedCategories, budgetID);
+      return;
     }
 
     let newActiveCategories = activeIncomeCategories.map((cat, index) => {
       return index == identifier ? category : cat;
     });
     setActiveIncomeCategories(() => newActiveCategories);
+    await updateBudgetIncomeCategories(newActiveCategories, budgetID);
   };
 
   return (
