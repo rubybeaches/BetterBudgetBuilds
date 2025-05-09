@@ -7,6 +7,7 @@ export const getActiveBudget = async (userId: number) => {
     where: {
       userId: userId,
       end: null,
+      active: true,
     },
     include: {
       incomeCategories: {
@@ -51,6 +52,7 @@ export const getUserBudget = async (
     ],
     where: {
       userId: userId,
+      active: true,
       start: {
         lte: new Date(`${year}-${month}`).toISOString(),
       },

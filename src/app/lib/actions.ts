@@ -26,6 +26,9 @@ export const createBudget = async (
   });
 };
 
+// TO-DO: Instead of deleting whole budget on update, just update the income/expense categories
+// either delete all associated with the budget and recreate or, since they should all ideally exist...
+// isolate changes programteically then update them in a script here one by one
 export const updateActiveBudget = async (
   expenseCategories: category[],
   incomeCategories: category[],
