@@ -1,6 +1,6 @@
 import { defaultIncomeCategories } from "@/app/lib/helpers";
 import { UserAuth } from "../../../lib/UserAuth";
-import { getActiveBudget } from "../../../lib/data";
+import { getActiveBudget, getDraftBudget } from "../../../lib/data";
 import IncomeCategoryBuilder from "./incomeCategoryBuilder";
 import Link from "next/link";
 
@@ -8,7 +8,17 @@ const Page = async () => {
   const user = await UserAuth();
   if (!user) return null;
 
-  const budget = await getActiveBudget(user.id);
+  // get or create draft budget
+  // use url param "draft" in client to determine whether to ask user to use draft or create new
+  // if no draft is available, then create one regardless of param, pass key to client to inform
+  // otherwise, if draft found on load:
+  // if not draft param, then came from an outside page and should ask user
+  // if draft param, don't prompt user
+  // delete draft when? two days since last save? so needs an update flag?
+  let budget = await getDraftBudget(user.id);
+  if (!budget) {
+    budget = await getActiveBudget(user.id);
+  }
 
   return (
     <>
