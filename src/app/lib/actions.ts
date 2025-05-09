@@ -54,6 +54,22 @@ export const updateActiveBudget = async (
   );
 };
 
+export const updateBudgetIncome = async (
+  income: number,
+  userId: number,
+  budgetId: number
+) => {
+  await prisma.budget.update({
+    where: {
+      id: budgetId,
+      userId: userId,
+    },
+    data: {
+      income: income,
+    },
+  });
+};
+
 export const updateAndCreateBudget = async (
   expenseCategories: category[],
   incomeCategories: category[],

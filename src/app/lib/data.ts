@@ -1,5 +1,8 @@
 "use server";
 import { prisma } from "../../prisma-client";
+import { category } from "./types";
+import { defaultIncomeCategories } from "../lib/helpers";
+import categories from "../lib/seed.json";
 
 export const getActiveBudget = async (userId: number) => {
   // https://github.com/prisma/prisma/discussions/11443
@@ -38,9 +41,9 @@ export const getActiveBudget = async (userId: number) => {
   return budget;
 };
 
-export const getDraftBudget = async (userId: number) => {
+export const getOrCreateDraftBudget = async (userId: number) => {
   // https://github.com/prisma/prisma/discussions/11443
-  const budget = await prisma.budget.findFirst({
+  let draft = await prisma.budget.findFirst({
     where: {
       userId: userId,
       active: false,
@@ -70,8 +73,41 @@ export const getDraftBudget = async (userId: number) => {
       },
     },
   });
+  if (draft) return draft;
 
-  return budget;
+  let budget = await getActiveBudget(userId);
+
+  let templateDraft = await createBudgetFromTemplate(
+    budget?.expenseCategories || categories,
+    budget?.incomeCategories || defaultIncomeCategories,
+    budget?.income || 1000,
+    userId
+  );
+  return templateDraft;
+};
+
+export const createBudgetFromTemplate = async (
+  expenseCategories: category[],
+  incomeCategories: category[],
+  income: number,
+  userId: number
+) => {
+  let year = new Date().getFullYear();
+  let month = new Date().getMonth();
+
+  return await prisma.budget.create({
+    data: {
+      userId: userId,
+      income: income,
+      start: new Date(`${year}-${month + 1}`).toISOString(),
+      incomeCategories: {
+        create: incomeCategories,
+      },
+      expenseCategories: {
+        create: expenseCategories,
+      },
+    },
+  });
 };
 
 export const getUserBudget = async (
