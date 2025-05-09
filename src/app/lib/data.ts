@@ -41,8 +41,7 @@ export const getActiveBudget = async (userId: number) => {
   return budget;
 };
 
-export const getOrCreateDraftBudget = async (userId: number) => {
-  // https://github.com/prisma/prisma/discussions/11443
+export const getDraftBudget = async (userId: number) => {
   let draft = await prisma.budget.findFirst({
     where: {
       userId: userId,
@@ -73,17 +72,24 @@ export const getOrCreateDraftBudget = async (userId: number) => {
       },
     },
   });
+
+  return draft;
+};
+
+export const getOrCreateDraftBudget = async (userId: number) => {
+  let draft = await getDraftBudget(userId);
   if (draft) return draft;
 
   let budget = await getActiveBudget(userId);
-
-  let templateDraft = await createBudgetFromTemplate(
+  await createBudgetFromTemplate(
     budget?.expenseCategories || categories,
     budget?.incomeCategories || defaultIncomeCategories,
-    budget?.income || 1000,
+    budget?.income || 35000,
     userId
   );
-  return templateDraft;
+
+  draft = await getDraftBudget(userId);
+  return draft;
 };
 
 export const createBudgetFromTemplate = async (
