@@ -3,7 +3,6 @@ import { UserAuth } from "../../../lib/UserAuth";
 import { getOrCreateDraftBudget } from "../../../lib/data";
 import IncomeCategoryBuilder from "./incomeCategoryBuilder";
 import Link from "next/link";
-import { budget } from "@/app/lib/types";
 
 const Page = async () => {
   const user = await UserAuth();
