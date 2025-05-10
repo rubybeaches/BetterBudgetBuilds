@@ -2,6 +2,7 @@
 import { Expense } from "@prisma/client";
 import { prisma } from "../../prisma-client";
 import { category } from "./types";
+import { revalidatePath } from "next/cache";
 
 export const createBudget = async (
   expenseCategories: category[],

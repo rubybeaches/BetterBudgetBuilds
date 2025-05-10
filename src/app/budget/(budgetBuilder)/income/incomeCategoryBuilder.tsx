@@ -1,5 +1,5 @@
 "use client";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   buildHelpCategories,
   convertToFloat,
@@ -15,7 +15,6 @@ import {
 } from "@/app/lib/actions";
 import { useSave } from "@/app/lib/useSave";
 import { useRouter } from "next/navigation";
-// import { useRouter } from "next/navigation";
 
 const IncomeCategoryBuilder = ({
   incomeCategories,
@@ -31,6 +30,11 @@ const IncomeCategoryBuilder = ({
   userID: number;
 }) => {
   const router = useRouter();
+
+  useEffect(() => {
+    router.refresh();
+  }, []);
+
   const [income, setIncome] = useState(baseIncome);
   const monthlyIncome = income / 12;
 
@@ -81,7 +85,6 @@ const IncomeCategoryBuilder = ({
 
     setIncome(() => parsetoNum(newIncome));
     await updateBudgetIncome(parsetoNum(newIncome), userID, budgetID);
-    router.refresh();
   };
   const debounceSaveIncome = useSave(updateBaseIncome, 1000);
 

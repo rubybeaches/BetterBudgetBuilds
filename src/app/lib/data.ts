@@ -3,6 +3,7 @@ import { prisma } from "../../prisma-client";
 import { category } from "./types";
 import { defaultIncomeCategories } from "../lib/helpers";
 import categories from "../lib/seed.json";
+import { revalidatePath } from "next/cache";
 
 export const getActiveBudget = async (userId: number) => {
   // https://github.com/prisma/prisma/discussions/11443
