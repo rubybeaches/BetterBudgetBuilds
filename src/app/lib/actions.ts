@@ -93,6 +93,28 @@ export const updateBudgetIncomeCategories = async (
   });
 };
 
+export const updateBudgetExpenseCategories = async (
+  expenseCategories: category[],
+  budgetId: number
+) => {
+  await prisma.expenseCategory.deleteMany({
+    where: {
+      budgetId: budgetId,
+    },
+  });
+
+  const addArray = expenseCategories.map((category) => {
+    return {
+      budgetId: budgetId,
+      ...category,
+    };
+  });
+
+  await prisma.expenseCategory.createMany({
+    data: addArray,
+  });
+};
+
 export const updateAndCreateBudget = async (
   expenseCategories: category[],
   incomeCategories: category[],
