@@ -1,5 +1,5 @@
 import { UserAuth } from "../../../lib/UserAuth";
-import { getActiveBudget } from "../../../lib/data";
+import { getOrCreateDraftBudget } from "../../../lib/data";
 import categories from "../../../lib/seed.json";
 import Link from "next/link";
 import EssentialCategoryBuilder from "./essentialCategoryBuilder";
@@ -8,7 +8,7 @@ const Page = async () => {
   const user = await UserAuth();
   if (!user) return null;
 
-  const budget = await getActiveBudget(user.id);
+  let budget = await getOrCreateDraftBudget(user.id);
 
   return (
     <>

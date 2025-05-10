@@ -2,6 +2,7 @@
 import { Expense } from "@prisma/client";
 import { prisma } from "../../prisma-client";
 import { category } from "./types";
+import { revalidatePath } from "next/cache";
 
 export const createBudget = async (
   expenseCategories: category[],
@@ -26,6 +27,9 @@ export const createBudget = async (
   });
 };
 
+// TO-DO: Instead of deleting whole budget on update, just update the income/expense categories
+// either delete all associated with the budget and recreate or, since they should all ideally exist...
+// isolate changes programteically then update them in a script here one by one
 export const updateActiveBudget = async (
   expenseCategories: category[],
   incomeCategories: category[],
@@ -49,6 +53,44 @@ export const updateActiveBudget = async (
     year,
     userId
   );
+};
+
+export const updateBudgetIncome = async (
+  income: number,
+  userId: number,
+  budgetId: number
+) => {
+  await prisma.budget.update({
+    where: {
+      id: budgetId,
+      userId: userId,
+    },
+    data: {
+      income: income,
+    },
+  });
+};
+
+export const updateBudgetIncomeCategories = async (
+  incomeCategories: category[],
+  budgetId: number
+) => {
+  await prisma.incomeCategory.deleteMany({
+    where: {
+      budgetId: budgetId,
+    },
+  });
+
+  const addArray = incomeCategories.map((category) => {
+    return {
+      budgetId: budgetId,
+      ...category,
+    };
+  });
+
+  await prisma.incomeCategory.createMany({
+    data: addArray,
+  });
 };
 
 export const updateAndCreateBudget = async (

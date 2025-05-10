@@ -1,5 +1,5 @@
 "use client";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   buildHelpCategories,
   convertToFloat,
@@ -9,7 +9,12 @@ import {
 } from "../../../lib/helpers";
 import { category } from "../../../lib/types";
 import IncomeContainer from "../../../components/Budget/IncomeContainer";
-// import { useRouter } from "next/navigation";
+import {
+  updateBudgetIncome,
+  updateBudgetIncomeCategories,
+} from "@/app/lib/actions";
+import { useSave } from "@/app/lib/useSave";
+import { useRouter } from "next/navigation";
 
 const IncomeCategoryBuilder = ({
   incomeCategories,
@@ -24,6 +29,12 @@ const IncomeCategoryBuilder = ({
   budgetID: number;
   userID: number;
 }) => {
+  const router = useRouter();
+
+  useEffect(() => {
+    router.refresh();
+  }, []);
+
   const [income, setIncome] = useState(baseIncome);
   const monthlyIncome = income / 12;
 
@@ -53,16 +64,6 @@ const IncomeCategoryBuilder = ({
     );
   }, [activeIncomeCategories]);
 
-  /* 
-  const [selectedMonth, setSelectedMonth] = useState(
-    Math.max(activeBudgetMonthStart, new Date().getMonth())
-  );
-  */
-  // const saveMonthRef = useRef<any>();
-  // const [displaySaved, setDisplaySaved] = useState(false);
-  // const successTimer = useRef<any>();
-  // const router = useRouter();
-  const intervalID = useRef<any>();
   const incomeRef = useRef<any>();
   const incomeSectionBalance =
     monthlyIncome -
@@ -71,40 +72,41 @@ const IncomeCategoryBuilder = ({
       0
     );
 
-  const updateBaseIncome = (input: string) => {
-    const newValue = input || "";
+  const updateBaseIncome = async () => {
     const inputValue = incomeRef.current;
-    if (inputValue) {
-      inputValue.value = newValue;
-    }
+    if (!inputValue) return;
 
-    if (intervalID.current) {
-      clearTimeout(intervalID.current);
-    }
+    console.log("input value", inputValue.value);
 
-    intervalID.current = setTimeout(() => {
-      setIncome(() => parsetoNum(newValue));
-      inputValue.value = convertToFloat(parsetoNum(newValue));
-    }, 1000);
+    let newIncome = convertToFloat(parsetoNum(inputValue.value));
+    console.log("parsedValue", newIncome);
+
+    inputValue.value = newIncome;
+
+    setIncome(() => parsetoNum(newIncome));
+    await updateBudgetIncome(parsetoNum(newIncome), userID, budgetID);
   };
+  const debounceSaveIncome = useSave(updateBaseIncome, 1000);
 
-  const updateActiveIncomeInputs = (
+  const updateActiveIncomeInputs = async (
     category: category,
     identifier: number,
     remove = false
   ) => {
     if (remove) {
-      return setActiveIncomeCategories(() =>
-        activeIncomeCategories.filter((cat, index) => {
-          return index != identifier;
-        })
-      );
+      let updatedCategories = activeIncomeCategories.filter((cat, index) => {
+        return index != identifier;
+      });
+      setActiveIncomeCategories(() => updatedCategories);
+      await updateBudgetIncomeCategories(updatedCategories, budgetID);
+      return;
     }
 
     let newActiveCategories = activeIncomeCategories.map((cat, index) => {
       return index == identifier ? category : cat;
     });
     setActiveIncomeCategories(() => newActiveCategories);
+    await updateBudgetIncomeCategories(newActiveCategories, budgetID);
   };
 
   return (
@@ -139,21 +141,11 @@ const IncomeCategoryBuilder = ({
               ref={incomeRef}
               className="text-white"
               style={{ background: "none", width: "90%", fontSize: "1.125rem" }}
-              onChange={(e) => updateBaseIncome(e.target.value)}
+              {...debounceSaveIncome}
               onKeyDown={(e) => {
                 if (e.key == "Backspace") {
                   e.preventDefault();
-                  updateBaseIncome("");
-                }
-                if (e.key == "Enter") {
-                  e.preventDefault();
-                  const inputValue = incomeRef.current;
-                  if (inputValue) {
-                    setIncome(() => inputValue.value);
-                    inputValue.value = convertToFloat(
-                      parsetoNum(inputValue.value)
-                    );
-                  }
+                  incomeRef.current.value = "";
                 }
               }}
             />

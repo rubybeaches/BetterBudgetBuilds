@@ -1,6 +1,6 @@
 import { defaultIncomeCategories } from "@/app/lib/helpers";
 import { UserAuth } from "../../../lib/UserAuth";
-import { getActiveBudget } from "../../../lib/data";
+import { getOrCreateDraftBudget } from "../../../lib/data";
 import IncomeCategoryBuilder from "./incomeCategoryBuilder";
 import Link from "next/link";
 
@@ -8,7 +8,7 @@ const Page = async () => {
   const user = await UserAuth();
   if (!user) return null;
 
-  const budget = await getActiveBudget(user.id);
+  let budget = await getOrCreateDraftBudget(user.id);
 
   return (
     <>
