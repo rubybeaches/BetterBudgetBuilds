@@ -4,6 +4,7 @@ import {
   multiplyPercentToFloat,
   parsetoNum,
 } from "../../lib/helpers";
+import { useSave } from "@/app/lib/useSave";
 
 const BudgetInput = ({
   monthlyIncome,
@@ -37,25 +38,18 @@ const BudgetInput = ({
     }
   }, [current, monthlyIncome]);
 
-  const updateInput = (input: string) => {
-    const newValue = input || "";
+  const updateInput = () => {
     const inputValue = inputRef.current;
-    if (inputValue) {
-      inputValue.value = newValue;
-    }
+    if (!inputRef) return;
 
-    if (intervalID.current) {
-      clearTimeout(intervalID.current);
-    }
-
-    intervalID.current = setTimeout(() => {
-      const numValue = parsetoNum(newValue);
-      const sameValueCheck =
-        ((current * monthlyIncome) / 100).toFixed(2) == numValue.toFixed(2);
-      if (sameValueCheck) inputValue.value = convertToFloat(numValue);
-      inputSetter(min, max, (numValue / monthlyIncome) * 100, index);
-    }, 1000);
+    const numValue = parsetoNum(inputValue.value);
+    const sameValueCheck =
+      ((current * monthlyIncome) / 100).toFixed(2) == numValue.toFixed(2);
+    if (sameValueCheck) inputValue.value = convertToFloat(numValue);
+    inputSetter(min, max, (numValue / monthlyIncome) * 100, index);
   };
+
+  const debounceSave = useSave(updateInput, 1000);
 
   return (
     <div style={{ display: "flex", flexWrap: "nowrap" }}>
@@ -64,23 +58,11 @@ const BudgetInput = ({
         type="text"
         ref={inputRef}
         defaultValue={multiplyPercentToFloat(current, monthlyIncome) || "0.00"}
-        onChange={(e) => updateInput(e.target.value)}
+        {...debounceSave}
         onKeyDown={(e) => {
           if (e.key == "Backspace") {
             e.preventDefault();
-            updateInput("");
-          }
-          if (e.key == "Enter") {
-            e.preventDefault();
-            const inputValue = inputRef.current;
-            if (inputValue) {
-              inputSetter(
-                min,
-                max,
-                (parsetoNum(inputValue.value) / monthlyIncome) * 100,
-                index
-              );
-            }
+            inputRef.current.value = "";
           }
         }}
       />

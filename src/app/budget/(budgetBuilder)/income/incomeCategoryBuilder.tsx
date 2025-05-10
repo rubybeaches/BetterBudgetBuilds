@@ -142,6 +142,12 @@ const IncomeCategoryBuilder = ({
               className="text-white"
               style={{ background: "none", width: "90%", fontSize: "1.125rem" }}
               {...debounceSaveIncome}
+              onKeyDown={(e) => {
+                if (e.key == "Backspace") {
+                  e.preventDefault();
+                  incomeRef.current.value = "";
+                }
+              }}
             />
           </div>
         </label>
